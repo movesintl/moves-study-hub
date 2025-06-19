@@ -10,8 +10,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="text-2xl font-bold mb-4">
-              Moves <span className="text-accent">International</span>
+            <div className="mb-4">
+              <img 
+                src="/lovable-uploads/abcbb2a1-5db8-45ce-8215-42e053f17039.png" 
+                alt="Moves International" 
+                className="h-12 w-auto filter brightness-0 invert"
+              />
             </div>
             <p className="text-gray-300 mb-4">
               Your trusted partner for international education and migration services. 
@@ -30,22 +34,22 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li><Link to="/courses" className="text-gray-300 hover:text-accent transition-colors">Find a Course</Link></li>
-              <li><Link to="/consultation" className="text-gray-300 hover:text-accent transition-colors">Book Consultation</Link></li>
-              <li><Link to="/visa-migration" className="text-gray-300 hover:text-accent transition-colors">Visa Services</Link></li>
+              <li><Link to="/services/consultation" className="text-gray-300 hover:text-accent transition-colors">Book Consultation</Link></li>
+              <li><Link to="/services/visa-migration" className="text-gray-300 hover:text-accent transition-colors">Visa Services</Link></li>
               <li><Link to="/about" className="text-gray-300 hover:text-accent transition-colors">About Us</Link></li>
               <li><Link to="/resources" className="text-gray-300 hover:text-accent transition-colors">Resources</Link></li>
             </ul>
           </div>
 
-          {/* Study Destinations */}
+          {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Study Destinations</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="hover:text-accent cursor-pointer transition-colors">Australia</li>
-              <li className="hover:text-accent cursor-pointer transition-colors">Canada</li>
-              <li className="hover:text-accent cursor-pointer transition-colors">United Kingdom</li>
-              <li className="hover:text-accent cursor-pointer transition-colors">New Zealand</li>
-              <li className="hover:text-accent cursor-pointer transition-colors">United States</li>
+            <h3 className="text-lg font-semibold mb-4">Our Services</h3>
+            <ul className="space-y-2">
+              <li><Link to="/services/consultation" className="text-gray-300 hover:text-accent transition-colors">Free Consultation</Link></li>
+              <li><Link to="/services/application" className="text-gray-300 hover:text-accent transition-colors">Application Support</Link></li>
+              <li><Link to="/services/ielts" className="text-gray-300 hover:text-accent transition-colors">IELTS Preparation</Link></li>
+              <li><Link to="/services/scholarship" className="text-gray-300 hover:text-accent transition-colors">Scholarships</Link></li>
+              <li><Link to="/services/pre-departure" className="text-gray-300 hover:text-accent transition-colors">Pre-Departure</Link></li>
             </ul>
           </div>
 

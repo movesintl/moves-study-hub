@@ -19,9 +19,13 @@ const Navigation = () => {
       name: 'Services', 
       path: '/services',
       submenu: [
-        { name: 'Consultation', path: '/consultation' },
-        { name: 'Visa & Migration', path: '/visa-migration' },
-        { name: 'IELTS Prep', path: '/ielts' }
+        { name: 'All Services', path: '/services' },
+        { name: 'Consultation', path: '/services/consultation' },
+        { name: 'Visa & Migration', path: '/services/visa-migration' },
+        { name: 'IELTS Prep', path: '/services/ielts' },
+        { name: 'Application Assistance', path: '/services/application' },
+        { name: 'Scholarship Guidance', path: '/services/scholarship' },
+        { name: 'Pre-Departure Support', path: '/services/pre-departure' }
       ]
     },
     { name: 'About Us', path: '/about' },
@@ -35,9 +39,11 @@ const Navigation = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <div className="text-2xl font-bold text-primary">
-                Moves <span className="text-accent">International</span>
-              </div>
+              <img 
+                src="/lovable-uploads/abcbb2a1-5db8-45ce-8215-42e053f17039.png" 
+                alt="Moves International" 
+                className="h-10 w-auto"
+              />
             </Link>
           </div>
 
@@ -56,7 +62,7 @@ const Navigation = () => {
                       <ChevronDown className="ml-1 h-4 w-4" />
                     </button>
                     {servicesOpen && (
-                      <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200">
+                      <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
                         {item.submenu.map((subItem) => (
                           <Link
                             key={subItem.name}
@@ -81,8 +87,8 @@ const Navigation = () => {
                 )}
               </div>
             ))}
-            <Button className="bg-accent hover:bg-accent/90 text-white">
-              Book Consultation
+            <Button className="bg-accent hover:bg-accent/90 text-white" asChild>
+              <Link to="/services/consultation">Book Consultation</Link>
             </Button>
           </div>
 
@@ -132,8 +138,8 @@ const Navigation = () => {
               </div>
             ))}
             <div className="px-3 py-2">
-              <Button className="w-full bg-accent hover:bg-accent/90 text-white">
-                Book Consultation
+              <Button className="w-full bg-accent hover:bg-accent/90 text-white" asChild>
+                <Link to="/services/consultation">Book Consultation</Link>
               </Button>
             </div>
           </div>

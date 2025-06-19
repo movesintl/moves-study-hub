@@ -37,9 +37,9 @@ interface Filters {
 const Courses = () => {
   const [filters, setFilters] = useState<Filters>({
     search: '',
-    study_area: '',
-    level: '',
-    country: ''
+    study_area: 'all',
+    level: 'all',
+    country: 'all'
   });
   const [showFilters, setShowFilters] = useState(false);
 
@@ -56,13 +56,13 @@ const Courses = () => {
       if (filters.search) {
         query = query.or(`title.ilike.%${filters.search}%,description.ilike.%${filters.search}%,university.ilike.%${filters.search}%`);
       }
-      if (filters.study_area) {
+      if (filters.study_area && filters.study_area !== 'all') {
         query = query.eq('study_area', filters.study_area);
       }
-      if (filters.level) {
+      if (filters.level && filters.level !== 'all') {
         query = query.eq('level', filters.level);
       }
-      if (filters.country) {
+      if (filters.country && filters.country !== 'all') {
         query = query.eq('country', filters.country);
       }
 
@@ -75,9 +75,9 @@ const Courses = () => {
   const resetFilters = () => {
     setFilters({
       search: '',
-      study_area: '',
-      level: '',
-      country: ''
+      study_area: 'all',
+      level: 'all',
+      country: 'all'
     });
   };
 
@@ -94,6 +94,8 @@ const Courses = () => {
     if (months % 12 === 0) return `${months / 12} years`;
     return `${months} months`;
   };
+
+  const hasActiveFilters = filters.search || filters.study_area !== 'all' || filters.level !== 'all' || filters.country !== 'all';
 
   if (error) {
     return (
@@ -152,7 +154,7 @@ const Courses = () => {
                     <SelectValue placeholder="Study Area" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Study Areas</SelectItem>
+                    <SelectItem value="all">All Study Areas</SelectItem>
                     <SelectItem value="IT">IT & Computer Science</SelectItem>
                     <SelectItem value="Business">Business & Management</SelectItem>
                     <SelectItem value="Health">Health & Medicine</SelectItem>
@@ -166,7 +168,7 @@ const Courses = () => {
                     <SelectValue placeholder="Study Level" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Levels</SelectItem>
+                    <SelectItem value="all">All Levels</SelectItem>
                     <SelectItem value="Certificate">Certificate</SelectItem>
                     <SelectItem value="Diploma">Diploma</SelectItem>
                     <SelectItem value="Bachelor">Bachelor's Degree</SelectItem>
@@ -179,7 +181,7 @@ const Courses = () => {
                     <SelectValue placeholder="Country" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Countries</SelectItem>
+                    <SelectItem value="all">All Countries</SelectItem>
                     <SelectItem value="Australia">Australia</SelectItem>
                     <SelectItem value="Canada">Canada</SelectItem>
                     <SelectItem value="UK">United Kingdom</SelectItem>
@@ -191,7 +193,7 @@ const Courses = () => {
             )}
 
             {/* Active Filters and Reset */}
-            {(filters.search || filters.study_area || filters.level || filters.country) && (
+            {hasActiveFilters && (
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <span className="text-sm text-gray-600">Active filters:</span>
                 {filters.search && (
@@ -199,17 +201,17 @@ const Courses = () => {
                     Search: "{filters.search}"
                   </span>
                 )}
-                {filters.study_area && (
+                {filters.study_area !== 'all' && (
                   <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
                     {filters.study_area}
                   </span>
                 )}
-                {filters.level && (
+                {filters.level !== 'all' && (
                   <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
                     {filters.level}
                   </span>
                 )}
-                {filters.country && (
+                {filters.country !== 'all' && (
                   <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
                     {filters.country}
                   </span>
@@ -248,7 +250,7 @@ const Courses = () => {
             <div className="mb-6">
               <p className="text-gray-600">
                 Showing {courses.length} course{courses.length !== 1 ? 's' : ''}
-                {(filters.search || filters.study_area || filters.level || filters.country) && ' matching your criteria'}
+                {hasActiveFilters && ' matching your criteria'}
               </p>
             </div>
 

@@ -9,7 +9,69 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      courses: {
+        Row: {
+          country: string
+          created_at: string
+          currency: string | null
+          description: string | null
+          duration_months: number
+          eligibility: string | null
+          featured: boolean | null
+          id: string
+          image_url: string | null
+          intake_dates: string[] | null
+          level: string
+          requirements: string | null
+          study_area: string
+          title: string
+          tuition_fee_max: number | null
+          tuition_fee_min: number | null
+          university: string
+          updated_at: string
+        }
+        Insert: {
+          country: string
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          duration_months: number
+          eligibility?: string | null
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          intake_dates?: string[] | null
+          level: string
+          requirements?: string | null
+          study_area: string
+          title: string
+          tuition_fee_max?: number | null
+          tuition_fee_min?: number | null
+          university: string
+          updated_at?: string
+        }
+        Update: {
+          country?: string
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          duration_months?: number
+          eligibility?: string | null
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          intake_dates?: string[] | null
+          level?: string
+          requirements?: string | null
+          study_area?: string
+          title?: string
+          tuition_fee_max?: number | null
+          tuition_fee_min?: number | null
+          university?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

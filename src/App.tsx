@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Layout from "./components/layout/Layout";
 import AdminLayout from "./components/admin/AdminLayout";
+import AdminAuth from "./pages/admin/AdminAuth";
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import CourseComparison from "./pages/CourseComparison";
@@ -34,8 +36,9 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            {/* Auth route */}
+            {/* Auth routes */}
             <Route path="/auth" element={<Auth />} />
+            <Route path="/admin/auth" element={<AdminAuth />} />
 
             {/* Public routes */}
             <Route path="/" element={<Layout />}>

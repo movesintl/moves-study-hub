@@ -9,12 +9,79 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      blog_categories: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      blogs: {
+        Row: {
+          author: string | null
+          category_id: string | null
+          content: string | null
+          created_at: string
+          featured_image_url: string | null
+          id: string
+          published: boolean | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          category_id?: string | null
+          content?: string | null
+          created_at?: string
+          featured_image_url?: string | null
+          id?: string
+          published?: boolean | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          category_id?: string | null
+          content?: string | null
+          created_at?: string
+          featured_image_url?: string | null
+          id?: string
+          published?: boolean | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blogs_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "blog_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
+          application_link: string | null
           country: string
           created_at: string
           currency: string | null
           description: string | null
+          destination_id: string | null
           duration_months: number
           eligibility: string | null
           featured: boolean | null
@@ -24,17 +91,21 @@ export type Database = {
           level: string
           requirements: string | null
           study_area: string
+          thumbnail_url: string | null
           title: string
           tuition_fee_max: number | null
           tuition_fee_min: number | null
           university: string
+          university_id: string | null
           updated_at: string
         }
         Insert: {
+          application_link?: string | null
           country: string
           created_at?: string
           currency?: string | null
           description?: string | null
+          destination_id?: string | null
           duration_months: number
           eligibility?: string | null
           featured?: boolean | null
@@ -44,17 +115,21 @@ export type Database = {
           level: string
           requirements?: string | null
           study_area: string
+          thumbnail_url?: string | null
           title: string
           tuition_fee_max?: number | null
           tuition_fee_min?: number | null
           university: string
+          university_id?: string | null
           updated_at?: string
         }
         Update: {
+          application_link?: string | null
           country?: string
           created_at?: string
           currency?: string | null
           description?: string | null
+          destination_id?: string | null
           duration_months?: number
           eligibility?: string | null
           featured?: boolean | null
@@ -64,11 +139,97 @@ export type Database = {
           level?: string
           requirements?: string | null
           study_area?: string
+          thumbnail_url?: string | null
           title?: string
           tuition_fee_max?: number | null
           tuition_fee_min?: number | null
           university?: string
+          university_id?: string | null
           updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courses_destination_id_fkey"
+            columns: ["destination_id"]
+            isOneToOne: false
+            referencedRelation: "destinations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      destinations: {
+        Row: {
+          created_at: string
+          description: string | null
+          featured_image_url: string | null
+          id: string
+          lifestyle_info: string | null
+          name: string
+          updated_at: string
+          visa_info: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          featured_image_url?: string | null
+          id?: string
+          lifestyle_info?: string | null
+          name: string
+          updated_at?: string
+          visa_info?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          featured_image_url?: string | null
+          id?: string
+          lifestyle_info?: string | null
+          name?: string
+          updated_at?: string
+          visa_info?: string | null
+        }
+        Relationships: []
+      }
+      media_files: {
+        Row: {
+          created_at: string
+          file_size: number | null
+          file_type: string
+          file_url: string
+          filename: string
+          folder: string | null
+          id: string
+          tags: string[] | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          file_size?: number | null
+          file_type: string
+          file_url: string
+          filename: string
+          folder?: string | null
+          id?: string
+          tags?: string[] | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          file_size?: number | null
+          file_type?: string
+          file_url?: string
+          filename?: string
+          folder?: string | null
+          id?: string
+          tags?: string[] | null
+          uploaded_by?: string | null
         }
         Relationships: []
       }
@@ -101,15 +262,99 @@ export type Database = {
           },
         ]
       }
+      services: {
+        Row: {
+          created_at: string
+          full_details: string | null
+          icon_url: string | null
+          id: string
+          short_description: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_details?: string | null
+          icon_url?: string | null
+          id?: string
+          short_description?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_details?: string | null
+          icon_url?: string | null
+          id?: string
+          short_description?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      universities: {
+        Row: {
+          created_at: string
+          id: string
+          location: string | null
+          logo_url: string | null
+          name: string
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          location?: string | null
+          logo_url?: string | null
+          name: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          location?: string | null
+          logo_url?: string | null
+          name?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
+      user_profiles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["user_role"] | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: {
+        Args: { user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      user_role: "admin" | "editor" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -224,6 +469,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ["admin", "editor", "user"],
+    },
   },
 } as const

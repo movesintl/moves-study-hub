@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -32,6 +34,10 @@ const Navigation = () => {
     { name: 'Resources', path: '/resources' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50">
@@ -87,9 +93,23 @@ const Navigation = () => {
                 )}
               </div>
             ))}
-            <Button className="bg-accent hover:bg-accent/90 text-white" asChild>
-              <Link to="/services/consultation">Book Consultation</Link>
-            </Button>
+            
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Button variant="outline" onClick={handleSignOut}>
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-4">
+                <Button variant="outline" asChild>
+                  <Link to="/auth">Sign In</Link>
+                </Button>
+                <Button className="bg-accent hover:bg-accent/90 text-white" asChild>
+                  <Link to="/services/consultation">Book Consultation</Link>
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -137,10 +157,22 @@ const Navigation = () => {
                 )}
               </div>
             ))}
-            <div className="px-3 py-2">
-              <Button className="w-full bg-accent hover:bg-accent/90 text-white" asChild>
-                <Link to="/services/consultation">Book Consultation</Link>
-              </Button>
+            
+            <div className="px-3 py-2 space-y-2">
+              {user ? (
+                <Button onClick={handleSignOut} variant="outline" className="w-full">
+                  Sign Out
+                </Button>
+              ) : (
+                <>
+                  <Button variant="outline" className="w-full" asChild>
+                    <Link to="/auth">Sign In</Link>
+                  </Button>
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-white" asChild>
+                    <Link to="/services/consultation">Book Consultation</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

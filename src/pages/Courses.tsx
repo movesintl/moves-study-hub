@@ -1,12 +1,13 @@
-
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, X, MapPin, Clock, DollarSign, Calendar, GraduationCap } from 'lucide-react';
+import { Search, Filter, X, MapPin, Clock, DollarSign, Calendar, GraduationCap, Heart, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
+import { useToast } from '@/hooks/use-toast';
+import { Link } from 'react-router-dom';
 
 interface Course {
   id: string;
@@ -35,6 +36,7 @@ interface Filters {
 }
 
 const Courses = () => {
+  const { toast } = useToast();
   const [filters, setFilters] = useState<Filters>({
     search: '',
     study_area: 'all',
@@ -42,6 +44,7 @@ const Courses = () => {
     country: 'all'
   });
   const [showFilters, setShowFilters] = useState(false);
+  const [savedCourseIds, setSavedCourseIds] = useState<Set<string>>(new Set());
 
   const { data: courses = [], isLoading, error } = useQuery({
     queryKey: ['courses', filters],
@@ -71,6 +74,76 @@ const Courses = () => {
       return data as Course[];
     }
   });
+
+  // Fetch saved courses
+  const { data: savedCourses, refetch: refetchSaved } = useQuery({
+    queryKey: ['saved-courses-ids'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('saved_courses')
+        .select('course_id');
+      
+      if (error) throw error;
+      return data.map(item => item.course_id);
+    }
+  });
+
+  useEffect(() => {
+    if (savedCourses) {
+      setSavedCourseIds(new Set(savedCourses));
+    }
+  }, [savedCourses]);
+
+  const toggleSaveCourse = async (courseId: string) => {
+    const isSaved = savedCourseIds.has(courseId);
+    
+    if (isSaved) {
+      // Remove from saved
+      const { error } = await supabase
+        .from('saved_courses')
+        .delete()
+        .eq('course_id', courseId);
+      
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to remove course from saved list",
+          variant: "destructive"
+        });
+      } else {
+        setSavedCourseIds(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(courseId);
+          return newSet;
+        });
+        toast({
+          title: "Success",
+          description: "Course removed from saved list"
+        });
+        refetchSaved();
+      }
+    } else {
+      // Add to saved
+      const { error } = await supabase
+        .from('saved_courses')
+        .insert({ course_id: courseId, user_id: null });
+      
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to save course",
+          variant: "destructive"
+        });
+      } else {
+        setSavedCourseIds(prev => new Set(prev).add(courseId));
+        toast({
+          title: "Success",
+          description: "Course saved for comparison"
+        });
+        refetchSaved();
+      }
+    }
+  };
 
   const resetFilters = () => {
     setFilters({
@@ -144,6 +217,16 @@ const Courses = () => {
                 Filters
                 {showFilters && <X className="h-4 w-4 ml-2" />}
               </Button>
+
+              {/* Compare Button */}
+              {savedCourseIds.size > 0 && (
+                <Link to="/course-comparison">
+                  <Button className="h-12 px-6 bg-accent hover:bg-accent/90">
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    Compare ({savedCourseIds.size})
+                  </Button>
+                </Link>
+              )}
             </div>
 
             {/* Filter Options */}
@@ -247,11 +330,19 @@ const Courses = () => {
         ) : (
           <>
             {/* Results Count */}
-            <div className="mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <p className="text-gray-600">
                 Showing {courses.length} course{courses.length !== 1 ? 's' : ''}
                 {hasActiveFilters && ' matching your criteria'}
               </p>
+              {savedCourseIds.size > 0 && (
+                <Link to="/course-comparison">
+                  <Button variant="outline" size="sm">
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    Compare {savedCourseIds.size} course{savedCourseIds.size !== 1 ? 's' : ''}
+                  </Button>
+                </Link>
+              )}
             </div>
 
             {/* Course Cards */}
@@ -264,7 +355,16 @@ const Courses = () => {
                     </div>
                   )}
                   
-                  <CardHeader>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className={`absolute top-4 left-4 z-10 ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
+                    onClick={() => toggleSaveCourse(course.id)}
+                  >
+                    <Heart className={`h-5 w-5 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
+                  </Button>
+                  
+                  <CardHeader className="pt-12">
                     <CardTitle className="text-lg leading-tight">{course.title}</CardTitle>
                     <div className="flex items-center text-sm text-gray-600">
                       <MapPin className="h-4 w-4 mr-1" />

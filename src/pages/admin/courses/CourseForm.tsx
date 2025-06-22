@@ -16,7 +16,9 @@ interface CourseFormData {
   title: string;
   description: string;
   study_area: string;
+  study_area_id: string;
   level: string;
+  study_level_id: string;
   country: string;
   university: string;
   university_id: string;
@@ -43,7 +45,9 @@ const CourseForm = () => {
     title: '',
     description: '',
     study_area: '',
+    study_area_id: '',
     level: '',
+    study_level_id: '',
     country: '',
     university: '',
     university_id: '',
@@ -74,6 +78,25 @@ const CourseForm = () => {
     queryKey: ['destinations'],
     queryFn: async () => {
       const { data, error } = await supabase.from('destinations').select('*');
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  // Fetch study areas and levels
+  const { data: studyAreas = [] } = useQuery({
+    queryKey: ['study-areas'],
+    queryFn: async () => {
+      const { data, error } = await supabase.from('course_study_areas').select('*');
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  const { data: studyLevels = [] } = useQuery({
+    queryKey: ['study-levels'],
+    queryFn: async () => {
+      const { data, error } = await supabase.from('course_study_levels').select('*');
       if (error) throw error;
       return data;
     }
@@ -183,17 +206,22 @@ const CourseForm = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="study_area">Study Area</Label>
-                <Select value={formData.study_area} onValueChange={(value) => setFormData({ ...formData, study_area: value })}>
+                <Label htmlFor="study_area_id">Study Area</Label>
+                <Select value={formData.study_area_id} onValueChange={(value) => {
+                  const selectedArea = studyAreas.find(area => area.id === value);
+                  setFormData({ 
+                    ...formData, 
+                    study_area_id: value,
+                    study_area: selectedArea?.name || ''
+                  });
+                }}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select study area" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="IT">IT & Computer Science</SelectItem>
-                    <SelectItem value="Business">Business & Management</SelectItem>
-                    <SelectItem value="Health">Health & Medicine</SelectItem>
-                    <SelectItem value="Engineering">Engineering</SelectItem>
-                    <SelectItem value="Trade">Trade & Vocational</SelectItem>
+                    {studyAreas.map((area) => (
+                      <SelectItem key={area.id} value={area.id}>{area.name}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -211,16 +239,22 @@ const CourseForm = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="level">Study Level</Label>
-                <Select value={formData.level} onValueChange={(value) => setFormData({ ...formData, level: value })}>
+                <Label htmlFor="study_level_id">Study Level</Label>
+                <Select value={formData.study_level_id} onValueChange={(value) => {
+                  const selectedLevel = studyLevels.find(level => level.id === value);
+                  setFormData({ 
+                    ...formData, 
+                    study_level_id: value,
+                    level: selectedLevel?.name || ''
+                  });
+                }}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select level" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Certificate">Certificate</SelectItem>
-                    <SelectItem value="Diploma">Diploma</SelectItem>
-                    <SelectItem value="Bachelor">Bachelor's Degree</SelectItem>
-                    <SelectItem value="Master">Master's Degree</SelectItem>
+                    {studyLevels.map((level) => (
+                      <SelectItem key={level.id} value={level.id}>{level.name}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

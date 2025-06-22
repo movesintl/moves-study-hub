@@ -74,6 +74,48 @@ export type Database = {
           },
         ]
       }
+      course_study_areas: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      course_study_levels: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       courses: {
         Row: {
           application_link: string | null
@@ -91,6 +133,8 @@ export type Database = {
           level: string
           requirements: string | null
           study_area: string
+          study_area_id: string | null
+          study_level_id: string | null
           thumbnail_url: string | null
           title: string
           tuition_fee_max: number | null
@@ -115,6 +159,8 @@ export type Database = {
           level: string
           requirements?: string | null
           study_area: string
+          study_area_id?: string | null
+          study_level_id?: string | null
           thumbnail_url?: string | null
           title: string
           tuition_fee_max?: number | null
@@ -139,6 +185,8 @@ export type Database = {
           level?: string
           requirements?: string | null
           study_area?: string
+          study_area_id?: string | null
+          study_level_id?: string | null
           thumbnail_url?: string | null
           title?: string
           tuition_fee_max?: number | null
@@ -153,6 +201,20 @@ export type Database = {
             columns: ["destination_id"]
             isOneToOne: false
             referencedRelation: "destinations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_study_area_id_fkey"
+            columns: ["study_area_id"]
+            isOneToOne: false
+            referencedRelation: "course_study_areas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_study_level_id_fkey"
+            columns: ["study_level_id"]
+            isOneToOne: false
+            referencedRelation: "course_study_levels"
             referencedColumns: ["id"]
           },
           {

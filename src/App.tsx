@@ -25,6 +25,16 @@ import Dashboard from "./pages/admin/Dashboard";
 import CoursesList from "./pages/admin/courses/CoursesList";
 import CourseForm from "./pages/admin/courses/CourseForm";
 import MediaLibrary from "./pages/admin/media/MediaLibrary";
+import UniversitiesList from "./pages/admin/universities/UniversitiesList";
+import UniversityForm from "./pages/admin/universities/UniversityForm";
+import DestinationsList from "./pages/admin/destinations/DestinationsList";
+import DestinationForm from "./pages/admin/destinations/DestinationForm";
+import ServicesList from "./pages/admin/services/ServicesList";
+import ServiceForm from "./pages/admin/services/ServiceForm";
+import BlogsList from "./pages/admin/blogs/BlogsList";
+import BlogForm from "./pages/admin/blogs/BlogForm";
+import Settings from "./pages/admin/settings/Settings";
+import Profile from "./pages/admin/profile/Profile";
 
 const queryClient = new QueryClient();
 
@@ -67,11 +77,21 @@ const App = () => (
               <Route path="courses" element={<CoursesList />} />
               <Route path="courses/new" element={<CourseForm />} />
               <Route path="courses/:id/edit" element={<CourseForm />} />
+              <Route path="universities" element={<UniversitiesList />} />
+              <Route path="universities/new" element={<UniversityForm />} />
+              <Route path="universities/:id/edit" element={<UniversityForm />} />
+              <Route path="destinations" element={<DestinationsList />} />
+              <Route path="destinations/new" element={<DestinationForm />} />
+              <Route path="destinations/:id/edit" element={<DestinationForm />} />
+              <Route path="services" element={<ServicesList />} />
+              <Route path="services/new" element={<ServiceForm />} />
+              <Route path="services/:id/edit" element={<ServiceForm />} />
+              <Route path="blogs" element={<BlogsList />} />
+              <Route path="blogs/new" element={<BlogForm />} />
+              <Route path="blogs/:id/edit" element={<BlogForm />} />
               <Route path="media" element={<MediaLibrary />} />
-              <Route path="universities" element={<div className="text-center py-12 text-gray-500">Universities management - Coming Soon</div>} />
-              <Route path="destinations" element={<div className="text-center py-12 text-gray-500">Destinations management - Coming Soon</div>} />
-              <Route path="services" element={<div className="text-center py-12 text-gray-500">Services management - Coming Soon</div>} />
-              <Route path="blogs" element={<div className="text-center py-12 text-gray-500">Blog management - Coming Soon</div>} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="profile" element={<Profile />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

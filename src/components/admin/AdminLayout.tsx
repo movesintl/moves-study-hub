@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import { 
@@ -10,7 +11,8 @@ import {
   Image,
   LogOut,
   Menu,
-  X
+  X,
+  User
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
@@ -48,6 +50,11 @@ const AdminLayout = () => {
     { name: 'Services', href: '/admin/services', icon: Settings },
     { name: 'Blogs', href: '/admin/blogs', icon: FileText },
     { name: 'Media Library', href: '/admin/media', icon: Image },
+  ];
+
+  const bottomNavigation = [
+    { name: 'Profile', href: '/admin/profile', icon: User },
+    { name: 'Settings', href: '/admin/settings', icon: Settings },
   ];
 
   const handleSignOut = async () => {
@@ -101,6 +108,23 @@ const AdminLayout = () => {
                 {item.name}
               </Link>
             ))}
+            <div className="border-t pt-4 mt-4">
+              {bottomNavigation.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                    location.pathname === item.href
+                      ? 'bg-primary text-white'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <item.icon className="mr-3 h-5 w-5" />
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </nav>
         </div>
       </div>
@@ -127,14 +151,30 @@ const AdminLayout = () => {
               </Link>
             ))}
           </nav>
-          <div className="p-4 border-t">
-            <div className="text-sm text-gray-600 mb-2">
-              Signed in as: {user?.email}
+          <div className="px-4 py-4 border-t space-y-2">
+            {bottomNavigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  location.pathname === item.href
+                    ? 'bg-primary text-white'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                <item.icon className="mr-3 h-5 w-5" />
+                {item.name}
+              </Link>
+            ))}
+            <div className="pt-2 border-t">
+              <div className="text-sm text-gray-600 mb-2">
+                Signed in as: {user?.email}
+              </div>
+              <Button onClick={handleSignOut} variant="outline" className="w-full">
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </Button>
             </div>
-            <Button onClick={handleSignOut} variant="outline" className="w-full">
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign Out
-            </Button>
           </div>
         </div>
       </div>

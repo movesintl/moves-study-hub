@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -8,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import MediaSelector from '@/components/admin/MediaSelector';
 
 const DestinationForm = () => {
   const navigate = useNavigate();
@@ -101,6 +101,10 @@ const DestinationForm = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleImageChange = (value: string) => {
+    setFormData(prev => ({ ...prev, featured_image_url: value }));
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <h1 className="text-3xl font-bold">
@@ -138,18 +142,12 @@ const DestinationForm = () => {
               />
             </div>
 
-            <div>
-              <Label htmlFor="featured_image_url">Featured Image URL</Label>
-              <Input
-                id="featured_image_url"
-                name="featured_image_url"
-                type="url"
-                value={formData.featured_image_url}
-                onChange={handleChange}
-                placeholder="https://example.com/image.jpg"
-                className="mt-1"
-              />
-            </div>
+            <MediaSelector
+              value={formData.featured_image_url}
+              onChange={handleImageChange}
+              label="Featured Image"
+              placeholder="https://example.com/image.jpg"
+            />
 
             <div>
               <Label htmlFor="visa_info">Visa Information</Label>

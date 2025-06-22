@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -8,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import MediaSelector from '@/components/admin/MediaSelector';
 
 const UniversityForm = () => {
   const navigate = useNavigate();
@@ -99,6 +99,10 @@ const UniversityForm = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleLogoChange = (value: string) => {
+    setFormData(prev => ({ ...prev, logo_url: value }));
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <h1 className="text-3xl font-bold">
@@ -148,18 +152,12 @@ const UniversityForm = () => {
               />
             </div>
 
-            <div>
-              <Label htmlFor="logo_url">Logo URL</Label>
-              <Input
-                id="logo_url"
-                name="logo_url"
-                type="url"
-                value={formData.logo_url}
-                onChange={handleChange}
-                placeholder="https://example.com/logo.png"
-                className="mt-1"
-              />
-            </div>
+            <MediaSelector
+              value={formData.logo_url}
+              onChange={handleLogoChange}
+              label="University Logo"
+              placeholder="https://example.com/logo.png"
+            />
 
             <div className="flex gap-4 pt-4">
               <Button type="submit" disabled={loading}>

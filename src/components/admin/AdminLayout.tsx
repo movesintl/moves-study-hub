@@ -1,203 +1,151 @@
-
-import React from 'react';
-import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  BookOpen, 
-  Building2, 
-  Globe, 
-  FileText, 
-  Settings, 
+import React, { useState } from 'react';
+import {
+  Home,
+  BookOpen,
+  Building2,
+  MapPin,
+  Settings,
+  FileText,
   Image,
-  LogOut,
-  Menu,
-  X,
-  User
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/contexts/AuthContext';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+const menuItems = [
+  { name: 'Dashboard', href: '/admin', icon: Home },
+  { 
+    name: 'Courses', 
+    href: '/admin/courses', 
+    icon: BookOpen,
+    subItems: [
+      { name: 'All Courses', href: '/admin/courses' },
+      { name: 'Study Areas', href: '/admin/courses/study-areas' },
+      { name: 'Study Levels', href: '/admin/courses/study-levels' }
+    ]
+  },
+  { name: 'Universities', href: '/admin/universities', icon: Building2 },
+  { name: 'Destinations', href: '/admin/destinations', icon: MapPin },
+  { name: 'Services', href: '/admin/services', icon: Settings },
+  { 
+    name: 'Blogs', 
+    href: '/admin/blogs', 
+    icon: FileText,
+    subItems: [
+      { name: 'All Blogs', href: '/admin/blogs' },
+      { name: 'Categories', href: '/admin/blogs/categories' }
+    ]
+  },
+  { name: 'Media Library', href: '/admin/media', icon: Image }
+];
 
 const AdminLayout = () => {
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { user, loading: authLoading, signOut } = useAuth();
+  const navigate = useNavigate();
+  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
 
-  // Check if user is admin
-  const { data: isAdmin, isLoading } = useQuery({
-    queryKey: ['admin-check', user?.id],
-    queryFn: async () => {
-      if (!user) return false;
-
-      const { data } = await supabase
-        .from('user_profiles')
-        .select('role')
-        .eq('user_id', user.id)
-        .single();
-
-      return data?.role === 'admin';
-    },
-    enabled: !!user
-  });
-
-  const navigation = [
-    { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'Courses', href: '/admin/courses', icon: BookOpen },
-    { name: 'Universities', href: '/admin/universities', icon: Building2 },
-    { name: 'Destinations', href: '/admin/destinations', icon: Globe },
-    { name: 'Services', href: '/admin/services', icon: Settings },
-    { name: 'Blogs', href: '/admin/blogs', icon: FileText },
-    { name: 'Media Library', href: '/admin/media', icon: Image },
-  ];
-
-  const bottomNavigation = [
-    { name: 'Profile', href: '/admin/profile', icon: User },
-    { name: 'Settings', href: '/admin/settings', icon: Settings },
-  ];
-
-  const handleSignOut = async () => {
-    await signOut();
+  const toggleSubMenu = (name: string) => {
+    setOpenSubMenu(openSubMenu === name ? null : name);
   };
 
-  if (authLoading || isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p>Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return <Navigate to="/admin/auth" replace />;
-  }
-
-  if (!isAdmin) {
-    return <Navigate to="/admin/auth" replace />;
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Mobile sidebar */}
-      <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
-        <div className="fixed inset-y-0 left-0 flex w-64 flex-col bg-white">
-          <div className="flex h-16 items-center justify-between px-6 border-b">
-            <h1 className="text-xl font-bold">Admin Panel</h1>
-            <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(false)}>
-              <X className="h-5 w-5" />
-            </Button>
-          </div>
-          <nav className="flex-1 px-4 py-6 space-y-2">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  location.pathname === item.href
-                    ? 'bg-primary text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
-                onClick={() => setSidebarOpen(false)}
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                {item.name}
-              </Link>
-            ))}
-            <div className="border-t pt-4 mt-4">
-              {bottomNavigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                    location.pathname === item.href
-                      ? 'bg-primary text-white'
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
-                  onClick={() => setSidebarOpen(false)}
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div className="w-64 flex-shrink-0 bg-sidebar border-r border-gray-200">
+        <div className="h-16 flex items-center justify-center bg-sidebar-primary text-sidebar-primary-foreground font-bold text-lg">
+          Admin Panel
+        </div>
+        <nav className="p-4 space-y-2">
+          {menuItems.map((item) => (
+            item.subItems ? (
+              <div key={item.name}>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start font-normal"
+                  onClick={() => toggleSubMenu(item.name)}
                 >
-                  <item.icon className="mr-3 h-5 w-5" />
+                  <item.icon className="h-4 w-4 mr-2" />
                   {item.name}
-                </Link>
-              ))}
-            </div>
-          </nav>
-        </div>
-      </div>
-
-      {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex flex-col flex-grow bg-white border-r">
-          <div className="flex h-16 items-center px-6 border-b">
-            <h1 className="text-xl font-bold">Admin Panel</h1>
-          </div>
-          <nav className="flex-1 px-4 py-6 space-y-2">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  location.pathname === item.href
-                    ? 'bg-primary text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-          <div className="px-4 py-4 border-t space-y-2">
-            {bottomNavigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  location.pathname === item.href
-                    ? 'bg-primary text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                {item.name}
-              </Link>
-            ))}
-            <div className="pt-2 border-t">
-              <div className="text-sm text-gray-600 mb-2">
-                Signed in as: {user?.email}
+                  {openSubMenu === item.name ? <ChevronUp className="h-4 w-4 ml-auto" /> : <ChevronDown className="h-4 w-4 ml-auto" />}
+                </Button>
+                {openSubMenu === item.name && (
+                  <div className="pl-4 space-y-1">
+                    {item.subItems.map((subItem) => (
+                      <Link
+                        key={subItem.name}
+                        to={subItem.href}
+                        className={`flex items-center p-2 rounded-md hover:bg-gray-100 ${location.pathname === subItem.href ? 'font-medium bg-gray-100' : ''}`}
+                      >
+                        {subItem.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
-              <Button onClick={handleSignOut} variant="outline" className="w-full">
-                <LogOut className="mr-2 h-4 w-4" />
-                Sign Out
-              </Button>
-            </div>
-          </div>
-        </div>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`flex items-center p-2 rounded-md hover:bg-gray-100 ${location.pathname === item.href ? 'font-medium bg-gray-100' : ''}`}
+              >
+                <item.icon className="h-4 w-4 mr-2" />
+                {item.name}
+              </Link>
+            )
+          ))}
+        </nav>
       </div>
 
-      {/* Main content */}
-      <div className="lg:pl-64">
-        {/* Top bar */}
-        <div className="sticky top-0 z-40 flex h-16 bg-white border-b lg:hidden">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="px-4"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <Menu className="h-6 w-6" />
-          </Button>
-          <div className="flex-1 flex items-center px-4">
-            <h1 className="text-lg font-semibold">Admin Panel</h1>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Header */}
+        <header className="h-16 flex items-center justify-between bg-white border-b border-gray-200 p-4">
+          <div className="flex items-center">
+            <button className="md:hidden mr-4">
+              {/* Add a hamburger menu icon here for mobile */}
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <h1 className="text-xl font-semibold">
+              {menuItems.find(item => item.href === location.pathname)?.name || 'Dashboard'}
+            </h1>
           </div>
-        </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="https://github.com/shadcn.png" alt="Shadcn" />
+                  <AvatarFallback>SC</AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => navigate('/admin/profile')}>
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/admin/settings')}>
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => navigate('/auth')}>
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </header>
 
-        {/* Page content */}
-        <main className="p-6">
+        {/* Content Area */}
+        <main className="flex-1 p-6 overflow-y-auto">
           <Outlet />
         </main>
       </div>

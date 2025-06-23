@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -218,7 +217,7 @@ const Dashboard = () => {
                       {item.subItems.map((subItem) => (
                         <Link
                           key={subItem.title}
-                          to={sub.link}
+                          to={subItem.link}
                           onClick={(e) => e.stopPropagation()}
                           className="flex items-center justify-between text-xs text-gray-500 hover:text-primary transition-colors p-2 rounded hover:bg-gray-50"
                         >

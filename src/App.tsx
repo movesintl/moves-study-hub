@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 
-import Layout from '@/components/Layout';
+import Layout from '@/components/layout/Layout';
 import Home from '@/pages/Home';
 import Courses from '@/pages/Courses';
 import CourseDetails from '@/pages/CourseDetails';
@@ -23,8 +24,8 @@ import NotFound from '@/pages/NotFound';
 
 import AdminLayout from '@/components/admin/AdminLayout';
 import Dashboard from '@/pages/admin/Dashboard';
-import Profile from '@/pages/admin/Profile';
-import Settings from '@/pages/admin/Settings';
+import Profile from '@/pages/admin/profile/Profile';
+import Settings from '@/pages/admin/settings/Settings';
 import CoursesList from '@/pages/admin/courses/CoursesList';
 import CourseForm from '@/pages/admin/courses/CourseForm';
 import UniversitiesList from '@/pages/admin/universities/UniversitiesList';
@@ -35,7 +36,7 @@ import ServicesList from '@/pages/admin/services/ServicesList';
 import ServiceForm from '@/pages/admin/services/ServiceForm';
 import BlogsList from '@/pages/admin/blogs/BlogsList';
 import BlogForm from '@/pages/admin/blogs/BlogForm';
-import MediaLibrary from '@/pages/admin/MediaLibrary';
+import MediaLibrary from '@/pages/admin/media/MediaLibrary';
 import AdminAuth from '@/pages/admin/AdminAuth';
 import StudyAreasManager from '@/pages/admin/courses/StudyAreasManager';
 import StudyLevelsManager from '@/pages/admin/courses/StudyLevelsManager';

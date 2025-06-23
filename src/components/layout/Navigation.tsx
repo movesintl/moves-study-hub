@@ -16,7 +16,6 @@ const Navigation = () => {
   const navigationItems = [
     { name: 'Home', path: '/' },
     { name: 'Find a Course', path: '/courses' },
-    { name: 'Student Dashboard', path: '/dashboard' },
     { 
       name: 'Services', 
       path: '/services',

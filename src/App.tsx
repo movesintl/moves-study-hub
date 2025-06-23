@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 import Layout from '@/components/layout/Layout';
 import Home from '@/pages/Home';
@@ -47,54 +48,56 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/admin/auth" element={<AdminAuth />} />
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="courses" element={<Courses />} />
-            <Route path="courses/:id" element={<CourseDetails />} />
-            <Route path="services" element={<Services />} />
-            <Route path="services/:id" element={<ServiceDetails />} />
-            <Route path="services/consultation" element={<Consultation />} />
-            <Route path="services/visa-migration" element={<VisaMigration />} />
-            <Route path="services/ielts-preparation" element={<IeltsPreparation />} />
-            <Route path="services/scholarship-guidance" element={<ScholarshipGuidance />} />
-            <Route path="services/pre-departure-support" element={<PreDepartureSupport />} />
-            <Route path="universities/:id" element={<UniversityDetails />} />
-            <Route path="destinations/:id" element={<DestinationDetails />} />
-            <Route path="blogs/:id" element={<BlogDetails />} />
-            <Route path="course-comparison" element={<CourseComparison />} />
-          </Route>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="courses" element={<CoursesList />} />
-            <Route path="courses/new" element={<CourseForm />} />
-            <Route path="courses/:id/edit" element={<CourseForm />} />
-            <Route path="courses/study-areas" element={<StudyAreasManager />} />
-            <Route path="courses/study-levels" element={<StudyLevelsManager />} />
-            <Route path="universities" element={<UniversitiesList />} />
-            <Route path="universities/new" element={<UniversityForm />} />
-            <Route path="universities/:id/edit" element={<UniversityForm />} />
-            <Route path="destinations" element={<DestinationsList />} />
-            <Route path="destinations/new" element={<DestinationForm />} />
-            <Route path="destinations/:id/edit" element={<DestinationForm />} />
-            <Route path="services" element={<ServicesList />} />
-            <Route path="services/new" element={<ServiceForm />} />
-            <Route path="services/:id/edit" element={<ServiceForm />} />
-            <Route path="blogs" element={<BlogsList />} />
-            <Route path="blogs/new" element={<BlogForm />} />
-            <Route path="blogs/:id/edit" element={<BlogForm />} />
-            <Route path="blogs/categories" element={<BlogCategoriesManager />} />
-            <Route path="media" element={<MediaLibrary />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-      <Toaster />
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/admin/auth" element={<AdminAuth />} />
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="courses" element={<Courses />} />
+              <Route path="courses/:id" element={<CourseDetails />} />
+              <Route path="services" element={<Services />} />
+              <Route path="services/:id" element={<ServiceDetails />} />
+              <Route path="services/consultation" element={<Consultation />} />
+              <Route path="services/visa-migration" element={<VisaMigration />} />
+              <Route path="services/ielts-preparation" element={<IeltsPreparation />} />
+              <Route path="services/scholarship-guidance" element={<ScholarshipGuidance />} />
+              <Route path="services/pre-departure-support" element={<PreDepartureSupport />} />
+              <Route path="universities/:id" element={<UniversityDetails />} />
+              <Route path="destinations/:id" element={<DestinationDetails />} />
+              <Route path="blogs/:id" element={<BlogDetails />} />
+              <Route path="course-comparison" element={<CourseComparison />} />
+            </Route>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="courses" element={<CoursesList />} />
+              <Route path="courses/new" element={<CourseForm />} />
+              <Route path="courses/:id/edit" element={<CourseForm />} />
+              <Route path="courses/study-areas" element={<StudyAreasManager />} />
+              <Route path="courses/study-levels" element={<StudyLevelsManager />} />
+              <Route path="universities" element={<UniversitiesList />} />
+              <Route path="universities/new" element={<UniversityForm />} />
+              <Route path="universities/:id/edit" element={<UniversityForm />} />
+              <Route path="destinations" element={<DestinationsList />} />
+              <Route path="destinations/new" element={<DestinationForm />} />
+              <Route path="destinations/:id/edit" element={<DestinationForm />} />
+              <Route path="services" element={<ServicesList />} />
+              <Route path="services/new" element={<ServiceForm />} />
+              <Route path="services/:id/edit" element={<ServiceForm />} />
+              <Route path="blogs" element={<BlogsList />} />
+              <Route path="blogs/new" element={<BlogForm />} />
+              <Route path="blogs/:id/edit" element={<BlogForm />} />
+              <Route path="blogs/categories" element={<BlogCategoriesManager />} />
+              <Route path="media" element={<MediaLibrary />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        <Toaster />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

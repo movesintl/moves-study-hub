@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import AdvancedSettings from './AdvancedSettings';
 
 const Settings = () => {
   const { toast } = useToast();
@@ -72,6 +72,7 @@ const Settings = () => {
         <TabsList>
           <TabsTrigger value="site">Site Settings</TabsTrigger>
           <TabsTrigger value="email">Email Settings</TabsTrigger>
+          <TabsTrigger value="advanced">Advanced</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
         </TabsList>
 
@@ -207,6 +208,10 @@ const Settings = () => {
               </form>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="advanced">
+          <AdvancedSettings />
         </TabsContent>
 
         <TabsContent value="security">

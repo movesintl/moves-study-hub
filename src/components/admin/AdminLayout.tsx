@@ -8,7 +8,8 @@ import {
   FileText,
   Image,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Users
 } from 'lucide-react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -45,7 +46,8 @@ const menuItems = [
       { name: 'Categories', href: '/admin/blogs/categories' }
     ]
   },
-  { name: 'Media Library', href: '/admin/media', icon: Image }
+  { name: 'Media Library', href: '/admin/media', icon: Image },
+  { name: 'Team', href: '/admin/team', icon: Users }
 ];
 
 const AdminLayout = () => {

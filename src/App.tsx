@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -27,6 +26,7 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import Dashboard from '@/pages/admin/Dashboard';
 import Profile from '@/pages/admin/profile/Profile';
 import Settings from '@/pages/admin/settings/Settings';
+import TeamManagement from '@/pages/admin/team/TeamManagement';
 import CoursesList from '@/pages/admin/courses/CoursesList';
 import CourseForm from '@/pages/admin/courses/CourseForm';
 import UniversitiesList from '@/pages/admin/universities/UniversitiesList';
@@ -73,6 +73,7 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path="profile" element={<Profile />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="team" element={<TeamManagement />} />
               <Route path="courses" element={<CoursesList />} />
               <Route path="courses/new" element={<CourseForm />} />
               <Route path="courses/:id/edit" element={<CourseForm />} />

@@ -96,43 +96,37 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Content - Visual */}
+          {/* Right Content - Beautiful Image */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-accent/20 to-white/10 rounded-2xl p-8 backdrop-blur-sm">
-              <div className="space-y-6">
-                <div className="bg-white/90 rounded-lg p-4 shadow-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                      <GraduationCap className="h-5 w-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900">Application Submitted</div>
-                      <div className="text-sm text-gray-600">University of Melbourne</div>
-                    </div>
+            <div className="relative overflow-hidden rounded-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
+                alt="Students studying abroad"
+                className="w-full h-[600px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+              
+              {/* Floating Achievement Cards */}
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                    <GraduationCap className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Visa Approved</div>
+                    <div className="text-sm text-gray-600">Australia Student Visa</div>
                   </div>
                 </div>
-                
-                <div className="bg-white/90 rounded-lg p-4 shadow-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                      <Users className="h-5 w-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900">Consultation Booked</div>
-                      <div className="text-sm text-gray-600">Tomorrow at 2:00 PM</div>
-                    </div>
+              </div>
+              
+              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                    <Users className="h-5 w-5 text-white" />
                   </div>
-                </div>
-                
-                <div className="bg-white/90 rounded-lg p-4 shadow-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                      <Globe className="h-5 w-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900">Visa Approved</div>
-                      <div className="text-sm text-gray-600">Student Visa - Australia</div>
-                    </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Application Success</div>
+                    <div className="text-sm text-gray-600">University of Melbourne</div>
                   </div>
                 </div>
               </div>

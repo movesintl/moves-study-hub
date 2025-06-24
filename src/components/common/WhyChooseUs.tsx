@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Award, Users, Globe, BookOpen, Shield, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -116,7 +115,7 @@ const WhyChooseUs = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                  className="border-2 border-white bg-white text-primary hover:bg-white/90 hover:text-primary px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
                   asChild
                 >
                   <Link to="/courses">

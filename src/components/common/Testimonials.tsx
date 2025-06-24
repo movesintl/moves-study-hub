@@ -162,7 +162,7 @@ const Testimonials = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
+                className="border-2 border-primary bg-white text-primary hover:bg-white/90 hover:text-primary px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
                 asChild
               >
                 <Link to="/testimonials">

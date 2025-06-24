@@ -15,7 +15,7 @@ const CounsellingPopup = () => {
       
       const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
       
-      if (scrollPercentage >= 30) {
+      if (scrollPercentage >= 20) {
         setIsOpen(true);
         setHasShown(true);
       }

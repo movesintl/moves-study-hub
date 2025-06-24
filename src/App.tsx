@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -35,6 +34,8 @@ import Applications from '@/pages/student/Applications';
 import SavedCourses from '@/pages/student/SavedCourses';
 import Profile from '@/pages/student/Profile';
 import Settings from '@/pages/student/Settings';
+import Counselling from '@/pages/student/Counselling';
+import CounsellingBookings from '@/pages/admin/counselling/CounsellingBookings';
 
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/Dashboard';
@@ -92,6 +93,7 @@ function App() {
               <Route path="home" element={<Dashboard />} />
               <Route path="applications" element={<Applications />} />
               <Route path="saved-courses" element={<SavedCourses />} />
+              <Route path="counselling" element={<Counselling />} />
               <Route path="profile" element={<Profile />} />
               <Route path="settings" element={<Settings />} />
             </Route>
@@ -112,6 +114,7 @@ function App() {
               <Route path="destinations/new" element={<DestinationForm />} />
               <Route path="destinations/:id/edit" element={<DestinationForm />} />
               <Route path="applications" element={<ApplicationsList />} />
+              <Route path="counselling" element={<CounsellingBookings />} />
               <Route path="services" element={<ServicesList />} />
               <Route path="services/new" element={<ServiceForm />} />
               <Route path="services/:id/edit" element={<ServiceForm />} />

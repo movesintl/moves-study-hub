@@ -186,6 +186,54 @@ export type Database = {
         }
         Relationships: []
       }
+      counselling_bookings: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          id: string
+          message: string | null
+          preferred_date: string | null
+          preferred_destination: string | null
+          preferred_time: string | null
+          status: string | null
+          student_email: string
+          student_name: string
+          student_phone: string
+          study_level: string | null
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          id?: string
+          message?: string | null
+          preferred_date?: string | null
+          preferred_destination?: string | null
+          preferred_time?: string | null
+          status?: string | null
+          student_email: string
+          student_name: string
+          student_phone: string
+          study_level?: string | null
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          id?: string
+          message?: string | null
+          preferred_date?: string | null
+          preferred_destination?: string | null
+          preferred_time?: string | null
+          status?: string | null
+          student_email?: string
+          student_name?: string
+          student_phone?: string
+          study_level?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       course_study_areas: {
         Row: {
           created_at: string

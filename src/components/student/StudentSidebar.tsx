@@ -20,13 +20,15 @@ import {
   Heart, 
   User, 
   Settings, 
-  LogOut 
+  LogOut,
+  MessageCircle
 } from 'lucide-react';
 
 const menuItems = [
   { title: 'Dashboard', url: '/student-dashboard/home', icon: LayoutDashboard },
   { title: 'My Applications', url: '/student-dashboard/applications', icon: FileText },
   { title: 'Saved Courses', url: '/student-dashboard/saved-courses', icon: Heart },
+  { title: 'Get Counselling', url: '/student-dashboard/counselling', icon: MessageCircle },
   { title: 'Profile', url: '/student-dashboard/profile', icon: User },
   { title: 'Settings', url: '/student-dashboard/settings', icon: Settings },
 ];
@@ -53,7 +55,14 @@ export function StudentSidebar() {
       
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Student Portal</SidebarGroupLabel>
+          <SidebarGroupLabel className="flex items-center gap-2">
+            <img 
+              src="/lovable-uploads/student-portal-logo.png" 
+              alt="Student Portal Logo" 
+              className="w-6 h-6"
+            />
+            {!isCollapsed && <span>Student Portal</span>}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (

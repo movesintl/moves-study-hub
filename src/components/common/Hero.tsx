@@ -74,7 +74,7 @@ const Hero = () => {
                 Book Free Consultation
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" onClick={() => navigate('/courses')} className="border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" onClick={() => navigate('/courses')} className="border-white hover:bg-white text-primary-DEFAULT">
                 Browse Courses
               </Button>
               {!user}

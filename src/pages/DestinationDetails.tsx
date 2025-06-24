@@ -59,7 +59,15 @@ const DestinationDetails = () => {
 
   // Country-specific data
   const getCountrySpecificData = (countryName: string) => {
-    const countryData = {
+    const countryData: {
+      [key: string]: {
+        whyStudy: string[];
+        costOfLiving: {
+          [key: string]: string;
+        };
+        jobMarket: string[];
+      };
+    } = {
       'Australia': {
         whyStudy: [
           'World-class education system ranked among the top globally',

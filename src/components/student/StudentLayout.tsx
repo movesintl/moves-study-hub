@@ -4,7 +4,11 @@ import { Outlet } from 'react-router-dom';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { StudentSidebar } from './StudentSidebar';
 
-const StudentLayout = () => {
+interface StudentLayoutProps {
+  children?: React.ReactNode;
+}
+
+const StudentLayout: React.FC<StudentLayoutProps> = ({ children }) => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gray-50">
@@ -15,7 +19,7 @@ const StudentLayout = () => {
             <h1 className="ml-4 text-xl font-semibold text-gray-900">Student Dashboard</h1>
           </header>
           <main className="flex-1 p-6">
-            <Outlet />
+            {children || <Outlet />}
           </main>
         </div>
       </div>

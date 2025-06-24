@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, Search, Folder, Image, FileText, Video, Trash2 } from 'lucide-react';
+import { Upload, Search, Folder, Image, FileText, Video, Trash2, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -12,6 +12,7 @@ const MediaLibrary = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFolder, setSelectedFolder] = useState('all');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const { toast } = useToast();
 
   const { data: mediaFiles = [], isLoading, refetch } = useQuery({
@@ -105,6 +106,28 @@ const MediaLibrary = () => {
       toast({
         title: "Error",
         description: error.message || "Failed to upload file",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const copyToClipboard = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedUrl(url);
+      toast({
+        title: "Success",
+        description: "Media URL copied to clipboard"
+      });
+      
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        setCopiedUrl(null);
+      }, 2000);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to copy URL to clipboard",
         variant: "destructive"
       });
     }
@@ -252,14 +275,28 @@ const MediaLibrary = () => {
                     <span>{(file.file_size / 1024).toFixed(0)}KB</span>
                   </div>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500 text-white hover:bg-red-600"
-                  onClick={() => deleteFile(file)}
-                >
-                  <Trash2 className="h-3 w-3" />
-                </Button>
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="bg-blue-500 text-white hover:bg-blue-600 h-8 w-8 p-0"
+                    onClick={() => copyToClipboard(file.file_url)}
+                  >
+                    {copiedUrl === file.file_url ? (
+                      <Check className="h-3 w-3" />
+                    ) : (
+                      <Copy className="h-3 w-3" />
+                    )}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="bg-red-500 text-white hover:bg-red-600 h-8 w-8 p-0"
+                    onClick={() => deleteFile(file)}
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}

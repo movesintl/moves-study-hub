@@ -10,15 +10,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, Mail, Calendar, GraduationCap, BookOpen } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface CounsellingBookingFormProps {
   defaultDestination?: string;
+  onSuccess?: () => void;
 }
 
-const CounsellingBookingForm = ({ defaultDestination }: CounsellingBookingFormProps) => {
+const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBookingFormProps) => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     student_name: '',
-    student_email: '',
+    student_email: user?.email || '',
     student_phone: '',
     preferred_destination: defaultDestination || '',
     study_level: '',
@@ -83,7 +86,7 @@ const CounsellingBookingForm = ({ defaultDestination }: CounsellingBookingFormPr
       // Reset form
       setFormData({
         student_name: '',
-        student_email: '',
+        student_email: user?.email || '',
         student_phone: '',
         preferred_destination: defaultDestination || '',
         study_level: '',
@@ -95,6 +98,9 @@ const CounsellingBookingForm = ({ defaultDestination }: CounsellingBookingFormPr
         preferred_time: '',
         message: '',
       });
+
+      // Call onSuccess callback if provided
+      onSuccess?.();
     } catch (error) {
       console.error('Error submitting booking:', error);
       toast({
@@ -142,6 +148,7 @@ const CounsellingBookingForm = ({ defaultDestination }: CounsellingBookingFormPr
                   required
                   className="pl-10 h-12"
                   placeholder="your.email@example.com"
+                  disabled={!!user?.email}
                 />
               </div>
             </div>

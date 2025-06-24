@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { MessageCircle, Calendar, Clock, User, Phone, Mail, Edit } from 'lucide-react';
+import { MessageCircle, Calendar, Clock, User, Phone, Mail, Edit, BookOpen, GraduationCap } from 'lucide-react';
 
 interface CounsellingBooking {
   id: string;
@@ -19,6 +19,10 @@ interface CounsellingBooking {
   student_phone: string;
   preferred_destination?: string;
   study_level?: string;
+  course_interest?: string;
+  current_education_level?: string;
+  english_test_score?: string;
+  work_experience?: string;
   message?: string;
   preferred_date?: string;
   preferred_time?: string;
@@ -274,6 +278,24 @@ const CounsellingBookings = () => {
                       )}
                       {booking.study_level && (
                         <p><strong>Study Level:</strong> {booking.study_level}</p>
+                      )}
+                      {booking.course_interest && (
+                        <div className="flex items-center gap-2">
+                          <BookOpen className="h-4 w-4" />
+                          <span><strong>Course Interest:</strong> {booking.course_interest}</span>
+                        </div>
+                      )}
+                      {booking.current_education_level && (
+                        <div className="flex items-center gap-2">
+                          <GraduationCap className="h-4 w-4" />
+                          <span><strong>Current Education:</strong> {booking.current_education_level}</span>
+                        </div>
+                      )}
+                      {booking.english_test_score && (
+                        <p><strong>English Test Score:</strong> {booking.english_test_score}</p>
+                      )}
+                      {booking.work_experience && (
+                        <p><strong>Work Experience:</strong> {booking.work_experience}</p>
                       )}
                       {booking.preferred_date && (
                         <div className="flex items-center gap-2">

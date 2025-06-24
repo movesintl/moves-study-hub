@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -22,7 +23,7 @@ import CourseComparison from '@/pages/CourseComparison';
 import Auth from '@/pages/Auth';
 import NotFound from '@/pages/NotFound';
 import Contact from '@/pages/Contact';
-import ContactSubmissions from '@/pages/ContactSubmissions';
+import ContactSubmissions from '@/pages/admin/contact/ContactSubmissions';
 
 import AdminLayout from '@/components/admin/AdminLayout';
 import Dashboard from '@/pages/admin/Dashboard';

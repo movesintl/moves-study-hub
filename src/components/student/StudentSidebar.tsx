@@ -57,9 +57,9 @@ export function StudentSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="flex items-center gap-2">
             <img 
-              src="/lovable-uploads/student-portal-logo.png" 
+              src="/lovable-uploads/student-dashboard-logo.png" 
               alt="Student Portal Logo" 
-              className="w-6 h-6"
+              className="w-8 h-8 object-contain"
             />
             {!isCollapsed && <span>Student Portal</span>}
           </SidebarGroupLabel>

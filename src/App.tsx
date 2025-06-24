@@ -29,10 +29,17 @@ import NotFound from '@/pages/NotFound';
 import Contact from '@/pages/Contact';
 import ContactSubmissions from '@/pages/admin/contact/ContactSubmissions';
 
+// Student Dashboard Pages
+import Dashboard from '@/pages/student/Dashboard';
+import Applications from '@/pages/student/Applications';
+import SavedCourses from '@/pages/student/SavedCourses';
+import Profile from '@/pages/student/Profile';
+import Settings from '@/pages/student/Settings';
+
 import AdminLayout from '@/components/admin/AdminLayout';
-import Dashboard from '@/pages/admin/Dashboard';
-import Profile from '@/pages/admin/profile/Profile';
-import Settings from '@/pages/admin/settings/Settings';
+import AdminDashboard from '@/pages/admin/Dashboard';
+import AdminProfile from '@/pages/admin/profile/Profile';
+import AdminSettings from '@/pages/admin/settings/Settings';
 import TeamManagement from '@/pages/admin/team/TeamManagement';
 import CoursesList from '@/pages/admin/courses/CoursesList';
 import CourseForm from '@/pages/admin/courses/CourseForm';
@@ -67,7 +74,6 @@ function App() {
               <Route path="blogs" element={<Blogs />} />
               <Route path="courses" element={<Courses />} />
               <Route path="courses/:id" element={<CourseDetails />} />
-              <Route path="student-dashboard" element={<StudentDashboard />} />
               <Route path="services" element={<Services />} />
               <Route path="services/:id" element={<ServiceDetails />} />
               <Route path="services/consultation" element={<Consultation />} />
@@ -82,10 +88,17 @@ function App() {
               <Route path="course-comparison" element={<CourseComparison />} />
               <Route path="contact" element={<Contact />} />
             </Route>
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<Dashboard />} />
+            <Route path="/student-dashboard" element={<StudentDashboard />}>
+              <Route path="home" element={<Dashboard />} />
+              <Route path="applications" element={<Applications />} />
+              <Route path="saved-courses" element={<SavedCourses />} />
               <Route path="profile" element={<Profile />} />
               <Route path="settings" element={<Settings />} />
+            </Route>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="profile" element={<AdminProfile />} />
+              <Route path="settings" element={<AdminSettings />} />
               <Route path="team" element={<TeamManagement />} />
               <Route path="courses" element={<CoursesList />} />
               <Route path="courses/new" element={<CourseForm />} />

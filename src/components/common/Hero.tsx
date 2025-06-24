@@ -1,18 +1,16 @@
-
 import React, { useState } from 'react';
 import { Search, ArrowRight, Globe, GraduationCap, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-
 const Hero = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const { user } = useAuth();
-
+  const {
+    user
+  } = useAuth();
   const backgroundPattern = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F5F5F5' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E";
-
   const handleSearch = () => {
     if (searchQuery.trim()) {
       navigate(`/courses?search=${encodeURIComponent(searchQuery.trim())}`);
@@ -20,24 +18,19 @@ const Hero = () => {
       navigate('/courses');
     }
   };
-
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSearch();
     }
   };
-
   const handlePopularTagClick = (tag: string) => {
     navigate(`/courses?search=${encodeURIComponent(tag)}`);
   };
-
-  return (
-    <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden">
+  return <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden">
       {/* Background Pattern */}
-      <div 
-        className="absolute inset-0 opacity-20"
-        style={{ backgroundImage: `url("${backgroundPattern}")` }}
-      ></div>
+      <div className="absolute inset-0 opacity-20" style={{
+      backgroundImage: `url("${backgroundPattern}")`
+    }}></div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -60,33 +53,18 @@ const Hero = () => {
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                  <Input 
-                    placeholder="Search courses, universities, or destinations..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    className="pl-10 bg-white text-gray-900 border-0 h-12"
-                  />
+                  <Input placeholder="Search courses, universities, or destinations..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onKeyPress={handleKeyPress} className="pl-10 bg-white text-gray-900 border-0 h-12" />
                 </div>
-                <Button 
-                  onClick={handleSearch}
-                  className="bg-accent hover:bg-accent/90 text-white h-12 px-8"
-                >
+                <Button onClick={handleSearch} className="bg-accent hover:bg-accent/90 text-white h-12 px-8">
                   Search
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
               <div className="flex flex-wrap gap-2">
                 <span className="text-sm text-gray-300">Popular:</span>
-                {['MBA', 'Engineering', 'IT', 'Healthcare', 'Business'].map((tag) => (
-                  <button 
-                    key={tag}
-                    onClick={() => handlePopularTagClick(tag)}
-                    className="px-3 py-1 bg-white/20 rounded-full text-sm hover:bg-white/30 transition-colors"
-                  >
+                {['MBA', 'Engineering', 'IT', 'Healthcare', 'Business'].map(tag => <button key={tag} onClick={() => handlePopularTagClick(tag)} className="px-3 py-1 bg-white/20 rounded-full text-sm hover:bg-white/30 transition-colors">
                     {tag}
-                  </button>
-                ))}
+                  </button>)}
               </div>
             </div>
 
@@ -96,24 +74,10 @@ const Hero = () => {
                 Book Free Consultation
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                onClick={() => navigate('/courses')}
-                className="border-white text-white hover:bg-white hover:text-primary"
-              >
+              <Button size="lg" variant="outline" onClick={() => navigate('/courses')} className="border-white text-white hover:bg-white hover:text-primary">
                 Browse Courses
               </Button>
-              {!user && (
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  onClick={() => navigate('/auth')}
-                  className="border-white text-white hover:bg-white hover:text-primary"
-                >
-                  Login / Sign Up
-                </Button>
-              )}
+              {!user}
             </div>
 
             {/* Stats */}
@@ -145,11 +109,7 @@ const Hero = () => {
           {/* Right Content - Beautiful Image */}
           <div className="relative">
             <div className="relative overflow-hidden rounded-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
-                alt="Students studying abroad"
-                className="w-full h-[600px] object-cover"
-              />
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Students studying abroad" className="w-full h-[600px] object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               
               {/* Floating Achievement Cards */}
@@ -180,8 +140,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;

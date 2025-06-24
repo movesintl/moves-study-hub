@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 interface Course {
   id: string;
@@ -37,6 +37,7 @@ interface Filters {
 
 const Courses = () => {
   const { toast } = useToast();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState<Filters>({
     search: '',
     study_area: 'all',
@@ -45,6 +46,32 @@ const Courses = () => {
   });
   const [showFilters, setShowFilters] = useState(false);
   const [savedCourseIds, setSavedCourseIds] = useState<Set<string>>(new Set());
+
+  // Initialize filters from URL parameters
+  useEffect(() => {
+    const searchFromUrl = searchParams.get('search') || '';
+    const studyAreaFromUrl = searchParams.get('study_area') || 'all';
+    const levelFromUrl = searchParams.get('level') || 'all';
+    const countryFromUrl = searchParams.get('country') || 'all';
+
+    setFilters({
+      search: searchFromUrl,
+      study_area: studyAreaFromUrl,
+      level: levelFromUrl,
+      country: countryFromUrl
+    });
+  }, [searchParams]);
+
+  // Update URL when filters change
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (filters.search) params.set('search', filters.search);
+    if (filters.study_area !== 'all') params.set('study_area', filters.study_area);
+    if (filters.level !== 'all') params.set('level', filters.level);
+    if (filters.country !== 'all') params.set('country', filters.country);
+    
+    setSearchParams(params);
+  }, [filters, setSearchParams]);
 
   const { data: courses = [], isLoading, error } = useQuery({
     queryKey: ['courses', filters],

@@ -1,11 +1,33 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Search, ArrowRight, Globe, GraduationCap, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
   const backgroundPattern = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F5F5F5' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E";
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/courses?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      navigate('/courses');
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const handlePopularTagClick = (tag: string) => {
+    navigate(`/courses?search=${encodeURIComponent(tag)}`);
+  };
 
   return (
     <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden">
@@ -38,10 +60,16 @@ const Hero = () => {
                   <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input 
                     placeholder="Search courses, universities, or destinations..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     className="pl-10 bg-white text-gray-900 border-0 h-12"
                   />
                 </div>
-                <Button className="bg-accent hover:bg-accent/90 text-white h-12 px-8">
+                <Button 
+                  onClick={handleSearch}
+                  className="bg-accent hover:bg-accent/90 text-white h-12 px-8"
+                >
                   Search
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -51,6 +79,7 @@ const Hero = () => {
                 {['MBA', 'Engineering', 'IT', 'Healthcare', 'Business'].map((tag) => (
                   <button 
                     key={tag}
+                    onClick={() => handlePopularTagClick(tag)}
                     className="px-3 py-1 bg-white/20 rounded-full text-sm hover:bg-white/30 transition-colors"
                   >
                     {tag}
@@ -65,7 +94,12 @@ const Hero = () => {
                 Book Free Consultation
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => navigate('/courses')}
+                className="border-white text-white hover:bg-white hover:text-primary"
+              >
                 Browse Courses
               </Button>
             </div>

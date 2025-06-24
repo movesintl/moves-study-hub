@@ -11,7 +11,8 @@ import {
   ChevronDown,
   ChevronUp,
   Users,
-  LogOut
+  LogOut,
+  Mail
 } from 'lucide-react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -49,7 +50,8 @@ const menuItems = [
     ]
   },
   { name: 'Media Library', href: '/admin/media', icon: Image },
-  { name: 'Team', href: '/admin/team', icon: Users }
+  { name: 'Team', href: '/admin/team', icon: Users },
+  { name: 'Contact', href: '/admin/contact', icon: Mail }
 ];
 
 const AdminLayout = () => {

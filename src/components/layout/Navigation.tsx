@@ -1,8 +1,16 @@
 
 import React, { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, User, LogOut } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -82,6 +90,14 @@ const Navigation = () => {
   const handleSignOut = async () => {
     await signOut();
     // The AuthContext now handles the redirect, so we don't need to do anything here
+  };
+
+  // Get user initials for avatar fallback
+  const getUserInitials = () => {
+    if (user?.email) {
+      return user.email.substring(0, 2).toUpperCase();
+    }
+    return 'U';
   };
 
   return (
@@ -215,9 +231,43 @@ const Navigation = () => {
             <div className="hidden md:flex items-center">
               {user ? (
                 <div className="flex items-center space-x-4">
-                  <Button variant="outline" onClick={handleSignOut}>
-                    Sign Out
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage src="" alt={user.email} />
+                          <AvatarFallback className="bg-primary text-white">
+                            {getUserInitials()}
+                          </AvatarFallback>
+                        </Avatar>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56 bg-white" align="end" forceMount>
+                      <div className="flex items-center justify-start gap-2 p-2">
+                        <div className="flex flex-col space-y-1 leading-none">
+                          <p className="font-medium">{user.email}</p>
+                        </div>
+                      </div>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem asChild>
+                        <Link to="/student-dashboard" className="flex items-center">
+                          <User className="mr-2 h-4 w-4" />
+                          <span>Dashboard</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/student-dashboard/profile" className="flex items-center">
+                          <User className="mr-2 h-4 w-4" />
+                          <span>Profile</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={handleSignOut} className="flex items-center">
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Sign Out</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               ) : (
                 <div className="flex items-center space-x-4">
@@ -326,9 +376,34 @@ const Navigation = () => {
 
               <div className="px-3 py-2 space-y-2">
                 {user ? (
-                  <Button onClick={handleSignOut} variant="outline" className="w-full">
-                    Sign Out
-                  </Button>
+                  <>
+                    <div className="flex items-center space-x-3 mb-3">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src="" alt={user.email} />
+                        <AvatarFallback className="bg-primary text-white">
+                          {getUserInitials()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-sm font-medium">{user.email}</span>
+                    </div>
+                    <Link
+                      to="/student-dashboard"
+                      className="block px-3 py-2 text-sm text-gray-600 hover:text-primary"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/student-dashboard/profile"
+                      className="block px-3 py-2 text-sm text-gray-600 hover:text-primary"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <Button onClick={handleSignOut} variant="outline" className="w-full">
+                      Sign Out
+                    </Button>
+                  </>
                 ) : (
                   <>
                     <Button variant="outline" className="w-full" asChild>

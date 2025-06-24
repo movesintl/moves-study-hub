@@ -4,18 +4,43 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [destinationsOpen, setDestinationsOpen] = useState(false);
   const location = useLocation();
   const { user, signOut } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
+  // Fetch destinations for the dropdown
+  const { data: destinations = [] } = useQuery({
+    queryKey: ['destinations'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('destinations')
+        .select('id, name')
+        .order('name');
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
   const navigationItems = [
     { name: 'Home', path: '/' },
     { name: 'Find a Course', path: '/courses' },
+    { 
+      name: 'Destinations', 
+      path: '/destinations',
+      submenu: destinations.map(dest => ({
+        name: dest.name,
+        path: `/destinations/${dest.id}`
+      }))
+    },
     { 
       name: 'Services', 
       path: '/services',
@@ -59,14 +84,20 @@ const Navigation = () => {
                 {item.submenu ? (
                   <div 
                     className="relative"
-                    onMouseEnter={() => setServicesOpen(true)}
-                    onMouseLeave={() => setServicesOpen(false)}
+                    onMouseEnter={() => {
+                      if (item.name === 'Services') setServicesOpen(true);
+                      if (item.name === 'Destinations') setDestinationsOpen(true);
+                    }}
+                    onMouseLeave={() => {
+                      if (item.name === 'Services') setServicesOpen(false);
+                      if (item.name === 'Destinations') setDestinationsOpen(false);
+                    }}
                   >
                     <button className="flex items-center text-gray-700 hover:text-primary transition-colors">
                       {item.name}
                       <ChevronDown className="ml-1 h-4 w-4" />
                     </button>
-                    {servicesOpen && (
+                    {((item.name === 'Services' && servicesOpen) || (item.name === 'Destinations' && destinationsOpen)) && (
                       <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
                         {item.submenu.map((subItem) => (
                           <Link

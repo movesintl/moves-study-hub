@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -20,6 +21,7 @@ import ApplicationAssistance from '@/pages/services/ApplicationAssistance';
 import ScholarshipGuidance from '@/pages/services/ScholarshipGuidance';
 import PreDepartureSupport from '@/pages/services/PreDepartureSupport';
 import UniversityDetails from '@/pages/UniversityDetails';
+import Destinations from '@/pages/Destinations';
 import DestinationDetails from '@/pages/DestinationDetails';
 import BlogDetails from '@/pages/BlogDetails';
 import CourseComparison from '@/pages/CourseComparison';
@@ -84,6 +86,7 @@ function App() {
               <Route path="services/scholarship-guidance" element={<ScholarshipGuidance />} />
               <Route path="services/pre-departure-support" element={<PreDepartureSupport />} />
               <Route path="universities/:id" element={<UniversityDetails />} />
+              <Route path="destinations" element={<Destinations />} />
               <Route path="destinations/:id" element={<DestinationDetails />} />
               <Route path="blogs/:id" element={<BlogDetails />} />
               <Route path="course-comparison" element={<CourseComparison />} />

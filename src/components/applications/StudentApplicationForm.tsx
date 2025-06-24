@@ -1,345 +1,359 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Combobox } from '@/components/ui/combobox';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Upload, FileText, X } from 'lucide-react';
+import { Upload, X } from 'lucide-react';
 
-interface ApplicationFormData {
-  student_name: string;
-  student_email: string;
-  student_phone: string;
-  date_of_birth: string;
-  nationality: string;
-  address: string;
-  course_id: string;
-  university_id: string;
-  destination_id: string;
-}
+const applicationSchema = z.object({
+  student_name: z.string().min(2, 'Name must be at least 2 characters'),
+  student_email: z.string().email('Please enter a valid email'),
+  student_phone: z.string().min(10, 'Phone number must be at least 10 characters'),
+  date_of_birth: z.string().optional(),
+  nationality: z.string().optional(),
+  address: z.string().optional(),
+  destination_id: z.string().min(1, 'Please select a destination'),
+  university_id: z.string().min(1, 'Please select a university'),
+  course_id: z.string().min(1, 'Please select a course'),
+});
+
+type ApplicationFormData = z.infer<typeof applicationSchema>;
 
 interface StudentApplicationFormProps {
+  editingApplication?: any;
   onSuccess?: () => void;
+  onCancel?: () => void;
 }
 
-const StudentApplicationForm = ({ onSuccess }: StudentApplicationFormProps) => {
+const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
+  editingApplication,
+  onSuccess,
+  onCancel,
+}) => {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  
-  const form = useForm<ApplicationFormData>({
-    defaultValues: {
-      student_name: '',
-      student_email: '',
-      student_phone: '',
-      date_of_birth: '',
-      nationality: '',
-      address: '',
-      course_id: '',
-      university_id: '',
-      destination_id: ''
-    }
+  const [loading, setLoading] = useState(false);
+  const [destinations, setDestinations] = useState<any[]>([]);
+  const [universities, setUniversities] = useState<any[]>([]);
+  const [courses, setCourses] = useState<any[]>([]);
+  const [filteredUniversities, setFilteredUniversities] = useState<any[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<any[]>([]);
+  const [documents, setDocuments] = useState<File[]>([]);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm<ApplicationFormData>({
+    resolver: zodResolver(applicationSchema),
+    defaultValues: editingApplication ? {
+      student_name: editingApplication.student_name,
+      student_email: editingApplication.student_email,
+      student_phone: editingApplication.student_phone,
+      date_of_birth: editingApplication.date_of_birth,
+      nationality: editingApplication.nationality,
+      address: editingApplication.address,
+      destination_id: editingApplication.destination_id,
+      university_id: editingApplication.university_id,
+      course_id: editingApplication.course_id,
+    } : {},
   });
 
-  // Fetch courses, universities, and destinations
-  const { data: courses = [] } = useQuery({
-    queryKey: ['courses'],
-    queryFn: async () => {
-      const { data, error } = await supabase.from('courses').select('*').order('title');
-      if (error) throw error;
-      return data;
-    }
-  });
+  const selectedDestination = watch('destination_id');
+  const selectedUniversity = watch('university_id');
 
-  const { data: universities = [] } = useQuery({
-    queryKey: ['universities'],
-    queryFn: async () => {
-      const { data, error } = await supabase.from('universities').select('*').order('name');
-      if (error) throw error;
-      return data;
-    }
-  });
+  useEffect(() => {
+    fetchDestinations();
+    fetchUniversities();
+    fetchCourses();
+  }, []);
 
-  const { data: destinations = [] } = useQuery({
-    queryKey: ['destinations'],
-    queryFn: async () => {
-      const { data, error } = await supabase.from('destinations').select('*').order('name');
-      if (error) throw error;
-      return data;
+  useEffect(() => {
+    if (selectedDestination) {
+      const filtered = universities.filter(uni => 
+        uni.location?.toLowerCase().includes(
+          destinations.find(dest => dest.id === selectedDestination)?.name?.toLowerCase() || ''
+        )
+      );
+      setFilteredUniversities(filtered);
+      setValue('university_id', '');
+      setValue('course_id', '');
+    } else {
+      setFilteredUniversities(universities);
     }
-  });
+  }, [selectedDestination, universities, destinations]);
+
+  useEffect(() => {
+    if (selectedUniversity) {
+      const filtered = courses.filter(course => course.university_id === selectedUniversity);
+      setFilteredCourses(filtered);
+      setValue('course_id', '');
+    } else {
+      setFilteredCourses(courses);
+    }
+  }, [selectedUniversity, courses]);
+
+  const fetchDestinations = async () => {
+    const { data } = await supabase.from('destinations').select('*').order('name');
+    setDestinations(data || []);
+  };
+
+  const fetchUniversities = async () => {
+    const { data } = await supabase.from('universities').select('*').order('name');
+    setUniversities(data || []);
+  };
+
+  const fetchCourses = async () => {
+    const { data } = await supabase.from('courses').select('*').order('title');
+    setCourses(data || []);
+  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    setUploadedFiles(prev => [...prev, ...files]);
+    setDocuments(prev => [...prev, ...files]);
   };
 
-  const removeFile = (index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+  const removeDocument = (index: number) => {
+    setDocuments(prev => prev.filter((_, i) => i !== index));
   };
 
   const onSubmit = async (data: ApplicationFormData) => {
-    setIsSubmitting(true);
-    
+    setLoading(true);
     try {
-      // For now, we'll store file names as documents (in a real app, you'd upload to storage)
-      const documents = uploadedFiles.map(file => ({
-        name: file.name,
-        size: file.size,
-        type: file.type
-      }));
+      const applicationData = {
+        ...data,
+        documents: documents.map(doc => ({
+          name: doc.name,
+          size: doc.size,
+          type: doc.type,
+        })),
+      };
 
-      const { error } = await supabase
-        .from('applications')
-        .insert({
-          ...data,
-          date_of_birth: data.date_of_birth || null,
-          documents: documents
+      if (editingApplication) {
+        const { error } = await supabase
+          .from('applications')
+          .update(applicationData)
+          .eq('id', editingApplication.id);
+
+        if (error) throw error;
+
+        toast({
+          title: "Success",
+          description: "Application updated successfully!",
         });
+      } else {
+        const { error } = await supabase
+          .from('applications')
+          .insert([applicationData]);
 
-      if (error) throw error;
+        if (error) throw error;
 
-      toast({
-        title: "Application Submitted",
-        description: "Your application has been submitted successfully. We'll contact you soon!",
-      });
+        toast({
+          title: "Success",
+          description: "Application submitted successfully!",
+        });
+        reset();
+        setDocuments([]);
+      }
 
-      form.reset();
-      setUploadedFiles([]);
       onSuccess?.();
     } catch (error) {
       console.error('Error submitting application:', error);
       toast({
         title: "Error",
         description: "Failed to submit application. Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
+
+  const destinationOptions = destinations.map(dest => ({
+    value: dest.id,
+    label: dest.name,
+  }));
+
+  const universityOptions = filteredUniversities.map(uni => ({
+    value: uni.id,
+    label: uni.name,
+  }));
+
+  const courseOptions = filteredCourses.map(course => ({
+    value: course.id,
+    label: course.title,
+  }));
 
   return (
     <Card className="max-w-4xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">Student Application Form</CardTitle>
+        <CardTitle>{editingApplication ? 'Edit Application' : 'Submit Your Course Application'}</CardTitle>
+        <CardDescription>
+          {editingApplication ? 'Update your application details below.' : 'Fill out the form below to apply for your desired course.'}
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Personal Information */}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Personal Information */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Personal Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="student_name"
-                rules={{ required: "Name is required" }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your full name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="student_email"
-                rules={{ 
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address"
-                  }
-                }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address *</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="Enter your email" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="student_phone"
-                rules={{ required: "Phone number is required" }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your phone number" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="date_of_birth"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Date of Birth</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="nationality"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nationality</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your nationality" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <FormField
-              control={form.control}
-              name="address"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Enter your complete address" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Course Selection */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <FormField
-                control={form.control}
-                name="destination_id"
-                rules={{ required: "Please select a destination" }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Destination *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select destination" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {destinations.map((destination) => (
-                          <SelectItem key={destination.id} value={destination.id}>
-                            {destination.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="university_id"
-                rules={{ required: "Please select a university" }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>University *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select university" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {universities.map((university) => (
-                          <SelectItem key={university.id} value={university.id}>
-                            {university.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="course_id"
-                rules={{ required: "Please select a course" }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Course *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select course" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {courses.map((course) => (
-                          <SelectItem key={course.id} value={course.id}>
-                            {course.title}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {/* Document Upload */}
-            <div className="space-y-4">
-              <Label>Upload Documents</Label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 mb-4">Upload your documents (transcripts, certificates, etc.)</p>
+              <div>
+                <Label htmlFor="student_name">Full Name *</Label>
                 <Input
+                  id="student_name"
+                  {...register('student_name')}
+                  className="mt-1"
+                />
+                {errors.student_name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.student_name.message}</p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="student_email">Email Address *</Label>
+                <Input
+                  id="student_email"
+                  type="email"
+                  {...register('student_email')}
+                  className="mt-1"
+                />
+                {errors.student_email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.student_email.message}</p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="student_phone">Phone Number *</Label>
+                <Input
+                  id="student_phone"
+                  {...register('student_phone')}
+                  className="mt-1"
+                />
+                {errors.student_phone && (
+                  <p className="text-red-500 text-sm mt-1">{errors.student_phone.message}</p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="date_of_birth">Date of Birth</Label>
+                <Input
+                  id="date_of_birth"
+                  type="date"
+                  {...register('date_of_birth')}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label htmlFor="nationality">Nationality</Label>
+                <Input
+                  id="nationality"
+                  {...register('nationality')}
+                  className="mt-1"
+                />
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="address">Address</Label>
+              <Textarea
+                id="address"
+                {...register('address')}
+                className="mt-1"
+                rows={3}
+              />
+            </div>
+          </div>
+
+          {/* Course Selection */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Course Selection</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <Label>Destination *</Label>
+                <Combobox
+                  options={destinationOptions}
+                  value={watch('destination_id')}
+                  onSelect={(value) => setValue('destination_id', value)}
+                  placeholder="Select destination..."
+                  searchPlaceholder="Search destinations..."
+                  className="w-full mt-1"
+                />
+                {errors.destination_id && (
+                  <p className="text-red-500 text-sm mt-1">{errors.destination_id.message}</p>
+                )}
+              </div>
+              <div>
+                <Label>University *</Label>
+                <Combobox
+                  options={universityOptions}
+                  value={watch('university_id')}
+                  onSelect={(value) => setValue('university_id', value)}
+                  placeholder="Select university..."
+                  searchPlaceholder="Search universities..."
+                  className="w-full mt-1"
+                />
+                {errors.university_id && (
+                  <p className="text-red-500 text-sm mt-1">{errors.university_id.message}</p>
+                )}
+              </div>
+              <div>
+                <Label>Course *</Label>
+                <Combobox
+                  options={courseOptions}
+                  value={watch('course_id')}
+                  onSelect={(value) => setValue('course_id', value)}
+                  placeholder="Select course..."
+                  searchPlaceholder="Search courses..."
+                  className="w-full mt-1"
+                />
+                {errors.course_id && (
+                  <p className="text-red-500 text-sm mt-1">{errors.course_id.message}</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Document Upload */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Document Upload</h3>
+            <div>
+              <Label htmlFor="documents">Upload Documents</Label>
+              <div className="mt-2">
+                <input
+                  id="documents"
                   type="file"
                   multiple
                   accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                   onChange={handleFileUpload}
-                  className="max-w-xs mx-auto"
+                  className="hidden"
                 />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => document.getElementById('documents')?.click()}
+                  className="w-full"
+                >
+                  <Upload className="h-4 w-4 mr-2" />
+                  Upload Documents
+                </Button>
               </div>
-              
-              {uploadedFiles.length > 0 && (
-                <div className="space-y-2">
-                  <Label>Uploaded Files:</Label>
-                  {uploadedFiles.map((file, index) => (
-                    <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
-                      <div className="flex items-center">
-                        <FileText className="h-4 w-4 mr-2 text-gray-500" />
-                        <span className="text-sm">{file.name}</span>
-                      </div>
+              {documents.length > 0 && (
+                <div className="mt-4 space-y-2">
+                  {documents.map((doc, index) => (
+                    <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                      <span className="text-sm">{doc.name}</span>
                       <Button
                         type="button"
                         variant="ghost"
                         size="sm"
-                        onClick={() => removeFile(index)}
+                        onClick={() => removeDocument(index)}
                       >
                         <X className="h-4 w-4" />
                       </Button>
@@ -348,12 +362,19 @@ const StudentApplicationForm = ({ onSuccess }: StudentApplicationFormProps) => {
                 </div>
               )}
             </div>
+          </div>
 
-            <Button type="submit" className="w-full h-12 text-lg" disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Submit Application"}
+          <div className="flex justify-end space-x-4">
+            {editingApplication && (
+              <Button type="button" variant="outline" onClick={onCancel}>
+                Cancel
+              </Button>
+            )}
+            <Button type="submit" disabled={loading}>
+              {loading ? 'Submitting...' : editingApplication ? 'Update Application' : 'Submit Application'}
             </Button>
-          </form>
-        </Form>
+          </div>
+        </form>
       </CardContent>
     </Card>
   );

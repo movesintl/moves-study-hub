@@ -4,10 +4,12 @@ import { Search, ArrowRight, Globe, GraduationCap, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Hero = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const backgroundPattern = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F5F5F5' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E";
 
@@ -102,6 +104,16 @@ const Hero = () => {
               >
                 Browse Courses
               </Button>
+              {!user && (
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  onClick={() => navigate('/auth')}
+                  className="border-white text-white hover:bg-white hover:text-primary"
+                >
+                  Login / Sign Up
+                </Button>
+              )}
             </div>
 
             {/* Stats */}

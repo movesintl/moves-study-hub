@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface Course {
   id: string;
@@ -38,6 +39,7 @@ interface Filters {
 
 const Courses = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState<Filters>({
     search: searchParams.get('search') || '',
@@ -93,17 +95,21 @@ const Courses = () => {
     }
   });
 
-  // Fetch saved courses
+  // Fetch saved courses - only if user is logged in
   const { data: savedCourses, refetch: refetchSaved } = useQuery({
-    queryKey: ['saved-courses-ids'],
+    queryKey: ['saved-courses-ids', user?.id],
     queryFn: async () => {
+      if (!user?.id) return [];
+      
       const { data, error } = await supabase
         .from('saved_courses')
-        .select('course_id');
+        .select('course_id')
+        .eq('user_id', user.id);
       
       if (error) throw error;
       return data.map(item => item.course_id);
-    }
+    },
+    enabled: !!user?.id
   });
 
   useEffect(() => {
@@ -113,13 +119,23 @@ const Courses = () => {
   }, [savedCourses]);
 
   const toggleSaveCourse = async (courseId: string) => {
+    if (!user?.id) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to save courses.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     const isSaved = savedCourseIds.has(courseId);
     
     if (isSaved) {
       const { error } = await supabase
         .from('saved_courses')
         .delete()
-        .eq('course_id', courseId);
+        .eq('course_id', courseId)
+        .eq('user_id', user.id);
       
       if (error) {
         toast({
@@ -142,7 +158,10 @@ const Courses = () => {
     } else {
       const { error } = await supabase
         .from('saved_courses')
-        .insert({ course_id: courseId, user_id: null });
+        .insert({ 
+          course_id: courseId, 
+          user_id: user.id 
+        });
       
       if (error) {
         toast({
@@ -154,7 +173,7 @@ const Courses = () => {
         setSavedCourseIds(prev => new Set(prev).add(courseId));
         toast({
           title: "Success",
-          description: "Course saved for comparison"
+          description: "Course saved successfully"
         });
         refetchSaved();
       }

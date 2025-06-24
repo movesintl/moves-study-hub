@@ -42,7 +42,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   const [currentlySaved, setCurrentlySaved] = useState(isSaved);
 
   const handleSaveToggle = async () => {
-    if (!user) {
+    if (!user?.id) {
       toast({
         title: "Authentication Required",
         description: "Please log in to save courses.",

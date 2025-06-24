@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -7,6 +6,8 @@ import { AuthProvider } from '@/contexts/AuthContext';
 
 import Layout from '@/components/layout/Layout';
 import Home from '@/pages/Home';
+import About from '@/pages/About';
+import Blogs from '@/pages/Blogs';
 import Courses from '@/pages/Courses';
 import CourseDetails from '@/pages/CourseDetails';
 import Services from '@/pages/Services';
@@ -58,6 +59,8 @@ function App() {
             <Route path="/admin/auth" element={<AdminAuth />} />
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
+              <Route path="about" element={<About />} />
+              <Route path="blogs" element={<Blogs />} />
               <Route path="courses" element={<Courses />} />
               <Route path="courses/:id" element={<CourseDetails />} />
               <Route path="services" element={<Services />} />

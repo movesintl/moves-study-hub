@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -19,10 +18,32 @@ const AdminAuth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      navigate('/admin');
-    }
-  }, [user, navigate]);
+    const checkExistingAdmin = async () => {
+      if (user) {
+        try {
+          const { data: userProfile, error } = await supabase
+            .from('user_profiles')
+            .select('role')
+            .eq('user_id', user.id)
+            .single();
+
+          if (!error && userProfile?.role === 'admin') {
+            navigate('/admin');
+          } else {
+            toast({
+              title: "Access Denied",
+              description: "You don't have admin privileges.",
+              variant: "destructive",
+            });
+          }
+        } catch (error) {
+          console.error('Error checking admin status:', error);
+        }
+      }
+    };
+
+    checkExistingAdmin();
+  }, [user, navigate, toast]);
 
   const handleAdminSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,12 +57,43 @@ const AdminAuth = () => {
         description: error.message,
         variant: "destructive",
       });
-    } else {
+      setLoading(false);
+      return;
+    }
+
+    // Check if user is admin after successful login
+    try {
+      const { data: { user: signedInUser } } = await supabase.auth.getUser();
+      
+      if (signedInUser) {
+        const { data: userProfile, error: profileError } = await supabase
+          .from('user_profiles')
+          .select('role')
+          .eq('user_id', signedInUser.id)
+          .single();
+
+        if (profileError || userProfile?.role !== 'admin') {
+          await supabase.auth.signOut();
+          toast({
+            title: "Access Denied",
+            description: "You don't have admin privileges.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Success",
+            description: "Successfully signed in as admin!",
+          });
+          navigate('/admin');
+        }
+      }
+    } catch (error) {
+      console.error('Error checking admin status after login:', error);
       toast({
-        title: "Success",
-        description: "Successfully signed in!",
+        title: "Error",
+        description: "Failed to verify admin privileges.",
+        variant: "destructive",
       });
-      navigate('/admin');
     }
     
     setLoading(false);

@@ -42,12 +42,14 @@ interface Application {
 
 interface StudentApplicationFormProps {
   editingApplication?: Application | null;
+  preselectedCourseId?: string | null;
   onSuccess: () => void;
   onCancel: () => void;
 }
 
 const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
   editingApplication,
+  preselectedCourseId,
   onSuccess,
   onCancel
 }) => {
@@ -61,7 +63,7 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
     date_of_birth: '',
     nationality: '',
     address: '',
-    course_id: '',
+    course_id: preselectedCourseId || '',
     university_id: '',
     destination_id: '',
   });
@@ -93,8 +95,24 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
         destination_id: editingApplication.destination_id || '',
       });
       setDocuments(editingApplication.documents || []);
+    } else if (preselectedCourseId) {
+      // Set preselected course and auto-populate related fields
+      setFormData(prev => ({ ...prev, course_id: preselectedCourseId }));
+      
+      // Find the course and auto-populate university and destination
+      const selectedCourse = courses.find(course => course.id === preselectedCourseId);
+      if (selectedCourse) {
+        const relatedUniversity = universities.find(uni => uni.name === selectedCourse.university);
+        const relatedDestination = destinations.find(dest => dest.name === selectedCourse.country);
+        
+        setFormData(prev => ({
+          ...prev,
+          university_id: relatedUniversity?.id || '',
+          destination_id: relatedDestination?.id || ''
+        }));
+      }
     }
-  }, [editingApplication]);
+  }, [editingApplication, preselectedCourseId, courses, universities, destinations]);
 
   const fetchCourses = async () => {
     try {
@@ -226,6 +244,11 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
         <CardTitle>{editingApplication ? 'Edit Application' : 'Submit New Application'}</CardTitle>
         <CardDescription>
           {editingApplication ? 'Update your course application details' : 'Apply for your desired course'}
+          {preselectedCourseId && !editingApplication && (
+            <span className="block text-primary font-medium mt-1">
+              Course pre-selected - complete your application below
+            </span>
+          )}
         </CardDescription>
       </CardHeader>
       <CardContent>

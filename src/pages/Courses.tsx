@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface Course {
@@ -40,6 +40,7 @@ interface Filters {
 const Courses = () => {
   const { toast } = useToast();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState<Filters>({
     search: searchParams.get('search') || '',
@@ -179,6 +180,41 @@ const Courses = () => {
       }
     }
   };
+
+  const handleApplyNow = (courseId: string) => {
+    if (!user) {
+      // Store the course ID in sessionStorage so we can redirect back after login
+      sessionStorage.setItem('pendingCourseApplication', courseId);
+      toast({
+        title: "Login Required",
+        description: "Please log in to apply for this course.",
+      });
+      navigate('/auth');
+      return;
+    }
+
+    // User is logged in, redirect to student dashboard applications page
+    navigate('/student-dashboard/applications', { 
+      state: { preselectedCourseId: courseId } 
+    });
+  };
+
+  // Check for pending course application after login
+  useEffect(() => {
+    if (user) {
+      const pendingCourseId = sessionStorage.getItem('pendingCourseApplication');
+      if (pendingCourseId) {
+        sessionStorage.removeItem('pendingCourseApplication');
+        toast({
+          title: "Ready to Apply",
+          description: "You can now complete your course application.",
+        });
+        navigate('/student-dashboard/applications', { 
+          state: { preselectedCourseId: pendingCourseId } 
+        });
+      }
+    }
+  }, [user, navigate, toast]);
 
   const resetFilters = () => {
     setFilters({
@@ -475,7 +511,10 @@ const Courses = () => {
                             View Details
                           </Button>
                         </Link>
-                        <Button className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <Button 
+                          onClick={() => handleApplyNow(course.id)}
+                          className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
+                        >
                           Apply Now
                         </Button>
                       </div>

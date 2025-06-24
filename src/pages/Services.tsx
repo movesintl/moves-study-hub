@@ -17,13 +17,13 @@ const Services = () => {
       link: '/services/consultation'
     },
     {
-      id: 'application',
+      id: 'application-assistance',
       icon: FileCheck,
       title: 'Application Assistance',
       description: 'Complete support for university and college applications',
       features: ['Document preparation', 'Application review', 'Submission tracking', 'Follow-up support'],
       color: 'bg-green-500',
-      link: '/services/application'
+      link: '/services/application-assistance'
     },
     {
       id: 'visa-migration',
@@ -35,31 +35,31 @@ const Services = () => {
       link: '/services/visa-migration'
     },
     {
-      id: 'ielts',
+      id: 'english-test-prep',
       icon: BookOpen,
-      title: 'IELTS Preparation',
-      description: 'Comprehensive IELTS training and test booking',
-      features: ['Online classes', 'Practice tests', 'Score guarantee', 'Flexible scheduling'],
+      title: 'English Test Preparation',
+      description: 'Comprehensive IELTS and PTE training and test booking',
+      features: ['IELTS & PTE classes', 'Practice tests', 'Score guarantee', 'Flexible scheduling'],
       color: 'bg-orange-500',
-      link: '/services/ielts'
+      link: '/services/english-test-prep'
     },
     {
-      id: 'scholarship',
+      id: 'scholarship-guidance',
       icon: Award,
       title: 'Scholarship Guidance',
       description: 'Find and apply for scholarships and financial aid',
       features: ['Scholarship search', 'Application help', 'Merit assessment', 'Funding strategies'],
       color: 'bg-red-500',
-      link: '/services/scholarship'
+      link: '/services/scholarship-guidance'
     },
     {
-      id: 'pre-departure',
+      id: 'pre-departure-support',
       icon: Users,
       title: 'Pre-Departure Support',
       description: 'Complete preparation for your journey abroad',
       features: ['Accommodation help', 'Travel guidance', 'Orientation sessions', 'Cultural preparation'],
       color: 'bg-teal-500',
-      link: '/services/pre-departure'
+      link: '/services/pre-departure-support'
     }
   ];
 

@@ -23,10 +23,10 @@ const Navigation = () => {
         { name: 'All Services', path: '/services' },
         { name: 'Consultation', path: '/services/consultation' },
         { name: 'Visa & Migration', path: '/services/visa-migration' },
-        { name: 'IELTS Prep', path: '/services/ielts' },
-        { name: 'Application Assistance', path: '/services/application' },
-        { name: 'Scholarship Guidance', path: '/services/scholarship' },
-        { name: 'Pre-Departure Support', path: '/services/pre-departure' }
+        { name: 'English Test Prep', path: '/services/english-test-prep' },
+        { name: 'Application Assistance', path: '/services/application-assistance' },
+        { name: 'Scholarship Guidance', path: '/services/scholarship-guidance' },
+        { name: 'Pre-Departure Support', path: '/services/pre-departure-support' }
       ]
     },
     { name: 'About Us', path: '/about' },

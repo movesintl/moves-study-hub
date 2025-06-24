@@ -2,6 +2,7 @@
 import React from 'react';
 import { MessageCircle, FileCheck, Plane, BookOpen, Award, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const ServicesOverview = () => {
   const services = [
@@ -11,7 +12,8 @@ const ServicesOverview = () => {
       description: 'Get personalized guidance from certified education consultants',
       features: ['Career counseling', 'Course selection', 'University matching'],
       color: 'bg-blue-500',
-      hoverColor: 'hover:bg-blue-600'
+      hoverColor: 'hover:bg-blue-600',
+      link: '/services/consultation'
     },
     {
       icon: FileCheck,
@@ -19,7 +21,8 @@ const ServicesOverview = () => {
       description: 'Complete support for university and college applications',
       features: ['Document preparation', 'Application review', 'Submission tracking'],
       color: 'bg-green-500',
-      hoverColor: 'hover:bg-green-600'
+      hoverColor: 'hover:bg-green-600',
+      link: '/services/application-assistance'
     },
     {
       icon: Plane,
@@ -27,15 +30,17 @@ const ServicesOverview = () => {
       description: 'Expert visa guidance and migration services',
       features: ['Visa application', 'Interview preparation', 'Post-study options'],
       color: 'bg-purple-500',
-      hoverColor: 'hover:bg-purple-600'
+      hoverColor: 'hover:bg-purple-600',
+      link: '/services/visa-migration'
     },
     {
       icon: BookOpen,
-      title: 'IELTS Preparation',
-      description: 'Comprehensive IELTS training and test booking',
-      features: ['Online classes', 'Practice tests', 'Score guarantee'],
+      title: 'English Test Prep',
+      description: 'Comprehensive IELTS and PTE training and test booking',
+      features: ['IELTS & PTE classes', 'Practice tests', 'Score guarantee'],
       color: 'bg-orange-500',
-      hoverColor: 'hover:bg-orange-600'
+      hoverColor: 'hover:bg-orange-600',
+      link: '/services/english-test-prep'
     },
     {
       icon: Award,
@@ -43,7 +48,8 @@ const ServicesOverview = () => {
       description: 'Find and apply for scholarships and financial aid',
       features: ['Scholarship search', 'Application help', 'Merit assessment'],
       color: 'bg-red-500',
-      hoverColor: 'hover:bg-red-600'
+      hoverColor: 'hover:bg-red-600',
+      link: '/services/scholarship-guidance'
     },
     {
       icon: Users,
@@ -51,7 +57,8 @@ const ServicesOverview = () => {
       description: 'Complete preparation for your journey abroad',
       features: ['Accommodation help', 'Travel guidance', 'Orientation sessions'],
       color: 'bg-teal-500',
-      hoverColor: 'hover:bg-teal-600'
+      hoverColor: 'hover:bg-teal-600',
+      link: '/services/pre-departure-support'
     }
   ];
 
@@ -103,8 +110,9 @@ const ServicesOverview = () => {
                 <Button 
                   variant="outline" 
                   className="w-full group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-colors"
+                  asChild
                 >
-                  Learn More
+                  <Link to={service.link}>Learn More</Link>
                 </Button>
               </div>
             );
@@ -122,11 +130,11 @@ const ServicesOverview = () => {
               towards your international education goals.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-white">
-                Book Free Consultation
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-white" asChild>
+                <Link to="/services/consultation">Book Free Consultation</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                Download Course Guide
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
+                <Link to="/contact">Download Course Guide</Link>
               </Button>
             </div>
           </div>

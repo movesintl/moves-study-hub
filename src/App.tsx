@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -14,7 +15,8 @@ import Services from '@/pages/Services';
 import ServiceDetails from '@/pages/ServiceDetails';
 import Consultation from '@/pages/services/Consultation';
 import VisaMigration from '@/pages/services/VisaMigration';
-import IeltsPreparation from '@/pages/services/IeltsPreparation';
+import EnglishTestPrep from '@/pages/services/EnglishTestPrep';
+import ApplicationAssistance from '@/pages/services/ApplicationAssistance';
 import ScholarshipGuidance from '@/pages/services/ScholarshipGuidance';
 import PreDepartureSupport from '@/pages/services/PreDepartureSupport';
 import UniversityDetails from '@/pages/UniversityDetails';
@@ -67,7 +69,8 @@ function App() {
               <Route path="services/:id" element={<ServiceDetails />} />
               <Route path="services/consultation" element={<Consultation />} />
               <Route path="services/visa-migration" element={<VisaMigration />} />
-              <Route path="services/ielts-preparation" element={<IeltsPreparation />} />
+              <Route path="services/english-test-prep" element={<EnglishTestPrep />} />
+              <Route path="services/application-assistance" element={<ApplicationAssistance />} />
               <Route path="services/scholarship-guidance" element={<ScholarshipGuidance />} />
               <Route path="services/pre-departure-support" element={<PreDepartureSupport />} />
               <Route path="universities/:id" element={<UniversityDetails />} />

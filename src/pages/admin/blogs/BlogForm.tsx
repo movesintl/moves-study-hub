@@ -100,8 +100,12 @@ const BlogForm = () => {
         setSelectedCategories(blog.blog_category_assignments.map((assignment: any) => assignment.category_id));
       }
 
-      // Set FAQs
-      setFaqs(blog.faqs || []);
+      // Set FAQs - properly handle the Json type conversion
+      if (blog.faqs && Array.isArray(blog.faqs)) {
+        setFaqs(blog.faqs as FAQItem[]);
+      } else {
+        setFaqs([]);
+      }
     }
   }, [blog]);
 
@@ -173,6 +177,9 @@ const BlogForm = () => {
     setLoading(true);
 
     try {
+      // Prepare FAQ data as Json compatible format
+      const faqsJson = faqs.filter(faq => faq.question.trim() && faq.answer.trim());
+      
       const blogData = {
         title: formData.title,
         content: formData.content,
@@ -185,7 +192,7 @@ const BlogForm = () => {
         meta_description: formData.meta_description || null,
         focus_keywords: formData.focus_keywords ? formData.focus_keywords.split(',').map(kw => kw.trim()).filter(Boolean) : [],
         slug: formData.slug || generateSlug(formData.title),
-        faqs: faqs.filter(faq => faq.question.trim() && faq.answer.trim()),
+        faqs: faqsJson as any, // Cast to any to satisfy Json type
       };
 
       let blogId = id;

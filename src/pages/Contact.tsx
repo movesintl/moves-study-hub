@@ -120,6 +120,34 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
+      {/* Google Map Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-primary">
+          <div className="p-8 pb-0">
+            <h3 className="text-2xl font-bold text-primary mb-4">
+              Find Us on the Map
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Visit our offices worldwide. We're here to help you with your study abroad journey.
+            </p>
+          </div>
+          
+          <div className="relative h-96 w-full">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29506204.446354628!2d57.328125!3d23.725011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDEwJzAuMCJOIDgwwrAwMCcwLjAiRQ!5e0!3m2!1sen!2s!4v1625097600000!5m2!1sen!2s"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Our Office Locations"
+              className="rounded-b-2xl"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

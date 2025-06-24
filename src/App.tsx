@@ -21,6 +21,8 @@ import BlogDetails from '@/pages/BlogDetails';
 import CourseComparison from '@/pages/CourseComparison';
 import Auth from '@/pages/Auth';
 import NotFound from '@/pages/NotFound';
+import Contact from '@/pages/Contact';
+import ContactSubmissions from '@/pages/ContactSubmissions';
 
 import AdminLayout from '@/components/admin/AdminLayout';
 import Dashboard from '@/pages/admin/Dashboard';
@@ -68,6 +70,7 @@ function App() {
               <Route path="destinations/:id" element={<DestinationDetails />} />
               <Route path="blogs/:id" element={<BlogDetails />} />
               <Route path="course-comparison" element={<CourseComparison />} />
+              <Route path="contact" element={<Contact />} />
             </Route>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
@@ -93,6 +96,7 @@ function App() {
               <Route path="blogs/:id/edit" element={<BlogForm />} />
               <Route path="blogs/categories" element={<BlogCategoriesManager />} />
               <Route path="media" element={<MediaLibrary />} />
+              <Route path="contact" element={<ContactSubmissions />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

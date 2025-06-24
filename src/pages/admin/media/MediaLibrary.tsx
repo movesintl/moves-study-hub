@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Upload, Search, Folder, Image, FileText, Video, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,12 +17,17 @@ const MediaLibrary = () => {
   const { data: mediaFiles = [], isLoading, refetch } = useQuery({
     queryKey: ['media-files'],
     queryFn: async () => {
+      console.log('Fetching media files...');
       const { data, error } = await supabase
         .from('media_files')
         .select('*')
         .order('created_at', { ascending: false });
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching media files:', error);
+        throw error;
+      }
+      console.log('Media files fetched:', data);
       return data;
     }
   });
@@ -33,21 +37,43 @@ const MediaLibrary = () => {
     if (!file) return;
 
     try {
+      console.log('Starting file upload...');
+      
+      // Check authentication
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      if (authError || !user) {
+        throw new Error('User not authenticated');
+      }
+      console.log('User authenticated:', user.id);
+
       // Upload to Supabase Storage
       const fileExt = file.name.split('.').pop();
       const fileName = `${Date.now()}.${fileExt}`;
-      const filePath = `${selectedFolder}/${fileName}`;
+      const folder = selectedFolder === 'all' ? 'general' : selectedFolder;
+      const filePath = `${folder}/${fileName}`;
 
-      const { error: uploadError } = await supabase.storage
+      console.log('Uploading to path:', filePath);
+      
+      const { data: uploadData, error: uploadError } = await supabase.storage
         .from('media')
-        .upload(filePath, file);
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        throw uploadError;
+      }
+
+      console.log('Upload successful:', uploadData);
 
       // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from('media')
         .getPublicUrl(filePath);
+
+      console.log('Public URL:', publicUrl);
 
       // Save file info to database
       const { error: dbError } = await supabase
@@ -58,10 +84,14 @@ const MediaLibrary = () => {
           file_type: file.type.startsWith('image/') ? 'image' : 
                     file.type.startsWith('video/') ? 'video' : 'document',
           file_size: file.size,
-          folder: selectedFolder === 'all' ? 'general' : selectedFolder
+          folder: folder,
+          uploaded_by: user.email || 'unknown'
         });
 
-      if (dbError) throw dbError;
+      if (dbError) {
+        console.error('Database error:', dbError);
+        throw dbError;
+      }
 
       toast({
         title: "Success",
@@ -71,6 +101,7 @@ const MediaLibrary = () => {
       refetch();
       event.target.value = '';
     } catch (error: any) {
+      console.error('Upload failed:', error);
       toast({
         title: "Error",
         description: error.message || "Failed to upload file",
@@ -83,11 +114,22 @@ const MediaLibrary = () => {
     if (!confirm('Are you sure you want to delete this file?')) return;
 
     try {
+      // Extract the file path from the URL
+      const urlParts = file.file_url.split('/');
+      const bucketIndex = urlParts.findIndex(part => part === 'media');
+      const filePath = urlParts.slice(bucketIndex + 1).join('/');
+      
+      console.log('Deleting file at path:', filePath);
+
       // Delete from storage
-      const filePath = file.file_url.split('/').pop();
-      await supabase.storage
+      const { error: storageError } = await supabase.storage
         .from('media')
-        .remove([`${file.folder}/${filePath}`]);
+        .remove([filePath]);
+
+      if (storageError) {
+        console.error('Storage deletion error:', storageError);
+        // Continue with database deletion even if storage deletion fails
+      }
 
       // Delete from database
       const { error } = await supabase
@@ -104,6 +146,7 @@ const MediaLibrary = () => {
 
       refetch();
     } catch (error: any) {
+      console.error('Delete failed:', error);
       toast({
         title: "Error",
         description: error.message || "Failed to delete file",

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Plus, FileText, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
@@ -63,7 +62,12 @@ const Applications = () => {
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data as Application[];
+      
+      // Transform the data to match our Application interface
+      return (data || []).map(app => ({
+        ...app,
+        documents: (app.documents as unknown as { name: string; size: number; type: string }[]) || []
+      })) as Application[];
     },
     enabled: !!user?.id
   });

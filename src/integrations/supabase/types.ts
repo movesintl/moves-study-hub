@@ -103,15 +103,57 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_category_assignments: {
+        Row: {
+          blog_id: string | null
+          category_id: string | null
+          created_at: string | null
+          id: string
+        }
+        Insert: {
+          blog_id?: string | null
+          category_id?: string | null
+          created_at?: string | null
+          id?: string
+        }
+        Update: {
+          blog_id?: string | null
+          category_id?: string | null
+          created_at?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_category_assignments_blog_id_fkey"
+            columns: ["blog_id"]
+            isOneToOne: false
+            referencedRelation: "blogs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blog_category_assignments_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "blog_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blogs: {
         Row: {
           author: string | null
           category_id: string | null
           content: string | null
           created_at: string
+          faqs: Json | null
+          featured_image_alt: string | null
           featured_image_url: string | null
+          focus_keywords: string[] | null
           id: string
+          meta_description: string | null
+          meta_title: string | null
           published: boolean | null
+          slug: string | null
           tags: string[] | null
           title: string
           updated_at: string
@@ -121,9 +163,15 @@ export type Database = {
           category_id?: string | null
           content?: string | null
           created_at?: string
+          faqs?: Json | null
+          featured_image_alt?: string | null
           featured_image_url?: string | null
+          focus_keywords?: string[] | null
           id?: string
+          meta_description?: string | null
+          meta_title?: string | null
           published?: boolean | null
+          slug?: string | null
           tags?: string[] | null
           title: string
           updated_at?: string
@@ -133,9 +181,15 @@ export type Database = {
           category_id?: string | null
           content?: string | null
           created_at?: string
+          faqs?: Json | null
+          featured_image_alt?: string | null
           featured_image_url?: string | null
+          focus_keywords?: string[] | null
           id?: string
+          meta_description?: string | null
+          meta_title?: string | null
           published?: boolean | null
+          slug?: string | null
           tags?: string[] | null
           title?: string
           updated_at?: string

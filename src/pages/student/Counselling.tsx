@@ -27,11 +27,23 @@ interface CounsellingBooking {
   created_at: string;
 }
 
+interface Destination {
+  id: string;
+  name: string;
+}
+
+interface StudyLevel {
+  id: string;
+  name: string;
+}
+
 const Counselling = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [bookings, setBookings] = useState<CounsellingBooking[]>([]);
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [studyLevels, setStudyLevels] = useState<StudyLevel[]>([]);
   const [formData, setFormData] = useState({
     student_name: '',
     student_phone: '',
@@ -45,6 +57,8 @@ const Counselling = () => {
   useEffect(() => {
     if (user) {
       fetchBookings();
+      fetchDestinations();
+      fetchStudyLevels();
     }
   }, [user]);
 
@@ -56,7 +70,16 @@ const Counselling = () => {
         .eq('student_email', user?.email)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching bookings:', error);
+        toast({
+          title: "Error",
+          description: "Failed to fetch your counselling bookings.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
       setBookings(data || []);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -68,12 +91,49 @@ const Counselling = () => {
     }
   };
 
+  const fetchDestinations = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('destinations')
+        .select('id, name')
+        .order('name');
+
+      if (error) throw error;
+      setDestinations(data || []);
+    } catch (error) {
+      console.error('Error fetching destinations:', error);
+    }
+  };
+
+  const fetchStudyLevels = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('course_study_levels')
+        .select('id, name')
+        .order('name');
+
+      if (error) throw error;
+      setStudyLevels(data || []);
+    } catch (error) {
+      console.error('Error fetching study levels:', error);
+    }
+  };
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user?.email) {
+      toast({
+        title: "Error",
+        description: "You must be logged in to book counselling.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -82,7 +142,7 @@ const Counselling = () => {
         .insert([
           {
             ...formData,
-            student_email: user?.email,
+            student_email: user.email,
           }
         ]);
 
@@ -177,12 +237,11 @@ const Counselling = () => {
                     <SelectValue placeholder="Select a destination" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="australia">Australia</SelectItem>
-                    <SelectItem value="canada">Canada</SelectItem>
-                    <SelectItem value="uk">United Kingdom</SelectItem>
-                    <SelectItem value="usa">United States</SelectItem>
-                    <SelectItem value="new-zealand">New Zealand</SelectItem>
-                    <SelectItem value="germany">Germany</SelectItem>
+                    {destinations.map((destination) => (
+                      <SelectItem key={destination.id} value={destination.name}>
+                        {destination.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -194,10 +253,11 @@ const Counselling = () => {
                     <SelectValue placeholder="Select study level" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="undergraduate">Undergraduate</SelectItem>
-                    <SelectItem value="postgraduate">Postgraduate</SelectItem>
-                    <SelectItem value="diploma">Diploma</SelectItem>
-                    <SelectItem value="certificate">Certificate</SelectItem>
+                    {studyLevels.map((level) => (
+                      <SelectItem key={level.id} value={level.name}>
+                        {level.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

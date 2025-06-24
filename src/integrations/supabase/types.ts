@@ -9,6 +9,82 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      applications: {
+        Row: {
+          address: string | null
+          course_id: string | null
+          created_at: string
+          date_of_birth: string | null
+          destination_id: string | null
+          documents: Json | null
+          id: string
+          nationality: string | null
+          notes: string | null
+          status: string | null
+          student_email: string
+          student_name: string
+          student_phone: string
+          university_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          course_id?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          destination_id?: string | null
+          documents?: Json | null
+          id?: string
+          nationality?: string | null
+          notes?: string | null
+          status?: string | null
+          student_email: string
+          student_name: string
+          student_phone: string
+          university_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          course_id?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          destination_id?: string | null
+          documents?: Json | null
+          id?: string
+          nationality?: string | null
+          notes?: string | null
+          status?: string | null
+          student_email?: string
+          student_name?: string
+          student_phone?: string
+          university_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applications_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_destination_id_fkey"
+            columns: ["destination_id"]
+            isOneToOne: false
+            referencedRelation: "destinations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_categories: {
         Row: {
           created_at: string

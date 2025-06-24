@@ -8,7 +8,8 @@ import {
   FileText,
   Image,
   Users,
-  Mail
+  Mail,
+  ClipboardList
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -35,6 +36,7 @@ export const menuItems: MenuItem[] = [
   },
   { name: 'Universities', href: '/admin/universities', icon: Building2 },
   { name: 'Destinations', href: '/admin/destinations', icon: MapPin },
+  { name: 'Applications', href: '/admin/applications', icon: ClipboardList },
   { name: 'Services', href: '/admin/services', icon: Settings },
   { 
     name: 'Blogs', 

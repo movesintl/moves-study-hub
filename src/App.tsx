@@ -11,6 +11,7 @@ import About from '@/pages/About';
 import Blogs from '@/pages/Blogs';
 import Courses from '@/pages/Courses';
 import CourseDetails from '@/pages/CourseDetails';
+import StudentDashboard from '@/pages/StudentDashboard';
 import Services from '@/pages/Services';
 import ServiceDetails from '@/pages/ServiceDetails';
 import Consultation from '@/pages/services/Consultation';
@@ -48,6 +49,7 @@ import AdminAuth from '@/pages/admin/AdminAuth';
 import StudyAreasManager from '@/pages/admin/courses/StudyAreasManager';
 import StudyLevelsManager from '@/pages/admin/courses/StudyLevelsManager';
 import BlogCategoriesManager from '@/pages/admin/blogs/BlogCategoriesManager';
+import ApplicationsList from '@/pages/admin/applications/ApplicationsList';
 
 const queryClient = new QueryClient();
 
@@ -65,6 +67,7 @@ function App() {
               <Route path="blogs" element={<Blogs />} />
               <Route path="courses" element={<Courses />} />
               <Route path="courses/:id" element={<CourseDetails />} />
+              <Route path="student-dashboard" element={<StudentDashboard />} />
               <Route path="services" element={<Services />} />
               <Route path="services/:id" element={<ServiceDetails />} />
               <Route path="services/consultation" element={<Consultation />} />
@@ -95,6 +98,7 @@ function App() {
               <Route path="destinations" element={<DestinationsList />} />
               <Route path="destinations/new" element={<DestinationForm />} />
               <Route path="destinations/:id/edit" element={<DestinationForm />} />
+              <Route path="applications" element={<ApplicationsList />} />
               <Route path="services" element={<ServicesList />} />
               <Route path="services/new" element={<ServiceForm />} />
               <Route path="services/:id/edit" element={<ServiceForm />} />

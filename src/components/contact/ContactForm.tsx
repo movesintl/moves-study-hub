@@ -72,12 +72,12 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="name">Full Name *</Label>
+          <Label htmlFor="name" className="text-primary font-medium">Full Name *</Label>
           <Input
             id="name"
             placeholder="John Doe"
             {...register('name')}
-            className={errors.name ? 'border-red-500' : ''}
+            className={`focus:ring-2 focus:ring-primary/20 focus:border-primary ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.name && (
             <p className="text-sm text-red-500">{errors.name.message}</p>
@@ -85,13 +85,13 @@ const ContactForm = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email Address *</Label>
+          <Label htmlFor="email" className="text-primary font-medium">Email Address *</Label>
           <Input
             id="email"
             type="email"
             placeholder="john@example.com"
             {...register('email')}
-            className={errors.email ? 'border-red-500' : ''}
+            className={`focus:ring-2 focus:ring-primary/20 focus:border-primary ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.email && (
             <p className="text-sm text-red-500">{errors.email.message}</p>
@@ -101,21 +101,22 @@ const ContactForm = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
+          <Label htmlFor="phone" className="text-primary font-medium">Phone Number</Label>
           <Input
             id="phone"
-            placeholder="+61 xxx xxx xxx"
+            placeholder="+977 xxx xxx xxx / +880 xxx xxx xxx"
             {...register('phone')}
+            className="focus:ring-2 focus:ring-primary/20 focus:border-primary border-gray-300"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="subject">Subject *</Label>
+          <Label htmlFor="subject" className="text-primary font-medium">Subject *</Label>
           <Input
             id="subject"
             placeholder="Course inquiry"
             {...register('subject')}
-            className={errors.subject ? 'border-red-500' : ''}
+            className={`focus:ring-2 focus:ring-primary/20 focus:border-primary ${errors.subject ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.subject && (
             <p className="text-sm text-red-500">{errors.subject.message}</p>
@@ -124,13 +125,13 @@ const ContactForm = () => {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="message">Message *</Label>
+        <Label htmlFor="message" className="text-primary font-medium">Message *</Label>
         <Textarea
           id="message"
           placeholder="Tell us about your study abroad goals, questions, or how we can help you..."
           rows={6}
           {...register('message')}
-          className={errors.message ? 'border-red-500' : ''}
+          className={`focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none ${errors.message ? 'border-red-500' : 'border-gray-300'}`}
         />
         {errors.message && (
           <p className="text-sm text-red-500">{errors.message.message}</p>
@@ -140,7 +141,7 @@ const ContactForm = () => {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 text-lg font-semibold"
+        className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white py-3 text-lg font-semibold transition-all duration-200"
       >
         {isSubmitting ? (
           <>

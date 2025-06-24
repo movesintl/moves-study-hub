@@ -60,6 +60,41 @@ const StudentAuthGuard: React.FC<StudentAuthGuardProps> = ({ children }) => {
     checkStudentAccess();
   }, [user, authLoading, navigate]);
 
+  // Auto-assign user role to new users who don't have a profile
+  useEffect(() => {
+    const createUserProfile = async () => {
+      if (!user || authLoading) return;
+
+      try {
+        const { data: existingProfile, error: checkError } = await supabase
+          .from('user_profiles')
+          .select('id')
+          .eq('user_id', user.id)
+          .single();
+
+        if (checkError && checkError.code === 'PGRST116') {
+          // User doesn't have a profile, create one with 'user' role
+          const { error: insertError } = await supabase
+            .from('user_profiles')
+            .insert([
+              {
+                user_id: user.id,
+                role: 'user'
+              }
+            ]);
+
+          if (insertError) {
+            console.error('Error creating user profile:', insertError);
+          }
+        }
+      } catch (error) {
+        console.error('Error in profile creation:', error);
+      }
+    };
+
+    createUserProfile();
+  }, [user, authLoading]);
+
   if (authLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">

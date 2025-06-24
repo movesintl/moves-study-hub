@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, X, MapPin, Clock, DollarSign, Calendar, GraduationCap, Heart, BarChart3, Grid, List } from 'lucide-react';
+import { Search, Filter, X, MapPin, Clock, DollarSign, Calendar, GraduationCap, Heart, BarChart3, Grid, List, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -371,14 +370,14 @@ const Courses = () => {
         ) : (
           <>
             {/* Course Cards */}
-            <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+            <div className={`grid gap-8 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
               {courses.map((course) => (
-                <Card key={course.id} className={`group hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:-translate-y-1 relative overflow-hidden ${viewMode === 'list' ? 'flex flex-col md:flex-row' : ''}`}>
+                <Card key={course.id} className={`group hover:shadow-2xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-2 relative overflow-hidden bg-white/80 backdrop-blur-sm ${viewMode === 'list' ? 'flex flex-col md:flex-row' : ''}`}>
                   {/* Featured Badge */}
                   {course.featured && (
                     <div className="absolute top-4 right-4 z-10">
-                      <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold">
-                        Featured
+                      <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold shadow-lg">
+                        ✨ Featured
                       </Badge>
                     </div>
                   )}
@@ -387,7 +386,7 @@ const Courses = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className={`absolute top-4 left-4 z-10 bg-white/80 backdrop-blur-sm hover:bg-white ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
+                    className={`absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm hover:bg-white shadow-md rounded-full h-10 w-10 p-0 ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
                     onClick={() => toggleSaveCourse(course.id)}
                   >
                     <Heart className={`h-5 w-5 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
@@ -395,51 +394,53 @@ const Courses = () => {
 
                   {/* Course Image */}
                   <div className={`${viewMode === 'list' ? 'md:w-64 md:flex-shrink-0' : ''}`}>
-                    <div className="h-48 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                      <GraduationCap className="h-16 w-16 text-primary/40" />
+                    <div className="h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5 flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100"></div>
+                      <GraduationCap className="h-16 w-16 text-primary/60 relative z-10" />
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent/20 to-transparent rounded-full transform translate-x-16 -translate-y-16"></div>
                     </div>
                   </div>
                   
                   <div className="flex-1">
                     <CardHeader className="pb-4">
-                      <CardTitle className="text-xl font-bold leading-tight group-hover:text-primary transition-colors">
+                      <CardTitle className="text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">
                         {course.title}
                       </CardTitle>
                       <div className="flex items-center text-gray-600 mt-2">
-                        <MapPin className="h-4 w-4 mr-2 text-primary" />
-                        <span className="font-medium">{course.university}</span>
-                        <span className="mx-2">•</span>
-                        <span>{course.country}</span>
+                        <MapPin className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
+                        <span className="font-medium truncate">{course.university}</span>
+                        <span className="mx-2 text-gray-400">•</span>
+                        <span className="text-gray-500">{course.country}</span>
                       </div>
                     </CardHeader>
                     
-                    <CardContent className="space-y-4">
-                      <p className="text-gray-600 line-clamp-2">{course.description}</p>
+                    <CardContent className="space-y-5">
+                      <p className="text-gray-600 line-clamp-2 leading-relaxed">{course.description}</p>
                       
                       <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline" className="font-medium">
+                        <Badge variant="outline" className="font-medium bg-primary/5 text-primary border-primary/20">
                           {course.level}
                         </Badge>
-                        <Badge variant="outline" className="font-medium">
+                        <Badge variant="outline" className="font-medium bg-accent/5 text-accent border-accent/20">
                           {course.study_area}
                         </Badge>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                        <div className="flex items-center">
-                          <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                          <span>{formatDuration(course.duration_months)}</span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                        <div className="flex items-center p-2 bg-gray-50 rounded-lg">
+                          <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                          <span className="font-medium">{formatDuration(course.duration_months)}</span>
                         </div>
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                          <span>Intakes: {course.intake_dates?.join(', ')}</span>
+                        <div className="flex items-center p-2 bg-gray-50 rounded-lg">
+                          <Calendar className="h-4 w-4 mr-2 text-gray-500" />
+                          <span className="truncate">Intakes: {course.intake_dates?.join(', ')}</span>
                         </div>
                       </div>
 
-                      <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-4 rounded-lg">
+                      <div className="bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 p-4 rounded-xl border border-primary/10">
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="text-sm text-gray-600">Tuition Fee</div>
+                            <div className="text-sm text-gray-600 font-medium">Tuition Fee</div>
                             <div className="font-bold text-lg text-primary">
                               {formatTuitionFee(course.tuition_fee_min, course.tuition_fee_max, course.currency)}
                             </div>
@@ -448,9 +449,17 @@ const Courses = () => {
                         </div>
                       </div>
 
-                      <Button className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold h-12">
-                        Apply Now
-                      </Button>
+                      <div className="flex gap-3 pt-2">
+                        <Link to={`/courses/${course.id}`} className="flex-1">
+                          <Button variant="outline" className="w-full h-11 font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                            <Eye className="h-4 w-4 mr-2" />
+                            View Details
+                          </Button>
+                        </Link>
+                        <Button className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300">
+                          Apply Now
+                        </Button>
+                      </div>
                     </CardContent>
                   </div>
                 </Card>

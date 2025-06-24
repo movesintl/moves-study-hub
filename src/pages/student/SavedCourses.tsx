@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Heart, Trash2, ExternalLink, Clock, MapPin } from 'lucide-react';
+import { Heart, Trash2, ExternalLink, Clock, MapPin, GitCompare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface SavedCourse {
@@ -120,6 +119,14 @@ const SavedCourses = () => {
           <h1 className="text-2xl font-bold text-gray-900">Saved Courses</h1>
           <p className="text-gray-600">Your wishlist of courses to apply for</p>
         </div>
+        {savedCourses.length > 1 && (
+          <Button asChild variant="outline">
+            <Link to="/course-comparison">
+              <GitCompare className="h-4 w-4 mr-2" />
+              Compare Courses
+            </Link>
+          </Button>
+        )}
       </div>
 
       {savedCourses.length === 0 ? (

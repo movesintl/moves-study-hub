@@ -8,14 +8,14 @@ const EnglishTestPrep = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-accent text-white py-16">
+      <div className="bg-gradient-to-r from-orange-600 to-orange-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">English Test Preparation</h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Master IELTS and PTE with our comprehensive preparation programs
             </p>
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100">
               Start Your Preparation
             </Button>
           </div>
@@ -33,7 +33,7 @@ const EnglishTestPrep = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card className="group hover:shadow-xl transition-all duration-300">
               <CardHeader>
-                <CardTitle className="text-2xl text-primary">IELTS Preparation</CardTitle>
+                <CardTitle className="text-2xl text-orange-600">IELTS Preparation</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-6">
@@ -57,13 +57,13 @@ const EnglishTestPrep = () => {
                     <span>Mock tests with detailed feedback</span>
                   </li>
                 </ul>
-                <Button className="w-full">Choose IELTS Prep</Button>
+                <Button className="w-full bg-orange-500 hover:bg-orange-600">Choose IELTS Prep</Button>
               </CardContent>
             </Card>
 
             <Card className="group hover:shadow-xl transition-all duration-300">
               <CardHeader>
-                <CardTitle className="text-2xl text-primary">PTE Preparation</CardTitle>
+                <CardTitle className="text-2xl text-orange-600">PTE Preparation</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-6">
@@ -87,7 +87,7 @@ const EnglishTestPrep = () => {
                     <span>Fast results and score reporting</span>
                   </li>
                 </ul>
-                <Button className="w-full">Choose PTE Prep</Button>
+                <Button className="w-full bg-orange-500 hover:bg-orange-600">Choose PTE Prep</Button>
               </CardContent>
             </Card>
           </div>
@@ -105,7 +105,7 @@ const EnglishTestPrep = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card>
               <CardHeader>
-                <Target className="h-10 w-10 text-primary mb-4" />
+                <Target className="h-10 w-10 text-orange-500 mb-4" />
                 <CardTitle>Targeted Practice</CardTitle>
               </CardHeader>
               <CardContent>
@@ -117,7 +117,7 @@ const EnglishTestPrep = () => {
 
             <Card>
               <CardHeader>
-                <Users className="h-10 w-10 text-primary mb-4" />
+                <Users className="h-10 w-10 text-orange-500 mb-4" />
                 <CardTitle>Expert Instructors</CardTitle>
               </CardHeader>
               <CardContent>
@@ -129,7 +129,7 @@ const EnglishTestPrep = () => {
 
             <Card>
               <CardHeader>
-                <BookOpen className="h-10 w-10 text-primary mb-4" />
+                <BookOpen className="h-10 w-10 text-orange-500 mb-4" />
                 <CardTitle>Comprehensive Materials</CardTitle>
               </CardHeader>
               <CardContent>
@@ -141,7 +141,7 @@ const EnglishTestPrep = () => {
 
             <Card>
               <CardHeader>
-                <Clock className="h-10 w-10 text-primary mb-4" />
+                <Clock className="h-10 w-10 text-orange-500 mb-4" />
                 <CardTitle>Flexible Schedule</CardTitle>
               </CardHeader>
               <CardContent>
@@ -153,7 +153,7 @@ const EnglishTestPrep = () => {
 
             <Card>
               <CardHeader>
-                <Award className="h-10 w-10 text-primary mb-4" />
+                <Award className="h-10 w-10 text-orange-500 mb-4" />
                 <CardTitle>Score Guarantee</CardTitle>
               </CardHeader>
               <CardContent>
@@ -165,7 +165,7 @@ const EnglishTestPrep = () => {
 
             <Card>
               <CardHeader>
-                <CheckCircle className="h-10 w-10 text-primary mb-4" />
+                <CheckCircle className="h-10 w-10 text-orange-500 mb-4" />
                 <CardTitle>Proven Results</CardTitle>
               </CardHeader>
               <CardContent>
@@ -194,21 +194,21 @@ const EnglishTestPrep = () => {
               <CardContent>
                 <p className="text-gray-600 mb-2">6-8 weeks program</p>
                 <p className="text-gray-600 mb-4">40+ hours of training</p>
-                <p className="text-2xl font-bold text-primary mb-4">$299</p>
-                <Button className="w-full">Enroll Now</Button>
+                <p className="text-2xl font-bold text-orange-600 mb-4">$299</p>
+                <Button className="w-full bg-orange-500 hover:bg-orange-600">Enroll Now</Button>
               </CardContent>
             </Card>
 
-            <Card className="border-primary border-2">
+            <Card className="border-orange-500 border-2">
               <CardHeader>
                 <CardTitle>Intensive Course</CardTitle>
-                <div className="bg-primary text-white text-xs px-2 py-1 rounded-full w-fit">POPULAR</div>
+                <div className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full w-fit">POPULAR</div>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-2">3-4 weeks program</p>
                 <p className="text-gray-600 mb-4">60+ hours of training</p>
-                <p className="text-2xl font-bold text-primary mb-4">$399</p>
-                <Button className="w-full">Enroll Now</Button>
+                <p className="text-2xl font-bold text-orange-600 mb-4">$399</p>
+                <Button className="w-full bg-orange-500 hover:bg-orange-600">Enroll Now</Button>
               </CardContent>
             </Card>
 
@@ -219,8 +219,8 @@ const EnglishTestPrep = () => {
               <CardContent>
                 <p className="text-gray-600 mb-2">Personalized training</p>
                 <p className="text-gray-600 mb-4">Flexible schedule</p>
-                <p className="text-2xl font-bold text-primary mb-4">$599</p>
-                <Button className="w-full">Enroll Now</Button>
+                <p className="text-2xl font-bold text-orange-600 mb-4">$599</p>
+                <Button className="w-full bg-orange-500 hover:bg-orange-600">Enroll Now</Button>
               </CardContent>
             </Card>
           </div>
@@ -228,17 +228,17 @@ const EnglishTestPrep = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-primary text-white py-16">
+      <div className="bg-orange-600 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Achieve Your Target Score?</h2>
           <p className="text-xl mb-8">
             Join thousands of successful students who achieved their English test goals with us.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100">
               Book Free Assessment
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-orange-600">
               Download Study Guide
             </Button>
           </div>

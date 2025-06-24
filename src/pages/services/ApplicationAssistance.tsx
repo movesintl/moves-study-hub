@@ -8,14 +8,14 @@ const ApplicationAssistance = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-accent text-white py-16">
+      <div className="bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Application Assistance</h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Complete support for university and college applications with expert guidance
             </p>
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100">
               Get Started
             </Button>
           </div>
@@ -33,7 +33,7 @@ const ApplicationAssistance = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card>
               <CardHeader>
-                <FileText className="h-10 w-10 text-primary mb-4" />
+                <FileText className="h-10 w-10 text-green-500 mb-4" />
                 <CardTitle>Document Preparation</CardTitle>
               </CardHeader>
               <CardContent>
@@ -45,7 +45,7 @@ const ApplicationAssistance = () => {
 
             <Card>
               <CardHeader>
-                <Upload className="h-10 w-10 text-primary mb-4" />
+                <Upload className="h-10 w-10 text-green-500 mb-4" />
                 <CardTitle>Application Submission</CardTitle>
               </CardHeader>
               <CardContent>
@@ -57,7 +57,7 @@ const ApplicationAssistance = () => {
 
             <Card>
               <CardHeader>
-                <UserCheck className="h-10 w-10 text-primary mb-4" />
+                <UserCheck className="h-10 w-10 text-green-500 mb-4" />
                 <CardTitle>Profile Enhancement</CardTitle>
               </CardHeader>
               <CardContent>
@@ -69,7 +69,7 @@ const ApplicationAssistance = () => {
 
             <Card>
               <CardHeader>
-                <Clock className="h-10 w-10 text-primary mb-4" />
+                <Clock className="h-10 w-10 text-green-500 mb-4" />
                 <CardTitle>Timeline Management</CardTitle>
               </CardHeader>
               <CardContent>
@@ -81,7 +81,7 @@ const ApplicationAssistance = () => {
 
             <Card>
               <CardHeader>
-                <Globe className="h-10 w-10 text-primary mb-4" />
+                <Globe className="h-10 w-10 text-green-500 mb-4" />
                 <CardTitle>Multi-Country Applications</CardTitle>
               </CardHeader>
               <CardContent>
@@ -93,7 +93,7 @@ const ApplicationAssistance = () => {
 
             <Card>
               <CardHeader>
-                <CheckCircle className="h-10 w-10 text-primary mb-4" />
+                <CheckCircle className="h-10 w-10 text-green-500 mb-4" />
                 <CardTitle>Quality Assurance</CardTitle>
               </CardHeader>
               <CardContent>
@@ -116,25 +116,25 @@ const ApplicationAssistance = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+              <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
               <h3 className="text-xl font-semibold mb-2">Initial Consultation</h3>
               <p className="text-gray-600">Assess your profile and discuss application strategy</p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+              <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
               <h3 className="text-xl font-semibold mb-2">Document Collection</h3>
               <p className="text-gray-600">Gather and prepare all required documents</p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+              <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
               <h3 className="text-xl font-semibold mb-2">Application Preparation</h3>
               <p className="text-gray-600">Complete applications with expert guidance</p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+              <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
               <h3 className="text-xl font-semibold mb-2">Submission & Follow-up</h3>
               <p className="text-gray-600">Submit applications and track progress</p>
             </div>
@@ -193,7 +193,7 @@ const ApplicationAssistance = () => {
                     <span className="font-semibold">92%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-primary h-2 rounded-full" style={{ width: '92%' }}></div>
+                    <div className="bg-green-500 h-2 rounded-full" style={{ width: '92%' }}></div>
                   </div>
                 </div>
 
@@ -203,7 +203,7 @@ const ApplicationAssistance = () => {
                     <span className="font-semibold">68%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-primary h-2 rounded-full" style={{ width: '68%' }}></div>
+                    <div className="bg-green-500 h-2 rounded-full" style={{ width: '68%' }}></div>
                   </div>
                 </div>
 
@@ -213,7 +213,7 @@ const ApplicationAssistance = () => {
                     <span className="font-semibold">98%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-primary h-2 rounded-full" style={{ width: '98%' }}></div>
+                    <div className="bg-green-500 h-2 rounded-full" style={{ width: '98%' }}></div>
                   </div>
                 </div>
               </div>
@@ -223,17 +223,17 @@ const ApplicationAssistance = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-primary text-white py-16">
+      <div className="bg-green-600 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Start Your Applications?</h2>
           <p className="text-xl mb-8">
             Let our experts guide you through every step of the application process.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100">
               Book Consultation
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-600">
               Download Checklist
             </Button>
           </div>

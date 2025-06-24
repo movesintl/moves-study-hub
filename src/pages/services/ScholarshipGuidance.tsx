@@ -8,14 +8,14 @@ const ScholarshipGuidance = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-accent text-white py-16">
+      <div className="bg-gradient-to-r from-red-600 to-red-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Scholarship Guidance</h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Unlock funding opportunities and make your education dreams affordable
             </p>
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100">
               Find Scholarships
             </Button>
           </div>
@@ -33,7 +33,7 @@ const ScholarshipGuidance = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card>
               <CardHeader>
-                <Search className="h-10 w-10 text-primary mb-4" />
+                <Search className="h-10 w-10 text-red-500 mb-4" />
                 <CardTitle>Scholarship Search</CardTitle>
               </CardHeader>
               <CardContent>
@@ -45,7 +45,7 @@ const ScholarshipGuidance = () => {
 
             <Card>
               <CardHeader>
-                <FileText className="h-10 w-10 text-primary mb-4" />
+                <FileText className="h-10 w-10 text-red-500 mb-4" />
                 <CardTitle>Application Support</CardTitle>
               </CardHeader>
               <CardContent>
@@ -57,7 +57,7 @@ const ScholarshipGuidance = () => {
 
             <Card>
               <CardHeader>
-                <Award className="h-10 w-10 text-primary mb-4" />
+                <Award className="h-10 w-10 text-red-500 mb-4" />
                 <CardTitle>Merit Assessment</CardTitle>
               </CardHeader>
               <CardContent>
@@ -69,7 +69,7 @@ const ScholarshipGuidance = () => {
 
             <Card>
               <CardHeader>
-                <Globe className="h-10 w-10 text-primary mb-4" />
+                <Globe className="h-10 w-10 text-red-500 mb-4" />
                 <CardTitle>Country-Specific Guidance</CardTitle>
               </CardHeader>
               <CardContent>
@@ -81,7 +81,7 @@ const ScholarshipGuidance = () => {
 
             <Card>
               <CardHeader>
-                <DollarSign className="h-10 w-10 text-primary mb-4" />
+                <DollarSign className="h-10 w-10 text-red-500 mb-4" />
                 <CardTitle>Financial Planning</CardTitle>
               </CardHeader>
               <CardContent>
@@ -93,7 +93,7 @@ const ScholarshipGuidance = () => {
 
             <Card>
               <CardHeader>
-                <CheckCircle className="h-10 w-10 text-primary mb-4" />
+                <CheckCircle className="h-10 w-10 text-red-500 mb-4" />
                 <CardTitle>Success Tracking</CardTitle>
               </CardHeader>
               <CardContent>
@@ -223,7 +223,7 @@ const ScholarshipGuidance = () => {
       </div>
 
       {/* Success Stats */}
-      <div className="bg-primary text-white py-16">
+      <div className="bg-red-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Our Success Record</h2>
@@ -259,10 +259,10 @@ const ScholarshipGuidance = () => {
             Don't let finances hold you back from your education dreams. Let us help you find and secure scholarships.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
+            <Button size="lg" className="bg-red-600 hover:bg-red-700">
               Book Free Consultation
             </Button>
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
+            <Button size="lg" variant="outline" className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
               View Scholarship Database
             </Button>
           </div>

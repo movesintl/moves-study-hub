@@ -8,14 +8,14 @@ const PreDepartureSupport = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-accent text-white py-16">
+      <div className="bg-gradient-to-r from-teal-600 to-teal-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Pre-Departure Support</h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Complete guidance to prepare you for your journey abroad with confidence
             </p>
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-teal-600 hover:bg-gray-100">
               Get Started
             </Button>
           </div>
@@ -33,7 +33,7 @@ const PreDepartureSupport = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card>
               <CardHeader>
-                <Plane className="h-10 w-10 text-primary mb-4" />
+                <Plane className="h-10 w-10 text-teal-500 mb-4" />
                 <CardTitle>Travel Planning</CardTitle>
               </CardHeader>
               <CardContent>
@@ -45,7 +45,7 @@ const PreDepartureSupport = () => {
 
             <Card>
               <CardHeader>
-                <Home className="h-10 w-10 text-primary mb-4" />
+                <Home className="h-10 w-10 text-teal-500 mb-4" />
                 <CardTitle>Accommodation</CardTitle>
               </CardHeader>
               <CardContent>
@@ -57,7 +57,7 @@ const PreDepartureSupport = () => {
 
             <Card>
               <CardHeader>
-                <CreditCard className="h-10 w-10 text-primary mb-4" />
+                <CreditCard className="h-10 w-10 text-teal-500 mb-4" />
                 <CardTitle>Banking & Finance</CardTitle>
               </CardHeader>
               <CardContent>
@@ -69,7 +69,7 @@ const PreDepartureSupport = () => {
 
             <Card>
               <CardHeader>
-                <FileText className="h-10 w-10 text-primary mb-4" />
+                <FileText className="h-10 w-10 text-teal-500 mb-4" />
                 <CardTitle>Documentation</CardTitle>
               </CardHeader>
               <CardContent>
@@ -81,7 +81,7 @@ const PreDepartureSupport = () => {
 
             <Card>
               <CardHeader>
-                <Users className="h-10 w-10 text-primary mb-4" />
+                <Users className="h-10 w-10 text-teal-500 mb-4" />
                 <CardTitle>Cultural Orientation</CardTitle>
               </CardHeader>
               <CardContent>
@@ -93,7 +93,7 @@ const PreDepartureSupport = () => {
 
             <Card>
               <CardHeader>
-                <MapPin className="h-10 w-10 text-primary mb-4" />
+                <MapPin className="h-10 w-10 text-teal-500 mb-4" />
                 <CardTitle>Local Guidance</CardTitle>
               </CardHeader>
               <CardContent>
@@ -295,17 +295,17 @@ const PreDepartureSupport = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-primary text-white py-16">
+      <div className="bg-teal-600 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready for Your Journey?</h2>
           <p className="text-xl mb-8">
             Don't leave anything to chance. Let our experts guide you through every step of your pre-departure preparation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-teal-600 hover:bg-gray-100">
               Book Consultation
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600">
               Download Checklist
             </Button>
           </div>

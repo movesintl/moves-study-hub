@@ -1,16 +1,16 @@
-
 import React from 'react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import ContactForm from '@/components/contact/ContactForm';
 
 const Contact = () => {
-  const offices = [
-    {
-      country: "Nepal",
-      address: "Education Hub Building, Kathmandu 44600, Nepal",
-      phone: "+977 1 234 5678",
-      email: "nepal@studyabroad.com"
-    },
+  const nepalOffice = {
+    country: "Nepal",
+    address: "Education Hub Building, Kathmandu 44600, Nepal",
+    phone: "+977 1 234 5678",
+    email: "nepal@studyabroad.com"
+  };
+
+  const otherOffices = [
     {
       country: "Bangladesh",
       address: "Study Center, Dhaka 1000, Bangladesh", 
@@ -62,34 +62,32 @@ const Contact = () => {
               </p>
             </div>
 
-            {/* Office Locations */}
+            {/* Nepal Office */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-primary mb-4">Our Offices</h3>
+              <h3 className="text-2xl font-semibold text-primary mb-4">Our Main Office</h3>
               
-              {offices.map((office, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary">
-                  <h4 className="text-lg font-semibold text-primary mb-4">{office.country}</h4>
+              <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary">
+                <h4 className="text-lg font-semibold text-primary mb-4">{nepalOffice.country}</h4>
+                
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <MapPin className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
+                    <p className="text-gray-600">{nepalOffice.address}</p>
+                  </div>
                   
-                  <div className="space-y-3">
-                    <div className="flex items-start space-x-3">
-                      <MapPin className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
-                      <p className="text-gray-600">{office.address}</p>
-                    </div>
-                    
-                    <div className="flex items-center space-x-3">
-                      <Phone className="h-5 w-5 text-accent flex-shrink-0" />
-                      <p className="text-gray-600">{office.phone}</p>
-                    </div>
-                    
-                    <div className="flex items-center space-x-3">
-                      <Mail className="h-5 w-5 text-accent flex-shrink-0" />
-                      <p className="text-gray-600">{office.email}</p>
-                    </div>
+                  <div className="flex items-center space-x-3">
+                    <Phone className="h-5 w-5 text-accent flex-shrink-0" />
+                    <p className="text-gray-600">{nepalOffice.phone}</p>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <Mail className="h-5 w-5 text-accent flex-shrink-0" />
+                    <p className="text-gray-600">{nepalOffice.email}</p>
                   </div>
                 </div>
-              ))}
+              </div>
 
-              {/* General Office Hours */}
+              {/* Office Hours */}
               <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-accent">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
@@ -118,6 +116,43 @@ const Contact = () => {
             </h3>
             <ContactForm />
           </div>
+        </div>
+      </div>
+
+      {/* Other Offices Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Our Global Offices
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            We have offices worldwide to serve you better. Visit us at any of our locations for personalized assistance.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {otherOffices.map((office, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-md p-6 border-t-4 border-primary hover:shadow-lg transition-shadow">
+              <h4 className="text-lg font-semibold text-primary mb-4">{office.country}</h4>
+              
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
+                  <MapPin className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
+                  <p className="text-gray-600 text-sm">{office.address}</p>
+                </div>
+                
+                <div className="flex items-center space-x-3">
+                  <Phone className="h-5 w-5 text-accent flex-shrink-0" />
+                  <p className="text-gray-600 text-sm">{office.phone}</p>
+                </div>
+                
+                <div className="flex items-center space-x-3">
+                  <Mail className="h-5 w-5 text-accent flex-shrink-0" />
+                  <p className="text-gray-600 text-sm">{office.email}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

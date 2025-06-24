@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Hero from '@/components/common/Hero';
 import CountryCards from '@/components/common/CountryCards';
@@ -5,6 +6,7 @@ import WhyChooseUs from '@/components/common/WhyChooseUs';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 import ServicesOverview from '@/components/common/ServicesOverview';
 import Testimonials from '@/components/common/Testimonials';
+import CounsellingPopup from '@/components/common/CounsellingPopup';
 
 const Home = () => {
   return (
@@ -32,6 +34,9 @@ const Home = () => {
       <div className="bg-gradient-to-b from-gray-50 to-primary/5">
         <Testimonials />
       </div>
+
+      {/* Counselling Popup */}
+      <CounsellingPopup />
     </div>
   );
 };

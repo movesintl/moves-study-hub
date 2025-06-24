@@ -189,7 +189,10 @@ export type Database = {
       counselling_bookings: {
         Row: {
           admin_notes: string | null
+          course_interest: string | null
           created_at: string
+          current_education_level: string | null
+          english_test_score: string | null
           id: string
           message: string | null
           preferred_date: string | null
@@ -201,10 +204,14 @@ export type Database = {
           student_phone: string
           study_level: string | null
           updated_at: string
+          work_experience: string | null
         }
         Insert: {
           admin_notes?: string | null
+          course_interest?: string | null
           created_at?: string
+          current_education_level?: string | null
+          english_test_score?: string | null
           id?: string
           message?: string | null
           preferred_date?: string | null
@@ -216,10 +223,14 @@ export type Database = {
           student_phone: string
           study_level?: string | null
           updated_at?: string
+          work_experience?: string | null
         }
         Update: {
           admin_notes?: string | null
+          course_interest?: string | null
           created_at?: string
+          current_education_level?: string | null
+          english_test_score?: string | null
           id?: string
           message?: string | null
           preferred_date?: string | null
@@ -231,6 +242,7 @@ export type Database = {
           student_phone?: string
           study_level?: string | null
           updated_at?: string
+          work_experience?: string | null
         }
         Relationships: []
       }

@@ -86,15 +86,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.removeItem('supabase.auth.token');
       sessionStorage.clear();
       
-      // Force redirect with a small delay to ensure cleanup
-      setTimeout(() => {
-        window.location.href = '/';
-      }, 100);
-      
     } catch (error) {
       console.error('Sign out error:', error);
-      // Force redirect even if there's an error
-      window.location.href = '/';
     }
   };
 

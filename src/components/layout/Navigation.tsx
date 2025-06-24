@@ -81,6 +81,7 @@ const Navigation = () => {
 
   const handleSignOut = async () => {
     await signOut();
+    // The AuthContext now handles the redirect, so we don't need to do anything here
   };
 
   return (

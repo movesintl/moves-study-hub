@@ -3,17 +3,12 @@ import React, { useEffect } from 'react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import StudentLayout from '@/components/student/StudentLayout';
+import StudentAuthGuard from '@/components/student/StudentAuthGuard';
 
 const StudentDashboard = () => {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate('/auth');
-    }
-  }, [user, loading, navigate]);
 
   // Redirect to dashboard home if on the base route
   useEffect(() => {
@@ -22,18 +17,12 @@ const StudentDashboard = () => {
     }
   }, [user, location.pathname, navigate]);
 
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  }
-
-  if (!user) {
-    return null;
-  }
-
   return (
-    <StudentLayout>
-      <Outlet />
-    </StudentLayout>
+    <StudentAuthGuard>
+      <StudentLayout>
+        <Outlet />
+      </StudentLayout>
+    </StudentAuthGuard>
   );
 };
 

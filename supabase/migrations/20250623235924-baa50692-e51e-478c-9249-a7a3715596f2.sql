@@ -29,3 +29,47 @@ ON public.media_files
 FOR DELETE 
 TO authenticated 
 USING (true);
+
+-- Ensure storage policies exist for the media bucket (ignore if they already exist)
+DO $$
+BEGIN
+  -- Check if policies exist, create if they don't
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies 
+    WHERE schemaname = 'storage' 
+    AND tablename = 'objects' 
+    AND policyname = 'Authenticated users can upload to media bucket'
+  ) THEN
+    CREATE POLICY "Authenticated users can upload to media bucket" 
+    ON storage.objects 
+    FOR INSERT 
+    TO authenticated 
+    WITH CHECK (bucket_id = 'media');
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies 
+    WHERE schemaname = 'storage' 
+    AND tablename = 'objects' 
+    AND policyname = 'Authenticated users can view media bucket'
+  ) THEN
+    CREATE POLICY "Authenticated users can view media bucket" 
+    ON storage.objects 
+    FOR SELECT 
+    TO authenticated 
+    USING (bucket_id = 'media');
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies 
+    WHERE schemaname = 'storage' 
+    AND tablename = 'objects' 
+    AND policyname = 'Authenticated users can delete from media bucket'
+  ) THEN
+    CREATE POLICY "Authenticated users can delete from media bucket" 
+    ON storage.objects 
+    FOR DELETE 
+    TO authenticated 
+    USING (bucket_id = 'media');
+  END IF;
+END $$;

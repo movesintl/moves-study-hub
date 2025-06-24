@@ -39,13 +39,13 @@ const StudentAuthGuard: React.FC<StudentAuthGuardProps> = ({ children }) => {
         } else {
           const userRole = userProfile?.role;
           
-          // Allow access if user has no role (default student) or explicitly has student role
-          // Block access if user is admin
-          const hasStudentAccess = !userRole || userRole === 'student';
+          // Allow access if user has no role (default user) or explicitly has user role
+          // Block access if user is admin or editor
+          const hasStudentAccess = !userRole || userRole === 'user';
           setIsAuthorized(hasStudentAccess);
 
-          if (!hasStudentAccess && userRole === 'admin') {
-            // Redirect admin users to admin panel
+          if (!hasStudentAccess && (userRole === 'admin' || userRole === 'editor')) {
+            // Redirect admin/editor users to admin panel
             navigate('/admin');
           }
         }

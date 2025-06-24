@@ -93,7 +93,7 @@ const BlogDetails = () => {
   }
 
   const categories = blog.blog_category_assignments?.map((assignment: any) => assignment.blog_categories) || [];
-  const faqs = (blog.faqs && Array.isArray(blog.faqs)) ? blog.faqs as FAQItem[] : [];
+  const faqs = (blog.faqs && Array.isArray(blog.faqs)) ? blog.faqs as unknown as FAQItem[] : [];
   const readingTime = blog.content ? getReadingTime(blog.content) : 0;
 
   return (

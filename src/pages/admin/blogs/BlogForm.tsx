@@ -102,7 +102,7 @@ const BlogForm = () => {
 
       // Set FAQs - properly handle the Json type conversion
       if (blog.faqs && Array.isArray(blog.faqs)) {
-        setFaqs(blog.faqs as FAQItem[]);
+        setFaqs(blog.faqs as unknown as FAQItem[]);
       } else {
         setFaqs([]);
       }

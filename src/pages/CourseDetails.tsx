@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, MapPin, Clock, DollarSign, Calendar, ArrowLeft, GraduationCap, BookOpen, Users, Award, CheckCircle, Globe } from 'lucide-react';
+import { ExternalLink, MapPin, Clock, DollarSign, Calendar, ArrowLeft, GraduationCap, BookOpen, Users, Award, CheckCircle, Globe, BarChart3 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 const CourseDetails = () => {

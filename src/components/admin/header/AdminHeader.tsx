@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ChevronDown, Users, Settings, LogOut } from 'lucide-react';
@@ -11,11 +10,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from '@/contexts/AuthContext';
 import { menuItems } from '../config/menuItems';
 
 const AdminHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { signOut } = useAuth();
 
   const getCurrentPageTitle = () => {
     const currentItem = menuItems.find(item => {
@@ -31,6 +32,10 @@ const AdminHeader = () => {
     }
     
     return currentItem?.name || 'Dashboard';
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
   };
 
   return (
@@ -83,7 +88,7 @@ const AdminHeader = () => {
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => navigate('/auth')} className="cursor-pointer hover:bg-red-50 text-red-600">
+            <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer hover:bg-red-50 text-red-600">
               <LogOut className="mr-2 h-4 w-4" />
               Logout
             </DropdownMenuItem>

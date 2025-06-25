@@ -5,6 +5,7 @@ import CountryCards from '@/components/common/CountryCards';
 import WhyChooseUs from '@/components/common/WhyChooseUs';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 import ServicesOverview from '@/components/common/ServicesOverview';
+import PopularCourses from '@/components/common/PopularCourses';
 import Testimonials from '@/components/common/Testimonials';
 import CounsellingPopup from '@/components/common/CounsellingPopup';
 
@@ -29,6 +30,11 @@ const Home = () => {
       
       <div className="bg-white">
         <ServicesOverview />
+      </div>
+      
+      {/* Popular Courses Section */}
+      <div className="bg-gradient-to-b from-white to-gray-50">
+        <PopularCourses />
       </div>
       
       <div className="bg-gradient-to-b from-gray-50 to-primary/5">

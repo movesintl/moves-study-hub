@@ -21,9 +21,9 @@ const LeadEnquiryForm = () => {
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="grid lg:grid-cols-2 items-start">
-          {/* Left Column - Form and Text */}
-          <div className="space-y-8">
+        <div className="grid lg:grid-cols-3 gap-12 items-start">
+          {/* Left Column - Form and Text (2/3 width) */}
+          <div className="lg:col-span-2 space-y-8">
             {/* Header Text */}
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -74,7 +74,7 @@ const LeadEnquiryForm = () => {
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full h-12 text-lg bg-primary hover:bg-primary/90 text-white rounded-full font-semibold shadow-lg"
+                  className="w-full h-12 text-lg bg-primary hover:bg-primary/90 text-white rounded-full font-semibold"
                 >
                   {loading ? 'Submitting...' : 'Get Free Counselling'}
                 </Button>
@@ -94,17 +94,13 @@ const LeadEnquiryForm = () => {
             </div>
           </div>
 
-          {/* Right Column - Image with Abstract Shapes */}
-          <div className="relative flex items-center justify-center lg:justify-end">
-            {/* Abstract Background Shapes */}
-
-
-            {/* Main Image */}
-            <div className="relative z-10 max-w-md">
+          {/* Right Column - Image Only (1/3 width) */}
+          <div className="lg:col-span-1 flex items-center justify-center">
+            <div className="max-w-sm w-full">
               <img
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
                 alt="Student with mobile device - international education consultation"
-                className="w-full h-auto rounded-3xl shadow-2xl object-cover"
+                className="w-full h-auto rounded-3xl object-cover"
               />
             </div>
           </div>

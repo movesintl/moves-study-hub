@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -8,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import MediaSelector from '@/components/admin/MediaSelector';
+import { Plus, Trash2 } from 'lucide-react';
 
 const DestinationForm = () => {
   const navigate = useNavigate();
@@ -21,6 +23,9 @@ const DestinationForm = () => {
     featured_image_url: '',
     visa_info: '',
     lifestyle_info: '',
+    slug: '',
+    why_study_points: [] as string[],
+    job_market_points: [] as string[],
   });
 
   const [loading, setLoading] = useState(false);
@@ -50,19 +55,40 @@ const DestinationForm = () => {
         featured_image_url: destination.featured_image_url || '',
         visa_info: destination.visa_info || '',
         lifestyle_info: destination.lifestyle_info || '',
+        slug: destination.slug || '',
+        why_study_points: destination.why_study_points || [],
+        job_market_points: destination.job_market_points || [],
       });
     }
   }, [destination]);
+
+  // Generate slug from name
+  const generateSlug = (name: string) => {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim('-');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      // Auto-generate slug if not provided
+      const slug = formData.slug || generateSlug(formData.name);
+      
+      const dataToSubmit = {
+        ...formData,
+        slug,
+      };
+
       if (isEditing) {
         const { error } = await supabase
           .from('destinations')
-          .update(formData)
+          .update(dataToSubmit)
           .eq('id', id);
 
         if (error) throw error;
@@ -74,7 +100,7 @@ const DestinationForm = () => {
       } else {
         const { error } = await supabase
           .from('destinations')
-          .insert([formData]);
+          .insert([dataToSubmit]);
 
         if (error) throw error;
 
@@ -98,25 +124,73 @@ const DestinationForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: value,
+      // Auto-generate slug when name changes
+      ...(name === 'name' && !prev.slug ? { slug: generateSlug(value) } : {})
+    }));
   };
 
   const handleImageChange = (value: string) => {
     setFormData(prev => ({ ...prev, featured_image_url: value }));
   };
 
+  const addWhyStudyPoint = () => {
+    setFormData(prev => ({
+      ...prev,
+      why_study_points: [...prev.why_study_points, '']
+    }));
+  };
+
+  const removeWhyStudyPoint = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      why_study_points: prev.why_study_points.filter((_, i) => i !== index)
+    }));
+  };
+
+  const updateWhyStudyPoint = (index: number, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      why_study_points: prev.why_study_points.map((point, i) => i === index ? value : point)
+    }));
+  };
+
+  const addJobMarketPoint = () => {
+    setFormData(prev => ({
+      ...prev,
+      job_market_points: [...prev.job_market_points, '']
+    }));
+  };
+
+  const removeJobMarketPoint = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      job_market_points: prev.job_market_points.filter((_, i) => i !== index)
+    }));
+  };
+
+  const updateJobMarketPoint = (index: number, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      job_market_points: prev.job_market_points.map((point, i) => i === index ? value : point)
+    }));
+  };
+
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6">
       <h1 className="text-3xl font-bold">
         {isEditing ? 'Edit Destination' : 'Add New Destination'}
       </h1>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Destination Details</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Basic Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Basic Information</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
             <div>
               <Label htmlFor="name">Destination Name *</Label>
               <Input
@@ -127,6 +201,21 @@ const DestinationForm = () => {
                 required
                 className="mt-1"
               />
+            </div>
+
+            <div>
+              <Label htmlFor="slug">URL Slug</Label>
+              <Input
+                id="slug"
+                name="slug"
+                value={formData.slug}
+                onChange={handleChange}
+                className="mt-1"
+                placeholder="e.g., australia, united-kingdom"
+              />
+              <p className="text-sm text-gray-500 mt-1">
+                This will be auto-generated from the name if left empty
+              </p>
             </div>
 
             <div>
@@ -148,7 +237,87 @@ const DestinationForm = () => {
               label="Featured Image"
               placeholder="https://example.com/image.jpg"
             />
+          </CardContent>
+        </Card>
 
+        {/* Why Study Points */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Why Study in {formData.name || 'This Destination'}?</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {formData.why_study_points.map((point, index) => (
+              <div key={index} className="flex gap-2">
+                <Input
+                  value={point}
+                  onChange={(e) => updateWhyStudyPoint(index, e.target.value)}
+                  placeholder="Enter a reason to study here..."
+                  className="flex-1"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => removeWhyStudyPoint(index)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={addWhyStudyPoint}
+              className="w-full"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add Why Study Point
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Job Market Points */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Job Market & Career Opportunities</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {formData.job_market_points.map((point, index) => (
+              <div key={index} className="flex gap-2">
+                <Input
+                  value={point}
+                  onChange={(e) => updateJobMarketPoint(index, e.target.value)}
+                  placeholder="Enter job market information..."
+                  className="flex-1"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => removeJobMarketPoint(index)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={addJobMarketPoint}
+              className="w-full"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add Job Market Point
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Additional Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Additional Information</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
             <div>
               <Label htmlFor="visa_info">Visa Information</Label>
               <textarea
@@ -174,22 +343,22 @@ const DestinationForm = () => {
                 placeholder="Lifestyle and cultural information..."
               />
             </div>
+          </CardContent>
+        </Card>
 
-            <div className="flex gap-4 pt-4">
-              <Button type="submit" disabled={loading}>
-                {loading ? 'Saving...' : (isEditing ? 'Update Destination' : 'Create Destination')}
-              </Button>
-              <Button 
-                type="button" 
-                variant="outline" 
-                onClick={() => navigate('/admin/destinations')}
-              >
-                Cancel
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+        <div className="flex gap-4 pt-4">
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Saving...' : (isEditing ? 'Update Destination' : 'Create Destination')}
+          </Button>
+          <Button 
+            type="button" 
+            variant="outline" 
+            onClick={() => navigate('/admin/destinations')}
+          >
+            Cancel
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

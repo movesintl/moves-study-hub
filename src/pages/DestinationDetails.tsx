@@ -9,15 +9,15 @@ import { supabase } from '@/integrations/supabase/client';
 import CounsellingBookingForm from '@/components/forms/CounsellingBookingForm';
 
 const DestinationDetails = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const { data: destination, isLoading } = useQuery({
-    queryKey: ['destination', id],
+    queryKey: ['destination', slug],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('destinations')
         .select('*')
-        .eq('id', id)
+        .eq('slug', slug)
         .single();
       
       if (error) throw error;
@@ -41,131 +41,84 @@ const DestinationDetails = () => {
   });
 
   const { data: courses = [] } = useQuery({
-    queryKey: ['destination-courses', id],
+    queryKey: ['destination-courses', destination?.id],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('courses')
         .select('*')
-        .eq('destination_id', id)
+        .eq('destination_id', destination?.id)
         .eq('featured', true)
         .limit(8);
       
       if (error) throw error;
       return data;
     },
-    enabled: !!id
+    enabled: !!destination?.id
   });
 
-  // Country-specific data
+  // Default fallback data for countries not yet updated in admin
+  const getDefaultWhyStudyPoints = (countryName: string) => [
+    'World-class education system ranked among the top globally',
+    'Post-study work visa opportunities',
+    'Multicultural and welcoming environment',
+    'High standard of living and safety',
+    'Research excellence and innovation',
+    'Part-time work opportunities during studies'
+  ];
+
+  const getDefaultJobMarketPoints = (countryName: string) => [
+    'Strong job market with diverse opportunities',
+    'High demand for skilled professionals',
+    'Competitive minimum wage rates',
+    'Post-graduation work visa opportunities',
+    'Growing startup ecosystem in major cities',
+    'Excellent work-life balance culture'
+  ];
+
+  // Country-specific data for cost of living (keeping this as is for now)
   const getCountrySpecificData = (countryName: string) => {
     const countryData: {
       [key: string]: {
-        whyStudy: string[];
         costOfLiving: {
           [key: string]: string;
         };
-        jobMarket: string[];
       };
     } = {
       'Australia': {
-        whyStudy: [
-          'World-class education system ranked among the top globally',
-          'Post-study work visa opportunities up to 4 years',
-          'Multicultural and welcoming environment',
-          'High standard of living and safety',
-          'Research excellence and innovation',
-          'Part-time work opportunities during studies'
-        ],
         costOfLiving: {
           accommodation: 'AUD $150-400 per week',
           food: 'AUD $80-120 per week',
           transport: 'AUD $30-60 per week',
           utilities: 'AUD $20-50 per week',
           entertainment: 'AUD $50-100 per week'
-        },
-        jobMarket: [
-          'Strong job market with diverse opportunities',
-          'High demand for skilled professionals in IT, healthcare, and engineering',
-          'Minimum wage: AUD $23.23 per hour',
-          'Post-graduation work visa allows 2-4 years of work experience',
-          'Growing startup ecosystem in major cities',
-          'Excellent work-life balance culture'
-        ]
+        }
       },
       'Canada': {
-        whyStudy: [
-          'Affordable tuition fees compared to other English-speaking countries',
-          'Excellent post-graduation work permits and immigration pathways',
-          'Bilingual environment (English and French)',
-          'Safe and peaceful country with low crime rates',
-          'Strong research universities and innovation hubs',
-          'Healthcare benefits for international students'
-        ],
         costOfLiving: {
           accommodation: 'CAD $400-800 per month',
           food: 'CAD $200-400 per month',
           transport: 'CAD $80-120 per month',
           utilities: 'CAD $100-150 per month',
           entertainment: 'CAD $100-200 per month'
-        },
-        jobMarket: [
-          'Strong economy with growing job opportunities',
-          'High demand in technology, healthcare, and skilled trades',
-          'Federal minimum wage: CAD $17.30 per hour',
-          'Express Entry system for permanent residence',
-          'Provincial Nominee Programs for specific skills',
-          'Excellent benefits and worker protection laws'
-        ]
+        }
       },
       'United Kingdom': {
-        whyStudy: [
-          'Home to world-renowned universities like Oxford and Cambridge',
-          'Rich academic heritage and research tradition',
-          'Shorter degree programs (3-year bachelor\'s, 1-year master\'s)',
-          'Gateway to Europe with excellent connectivity',
-          'Strong alumni networks globally',
-          'Cultural diversity and historical significance'
-        ],
         costOfLiving: {
           accommodation: '£400-800 per month',
           food: '£150-250 per month',
           transport: '£50-150 per month',
           utilities: '£80-120 per month',
           entertainment: '£100-200 per month'
-        },
-        jobMarket: [
-          'Strong service sector and financial industry',
-          'Growing technology and creative industries',
-          'National minimum wage: £11.44 per hour',
-          'Graduate visa allows 2-3 years post-study work',
-          'London as a global financial hub',
-          'Flexible working arrangements increasingly common'
-        ]
+        }
       },
       'New Zealand': {
-        whyStudy: [
-          'Innovative and practical education approach',
-          'Safe and peaceful environment',
-          'Stunning natural landscapes and outdoor lifestyle',
-          'English-speaking country with friendly locals',
-          'Strong focus on research and development',
-          'Easy pathway to permanent residence'
-        ],
         costOfLiving: {
           accommodation: 'NZD $150-350 per week',
           food: 'NZD $80-120 per week',
           transport: 'NZD $25-50 per week',
           utilities: 'NZD $30-60 per week',
           entertainment: 'NZD $50-100 per week'
-        },
-        jobMarket: [
-          'Growing economy with skill shortages in many sectors',
-          'High demand in agriculture, technology, and tourism',
-          'Minimum wage: NZD $23.15 per hour',
-          'Post-study work visa up to 3 years',
-          'Strong work-life balance culture',
-          'Green economy and sustainability focus'
-        ]
+        }
       }
     };
     return countryData[countryName] || countryData['Australia'];
@@ -191,6 +144,15 @@ const DestinationDetails = () => {
   }
 
   const countryData = getCountrySpecificData(destination.name);
+  
+  // Use admin-managed content or fallback to defaults
+  const whyStudyPoints = destination.why_study_points && destination.why_study_points.length > 0 
+    ? destination.why_study_points 
+    : getDefaultWhyStudyPoints(destination.name);
+    
+  const jobMarketPoints = destination.job_market_points && destination.job_market_points.length > 0 
+    ? destination.job_market_points 
+    : getDefaultJobMarketPoints(destination.name);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -233,7 +195,7 @@ const DestinationDetails = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {countryData.whyStudy.map((reason, index) => (
+            {whyStudyPoints.map((reason, index) => (
               <Card key={index} className="border-l-4 border-l-primary">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-3">
@@ -380,7 +342,7 @@ const DestinationDetails = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {countryData.jobMarket.map((point, index) => (
+            {jobMarketPoints.map((point, index) => (
               <Card key={index} className="border-l-4 border-l-purple-500">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-3">

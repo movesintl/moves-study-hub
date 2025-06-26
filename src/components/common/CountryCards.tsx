@@ -204,7 +204,7 @@ const CountryCards = () => {
                           className="w-full mt-4 bg-accent hover:bg-accent/90 text-white group-hover:shadow-lg transition-all"
                           asChild
                         >
-                          <Link to={`/destinations/${destination.id}`}>
+                          <Link to={`/destinations/${destination.slug}`}>
                             Explore {destination.name}
                             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </Link>

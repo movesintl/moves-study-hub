@@ -81,7 +81,7 @@ const Destinations = () => {
                 </p>
                 
                 <Button asChild className="w-full group-hover:bg-primary/90">
-                  <Link to={`/destinations/${destination.id}`}>
+                  <Link to={`/destinations/${destination.slug}`}>
                     Explore {destination.name}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

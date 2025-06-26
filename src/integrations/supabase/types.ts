@@ -458,30 +458,39 @@ export type Database = {
           description: string | null
           featured_image_url: string | null
           id: string
+          job_market_points: Json | null
           lifestyle_info: string | null
           name: string
+          slug: string
           updated_at: string
           visa_info: string | null
+          why_study_points: Json | null
         }
         Insert: {
           created_at?: string
           description?: string | null
           featured_image_url?: string | null
           id?: string
+          job_market_points?: Json | null
           lifestyle_info?: string | null
           name: string
+          slug: string
           updated_at?: string
           visa_info?: string | null
+          why_study_points?: Json | null
         }
         Update: {
           created_at?: string
           description?: string | null
           featured_image_url?: string | null
           id?: string
+          job_market_points?: Json | null
           lifestyle_info?: string | null
           name?: string
+          slug?: string
           updated_at?: string
           visa_info?: string | null
+          why_study_points?: Json | null
         }
         Relationships: []
       }

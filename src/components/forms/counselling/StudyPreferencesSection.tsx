@@ -28,8 +28,8 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
 }) => {
   return (
     <>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="space-y-2">
+      <div className="grid md:grid-cols-2 gap-3">
+        <div className="space-y-1.5">
           <Label htmlFor="preferred_destination" className="text-sm font-medium text-gray-700">
             Your preferred study destination*
           </Label>
@@ -37,7 +37,7 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
             value={formData.preferred_destination}
             onValueChange={(value) => onInputChange('preferred_destination', value)}
           >
-            <SelectTrigger className="h-12 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
+            <SelectTrigger className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
               <SelectValue placeholder="Select destination" />
             </SelectTrigger>
             <SelectContent>
@@ -49,7 +49,7 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <Label htmlFor="study_level" className="text-sm font-medium text-gray-700">
             When would you like to start?*
           </Label>
@@ -57,7 +57,7 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
             value={formData.study_level}
             onValueChange={(value) => onInputChange('study_level', value)}
           >
-            <SelectTrigger className="h-12 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
+            <SelectTrigger className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
               <SelectValue placeholder="Select timeline" />
             </SelectTrigger>
             <SelectContent>
@@ -71,8 +71,8 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="space-y-2">
+      <div className="grid md:grid-cols-2 gap-3">
+        <div className="space-y-1.5">
           <Label htmlFor="course_interest" className="text-sm font-medium text-gray-700">
             Preferred mode of counselling*
           </Label>
@@ -80,7 +80,7 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
             value={formData.course_interest}
             onValueChange={(value) => onInputChange('course_interest', value)}
           >
-            <SelectTrigger className="h-12 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
+            <SelectTrigger className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
               <SelectValue placeholder="Select mode" />
             </SelectTrigger>
             <SelectContent>
@@ -91,7 +91,7 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <Label htmlFor="current_education_level" className="text-sm font-medium text-gray-700">
             Nearest Moves International Office*
           </Label>
@@ -99,7 +99,7 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
             value={formData.current_education_level}
             onValueChange={(value) => onInputChange('current_education_level', value)}
           >
-            <SelectTrigger className="h-12 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
+            <SelectTrigger className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
               <SelectValue placeholder="Select office" />
             </SelectTrigger>
             <SelectContent>
@@ -115,7 +115,7 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
       </div>
 
       {/* Additional message field */}
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <Label htmlFor="message" className="text-sm font-medium text-gray-700">
           Additional message (optional)
         </Label>
@@ -123,7 +123,7 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
           id="message"
           value={formData.message}
           onChange={(e) => onInputChange('message', e.target.value)}
-          className="min-h-[100px] border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
+          className="min-h-[80px] border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
           placeholder="Tell us more about your study goals..."
         />
       </div>

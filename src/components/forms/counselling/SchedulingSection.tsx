@@ -18,24 +18,24 @@ export const SchedulingSection: React.FC<SchedulingSectionProps> = ({
   onInputChange,
 }) => {
   return (
-    <div className="grid md:grid-cols-2 gap-6">
-      <div className="space-y-2">
+    <div className="grid md:grid-cols-2 gap-3">
+      <div className="space-y-1.5">
         <Label htmlFor="preferred_date">Preferred Date</Label>
         <div className="relative">
-          <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+          <Calendar className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
           <Input
             id="preferred_date"
             type="date"
             value={formData.preferred_date}
             onChange={(e) => onInputChange('preferred_date', e.target.value)}
-            className="pl-10 h-12"
+            className="pl-10 h-10"
           />
         </div>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <Label htmlFor="preferred_time">Preferred Time</Label>
         <Select onValueChange={(value) => onInputChange('preferred_time', value)}>
-          <SelectTrigger className="h-12">
+          <SelectTrigger className="h-10">
             <SelectValue placeholder="Select time" />
           </SelectTrigger>
           <SelectContent>

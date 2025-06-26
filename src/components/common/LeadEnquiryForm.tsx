@@ -19,11 +19,11 @@ const LeadEnquiryForm = () => {
   } = useCounsellingBookingForm();
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+    <section className="py-16 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="grid lg:grid-cols-3 gap-12 items-start">
+        <div className="grid lg:grid-cols-3 gap-8 items-start">
           {/* Left Column - Form and Text (2/3 width) */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6">
             {/* Header Text */}
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -36,8 +36,8 @@ const LeadEnquiryForm = () => {
             </div>
 
             {/* Form */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="bg-white rounded-2xl border border-gray-100 p-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <PersonalInfoSection 
                   formData={formData}
                   onInputChange={handleInputChange}
@@ -56,7 +56,7 @@ const LeadEnquiryForm = () => {
                 />
 
                 {/* Trust indicators with checkboxes */}
-                <div className="space-y-3 pt-4 border-t border-gray-100">
+                <div className="space-y-2 pt-3 border-t border-gray-100">
                   <label className="flex items-start gap-3 text-sm text-gray-600 cursor-pointer">
                     <input type="checkbox" className="mt-1 rounded border-gray-300" />
                     <span>I agree to Moves International Terms and privacy policy</span>
@@ -74,7 +74,7 @@ const LeadEnquiryForm = () => {
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full h-12 text-lg bg-primary hover:bg-primary/90 text-white rounded-full font-semibold"
+                  className="w-full h-11 text-base bg-primary hover:bg-primary/90 text-white rounded-full font-semibold"
                 >
                   {loading ? 'Submitting...' : 'Get Free Counselling'}
                 </Button>
@@ -82,7 +82,7 @@ const LeadEnquiryForm = () => {
             </div>
 
             {/* Trust elements */}
-            <div className="flex items-center justify-center gap-8 pt-4">
+            <div className="flex items-center justify-center gap-8 pt-2">
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <Users className="h-4 w-4 text-primary" />
                 <span>10,000+ Students Placed</span>

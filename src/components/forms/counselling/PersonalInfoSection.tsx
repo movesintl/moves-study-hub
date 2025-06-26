@@ -19,8 +19,8 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
 }) => {
   return (
     <>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="space-y-2">
+      <div className="grid md:grid-cols-2 gap-3">
+        <div className="space-y-1.5">
           <Label htmlFor="first_name" className="text-sm font-medium text-gray-700">
             First name*
           </Label>
@@ -32,11 +32,11 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
               onInputChange('student_name', `${e.target.value} ${lastName}`.trim());
             }}
             required
-            className="h-12 border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
+            className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
             placeholder=""
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <Label htmlFor="last_name" className="text-sm font-medium text-gray-700">
             Last name*
           </Label>
@@ -48,13 +48,13 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
               onInputChange('student_name', `${firstName} ${e.target.value}`.trim());
             }}
             required
-            className="h-12 border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
+            className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
             placeholder=""
           />
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <Label htmlFor="student_email" className="text-sm font-medium text-gray-700">
           Email address*
         </Label>
@@ -64,21 +64,21 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
           value={formData.student_email}
           onChange={(e) => onInputChange('student_email', e.target.value)}
           required
-          className="h-12 border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
+          className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
           placeholder=""
         />
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <Label htmlFor="student_phone" className="text-sm font-medium text-gray-700">
           Mobile number*
         </Label>
         <div className="flex gap-2">
-          <div className="w-24">
+          <div className="w-20">
             <Input
               value="+61 AU"
               readOnly
-              className="h-12 border-gray-200 bg-gray-50 text-center rounded-lg font-medium"
+              className="h-10 border-gray-200 bg-gray-50 text-center rounded-lg font-medium text-xs"
             />
           </div>
           <Input
@@ -87,7 +87,7 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             value={formData.student_phone}
             onChange={(e) => onInputChange('student_phone', e.target.value)}
             required
-            className="h-12 border-gray-200 focus:border-primary focus:ring-primary rounded-lg flex-1"
+            className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg flex-1"
             placeholder=""
           />
         </div>

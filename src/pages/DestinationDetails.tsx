@@ -75,6 +75,11 @@ const DestinationDetails = () => {
     'Excellent work-life balance culture'
   ];
 
+  // Type guard to check if a value is an array of strings
+  const isStringArray = (value: any): value is string[] => {
+    return Array.isArray(value) && value.every(item => typeof item === 'string');
+  };
+
   // Country-specific data for cost of living (keeping this as is for now)
   const getCountrySpecificData = (countryName: string) => {
     const countryData: {
@@ -145,12 +150,12 @@ const DestinationDetails = () => {
 
   const countryData = getCountrySpecificData(destination.name);
   
-  // Use admin-managed content or fallback to defaults
-  const whyStudyPoints = destination.why_study_points && destination.why_study_points.length > 0 
+  // Use admin-managed content or fallback to defaults with proper type checking
+  const whyStudyPoints = isStringArray(destination.why_study_points) && destination.why_study_points.length > 0 
     ? destination.why_study_points 
     : getDefaultWhyStudyPoints(destination.name);
     
-  const jobMarketPoints = destination.job_market_points && destination.job_market_points.length > 0 
+  const jobMarketPoints = isStringArray(destination.job_market_points) && destination.job_market_points.length > 0 
     ? destination.job_market_points 
     : getDefaultJobMarketPoints(destination.name);
 

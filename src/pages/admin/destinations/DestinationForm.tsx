@@ -30,6 +30,11 @@ const DestinationForm = () => {
 
   const [loading, setLoading] = useState(false);
 
+  // Type guard to check if a value is an array of strings
+  const isStringArray = (value: any): value is string[] => {
+    return Array.isArray(value) && value.every(item => typeof item === 'string');
+  };
+
   const { data: destination } = useQuery({
     queryKey: ['destination', id],
     queryFn: async () => {
@@ -56,8 +61,8 @@ const DestinationForm = () => {
         visa_info: destination.visa_info || '',
         lifestyle_info: destination.lifestyle_info || '',
         slug: destination.slug || '',
-        why_study_points: destination.why_study_points || [],
-        job_market_points: destination.job_market_points || [],
+        why_study_points: isStringArray(destination.why_study_points) ? destination.why_study_points : [],
+        job_market_points: isStringArray(destination.job_market_points) ? destination.job_market_points : [],
       });
     }
   }, [destination]);
@@ -69,7 +74,7 @@ const DestinationForm = () => {
       .replace(/[^a-z0-9\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
-      .trim('-');
+      .trim();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

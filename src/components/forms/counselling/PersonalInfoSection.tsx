@@ -2,7 +2,7 @@
 import React from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { Mail, Phone } from 'lucide-react';
+import { Phone, Mail } from 'lucide-react';
 
 interface PersonalInfoSectionProps {
   formData: {
@@ -11,10 +11,12 @@ interface PersonalInfoSectionProps {
     student_phone: string;
   };
   onInputChange: (field: string, value: string) => void;
-  isEmailDisabled?: boolean;
 }
 
-const PersonalInfoSection = ({ formData, onInputChange, isEmailDisabled }: PersonalInfoSectionProps) => {
+export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
+  formData,
+  onInputChange,
+}) => {
   return (
     <>
       <div className="space-y-2">
@@ -25,7 +27,6 @@ const PersonalInfoSection = ({ formData, onInputChange, isEmailDisabled }: Perso
           onChange={(e) => onInputChange('student_name', e.target.value)}
           required
           className="h-12"
-          placeholder="Enter your full name"
         />
       </div>
 
@@ -41,8 +42,6 @@ const PersonalInfoSection = ({ formData, onInputChange, isEmailDisabled }: Perso
               onChange={(e) => onInputChange('student_email', e.target.value)}
               required
               className="pl-10 h-12"
-              placeholder="your.email@example.com"
-              disabled={isEmailDisabled}
             />
           </div>
         </div>
@@ -57,7 +56,6 @@ const PersonalInfoSection = ({ formData, onInputChange, isEmailDisabled }: Perso
               onChange={(e) => onInputChange('student_phone', e.target.value)}
               required
               className="pl-10 h-12"
-              placeholder="+1 (555) 123-4567"
             />
           </div>
         </div>
@@ -65,5 +63,3 @@ const PersonalInfoSection = ({ formData, onInputChange, isEmailDisabled }: Perso
     </>
   );
 };
-
-export default PersonalInfoSection;

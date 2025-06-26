@@ -19,7 +19,7 @@ const LeadEnquiryForm = () => {
   } = useCounsellingBookingForm();
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -31,89 +31,98 @@ const LeadEnquiryForm = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Form Section - Left Side */}
-          <div className="order-2 lg:order-1">
-            <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-primary to-accent text-white rounded-t-lg">
-                <CardTitle className="text-2xl text-center flex items-center justify-center gap-2">
-                  <GraduationCap className="h-6 w-6" />
-                  Get Free Counselling
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <PersonalInfoSection 
-                    formData={formData}
-                    onInputChange={handleInputChange}
-                  />
-                  
-                  <StudyPreferencesSection 
-                    formData={formData}
-                    destinations={destinations}
-                    studyLevels={studyLevels}
-                    onInputChange={handleInputChange}
-                  />
-                  
-                  <SchedulingSection 
-                    formData={formData}
-                    onInputChange={handleInputChange}
-                  />
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left Column - Form and Text */}
+          <div className="space-y-8">
+            {/* Header Text */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Moves International can help you
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Enter your details and one of our expert counsellors will reach out to you so we can 
+                connect you to the right course, country, university - and even scholarships!
+              </p>
+            </div>
 
-                  <Button 
-                    type="submit" 
-                    disabled={loading}
-                    className="w-full h-12 text-lg bg-gradient-to-r from-accent to-orange-500 hover:from-accent/90 hover:to-orange-500/90 shadow-lg"
-                  >
-                    {loading ? 'Submitting...' : 'Get Free Counselling'}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Image Section - Right Side */}
-          <div className="order-1 lg:order-2">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl transform rotate-3"></div>
-              <div className="relative bg-white rounded-3xl p-8 shadow-2xl">
-                <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&h=600"
-                  alt="Student studying abroad"
-                  className="w-full h-80 object-cover rounded-2xl mb-6"
+            {/* Form */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <PersonalInfoSection 
+                  formData={formData}
+                  onInputChange={handleInputChange}
                 />
                 
-                {/* Statistics Cards */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gradient-to-r from-primary to-primary/80 rounded-xl p-4 text-white text-center">
-                    <Users className="h-6 w-6 mx-auto mb-2" />
-                    <div className="text-2xl font-bold">10,000+</div>
-                    <div className="text-sm opacity-90">Students Placed</div>
-                  </div>
-                  <div className="bg-gradient-to-r from-accent to-orange-500 rounded-xl p-4 text-white text-center">
-                    <Award className="h-6 w-6 mx-auto mb-2" />
-                    <div className="text-2xl font-bold">99%</div>
-                    <div className="text-sm opacity-90">Success Rate</div>
-                  </div>
+                <StudyPreferencesSection 
+                  formData={formData}
+                  destinations={destinations}
+                  studyLevels={studyLevels}
+                  onInputChange={handleInputChange}
+                />
+                
+                <SchedulingSection 
+                  formData={formData}
+                  onInputChange={handleInputChange}
+                />
+
+                {/* Trust indicators with checkboxes */}
+                <div className="space-y-3 pt-4 border-t border-gray-100">
+                  <label className="flex items-start gap-3 text-sm text-gray-600 cursor-pointer">
+                    <input type="checkbox" className="mt-1 rounded border-gray-300" />
+                    <span>I agree to Moves International Terms and privacy policy</span>
+                  </label>
+                  <label className="flex items-start gap-3 text-sm text-gray-600 cursor-pointer">
+                    <input type="checkbox" className="mt-1 rounded border-gray-300" />
+                    <span>Please contact me by phone, email or SMS to assist with my enquiry</span>
+                  </label>
+                  <label className="flex items-start gap-3 text-sm text-gray-600 cursor-pointer">
+                    <input type="checkbox" className="mt-1 rounded border-gray-300" />
+                    <span>Please accept to receive updates and offers from Moves International</span>
+                  </label>
                 </div>
 
-                {/* Trust Indicators */}
-                <div className="mt-6 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <div className="flex -space-x-2">
-                      {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-accent border-2 border-white shadow-sm flex items-center justify-center text-white text-xs font-bold">
-                          {String.fromCharCode(65 + i)}
-                        </div>
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600">Trusted by thousands</span>
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    Join successful students who achieved their dreams with our expert guidance
-                  </p>
-                </div>
+                <Button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full h-12 text-lg bg-primary hover:bg-primary/90 text-white rounded-full font-semibold shadow-lg"
+                >
+                  {loading ? 'Submitting...' : 'Get Free Counselling'}
+                </Button>
+              </form>
+            </div>
+
+            {/* Trust elements */}
+            <div className="flex items-center justify-center gap-8 pt-4">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Users className="h-4 w-4 text-primary" />
+                <span>10,000+ Students Placed</span>
               </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Award className="h-4 w-4 text-accent" />
+                <span>99% Success Rate</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Image with Abstract Shapes */}
+          <div className="relative flex items-center justify-center lg:justify-end">
+            {/* Abstract Background Shapes */}
+            <div className="absolute inset-0 overflow-hidden">
+              {/* Green Circle */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-green-400 rounded-full opacity-20 transform translate-x-20 -translate-y-20"></div>
+              {/* Orange Rectangle */}
+              <div className="absolute bottom-20 right-20 w-32 h-32 bg-accent rounded-2xl opacity-30 transform rotate-12"></div>
+              {/* Blue Circle */}
+              <div className="absolute bottom-0 left-0 w-60 h-60 bg-primary rounded-full opacity-15 transform -translate-x-10 translate-y-10"></div>
+            </div>
+
+            {/* Main Image */}
+            <div className="relative z-10 max-w-md">
+              <img
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
+                alt="Student with mobile device - international education consultation"
+                className="w-full h-auto rounded-3xl shadow-2xl object-cover"
+              />
             </div>
           </div>
         </div>

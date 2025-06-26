@@ -60,7 +60,7 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
   };
 
   return (
-    <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {courses.map((course) => (
         <Card key={course.id} className="group hover:shadow-2xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-2 relative overflow-hidden bg-white/80 backdrop-blur-sm">
           {/* Featured Badge */}

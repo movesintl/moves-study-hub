@@ -21,7 +21,7 @@ const Navigation = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('destinations')
-        .select('id, name')
+        .select('id, name, slug')
         .order('name');
       if (error) throw error;
       return data;
@@ -59,7 +59,7 @@ const Navigation = () => {
       path: '/destinations',
       submenu: destinations.map(dest => ({
         name: dest.name,
-        path: `/destinations/${dest.id}`
+        path: `/destinations/${dest.slug}`
       }))
     },
     {

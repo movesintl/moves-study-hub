@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GraduationCap } from 'lucide-react';
 import { useCounsellingBookingForm } from '@/hooks/useCounsellingBookingForm';
-import PersonalInfoSection from './counselling/PersonalInfoSection';
-import StudyPreferencesSection from './counselling/StudyPreferencesSection';
-import SchedulingSection from './counselling/SchedulingSection';
+import { PersonalInfoSection } from './counselling/PersonalInfoSection';
+import { StudyPreferencesSection } from './counselling/StudyPreferencesSection';
+import { SchedulingSection } from './counselling/SchedulingSection';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface CounsellingBookingFormProps {
@@ -38,7 +38,6 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
           <PersonalInfoSection
             formData={formData}
             onInputChange={handleInputChange}
-            isEmailDisabled={!!user?.email}
           />
 
           <StudyPreferencesSection

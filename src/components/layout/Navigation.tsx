@@ -103,7 +103,7 @@ const Navigation = () => {
                 <img
                   src="/lovable-uploads/abcbb2a1-5db8-45ce-8215-42e053f17039.png"
                   alt="Moves International"
-                  className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+                  className="h-14 w-auto transition-transform duration-300 group-hover:scale-105"
                 />
               </Link>
 

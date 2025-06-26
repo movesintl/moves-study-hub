@@ -21,9 +21,9 @@ const LeadEnquiryForm = () => {
   return (
     <section className="py-16 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
-          {/* Left Column - Form and Text (2/3 width) */}
-          <div className="lg:col-span-2 space-y-6">
+        <div className="grid lg:grid-cols-5 gap-6 items-start">
+          {/* Left Column - Form and Text (3/5 width) */}
+          <div className="lg:col-span-3 space-y-6">
             {/* Header Text */}
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -36,8 +36,8 @@ const LeadEnquiryForm = () => {
             </div>
 
             {/* Form */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-6">
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="bg-white rounded-2xl border border-gray-100 p-5">
+              <form onSubmit={handleSubmit} className="space-y-3">
                 <PersonalInfoSection 
                   formData={formData}
                   onInputChange={handleInputChange}
@@ -74,7 +74,7 @@ const LeadEnquiryForm = () => {
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full h-11 text-base bg-primary hover:bg-primary/90 text-white rounded-full font-semibold"
+                  className="w-full h-10 text-base bg-primary hover:bg-primary/90 text-white rounded-full font-semibold"
                 >
                   {loading ? 'Submitting...' : 'Get Free Counselling'}
                 </Button>
@@ -94,13 +94,13 @@ const LeadEnquiryForm = () => {
             </div>
           </div>
 
-          {/* Right Column - Image Only (1/3 width) */}
-          <div className="lg:col-span-1 flex items-center justify-center">
+          {/* Right Column - Image Only (2/5 width) */}
+          <div className="lg:col-span-2 flex items-center justify-center">
             <div className="max-w-sm w-full">
               <img
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
                 alt="Student with mobile device - international education consultation"
-                className="w-full h-auto rounded-3xl object-cover"
+                className="w-full h-auto object-cover"
               />
             </div>
           </div>

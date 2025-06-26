@@ -40,6 +40,7 @@ const BlogForm = () => {
   const [faqs, setFaqs] = useState<FAQItem[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [autoGenerateSlug, setAutoGenerateSlug] = useState(true);
 
   // Fetch blog categories
   const { data: categories } = useQuery({
@@ -123,8 +124,19 @@ const BlogForm = () => {
     setFormData(prev => ({
       ...prev,
       title,
-      slug: prev.slug || autoSlug // Only auto-generate if slug is empty
+      slug: autoGenerateSlug ? autoSlug : prev.slug
     }));
+  };
+
+  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, slug: e.target.value }));
+  };
+
+  const toggleAutoGenerateSlug = (checked: boolean) => {
+    setAutoGenerateSlug(checked);
+    if (checked && formData.title) {
+      setFormData(prev => ({ ...prev, slug: generateSlug(formData.title) }));
+    }
   };
 
   const handleImageUpload = async (file: File) => {
@@ -503,17 +515,32 @@ const BlogForm = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="slug">Custom URL Slug</Label>
+              <div className="flex items-center justify-between mb-2">
+                <Label htmlFor="slug">Custom URL Slug</Label>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="auto-slug"
+                    checked={autoGenerateSlug}
+                    onCheckedChange={toggleAutoGenerateSlug}
+                  />
+                  <Label htmlFor="auto-slug" className="text-sm font-normal">
+                    Auto-generate from title
+                  </Label>
+                </div>
+              </div>
               <Input
                 id="slug"
                 name="slug"
                 value={formData.slug}
-                onChange={handleChange}
+                onChange={handleSlugChange}
                 placeholder="custom-url-slug"
                 className="mt-1"
+                disabled={autoGenerateSlug}
               />
               <p className="text-xs text-gray-500 mt-1">
-                Auto-generated from title. Edit to customize.
+                {autoGenerateSlug 
+                  ? 'Automatically generated from title' 
+                  : 'Enter a custom URL slug'}
               </p>
             </div>
 

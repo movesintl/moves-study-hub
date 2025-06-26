@@ -126,8 +126,15 @@ const BlogsList = () => {
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
+                      {blog.published && (
+                        <Link to={`/blogs/${blog.slug || blog.id}`} target="_blank">
+                          <Button variant="outline" size="sm" title="View Blog">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      )}
                       <Link to={`/admin/blogs/${blog.id}/edit`}>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" title="Edit Blog">
                           <Edit className="h-4 w-4" />
                         </Button>
                       </Link>
@@ -135,6 +142,7 @@ const BlogsList = () => {
                         variant="outline" 
                         size="sm"
                         onClick={() => handleDelete(blog.id)}
+                        title="Delete Blog"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

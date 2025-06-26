@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -74,6 +74,7 @@ const DestinationsList = () => {
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Description</TableHead>
+                <TableHead>Slug</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -94,7 +95,17 @@ const DestinationsList = () => {
                     </div>
                   </TableCell>
                   <TableCell>
+                    <code className="text-sm bg-gray-100 px-2 py-1 rounded">
+                      {destination.slug}
+                    </code>
+                  </TableCell>
+                  <TableCell>
                     <div className="flex gap-2">
+                      <Button variant="outline" size="sm" asChild>
+                        <a href={`/destinations/${destination.slug}`} target="_blank" rel="noopener noreferrer">
+                          <Eye className="h-4 w-4" />
+                        </a>
+                      </Button>
                       <Link to={`/admin/destinations/${destination.id}/edit`}>
                         <Button variant="outline" size="sm">
                           <Edit className="h-4 w-4" />

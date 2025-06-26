@@ -80,6 +80,7 @@ const DestinationDetails = () => {
     return (
       <div className="container mx-auto py-8 text-center">
         <h1 className="text-2xl font-bold text-gray-600">Destination not found</h1>
+        <p className="text-gray-500 mt-2">The destination you're looking for doesn't exist or may have been removed.</p>
       </div>
     );
   }

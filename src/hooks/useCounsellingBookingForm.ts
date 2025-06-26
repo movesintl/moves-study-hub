@@ -75,11 +75,33 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
     setLoading(true);
 
     try {
+      // Prepare data for counselling_bookings table
+      const bookingData = {
+        student_name: formData.student_name,
+        student_email: formData.student_email,
+        student_phone: formData.student_phone,
+        preferred_destination: formData.preferred_destination,
+        study_level: formData.study_level,
+        course_interest: formData.course_interest,
+        current_education_level: formData.current_education_level,
+        english_test_score: formData.english_test_score,
+        work_experience: formData.work_experience,
+        preferred_date: formData.preferred_date || null,
+        preferred_time: formData.preferred_time || null,
+        message: formData.message,
+        status: 'pending'
+      };
+
+      console.log('Submitting booking data:', bookingData);
+
       const { error } = await supabase
         .from('counselling_bookings')
-        .insert([formData]);
+        .insert([bookingData]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       toast({
         title: "Success!",

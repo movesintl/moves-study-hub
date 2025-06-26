@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
@@ -208,7 +207,7 @@ const Blogs = () => {
                     )}
                     
                     <Button variant="ghost" size="sm" className="group-hover:text-primary" asChild>
-                      <Link to={`/blogs/${blog.id}`}>
+                      <Link to={`/blogs/${blog.slug || blog.id}`}>
                         Read More
                         <ArrowRight className="ml-1 h-3 w-3" />
                       </Link>

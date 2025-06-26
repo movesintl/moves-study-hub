@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -23,7 +22,10 @@ const BlogDetails = () => {
   const { data: blog, isLoading } = useQuery({
     queryKey: ['blog', id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      if (!id) throw new Error('No blog identifier provided');
+      
+      // First try to fetch by slug, then by ID
+      let query = supabase
         .from('blogs')
         .select(`
           *,
@@ -31,11 +33,38 @@ const BlogDetails = () => {
             blog_categories(name, id)
           )
         `)
-        .eq('id', id)
-        .eq('published', true)
-        .single();
+        .eq('published', true);
+
+      // Check if the id looks like a UUID (contains hyphens)
+      if (id.includes('-')) {
+        query = query.eq('id', id);
+      } else {
+        query = query.eq('slug', id);
+      }
+
+      const { data, error } = await query.single();
       
-      if (error) throw error;
+      if (error) {
+        // If slug lookup fails, try ID lookup as fallback
+        if (!id.includes('-')) {
+          const { data: fallbackData, error: fallbackError } = await supabase
+            .from('blogs')
+            .select(`
+              *,
+              blog_category_assignments!inner(
+                blog_categories(name, id)
+              )
+            `)
+            .eq('id', id)
+            .eq('published', true)
+            .single();
+          
+          if (fallbackError) throw fallbackError;
+          return fallbackData;
+        }
+        throw error;
+      }
+      
       return data;
     }
   });

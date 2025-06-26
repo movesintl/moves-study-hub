@@ -58,6 +58,9 @@ const Navigation = () => {
       path: `/destinations/${dest.slug}`
     }));
 
+  console.log('Destinations data:', destinations);
+  console.log('Destination submenu:', destinationSubmenu);
+
   const navigationItems = [
     { name: 'Home', path: '/' },
     { name: 'Find a Course', path: '/courses' },
@@ -96,11 +99,11 @@ const Navigation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center space-x-8">
-              <Link to="/" className="flex-shrink-0 flex items-center">
+              <Link to="/" className="flex-shrink-0 flex items-center group">
                 <img
                   src="/lovable-uploads/abcbb2a1-5db8-45ce-8215-42e053f17039.png"
                   alt="Moves International"
-                  className="h-10 w-auto"
+                  className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
                 />
               </Link>
 
@@ -114,10 +117,10 @@ const Navigation = () => {
                 <UserMenu user={user} onSignOut={handleSignOut} />
               ) : (
                 <div className="flex items-center space-x-4">
-                  <Button variant="outline" asChild>
+                  <Button variant="outline" asChild className="hover:scale-105 transition-transform duration-200">
                     <Link to="/auth">Sign In</Link>
                   </Button>
-                  <Button className="bg-accent hover:bg-accent/90 text-white" asChild>
+                  <Button className="bg-accent hover:bg-accent/90 text-white hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg" asChild>
                     <Link to="/services/consultation">Book Consultation</Link>
                   </Button>
                 </div>
@@ -128,7 +131,7 @@ const Navigation = () => {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-700 hover:text-primary"
+                className="text-gray-700 hover:text-primary transition-all duration-200 hover:scale-110"
               >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>

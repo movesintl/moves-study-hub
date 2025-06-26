@@ -5,6 +5,13 @@ import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const CountryCards = () => {
   const { toast } = useToast();
@@ -123,78 +130,92 @@ const CountryCards = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {destinations.map((destination) => {
-            const config = countryConfig[destination.name as keyof typeof countryConfig] || getDefaultConfig(destination.name);
+        {/* Carousel Container */}
+        <div className="relative px-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {destinations.map((destination) => {
+                const config = countryConfig[destination.name as keyof typeof countryConfig] || getDefaultConfig(destination.name);
+                
+                return (
+                  <CarouselItem key={destination.id} className="pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                    <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                      {/* Header with gradient */}
+                      <div className={`bg-gradient-to-r ${config.gradient} p-6 text-white relative overflow-hidden`}>
+                        <div className="absolute top-0 right-0 text-6xl opacity-20">
+                          {config.flag}
+                        </div>
+                        <div className="relative z-10">
+                          <div className="text-3xl mb-2">{config.flag}</div>
+                          <h3 className="text-2xl font-bold mb-2">{destination.name}</h3>
+                          <p className="text-sm opacity-90">{destination.description || `Discover amazing opportunities to study in ${destination.name}`}</p>
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="p-6 space-y-4">
+                        {/* Key Features */}
+                        <div>
+                          <h4 className="font-semibold text-gray-900 mb-2">Key Benefits</h4>
+                          <ul className="space-y-1">
+                            {config.features.map((feature, index) => (
+                              <li key={index} className="text-sm text-gray-600 flex items-center">
+                                <div className="w-1.5 h-1.5 bg-accent rounded-full mr-2"></div>
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Details */}
+                        <div className="space-y-2 text-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="flex items-center text-gray-600">
+                              <DollarSign className="h-4 w-4 mr-1" />
+                              Average Fee
+                            </span>
+                            <span className="font-medium">{config.averageFee}</span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="flex items-center text-gray-600">
+                              <Clock className="h-4 w-4 mr-1" />
+                              Duration
+                            </span>
+                            <span className="font-medium">{config.duration}</span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="flex items-center text-gray-600">
+                              <GraduationCap className="h-4 w-4 mr-1" />
+                              Intakes
+                            </span>
+                            <span className="font-medium">{config.intakes}</span>
+                          </div>
+                        </div>
+
+                        {/* CTA Button */}
+                        <Button 
+                          className="w-full mt-4 bg-accent hover:bg-accent/90 text-white group-hover:shadow-lg transition-all"
+                        >
+                          Explore {destination.name}
+                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
             
-            return (
-              <div 
-                key={destination.id}
-                className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-              >
-                {/* Header with gradient */}
-                <div className={`bg-gradient-to-r ${config.gradient} p-6 text-white relative overflow-hidden`}>
-                  <div className="absolute top-0 right-0 text-6xl opacity-20">
-                    {config.flag}
-                  </div>
-                  <div className="relative z-10">
-                    <div className="text-3xl mb-2">{config.flag}</div>
-                    <h3 className="text-2xl font-bold mb-2">{destination.name}</h3>
-                    <p className="text-sm opacity-90">{destination.description || `Discover amazing opportunities to study in ${destination.name}`}</p>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 space-y-4">
-                  {/* Key Features */}
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Key Benefits</h4>
-                    <ul className="space-y-1">
-                      {config.features.map((feature, index) => (
-                        <li key={index} className="text-sm text-gray-600 flex items-center">
-                          <div className="w-1.5 h-1.5 bg-accent rounded-full mr-2"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Details */}
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center text-gray-600">
-                        <DollarSign className="h-4 w-4 mr-1" />
-                        Average Fee
-                      </span>
-                      <span className="font-medium">{config.averageFee}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center text-gray-600">
-                        <Clock className="h-4 w-4 mr-1" />
-                        Duration
-                      </span>
-                      <span className="font-medium">{config.duration}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center text-gray-600">
-                        <GraduationCap className="h-4 w-4 mr-1" />
-                        Intakes
-                      </span>
-                      <span className="font-medium">{config.intakes}</span>
-                    </div>
-                  </div>
-
-                  {/* CTA Button */}
-                  <Button 
-                    className="w-full mt-4 bg-accent hover:bg-accent/90 text-white group-hover:shadow-lg transition-all"
-                  >
-                    Explore {destination.name}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </div>
-              </div>
-            );
-          })}
+            {/* Navigation Buttons */}
+            <CarouselPrevious className="absolute -left-6 top-1/2 -translate-y-1/2 bg-white shadow-lg border-2 border-gray-200 hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 h-12 w-12" />
+            <CarouselNext className="absolute -right-6 top-1/2 -translate-y-1/2 bg-white shadow-lg border-2 border-gray-200 hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 h-12 w-12" />
+          </Carousel>
         </div>
 
         {/* CTA Section */}

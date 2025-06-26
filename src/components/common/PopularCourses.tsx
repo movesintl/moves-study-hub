@@ -72,7 +72,7 @@ const PopularCourses = () => {
         .from('courses')
         .select('*')
         .eq('featured', true)
-        .limit(8)
+        .limit(6)
         .order('created_at', { ascending: false });
 
       if (error) throw error;

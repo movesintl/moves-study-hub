@@ -15,6 +15,11 @@ interface Course {
   currency?: string;
   thumbnail_url?: string;
   featured?: boolean;
+  description?: string;
+  intake_dates?: string[];
+  eligibility?: string;
+  requirements?: string;
+  image_url?: string;
 }
 
 interface PopularCoursesGridProps {
@@ -24,7 +29,7 @@ interface PopularCoursesGridProps {
 
 const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({ courses, onViewDetails }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
       {courses.map((course) => (
         <CourseCard
           key={course.id}

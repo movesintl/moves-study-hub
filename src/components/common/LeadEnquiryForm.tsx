@@ -20,18 +20,8 @@ const LeadEnquiryForm = () => {
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Start Your Journey Today
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Fill out the form below and get personalized guidance from our expert counsellors. 
-            Take the first step towards your international education dreams.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="grid lg:grid-cols-2 items-start">
           {/* Left Column - Form and Text */}
           <div className="space-y-8">
             {/* Header Text */}
@@ -46,7 +36,7 @@ const LeadEnquiryForm = () => {
             </div>
 
             {/* Form */}
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+            <div className="bg-white rounded-2xl border border-gray-100 p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <PersonalInfoSection 
                   formData={formData}
@@ -107,14 +97,7 @@ const LeadEnquiryForm = () => {
           {/* Right Column - Image with Abstract Shapes */}
           <div className="relative flex items-center justify-center lg:justify-end">
             {/* Abstract Background Shapes */}
-            <div className="absolute inset-0 overflow-hidden">
-              {/* Green Circle */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-green-400 rounded-full opacity-20 transform translate-x-20 -translate-y-20"></div>
-              {/* Orange Rectangle */}
-              <div className="absolute bottom-20 right-20 w-32 h-32 bg-accent rounded-2xl opacity-30 transform rotate-12"></div>
-              {/* Blue Circle */}
-              <div className="absolute bottom-0 left-0 w-60 h-60 bg-primary rounded-full opacity-15 transform -translate-x-10 translate-y-10"></div>
-            </div>
+
 
             {/* Main Image */}
             <div className="relative z-10 max-w-md">

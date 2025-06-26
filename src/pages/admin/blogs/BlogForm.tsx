@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -120,10 +119,11 @@ const BlogForm = () => {
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
+    const autoSlug = generateSlug(title);
     setFormData(prev => ({
       ...prev,
       title,
-      slug: prev.slug || generateSlug(title)
+      slug: prev.slug || autoSlug // Only auto-generate if slug is empty
     }));
   };
 
@@ -513,7 +513,7 @@ const BlogForm = () => {
                 className="mt-1"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Leave empty to auto-generate from title
+                Auto-generated from title. Edit to customize.
               </p>
             </div>
 

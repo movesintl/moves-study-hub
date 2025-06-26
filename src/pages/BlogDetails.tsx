@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -143,7 +144,7 @@ const BlogDetails = () => {
             <span className="mx-2">/</span>
             <Link to="/blogs" className="hover:text-primary">Blog</Link>
             <span className="mx-2">/</span>
-            <span className="text-gray-700">{blog.title}</span>
+            <span className="text-gray-700">{blog.slug || blog.title}</span>
           </nav>
         </div>
       </div>

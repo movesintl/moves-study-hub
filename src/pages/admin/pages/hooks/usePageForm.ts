@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -138,6 +137,17 @@ export const usePageForm = () => {
       .trim('-');
   };
 
+  const toggleAutoGenerateSlug = () => {
+    const newAutoGenerate = !autoGenerateSlug;
+    setAutoGenerateSlug(newAutoGenerate);
+    if (newAutoGenerate && formData.title) {
+      setFormData(prev => ({
+        ...prev,
+        slug: generateSlug(prev.title)
+      }));
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -213,5 +223,6 @@ export const usePageForm = () => {
     handleSubmit,
     generateSlug,
     navigate,
+    toggleAutoGenerateSlug,
   };
 };

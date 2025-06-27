@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Trash2, Plus } from 'lucide-react';
 import MediaSelector from '@/components/admin/MediaSelector';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 interface PageData {
   id: string;
@@ -88,7 +88,9 @@ const PageForm = () => {
       // Transform the data to ensure faqs is properly typed
       return {
         ...data,
-        faqs: Array.isArray(data.faqs) ? data.faqs : []
+        faqs: Array.isArray(data.faqs) ? data.faqs.filter((faq: any) => 
+          typeof faq === 'object' && faq.question && faq.answer
+        ) : []
       };
     },
     enabled: isEditing,
@@ -346,18 +348,13 @@ const PageForm = () => {
             <CardTitle>Main Content Area</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="page_description">Page Description (Rich Text)</Label>
-              <Textarea
-                id="page_description"
-                name="page_description"
-                value={formData.page_description}
-                onChange={handleChange}
-                rows={8}
-                className="mt-1"
-                placeholder="Main page description content..."
-              />
-            </div>
+            <RichTextEditor
+              label="Page Description (Rich Text)"
+              value={formData.page_description}
+              onChange={(value) => setFormData(prev => ({ ...prev, page_description: value }))}
+              placeholder="Main page description content..."
+              height="300px"
+            />
 
             <MediaSelector
               label="Content Image"
@@ -424,18 +421,13 @@ const PageForm = () => {
             <CardTitle>Body Content</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="body_content">Body Content (Rich Text)</Label>
-              <Textarea
-                id="body_content"
-                name="body_content"
-                value={formData.body_content}
-                onChange={handleChange}
-                rows={10}
-                className="mt-1"
-                placeholder="Additional body content..."
-              />
-            </div>
+            <RichTextEditor
+              label="Body Content (Rich Text)"
+              value={formData.body_content}
+              onChange={(value) => setFormData(prev => ({ ...prev, body_content: value }))}
+              placeholder="Additional body content..."
+              height="400px"
+            />
           </CardContent>
         </Card>
 
@@ -504,7 +496,7 @@ const PageForm = () => {
               <Label htmlFor="related_blog_category">Related Blog Category</Label>
               <Select
                 value={formData.related_blog_category_id}
-                onValueChange={(value) => setFormData(prev => ({ ...prev, related_blog_category_id: value }))}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, related_blog_category_id: value === 'none' ? '' : value }))}
               >
                 <SelectTrigger className="mt-1">
                   <SelectValue placeholder="Select blog category to show related posts" />

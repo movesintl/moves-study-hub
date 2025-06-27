@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -59,7 +58,9 @@ const PageView = () => {
       // Transform the data to ensure faqs is properly typed
       return {
         ...data,
-        faqs: Array.isArray(data.faqs) ? data.faqs : []
+        faqs: Array.isArray(data.faqs) ? data.faqs.filter((faq: any) => 
+          typeof faq === 'object' && faq.question && faq.answer
+        ) : []
       };
     }
   });
@@ -176,7 +177,7 @@ const PageView = () => {
                   {page.page_description && (
                     <div className="prose prose-lg max-w-none">
                       <div 
-                        dangerouslySetInnerHTML={{ __html: page.page_description.replace(/\n/g, '<br>') }}
+                        dangerouslySetInnerHTML={{ __html: page.page_description }}
                       />
                     </div>
                   )}
@@ -224,7 +225,7 @@ const PageView = () => {
             <div className="max-w-4xl mx-auto px-4">
               <div className="prose prose-lg max-w-none">
                 <div 
-                  dangerouslySetInnerHTML={{ __html: page.body_content.replace(/\n/g, '<br>') }}
+                  dangerouslySetInnerHTML={{ __html: page.body_content }}
                 />
               </div>
             </div>

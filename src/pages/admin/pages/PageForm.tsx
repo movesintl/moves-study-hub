@@ -88,9 +88,13 @@ const PageForm = () => {
       // Transform the data to ensure faqs is properly typed
       return {
         ...data,
-        faqs: Array.isArray(data.faqs) ? data.faqs.filter((faq: any) => 
-          typeof faq === 'object' && faq.question && faq.answer
-        ) : []
+        faqs: Array.isArray(data.faqs) ? 
+          (data.faqs as any[]).filter((faq: any) => 
+            typeof faq === 'object' && faq !== null && faq.question && faq.answer
+          ).map((faq: any) => ({
+            question: String(faq.question),
+            answer: String(faq.answer)
+          })) : []
       };
     },
     enabled: isEditing,

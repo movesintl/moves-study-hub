@@ -84,7 +84,12 @@ const PageForm = () => {
         .single();
       
       if (error) throw error;
-      return data;
+      
+      // Transform the data to ensure faqs is properly typed
+      return {
+        ...data,
+        faqs: Array.isArray(data.faqs) ? data.faqs : []
+      };
     },
     enabled: isEditing,
   });
@@ -505,7 +510,7 @@ const PageForm = () => {
                   <SelectValue placeholder="Select blog category to show related posts" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">No related blogs</SelectItem>
+                  <SelectItem value="none">No related blogs</SelectItem>
                   {blogCategories.map((category) => (
                     <SelectItem key={category.id} value={category.id}>
                       {category.name}

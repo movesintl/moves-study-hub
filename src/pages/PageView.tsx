@@ -55,7 +55,12 @@ const PageView = () => {
         .single();
       
       if (error) throw error;
-      return data;
+      
+      // Transform the data to ensure faqs is properly typed
+      return {
+        ...data,
+        faqs: Array.isArray(data.faqs) ? data.faqs : []
+      };
     }
   });
 

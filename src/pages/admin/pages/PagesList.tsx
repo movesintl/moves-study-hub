@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,12 +31,12 @@ const PagesList = () => {
     queryKey: ['pages'],
     queryFn: async (): Promise<PageData[]> => {
       const { data, error } = await supabase
-        .from('pages' as any)
+        .from('pages')
         .select('*')
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data as PageData[];
+      return data;
     }
   });
 
@@ -51,7 +50,7 @@ const PagesList = () => {
 
     try {
       const { error } = await supabase
-        .from('pages' as any)
+        .from('pages')
         .delete()
         .eq('id', id);
 

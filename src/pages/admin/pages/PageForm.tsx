@@ -46,13 +46,13 @@ const PageForm = () => {
     queryFn: async (): Promise<PageData | null> => {
       if (!id) return null;
       const { data, error } = await supabase
-        .from('pages' as any)
+        .from('pages')
         .select('*')
         .eq('id', id)
         .single();
       
       if (error) throw error;
-      return data as PageData;
+      return data;
     },
     enabled: isEditing,
   });
@@ -97,8 +97,9 @@ const PageForm = () => {
   };
 
   const toggleAutoGenerateSlug = () => {
-    setAutoGenerateSlug(!autoGenerateSlug);
-    if (!autoGenerateSlug && formData.title) {
+    const newAutoGenerate = !autoGenerateSlug;
+    setAutoGenerateSlug(newAutoGenerate);
+    if (newAutoGenerate && formData.title) {
       setFormData(prev => ({
         ...prev,
         slug: generateSlug(prev.title)
@@ -130,7 +131,7 @@ const PageForm = () => {
 
       if (isEditing) {
         const { error } = await supabase
-          .from('pages' as any)
+          .from('pages')
           .update(pageData)
           .eq('id', id);
         
@@ -142,7 +143,7 @@ const PageForm = () => {
         });
       } else {
         const { error } = await supabase
-          .from('pages' as any)
+          .from('pages')
           .insert([pageData]);
         
         if (error) throw error;

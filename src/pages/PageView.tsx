@@ -24,14 +24,14 @@ const PageView = () => {
     queryKey: ['page', slug],
     queryFn: async (): Promise<PageData> => {
       const { data, error } = await supabase
-        .from('pages' as any)
+        .from('pages')
         .select('*')
         .eq('slug', slug)
         .eq('published', true)
         .single();
       
       if (error) throw error;
-      return data as PageData;
+      return data;
     }
   });
 

@@ -532,39 +532,83 @@ export type Database = {
       }
       pages: {
         Row: {
+          body_content: string | null
           content: string | null
+          content_image_url: string | null
+          content_video_url: string | null
           created_at: string
+          cta_button_link: string | null
+          cta_button_text: string | null
+          cta_text: string | null
+          faqs: Json | null
+          feature_image_url: string | null
           id: string
           meta_description: string | null
           meta_title: string | null
+          page_description: string | null
           published: boolean
+          related_blog_category_id: string | null
+          show_counselling_form: boolean | null
           slug: string
+          subtitle: string | null
           title: string
           updated_at: string
         }
         Insert: {
+          body_content?: string | null
           content?: string | null
+          content_image_url?: string | null
+          content_video_url?: string | null
           created_at?: string
+          cta_button_link?: string | null
+          cta_button_text?: string | null
+          cta_text?: string | null
+          faqs?: Json | null
+          feature_image_url?: string | null
           id?: string
           meta_description?: string | null
           meta_title?: string | null
+          page_description?: string | null
           published?: boolean
+          related_blog_category_id?: string | null
+          show_counselling_form?: boolean | null
           slug: string
+          subtitle?: string | null
           title: string
           updated_at?: string
         }
         Update: {
+          body_content?: string | null
           content?: string | null
+          content_image_url?: string | null
+          content_video_url?: string | null
           created_at?: string
+          cta_button_link?: string | null
+          cta_button_text?: string | null
+          cta_text?: string | null
+          faqs?: Json | null
+          feature_image_url?: string | null
           id?: string
           meta_description?: string | null
           meta_title?: string | null
+          page_description?: string | null
           published?: boolean
+          related_blog_category_id?: string | null
+          show_counselling_form?: boolean | null
           slug?: string
+          subtitle?: string | null
           title?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_pages_blog_category"
+            columns: ["related_blog_category_id"]
+            isOneToOne: false
+            referencedRelation: "blog_categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       roles: {
         Row: {

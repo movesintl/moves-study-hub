@@ -11,6 +11,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Edit, Trash2, Eye, Search } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+interface PageData {
+  id: string;
+  title: string;
+  slug: string;
+  content: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 const PagesList = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -18,14 +30,14 @@ const PagesList = () => {
 
   const { data: pages = [], isLoading, refetch } = useQuery({
     queryKey: ['pages'],
-    queryFn: async () => {
+    queryFn: async (): Promise<PageData[]> => {
       const { data, error } = await supabase
-        .from('pages')
+        .from('pages' as any)
         .select('*')
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data;
+      return data as PageData[];
     }
   });
 
@@ -39,7 +51,7 @@ const PagesList = () => {
 
     try {
       const { error } = await supabase
-        .from('pages')
+        .from('pages' as any)
         .delete()
         .eq('id', id);
 

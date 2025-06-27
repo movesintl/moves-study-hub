@@ -11,6 +11,18 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
+interface PageData {
+  id: string;
+  title: string;
+  slug: string;
+  content: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 const PageForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -31,16 +43,16 @@ const PageForm = () => {
 
   const { data: page, isLoading } = useQuery({
     queryKey: ['page', id],
-    queryFn: async () => {
+    queryFn: async (): Promise<PageData | null> => {
       if (!id) return null;
       const { data, error } = await supabase
-        .from('pages')
+        .from('pages' as any)
         .select('*')
         .eq('id', id)
         .single();
       
       if (error) throw error;
-      return data;
+      return data as PageData;
     },
     enabled: isEditing,
   });
@@ -118,7 +130,7 @@ const PageForm = () => {
 
       if (isEditing) {
         const { error } = await supabase
-          .from('pages')
+          .from('pages' as any)
           .update(pageData)
           .eq('id', id);
         
@@ -130,7 +142,7 @@ const PageForm = () => {
         });
       } else {
         const { error } = await supabase
-          .from('pages')
+          .from('pages' as any)
           .insert([pageData]);
         
         if (error) throw error;

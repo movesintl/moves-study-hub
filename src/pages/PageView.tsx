@@ -5,21 +5,33 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Helmet } from 'react-helmet-async';
 
+interface PageData {
+  id: string;
+  title: string;
+  slug: string;
+  content: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 const PageView = () => {
   const { slug } = useParams();
 
   const { data: page, isLoading, error } = useQuery({
     queryKey: ['page', slug],
-    queryFn: async () => {
+    queryFn: async (): Promise<PageData> => {
       const { data, error } = await supabase
-        .from('pages')
+        .from('pages' as any)
         .select('*')
         .eq('slug', slug)
         .eq('published', true)
         .single();
       
       if (error) throw error;
-      return data;
+      return data as PageData;
     }
   });
 

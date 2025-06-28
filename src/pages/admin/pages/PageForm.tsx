@@ -49,6 +49,30 @@ const PageForm = () => {
     }
   };
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      title: value
+    }));
+    
+    // Auto-generate slug when title changes
+    if (autoGenerateSlug) {
+      setFormData(prev => ({
+        ...prev,
+        slug: generateSlug(value)
+      }));
+    }
+  };
+
+  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      slug: value
+    }));
+  };
+
   const handleAddFaq = () => {
     setFormData(prev => ({
       ...prev,
@@ -106,13 +130,16 @@ const PageForm = () => {
         <HeroSection
           formData={formData}
           autoGenerateSlug={autoGenerateSlug}
-          onChange={handleInputChange}
+          onTitleChange={handleTitleChange}
+          onSlugChange={handleSlugChange}
           onToggleAutoSlug={toggleAutoGenerateSlug}
+          onFormDataChange={handleFormDataChange}
         />
 
         {/* Main Content Section */}
         <MainContentSection
           formData={formData}
+          onFormDataChange={handleFormDataChange}
           onChange={handleInputChange}
         />
 

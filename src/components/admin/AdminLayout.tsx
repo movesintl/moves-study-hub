@@ -8,7 +8,7 @@ import AdminAuthGuard from './AdminAuthGuard';
 const AdminLayout = () => {
   return (
     <AdminAuthGuard>
-      <div className="flex h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex h-screen bg-gray-50">
         {/* Sidebar */}
         <AdminSidebar />
 
@@ -18,10 +18,10 @@ const AdminLayout = () => {
           <AdminHeader />
 
           {/* Content Area */}
-          <main className="flex-1 p-8 overflow-y-auto bg-gradient-to-b from-white to-gray-50">
+          <main className="flex-1 p-6 overflow-y-auto">
             <div className="max-w-7xl mx-auto">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 min-h-[600px]">
-                <div className="p-8">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 min-h-[calc(100vh-8rem)]">
+                <div className="p-6">
                   <Outlet />
                 </div>
               </div>

@@ -143,7 +143,7 @@ export const usePageForm = () => {
     if (newAutoGenerate && formData.title) {
       setFormData(prev => ({
         ...prev,
-        slug: generateSlug(prev.title)
+        slug: generateSlug(formData.title)
       }));
     }
   };

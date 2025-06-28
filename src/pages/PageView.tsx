@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -6,7 +5,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { Helmet } from 'react-helmet-async';
 import PageViewSkeleton from './components/PageViewSkeleton';
 import PageViewError from './components/PageViewError';
-import PageViewBreadcrumb from './components/PageViewBreadcrumb';
 import PageViewHero from './components/PageViewHero';
 import PageViewContent from './components/PageViewContent';
 import PageViewFAQ from './components/PageViewFAQ';
@@ -118,8 +116,6 @@ const PageView = () => {
       </Helmet>
       
       <div className="min-h-screen bg-white">
-        <PageViewBreadcrumb pageTitle={page.title} />
-        
         <PageViewHero 
           title={page.title}
           subtitle={page.subtitle}

@@ -11,9 +11,9 @@ interface PageViewHeroProps {
 const PageViewHero = ({ title, subtitle, featureImageUrl }: PageViewHeroProps) => {
   return (
     <section className="bg-primary py-16 lg:py-24 overflow-hidden">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Title and Description */}
+          {/* Left Column - Title, Description, and Breadcrumb */}
           <div className="text-white space-y-6">
             {/* Main Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
@@ -28,6 +28,15 @@ const PageViewHero = ({ title, subtitle, featureImageUrl }: PageViewHeroProps) =
                 {subtitle}
               </p>
             )}
+
+            {/* Breadcrumb */}
+            <div className="flex items-center space-x-2 text-white/80">
+              <a href="/" className="hover:text-accent transition-colors">
+                Home
+              </a>
+              <span className="text-accent">•</span>
+              <span className="text-accent">{title}</span>
+            </div>
           </div>
 
           {/* Right Column - Featured Image */}

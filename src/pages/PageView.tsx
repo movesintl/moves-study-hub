@@ -6,7 +6,8 @@ import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, ArrowRight, Play } from 'lucide-react';
+import { Calendar, ArrowRight, Play, Home } from 'lucide-react';
+import { Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 
 interface PageData {
   id: string;
@@ -150,6 +151,29 @@ const PageView = () => {
       </Helmet>
       
       <div className="min-h-screen bg-white">
+        {/* Breadcrumb Navigation */}
+        <section className="bg-gray-50 py-4">
+          <div className="container mx-auto px-4">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">
+                    <Home className="h-4 w-4" />
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/pages">Pages</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{page.title}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </section>
+
         {/* Redesigned Hero Section */}
         <section className="bg-primary py-16 lg:py-24 overflow-hidden">
           <div className="container mx-auto px-4">
@@ -172,7 +196,7 @@ const PageView = () => {
 
                 {/* Action Button */}
                 <div className="pt-4">
-                  <Button size="lg" className="bg-accent text-white hover:bg-accent/90 shadow-lg">
+                  <Button size="lg" className="bg-accent text-white hover:bg-accent/90">
                     Get Started <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </div>
@@ -181,13 +205,11 @@ const PageView = () => {
               {/* Right Column - Featured Image */}
               <div className="relative">
                 {page.feature_image_url ? (
-                  <div className="relative">
-                    <img 
-                      src={page.feature_image_url} 
-                      alt={page.title}
-                      className="w-full h-80 lg:h-96 object-cover rounded-2xl shadow-2xl"
-                    />
-                  </div>
+                  <img 
+                    src={page.feature_image_url} 
+                    alt={page.title}
+                    className="w-full h-80 lg:h-96 object-cover rounded-2xl"
+                  />
                 ) : (
                   <div className="w-full h-80 lg:h-96 bg-white/10 rounded-2xl border-2 border-white/20 flex items-center justify-center">
                     <div className="text-white/60 text-center">
@@ -222,7 +244,7 @@ const PageView = () => {
                     <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-8 rounded-2xl border border-primary/10">
                       <p className="text-gray-700 mb-6 text-lg leading-relaxed">{page.cta_text}</p>
                       {page.cta_button_text && page.cta_button_link && (
-                        <Button asChild size="lg" className="shadow-lg">
+                        <Button asChild size="lg">
                           <a href={page.cta_button_link} className="inline-flex items-center">
                             {page.cta_button_text}
                             <ArrowRight className="ml-2 h-5 w-5" />
@@ -235,26 +257,20 @@ const PageView = () => {
                 
                 <div className="relative">
                   {page.content_video_url ? (
-                    <div className="aspect-video relative group cursor-pointer">
+                    <div className="aspect-video relative">
                       <iframe 
                         src={getVideoEmbedUrl(page.content_video_url) || ''}
-                        className="w-full h-full rounded-2xl shadow-2xl"
+                        className="w-full h-full rounded-2xl"
                         frameBorder="0"
                         allowFullScreen
                       />
-                      <div className="absolute inset-0 bg-black/20 rounded-2xl group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                        <Play className="h-16 w-16 text-white opacity-80 group-hover:opacity-100 transition-opacity" />
-                      </div>
                     </div>
                   ) : page.content_image_url ? (
-                    <div className="relative group">
-                      <img 
-                        src={page.content_image_url} 
-                        alt="Content illustration"
-                        className="w-full rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
+                    <img 
+                      src={page.content_image_url} 
+                      alt="Content illustration"
+                      className="w-full rounded-2xl"
+                    />
                   ) : null}
                 </div>
               </div>

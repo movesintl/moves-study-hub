@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -8,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, Eye, Share2, ArrowRight, Play } from 'lucide-react';
-import CounsellingBookingForm from '@/components/forms/CounsellingBookingForm';
 
 interface PageData {
   id: string;
@@ -402,27 +400,6 @@ const PageView = () => {
                     </div>
                   </article>
                 ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Free Counselling Form */}
-        {page.show_counselling_form && (
-          <section className="py-20 bg-gradient-to-r from-primary to-accent">
-            <div className="max-w-4xl mx-auto px-4">
-              <div className="text-center mb-12 text-white">
-                <Badge variant="secondary" className="mb-4">Free Consultation</Badge>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Ready to Start Your Journey?
-                </h2>
-                <p className="text-xl text-white/90">
-                  Get personalized guidance from our expert counsellors
-                </p>
-              </div>
-              
-              <div className="bg-white rounded-2xl shadow-2xl p-8">
-                <CounsellingBookingForm />
               </div>
             </div>
           </section>

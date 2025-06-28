@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -7,7 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Eye, Share2, ArrowRight, Play } from 'lucide-react';
+import { Calendar, ArrowRight, Play } from 'lucide-react';
 
 interface PageData {
   id: string;
@@ -152,48 +151,29 @@ const PageView = () => {
       
       <div className="min-h-screen bg-white">
         {/* Redesigned Hero Section */}
-        <section className="bg-primary py-16 lg:py-24">
+        <section className="bg-primary py-16 lg:py-24 overflow-hidden">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left Column - Title and Subtitle */}
+              {/* Left Column - Title and Description */}
               <div className="text-white space-y-6">
-                {/* Page Meta */}
-                <div className="flex items-center space-x-4 text-sm text-white/80">
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="h-4 w-4" />
-                    <span>{new Date(page.created_at).toLocaleDateString()}</span>
-                  </div>
-                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  <div className="flex items-center space-x-1">
-                    <Clock className="h-4 w-4" />
-                    <span>5 min read</span>
-                  </div>
-                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  <div className="flex items-center space-x-1">
-                    <Eye className="h-4 w-4" />
-                    <span>Popular</span>
-                  </div>
-                </div>
-
                 {/* Main Title */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-                  {page.title}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                  <span className="text-accent">{page.title.split(' ')[0]}</span>
+                  {page.title.split(' ').length > 1 && (
+                    <span className="text-white"> {page.title.split(' ').slice(1).join(' ')}</span>
+                  )}
                 </h1>
                 
                 {page.subtitle && (
-                  <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+                  <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-lg">
                     {page.subtitle}
                   </p>
                 )}
 
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-lg">
+                {/* Action Button */}
+                <div className="pt-4">
+                  <Button size="lg" className="bg-accent text-white hover:bg-accent/90 shadow-lg">
                     Get Started <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                    <Share2 className="mr-2 h-5 w-5" />
-                    Share
                   </Button>
                 </div>
               </div>
@@ -201,18 +181,19 @@ const PageView = () => {
               {/* Right Column - Featured Image */}
               <div className="relative">
                 {page.feature_image_url ? (
-                  <div className="relative group">
+                  <div className="relative">
                     <img 
                       src={page.feature_image_url} 
                       alt={page.title}
-                      className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-80 lg:h-96 object-cover rounded-2xl shadow-2xl"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
                 ) : (
-                  <div className="w-full h-64 md:h-80 lg:h-96 bg-white/10 rounded-2xl border-2 border-white/20 flex items-center justify-center">
+                  <div className="w-full h-80 lg:h-96 bg-white/10 rounded-2xl border-2 border-white/20 flex items-center justify-center">
                     <div className="text-white/60 text-center">
-                      <Eye className="h-12 w-12 mx-auto mb-2" />
+                      <div className="w-16 h-16 bg-white/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <Play className="h-8 w-8" />
+                      </div>
                       <p>No featured image</p>
                     </div>
                   </div>

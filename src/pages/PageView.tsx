@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -150,73 +151,73 @@ const PageView = () => {
       </Helmet>
       
       <div className="min-h-screen bg-white">
-        {/* Modern Hero Section */}
-        <section className="relative overflow-hidden">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-accent opacity-95"></div>
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
-          
-          {page.feature_image_url && (
-            <div className="absolute inset-0">
-              <img 
-                src={page.feature_image_url} 
-                alt={page.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
-            </div>
-          )}
-          
-          <div className="relative z-10 container mx-auto px-4 py-24 lg:py-32">
-            <div className="max-w-4xl mx-auto text-center text-white space-y-8">
-              {/* Page Meta */}
-              <div className="flex items-center justify-center space-x-4 text-sm text-white/80">
-                <div className="flex items-center space-x-1">
-                  <Calendar className="h-4 w-4" />
-                  <span>{new Date(page.created_at).toLocaleDateString()}</span>
+        {/* Redesigned Hero Section */}
+        <section className="bg-primary py-16 lg:py-24">
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column - Title and Subtitle */}
+              <div className="text-white space-y-6">
+                {/* Page Meta */}
+                <div className="flex items-center space-x-4 text-sm text-white/80">
+                  <div className="flex items-center space-x-1">
+                    <Calendar className="h-4 w-4" />
+                    <span>{new Date(page.created_at).toLocaleDateString()}</span>
+                  </div>
+                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                  <div className="flex items-center space-x-1">
+                    <Clock className="h-4 w-4" />
+                    <span>5 min read</span>
+                  </div>
+                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                  <div className="flex items-center space-x-1">
+                    <Eye className="h-4 w-4" />
+                    <span>Popular</span>
+                  </div>
                 </div>
-                <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                <div className="flex items-center space-x-1">
-                  <Clock className="h-4 w-4" />
-                  <span>5 min read</span>
-                </div>
-                <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                <div className="flex items-center space-x-1">
-                  <Eye className="h-4 w-4" />
-                  <span>Popular</span>
+
+                {/* Main Title */}
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                  {page.title}
+                </h1>
+                
+                {page.subtitle && (
+                  <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+                    {page.subtitle}
+                  </p>
+                )}
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-lg">
+                    Get Started <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                    <Share2 className="mr-2 h-5 w-5" />
+                    Share
+                  </Button>
                 </div>
               </div>
 
-              {/* Main Title */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                {page.title}
-              </h1>
-              
-              {page.subtitle && (
-                <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto">
-                  {page.subtitle}
-                </p>
-              )}
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-lg">
-                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                  <Share2 className="mr-2 h-5 w-5" />
-                  Share
-                </Button>
+              {/* Right Column - Featured Image */}
+              <div className="relative">
+                {page.feature_image_url ? (
+                  <div className="relative group">
+                    <img 
+                      src={page.feature_image_url} 
+                      alt={page.title}
+                      className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  </div>
+                ) : (
+                  <div className="w-full h-64 md:h-80 lg:h-96 bg-white/10 rounded-2xl border-2 border-white/20 flex items-center justify-center">
+                    <div className="text-white/60 text-center">
+                      <Eye className="h-12 w-12 mx-auto mb-2" />
+                      <p>No featured image</p>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <div className="w-6 h-10 border-2 border-white/30 rounded-full p-1">
-              <div className="w-1 h-3 bg-white rounded-full mx-auto animate-pulse"></div>
             </div>
           </div>
         </section>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -144,7 +143,7 @@ export const usePageForm = () => {
     if (newAutoGenerate && formData.title) {
       setFormData(prev => ({
         ...prev,
-        slug: generateSlug(prev.title)
+        slug: generateSlug(formData.title)
       }));
     }
   };

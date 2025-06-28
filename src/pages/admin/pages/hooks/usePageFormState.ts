@@ -82,7 +82,18 @@ export const usePageFormState = () => {
   };
 
   const toggleAutoGenerateSlug = () => {
-    setAutoGenerateSlug(prev => !prev);
+    setAutoGenerateSlug(prev => {
+      const newValue = !prev;
+      if (newValue && formData.title) {
+        // Generate slug from current title when enabling auto-generation
+        const newSlug = generateSlug(formData.title);
+        setFormData(prevData => ({
+          ...prevData,
+          slug: newSlug
+        }));
+      }
+      return newValue;
+    });
   };
 
   return {

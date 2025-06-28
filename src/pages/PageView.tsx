@@ -9,6 +9,7 @@ import PageViewHero from './components/PageViewHero';
 import PageViewContent from './components/PageViewContent';
 import PageViewFAQ from './components/PageViewFAQ';
 import PageViewRelatedBlogs from './components/PageViewRelatedBlogs';
+import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 
 interface PageData {
   id: string;
@@ -136,6 +137,8 @@ const PageView = () => {
         <PageViewFAQ faqs={page.faqs || []} />
 
         <PageViewRelatedBlogs relatedBlogs={relatedBlogs} />
+
+        <LeadEnquiryForm />
       </div>
     </>
   );

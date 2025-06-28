@@ -72,13 +72,19 @@ export const usePageFormState = () => {
     setAutoGenerateSlug(false);
   };
 
-  const generateSlug = (title: string) => {
+  const generateSlug = (title: string): string => {
+    // Handle edge cases
+    if (!title || typeof title !== 'string') {
+      return '';
+    }
+
     return title
       .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim('-');
+      .trim() // Remove leading/trailing spaces
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+      .replace(/\s+/g, '-') // Replace multiple spaces with single hyphen
+      .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+      .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
   };
 
   const toggleAutoGenerateSlug = () => {

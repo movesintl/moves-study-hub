@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import ForgotPasswordDialog from '@/components/auth/ForgotPasswordDialog';
 
 const AdminAuth = () => {
   const [email, setEmail] = useState('');
@@ -207,6 +209,17 @@ const AdminAuth = () => {
                       required
                       className="mt-1"
                     />
+                  </div>
+                  <div className="flex justify-end">
+                    <ForgotPasswordDialog>
+                      <Button 
+                        type="button" 
+                        variant="link" 
+                        className="p-0 h-auto text-sm text-primary hover:underline"
+                      >
+                        Forgot Password?
+                      </Button>
+                    </ForgotPasswordDialog>
                   </div>
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? 'Signing in...' : 'Sign In to Admin Panel'}

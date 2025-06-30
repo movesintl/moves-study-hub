@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { VisualBuilder } from '@/components/visual-builder/VisualBuilder';
-import { useEditor } from '@craftjs/core';
 
 interface VisualBuilderSectionProps {
   visualBuilderEnabled: boolean;
@@ -44,7 +43,7 @@ export const VisualBuilderSection: React.FC<VisualBuilderSectionProps> = ({
       
       {visualBuilderEnabled && (
         <CardContent className="p-0">
-          <div className="h-[600px] border rounded-lg overflow-hidden">
+          <div className="h-[800px] border rounded-lg overflow-hidden">
             <VisualBuilder
               initialData={visualBuilderData}
               onSave={handleSaveBuilderData}

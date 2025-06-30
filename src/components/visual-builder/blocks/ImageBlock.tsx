@@ -9,33 +9,29 @@ interface ImageBlockProps {
   alt?: string;
   width?: number;
   height?: number;
-  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 }
 
 export const ImageBlock: React.FC<ImageBlockProps> = ({
-  src = 'https://via.placeholder.com/400x200',
-  alt = 'Image',
-  width = 400,
-  height = 200,
-  objectFit = 'cover'
+  src = "https://via.placeholder.com/300x200",
+  alt = "Image",
+  width = 300,
+  height = 200
 }) => {
-  const { connectors: { connect, drag } } = useNode();
+  const { connectors: { connect, drag }, selected } = useNode((state) => ({
+    selected: state.events.selected
+  }));
 
   return (
     <div
       ref={(ref: HTMLDivElement) => connect(drag(ref))}
-      className="cursor-move"
-      style={{ margin: '10px 0' }}
+      className={`cursor-pointer ${selected ? 'ring-2 ring-blue-500' : ''}`}
     >
       <img
         src={src}
         alt={alt}
-        style={{
-          width: `${width}px`,
-          height: `${height}px`,
-          objectFit,
-          borderRadius: '4px'
-        }}
+        width={width}
+        height={height}
+        className="max-w-full h-auto"
       />
     </div>
   );
@@ -55,10 +51,8 @@ export const ImageBlockSettings = () => {
           value={props.src}
           onChange={(e) => setProp((props: ImageBlockProps) => props.src = e.target.value)}
           className="mt-1"
-          placeholder="https://example.com/image.jpg"
         />
       </div>
-      
       <div>
         <Label htmlFor="alt">Alt Text</Label>
         <Input
@@ -68,9 +62,8 @@ export const ImageBlockSettings = () => {
           className="mt-1"
         />
       </div>
-
       <div>
-        <Label htmlFor="width">Width (px)</Label>
+        <Label htmlFor="width">Width</Label>
         <Input
           id="width"
           type="number"
@@ -79,9 +72,8 @@ export const ImageBlockSettings = () => {
           className="mt-1"
         />
       </div>
-
       <div>
-        <Label htmlFor="height">Height (px)</Label>
+        <Label htmlFor="height">Height</Label>
         <Input
           id="height"
           type="number"
@@ -90,33 +82,16 @@ export const ImageBlockSettings = () => {
           className="mt-1"
         />
       </div>
-
-      <div>
-        <Label htmlFor="objectFit">Object Fit</Label>
-        <select
-          id="objectFit"
-          value={props.objectFit}
-          onChange={(e) => setProp((props: ImageBlockProps) => props.objectFit = e.target.value as any)}
-          className="mt-1 w-full p-2 border rounded"
-        >
-          <option value="cover">Cover</option>
-          <option value="contain">Contain</option>
-          <option value="fill">Fill</option>
-          <option value="none">None</option>
-          <option value="scale-down">Scale Down</option>
-        </select>
-      </div>
     </div>
   );
 };
 
 (ImageBlock as any).craft = {
   props: {
-    src: 'https://via.placeholder.com/400x200',
-    alt: 'Image',
-    width: 400,
-    height: 200,
-    objectFit: 'cover'
+    src: "https://via.placeholder.com/300x200",
+    alt: "Image",
+    width: 300,
+    height: 200
   },
   related: {
     settings: ImageBlockSettings

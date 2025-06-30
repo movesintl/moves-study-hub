@@ -110,7 +110,7 @@ export const ImageBlockSettings = () => {
   );
 };
 
-ImageBlock.craft = {
+(ImageBlock as any).craft = {
   props: {
     src: 'https://via.placeholder.com/400x200',
     alt: 'Image',

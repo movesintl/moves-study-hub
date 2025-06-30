@@ -1,14 +1,15 @@
+
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { Helmet } from 'react-helmet-async';
-import PageViewSkeleton from './components/PageViewSkeleton';
-import PageViewError from './components/PageViewError';
+import { supabase } from '@/integrations/supabase/client';
 import PageViewHero from './components/PageViewHero';
 import PageViewContent from './components/PageViewContent';
 import PageViewFAQ from './components/PageViewFAQ';
 import PageViewRelatedBlogs from './components/PageViewRelatedBlogs';
+import PageViewSkeleton from './components/PageViewSkeleton';
+import PageViewError from './components/PageViewError';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 import { PageRenderer } from '@/components/visual-builder/PageRenderer';
 
@@ -43,13 +44,13 @@ interface BlogData {
   id: string;
   title: string;
   slug: string;
-  featured_image_url?: string;
-  meta_description?: string;
+  featured_image_url: string;
+  content: string;
   created_at: string;
 }
 
 const PageView = () => {
-  const { slug } = useParams();
+  const { slug } = useParams<{ slug: string }>();
 
   const { data: page, isLoading, error } = useQuery({
     queryKey: ['page', slug],
@@ -63,7 +64,6 @@ const PageView = () => {
       
       if (error) throw error;
       
-      // Transform the data to ensure faqs is properly typed
       return {
         ...data,
         faqs: Array.isArray(data.faqs) ? 
@@ -72,9 +72,13 @@ const PageView = () => {
           ).map((faq: any) => ({
             question: String(faq.question),
             answer: String(faq.answer)
-          })) : []
+          })) : [],
+        visual_builder_data: typeof data.visual_builder_data === 'string' ? 
+          data.visual_builder_data : 
+          JSON.stringify(data.visual_builder_data || {})
       };
-    }
+    },
+    enabled: !!slug,
   });
 
   const { data: relatedBlogs = [] } = useQuery({
@@ -84,32 +88,19 @@ const PageView = () => {
       
       const { data, error } = await supabase
         .from('blogs')
-        .select(`
-          id,
-          title,
-          slug,
-          featured_image_url,
-          meta_description,
-          created_at
-        `)
+        .select('id, title, slug, featured_image_url, content, created_at')
+        .eq('category_id', page.related_blog_category_id)
         .eq('published', true)
-        .in('category_id', [page.related_blog_category_id])
-        .order('created_at', { ascending: false })
         .limit(3);
       
       if (error) throw error;
-      return data || [];
+      return data;
     },
-    enabled: !!page?.related_blog_category_id
+    enabled: !!page?.related_blog_category_id,
   });
 
-  if (isLoading) {
-    return <PageViewSkeleton />;
-  }
-
-  if (error || !page) {
-    return <PageViewError />;
-  }
+  if (isLoading) return <PageViewSkeleton />;
+  if (error || !page) return <PageViewError />;
 
   return (
     <>

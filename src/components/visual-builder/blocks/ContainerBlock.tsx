@@ -134,7 +134,7 @@ export const ContainerBlockSettings = () => {
   );
 };
 
-ContainerBlock.craft = {
+(ContainerBlock as any).craft = {
   props: {
     background: '#ffffff',
     padding: 20,

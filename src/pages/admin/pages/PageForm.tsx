@@ -1,7 +1,11 @@
+
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { usePageForm } from './hooks/usePageForm';
+import { usePageFormHandlers } from './hooks/usePageFormHandlers';
+import { usePageFAQHandlers } from './hooks/usePageFAQHandlers';
+import { PageFormHeader } from './components/PageFormHeader';
+import { PageFormSkeleton } from './components/PageFormSkeleton';
+import { PageFormActions } from './components/PageFormActions';
 import HeroSection from './components/HeroSection';
 import MainContentSection from './components/MainContentSection';
 import BodyContentSection from './components/BodyContentSection';
@@ -26,121 +30,35 @@ const PageForm = () => {
     toggleAutoGenerateSlug,
   } = usePageForm();
 
-  const handleFormDataChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
+  const {
+    handleFormDataChange,
+    handleInputChange,
+    handleTitleChange,
+    handleSlugChange,
+    handleToggleVisualBuilder,
+    handleVisualBuilderDataChange,
+  } = usePageFormHandlers(formData, setFormData, autoGenerateSlug, generateSlug);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Auto-generate slug when title changes
-    if (name === 'title' && autoGenerateSlug) {
-      setFormData(prev => ({
-        ...prev,
-        slug: generateSlug(value)
-      }));
-    }
-  };
+  const {
+    handleAddFaq,
+    handleRemoveFaq,
+    handleUpdateFaq,
+  } = usePageFAQHandlers(setFormData);
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      title: value
-    }));
-    
-    // Auto-generate slug when title changes
-    if (autoGenerateSlug) {
-      setFormData(prev => ({
-        ...prev,
-        slug: generateSlug(value)
-      }));
-    }
-  };
-
-  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      slug: value
-    }));
-  };
-
-  const handleAddFaq = () => {
-    setFormData(prev => ({
-      ...prev,
-      faqs: [...prev.faqs, { question: '', answer: '' }]
-    }));
-  };
-
-  const handleRemoveFaq = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      faqs: prev.faqs.filter((_, i) => i !== index)
-    }));
-  };
-
-  const handleUpdateFaq = (index: number, field: 'question' | 'answer', value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      faqs: prev.faqs.map((faq, i) => 
-        i === index ? { ...faq, [field]: value } : faq
-      )
-    }));
-  };
-
-  const handleToggleVisualBuilder = (enabled: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      visual_builder_enabled: enabled
-    }));
-  };
-
-  const handleVisualBuilderDataChange = (data: string) => {
-    setFormData(prev => ({
-      ...prev,
-      visual_builder_data: data
-    }));
-  };
+  const handleBackClick = () => navigate('/admin/pages');
 
   if (isLoading) {
-    return (
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
-          <div className="space-y-4">
-            <div className="h-20 bg-gray-200 rounded"></div>
-            <div className="h-20 bg-gray-200 rounded"></div>
-            <div className="h-20 bg-gray-200 rounded"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <PageFormSkeleton />;
   }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">
-          {isEditing ? 'Edit Page' : 'Create New Page'}
-        </h1>
-        <Button 
-          variant="outline" 
-          onClick={() => navigate('/admin/pages')}
-        >
-          Back to Pages
-        </Button>
-      </div>
+      <PageFormHeader 
+        isEditing={isEditing}
+        onBackClick={handleBackClick}
+      />
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Hero Section */}
         <HeroSection
           formData={formData}
           autoGenerateSlug={autoGenerateSlug}
@@ -150,7 +68,6 @@ const PageForm = () => {
           onFormDataChange={handleFormDataChange}
         />
 
-        {/* Visual Builder Section */}
         <VisualBuilderSection
           visualBuilderEnabled={formData.visual_builder_enabled}
           visualBuilderData={formData.visual_builder_data}
@@ -158,23 +75,19 @@ const PageForm = () => {
           onVisualBuilderDataChange={handleVisualBuilderDataChange}
         />
 
-        {/* Conditional rendering of traditional content sections */}
         {!formData.visual_builder_enabled && (
           <>
-            {/* Main Content Section */}
             <MainContentSection
               formData={formData}
               onFormDataChange={handleFormDataChange}
               onChange={handleInputChange}
             />
 
-            {/* Body Content Section */}
             <BodyContentSection
               value={formData.body_content}
               onChange={(value) => handleFormDataChange('body_content', value)}
             />
 
-            {/* Legacy Content Section */}
             <LegacyContentSection
               value={formData.content}
               onChange={handleInputChange}
@@ -182,7 +95,6 @@ const PageForm = () => {
           </>
         )}
 
-        {/* FAQ Section */}
         <FAQSection
           faqs={formData.faqs}
           onAddFaq={handleAddFaq}
@@ -190,36 +102,22 @@ const PageForm = () => {
           onUpdateFaq={handleUpdateFaq}
         />
 
-        {/* Settings Section */}
         <SettingsSection
           formData={formData}
           blogCategories={blogCategories}
           onFormDataChange={handleFormDataChange}
         />
 
-        {/* SEO Section */}
         <SEOSection
           formData={formData}
           onChange={handleInputChange}
         />
 
-        {/* Submit Button */}
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex justify-end space-x-4">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => navigate('/admin/pages')}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" disabled={loading}>
-                {loading ? 'Saving...' : (isEditing ? 'Update Page' : 'Create Page')}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <PageFormActions
+          loading={loading}
+          isEditing={isEditing}
+          onCancel={handleBackClick}
+        />
       </form>
     </div>
   );

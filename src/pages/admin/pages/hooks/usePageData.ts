@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -58,7 +59,10 @@ export const usePageData = () => {
           ).map((faq: any) => ({
             question: String(faq.question),
             answer: String(faq.answer)
-          })) : []
+          })) : [],
+        visual_builder_data: typeof data.visual_builder_data === 'string' ? 
+          data.visual_builder_data : 
+          JSON.stringify(data.visual_builder_data || {})
       };
     },
     enabled: isEditing,

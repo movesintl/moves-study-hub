@@ -115,7 +115,7 @@ export const TextBlockSettings = () => {
   );
 };
 
-TextBlock.craft = {
+(TextBlock as any).craft = {
   props: {
     text: 'Edit this text',
     fontSize: 16,

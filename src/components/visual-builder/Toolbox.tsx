@@ -6,21 +6,36 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TextBlock } from './blocks/TextBlock';
 import { ImageBlock } from './blocks/ImageBlock';
 import { ContainerBlock } from './blocks/ContainerBlock';
-import { Type, Image, Square } from 'lucide-react';
+import { ButtonBlock } from './blocks/ButtonBlock';
+import { HeadingBlock } from './blocks/HeadingBlock';
+import { DividerBlock } from './blocks/DividerBlock';
+import { SpacerBlock } from './blocks/SpacerBlock';
+import { Type, Image, Square, MousePointer, Heading, Minus, Move } from 'lucide-react';
 
 export const Toolbox = () => {
   const { connectors } = useEditor();
 
   return (
-    <Card className="w-80">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-sm">Components</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         <Button
+          ref={(ref: HTMLButtonElement) => connectors.create(ref, <HeadingBlock />)}
+          variant="outline"
+          className="w-full justify-start"
+          size="sm"
+        >
+          <Heading className="w-4 h-4 mr-2" />
+          Heading
+        </Button>
+
+        <Button
           ref={(ref: HTMLButtonElement) => connectors.create(ref, <TextBlock />)}
           variant="outline"
           className="w-full justify-start"
+          size="sm"
         >
           <Type className="w-4 h-4 mr-2" />
           Text
@@ -30,9 +45,40 @@ export const Toolbox = () => {
           ref={(ref: HTMLButtonElement) => connectors.create(ref, <ImageBlock />)}
           variant="outline"
           className="w-full justify-start"
+          size="sm"
         >
           <Image className="w-4 h-4 mr-2" />
           Image
+        </Button>
+
+        <Button
+          ref={(ref: HTMLButtonElement) => connectors.create(ref, <ButtonBlock />)}
+          variant="outline"
+          className="w-full justify-start"
+          size="sm"
+        >
+          <MousePointer className="w-4 h-4 mr-2" />
+          Button
+        </Button>
+
+        <Button
+          ref={(ref: HTMLButtonElement) => connectors.create(ref, <DividerBlock />)}
+          variant="outline"
+          className="w-full justify-start"
+          size="sm"
+        >
+          <Minus className="w-4 h-4 mr-2" />
+          Divider
+        </Button>
+
+        <Button
+          ref={(ref: HTMLButtonElement) => connectors.create(ref, <SpacerBlock />)}
+          variant="outline"
+          className="w-full justify-start"
+          size="sm"
+        >
+          <Move className="w-4 h-4 mr-2" />
+          Spacer
         </Button>
         
         <Button
@@ -43,6 +89,7 @@ export const Toolbox = () => {
           )}
           variant="outline"
           className="w-full justify-start"
+          size="sm"
         >
           <Square className="w-4 h-4 mr-2" />
           Container

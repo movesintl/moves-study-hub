@@ -7,6 +7,10 @@ import { SettingsPanel } from './SettingsPanel';
 import { TextBlock } from './blocks/TextBlock';
 import { ImageBlock } from './blocks/ImageBlock';
 import { ContainerBlock } from './blocks/ContainerBlock';
+import { ButtonBlock } from './blocks/ButtonBlock';
+import { HeadingBlock } from './blocks/HeadingBlock';
+import { DividerBlock } from './blocks/DividerBlock';
+import { SpacerBlock } from './blocks/SpacerBlock';
 import { Save, Eye, EyeOff } from 'lucide-react';
 
 interface VisualBuilderProps {
@@ -22,20 +26,17 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
   enabled = true,
   onToggleEnabled
 }) => {
-  const handleSave = () => {
-    // This will be handled by the parent component using Editor's query API
-    if (onSave) {
-      onSave('');
-    }
-  };
-
   return (
     <div className="flex h-full">
       <Editor
         resolver={{
           TextBlock,
           ImageBlock,
-          ContainerBlock
+          ContainerBlock,
+          ButtonBlock,
+          HeadingBlock,
+          DividerBlock,
+          SpacerBlock
         }}
         enabled={enabled}
       >
@@ -53,7 +54,16 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
                 {enabled ? 'Preview' : 'Edit'}
               </Button>
               <Button
-                onClick={handleSave}
+                onClick={() => {
+                  // Only save when explicitly clicked, not on every drag
+                  if (onSave) {
+                    // Get the serialized data from the editor
+                    const editorState = (window as any).__CRAFT_EDITOR_STATE__;
+                    if (editorState) {
+                      onSave(JSON.stringify(editorState));
+                    }
+                  }
+                }}
                 size="sm"
                 className="flex-1"
               >
@@ -67,10 +77,10 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
         </div>
 
         {/* Canvas */}
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto bg-white">
           <Frame data={initialData}>
-            <Element is={ContainerBlock} canvas>
-              <TextBlock text="Welcome to Visual Builder" tagName="h1" fontSize={32} />
+            <Element is={ContainerBlock} canvas className="min-h-screen p-4">
+              <HeadingBlock text="Welcome to Visual Builder" level="h1" />
               <TextBlock text="Start building your page by dragging components from the toolbox." />
             </Element>
           </Frame>

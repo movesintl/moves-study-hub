@@ -1,7 +1,6 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { VisualBuilder } from '@/components/visual-builder/VisualBuilder';
@@ -14,21 +13,6 @@ interface VisualBuilderSectionProps {
   onVisualBuilderDataChange: (data: string) => void;
 }
 
-const VisualBuilderControls = ({ onSave }: { onSave: (data: string) => void }) => {
-  const { query } = useEditor();
-  
-  const handleSave = () => {
-    const json = query.serialize();
-    onSave(json);
-  };
-
-  return (
-    <Button onClick={handleSave} className="mb-4">
-      Save Visual Builder Data
-    </Button>
-  );
-};
-
 export const VisualBuilderSection: React.FC<VisualBuilderSectionProps> = ({
   visualBuilderEnabled,
   visualBuilderData,
@@ -38,6 +22,7 @@ export const VisualBuilderSection: React.FC<VisualBuilderSectionProps> = ({
   const [builderEnabled, setBuilderEnabled] = useState(true);
 
   const handleSaveBuilderData = (data: string) => {
+    console.log('Saving visual builder data:', data);
     onVisualBuilderDataChange(data);
   };
 
@@ -59,7 +44,7 @@ export const VisualBuilderSection: React.FC<VisualBuilderSectionProps> = ({
       
       {visualBuilderEnabled && (
         <CardContent className="p-0">
-          <div className="h-96 border rounded-lg overflow-hidden">
+          <div className="h-[600px] border rounded-lg overflow-hidden">
             <VisualBuilder
               initialData={visualBuilderData}
               onSave={handleSaveBuilderData}

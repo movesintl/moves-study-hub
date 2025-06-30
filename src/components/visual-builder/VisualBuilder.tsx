@@ -79,7 +79,7 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
         {/* Canvas */}
         <div className="flex-1 overflow-auto bg-white">
           <Frame data={initialData}>
-            <Element is={ContainerBlock} canvas className="min-h-screen p-4">
+            <Element is={ContainerBlock} canvas padding={16} background="#ffffff">
               <HeadingBlock text="Welcome to Visual Builder" level="h1" />
               <TextBlock text="Start building your page by dragging components from the toolbox." />
             </Element>

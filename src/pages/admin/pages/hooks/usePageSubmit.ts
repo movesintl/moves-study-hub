@@ -33,6 +33,9 @@ export const usePageSubmit = () => {
         meta_title: formData.meta_title,
         meta_description: formData.meta_description,
         published: formData.published,
+        visual_builder_enabled: formData.visual_builder_enabled,
+        visual_builder_data: formData.visual_builder_data,
+        visual_builder_version: formData.visual_builder_version,
       };
 
       if (isEditing) {

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,6 +9,7 @@ import LegacyContentSection from './components/LegacyContentSection';
 import FAQSection from './components/FAQSection';
 import SettingsSection from './components/SettingsSection';
 import SEOSection from './components/SEOSection';
+import { VisualBuilderSection } from './components/VisualBuilderSection';
 
 const PageForm = () => {
   const {
@@ -96,6 +96,20 @@ const PageForm = () => {
     }));
   };
 
+  const handleToggleVisualBuilder = (enabled: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      visual_builder_enabled: enabled
+    }));
+  };
+
+  const handleVisualBuilderDataChange = (data: string) => {
+    setFormData(prev => ({
+      ...prev,
+      visual_builder_data: data
+    }));
+  };
+
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto p-6">
@@ -136,24 +150,37 @@ const PageForm = () => {
           onFormDataChange={handleFormDataChange}
         />
 
-        {/* Main Content Section */}
-        <MainContentSection
-          formData={formData}
-          onFormDataChange={handleFormDataChange}
-          onChange={handleInputChange}
+        {/* Visual Builder Section */}
+        <VisualBuilderSection
+          visualBuilderEnabled={formData.visual_builder_enabled}
+          visualBuilderData={formData.visual_builder_data}
+          onToggleVisualBuilder={handleToggleVisualBuilder}
+          onVisualBuilderDataChange={handleVisualBuilderDataChange}
         />
 
-        {/* Body Content Section */}
-        <BodyContentSection
-          value={formData.body_content}
-          onChange={(value) => handleFormDataChange('body_content', value)}
-        />
+        {/* Conditional rendering of traditional content sections */}
+        {!formData.visual_builder_enabled && (
+          <>
+            {/* Main Content Section */}
+            <MainContentSection
+              formData={formData}
+              onFormDataChange={handleFormDataChange}
+              onChange={handleInputChange}
+            />
 
-        {/* Legacy Content Section */}
-        <LegacyContentSection
-          value={formData.content}
-          onChange={handleInputChange}
-        />
+            {/* Body Content Section */}
+            <BodyContentSection
+              value={formData.body_content}
+              onChange={(value) => handleFormDataChange('body_content', value)}
+            />
+
+            {/* Legacy Content Section */}
+            <LegacyContentSection
+              value={formData.content}
+              onChange={handleInputChange}
+            />
+          </>
+        )}
 
         {/* FAQ Section */}
         <FAQSection

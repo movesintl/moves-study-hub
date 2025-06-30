@@ -10,6 +10,7 @@ import PageViewContent from './components/PageViewContent';
 import PageViewFAQ from './components/PageViewFAQ';
 import PageViewRelatedBlogs from './components/PageViewRelatedBlogs';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
+import { PageRenderer } from '@/components/visual-builder/PageRenderer';
 
 interface PageData {
   id: string;
@@ -33,6 +34,9 @@ interface PageData {
   published: boolean;
   created_at: string;
   updated_at: string;
+  visual_builder_enabled?: boolean;
+  visual_builder_data?: string;
+  visual_builder_version?: string;
 }
 
 interface BlogData {
@@ -117,26 +121,34 @@ const PageView = () => {
       </Helmet>
       
       <div className="min-h-screen bg-white">
-        <PageViewHero 
-          title={page.title}
-          subtitle={page.subtitle}
-          featureImageUrl={page.feature_image_url}
-        />
+        {page.visual_builder_enabled && page.visual_builder_data ? (
+          <div className="container mx-auto py-8">
+            <PageRenderer data={page.visual_builder_data} />
+          </div>
+        ) : (
+          <>
+            <PageViewHero 
+              title={page.title}
+              subtitle={page.subtitle}
+              featureImageUrl={page.feature_image_url}
+            />
 
-        <PageViewContent
-          pageDescription={page.page_description}
-          contentImageUrl={page.content_image_url}
-          contentVideoUrl={page.content_video_url}
-          ctaText={page.cta_text}
-          ctaButtonText={page.cta_button_text}
-          ctaButtonLink={page.cta_button_link}
-          bodyContent={page.body_content}
-          content={page.content}
-        />
+            <PageViewContent
+              pageDescription={page.page_description}
+              contentImageUrl={page.content_image_url}
+              contentVideoUrl={page.content_video_url}
+              ctaText={page.cta_text}
+              ctaButtonText={page.cta_button_text}
+              ctaButtonLink={page.cta_button_link}
+              bodyContent={page.body_content}
+              content={page.content}
+            />
 
-        <PageViewFAQ faqs={page.faqs || []} />
+            <PageViewFAQ faqs={page.faqs || []} />
 
-        <PageViewRelatedBlogs relatedBlogs={relatedBlogs} />
+            <PageViewRelatedBlogs relatedBlogs={relatedBlogs} />
+          </>
+        )}
 
         <LeadEnquiryForm />
       </div>

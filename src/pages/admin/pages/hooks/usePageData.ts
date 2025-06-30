@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -25,6 +24,9 @@ export interface PageData {
   published: boolean;
   created_at: string;
   updated_at: string;
+  visual_builder_enabled?: boolean;
+  visual_builder_data?: string;
+  visual_builder_version?: string;
 }
 
 export interface BlogCategory {

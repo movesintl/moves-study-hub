@@ -553,6 +553,9 @@ export type Database = {
           subtitle: string | null
           title: string
           updated_at: string
+          visual_builder_data: Json | null
+          visual_builder_enabled: boolean | null
+          visual_builder_version: string | null
         }
         Insert: {
           body_content?: string | null
@@ -576,6 +579,9 @@ export type Database = {
           subtitle?: string | null
           title: string
           updated_at?: string
+          visual_builder_data?: Json | null
+          visual_builder_enabled?: boolean | null
+          visual_builder_version?: string | null
         }
         Update: {
           body_content?: string | null
@@ -599,6 +605,9 @@ export type Database = {
           subtitle?: string | null
           title?: string
           updated_at?: string
+          visual_builder_data?: Json | null
+          visual_builder_enabled?: boolean | null
+          visual_builder_version?: string | null
         }
         Relationships: [
           {

@@ -21,6 +21,9 @@ export interface PageFormData {
   meta_title: string;
   meta_description: string;
   published: boolean;
+  visual_builder_enabled: boolean;
+  visual_builder_data: string;
+  visual_builder_version: string;
 }
 
 export const usePageFormState = () => {
@@ -43,6 +46,9 @@ export const usePageFormState = () => {
     meta_title: '',
     meta_description: '',
     published: false,
+    visual_builder_enabled: false,
+    visual_builder_data: '{}',
+    visual_builder_version: '1.0',
   });
   
   const [autoGenerateSlug, setAutoGenerateSlug] = React.useState(true);
@@ -68,6 +74,9 @@ export const usePageFormState = () => {
       meta_title: page.meta_title || '',
       meta_description: page.meta_description || '',
       published: page.published || false,
+      visual_builder_enabled: page.visual_builder_enabled || false,
+      visual_builder_data: page.visual_builder_data || '{}',
+      visual_builder_version: page.visual_builder_version || '1.0',
     });
     setAutoGenerateSlug(false);
   };

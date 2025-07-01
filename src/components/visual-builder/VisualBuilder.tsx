@@ -86,7 +86,6 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
               canvas 
               padding={20} 
               background="#ffffff"
-              className="min-h-[600px] w-full"
             >
               <HeadingBlock text="Welcome to Visual Builder" level="h1" />
               <TextBlock text="Start building your page by dragging components from the toolbox." />

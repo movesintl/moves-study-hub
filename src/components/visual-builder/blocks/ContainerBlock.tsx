@@ -23,15 +23,11 @@ export const ContainerBlock: React.FC<ContainerBlockProps> = ({
 
   return (
     <div
-      ref={(ref: HTMLDivElement) => {
-        if (ref) {
-          connect(drag(ref));
-        }
-      }}
-      className={`min-h-[50px] transition-all duration-200 ${
+      ref={(ref) => ref && connect(drag(ref))}
+      className={`min-h-[100px] w-full transition-all duration-200 ${
         selected 
           ? 'ring-2 ring-blue-500 ring-offset-2' 
-          : 'border border-dashed border-gray-300 hover:border-gray-400'
+          : 'border-2 border-dashed border-gray-300 hover:border-gray-400'
       }`}
       style={{
         padding: `${padding}px`,
@@ -39,7 +35,11 @@ export const ContainerBlock: React.FC<ContainerBlockProps> = ({
         backgroundColor: background
       }}
     >
-      {children}
+      {children || (
+        <div className="text-gray-400 text-center py-8">
+          Drop components here
+        </div>
+      )}
     </div>
   );
 };

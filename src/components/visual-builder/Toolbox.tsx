@@ -22,7 +22,7 @@ export const Toolbox = () => {
       </CardHeader>
       <CardContent className="space-y-2">
         <Button
-          ref={(ref: HTMLButtonElement) => connectors.create(ref, <HeadingBlock />)}
+          ref={(ref) => ref && connectors.create(ref, <HeadingBlock />)}
           variant="outline"
           className="w-full justify-start"
           size="sm"
@@ -32,7 +32,7 @@ export const Toolbox = () => {
         </Button>
 
         <Button
-          ref={(ref: HTMLButtonElement) => connectors.create(ref, <TextBlock />)}
+          ref={(ref) => ref && connectors.create(ref, <TextBlock />)}
           variant="outline"
           className="w-full justify-start"
           size="sm"
@@ -42,7 +42,7 @@ export const Toolbox = () => {
         </Button>
         
         <Button
-          ref={(ref: HTMLButtonElement) => connectors.create(ref, <ImageBlock />)}
+          ref={(ref) => ref && connectors.create(ref, <ImageBlock />)}
           variant="outline"
           className="w-full justify-start"
           size="sm"
@@ -52,7 +52,7 @@ export const Toolbox = () => {
         </Button>
 
         <Button
-          ref={(ref: HTMLButtonElement) => connectors.create(ref, <ButtonBlock />)}
+          ref={(ref) => ref && connectors.create(ref, <ButtonBlock />)}
           variant="outline"
           className="w-full justify-start"
           size="sm"
@@ -62,7 +62,7 @@ export const Toolbox = () => {
         </Button>
 
         <Button
-          ref={(ref: HTMLButtonElement) => connectors.create(ref, <DividerBlock />)}
+          ref={(ref) => ref && connectors.create(ref, <DividerBlock />)}
           variant="outline"
           className="w-full justify-start"
           size="sm"
@@ -72,7 +72,7 @@ export const Toolbox = () => {
         </Button>
 
         <Button
-          ref={(ref: HTMLButtonElement) => connectors.create(ref, <SpacerBlock />)}
+          ref={(ref) => ref && connectors.create(ref, <SpacerBlock />)}
           variant="outline"
           className="w-full justify-start"
           size="sm"
@@ -82,7 +82,7 @@ export const Toolbox = () => {
         </Button>
         
         <Button
-          ref={(ref: HTMLButtonElement) => connectors.create(ref, 
+          ref={(ref) => ref && connectors.create(ref, 
             <Element is={ContainerBlock} canvas>
               <TextBlock text="Drag components here" />
             </Element>

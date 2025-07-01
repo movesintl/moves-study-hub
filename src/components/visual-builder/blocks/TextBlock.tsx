@@ -22,11 +22,7 @@ export const TextBlock: React.FC<TextBlockProps> = ({
 
   return (
     <div
-      ref={(ref: HTMLDivElement) => {
-        if (ref) {
-          connect(drag(ref));
-        }
-      }}
+      ref={(ref) => ref && connect(drag(ref))}
       className={`cursor-pointer p-2 transition-all duration-200 ${
         selected ? 'ring-2 ring-blue-500 ring-offset-2' : 'hover:ring-1 hover:ring-gray-300'
       }`}

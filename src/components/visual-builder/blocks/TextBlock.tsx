@@ -32,7 +32,7 @@ export const TextBlock: React.FC<TextBlockProps> = ({
           connect(drag(ref));
         }
       }}
-      className={`cursor-pointer p-2 transition-all duration-200 relative ${
+      className={`cursor-pointer p-2 transition-all duration-200 relative inline-block ${
         selected 
           ? 'ring-2 ring-blue-500 ring-offset-2' 
           : hovered 
@@ -43,14 +43,10 @@ export const TextBlock: React.FC<TextBlockProps> = ({
         fontSize: `${fontSize}px`,
         color: color
       }}
-      onClick={(e) => {
-        e.stopPropagation();
-        // Don't trigger any auto-save, just selection
-      }}
     >
       {text}
       {selected && (
-        <div className="absolute top-0 left-0 bg-blue-500 text-white text-xs px-2 py-1 rounded-br">
+        <div className="absolute -top-2 -left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded z-10">
           Text
         </div>
       )}

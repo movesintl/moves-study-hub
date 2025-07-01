@@ -47,6 +47,23 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
 }) => {
   const frameRef = useRef<HTMLDivElement>(null);
 
+  // Parse initial data safely
+  const getInitialData = () => {
+    if (!initialData || initialData === '{}') {
+      return undefined;
+    }
+    try {
+      // If it's already a string, return it directly
+      if (typeof initialData === 'string') {
+        return initialData;
+      }
+      return JSON.stringify(initialData);
+    } catch (error) {
+      console.warn('Failed to parse initial data:', error);
+      return undefined;
+    }
+  };
+
   return (
     <div className="flex h-full">
       <Editor
@@ -60,7 +77,6 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
           SpacerBlock
         }}
         enabled={enabled}
-        onRender={(node, jsx) => jsx}
       >
         {/* Toolbox */}
         <div className="w-80 border-r bg-gray-50 p-4 flex-shrink-0">
@@ -83,15 +99,17 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
         </div>
 
         {/* Canvas */}
-        <div className="flex-1 overflow-auto bg-white p-6">
-          <div ref={frameRef} className="min-h-[800px] w-full">
-            <Frame data={initialData}>
+        <div className="flex-1 overflow-auto bg-white">
+          <div ref={frameRef} className="min-h-[800px] w-full p-6">
+            <Frame data={getInitialData()}>
               <Element 
                 is={ContainerBlock} 
                 canvas 
                 padding={20} 
                 background="#ffffff"
-              />
+              >
+                <TextBlock text="Welcome to the page builder! Drag components from the left panel to start building your page." />
+              </Element>
             </Frame>
           </div>
         </div>

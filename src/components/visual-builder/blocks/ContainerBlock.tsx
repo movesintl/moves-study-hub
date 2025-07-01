@@ -20,8 +20,7 @@ export const ContainerBlock: React.FC<ContainerBlockProps> = ({
   const { 
     connectors: { connect, drag }, 
     selected,
-    hovered,
-    actions: { setProp }
+    hovered
   } = useNode((state) => ({
     selected: state.events.selected,
     hovered: state.events.hovered
@@ -39,28 +38,24 @@ export const ContainerBlock: React.FC<ContainerBlockProps> = ({
           ? 'ring-2 ring-blue-500 ring-offset-2' 
           : hovered 
           ? 'ring-1 ring-blue-300' 
-          : 'border-2 border-dashed border-gray-300 hover:border-gray-400'
+          : ''
       }`}
       style={{
         padding: `${padding}px`,
         margin: `${margin}px`,
         backgroundColor: background
       }}
-      onClick={(e) => {
-        e.stopPropagation();
-        // Don't trigger any auto-save, just selection
-      }}
     >
-      {children && React.Children.count(children) > 0 ? (
+      {React.Children.count(children) > 0 ? (
         children
       ) : (
-        <div className="text-gray-400 text-center py-8 pointer-events-none select-none">
+        <div className="text-gray-400 text-center py-8 pointer-events-none select-none border-2 border-dashed border-gray-300 rounded">
           Drop components here
         </div>
       )}
       
       {selected && (
-        <div className="absolute top-0 left-0 bg-blue-500 text-white text-xs px-2 py-1 rounded-br">
+        <div className="absolute -top-2 -left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded z-10">
           Container
         </div>
       )}

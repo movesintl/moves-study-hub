@@ -21,7 +21,7 @@ export const VisualBuilderSection: React.FC<VisualBuilderSectionProps> = ({
   const [builderEnabled, setBuilderEnabled] = useState(true);
 
   const handleSaveBuilderData = (data: string) => {
-    console.log('Saving visual builder data:', data);
+    console.log('Manually saving visual builder data:', data);
     onVisualBuilderDataChange(data);
   };
 
@@ -45,7 +45,7 @@ export const VisualBuilderSection: React.FC<VisualBuilderSectionProps> = ({
         <CardContent className="p-0">
           <div className="h-[900px] border rounded-lg overflow-hidden">
             <VisualBuilder
-              initialData={visualBuilderData}
+              initialData={visualBuilderData === '{}' ? undefined : visualBuilderData}
               onSave={handleSaveBuilderData}
               enabled={builderEnabled}
               onToggleEnabled={() => setBuilderEnabled(!builderEnabled)}

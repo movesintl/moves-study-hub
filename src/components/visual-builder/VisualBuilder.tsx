@@ -26,6 +26,7 @@ const SaveButton = ({ onSave }: { onSave?: (data: string) => void }) => {
   const handleSave = () => {
     if (onSave) {
       const json = query.serialize();
+      console.log('Saving builder data:', json);
       onSave(json);
     }
   };
@@ -44,6 +45,8 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
   enabled = true,
   onToggleEnabled
 }) => {
+  const frameRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className="flex h-full">
       <Editor
@@ -57,9 +60,10 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
           SpacerBlock
         }}
         enabled={enabled}
+        onRender={(node, jsx) => jsx}
       >
         {/* Toolbox */}
-        <div className="w-80 border-r bg-gray-50 p-4">
+        <div className="w-80 border-r bg-gray-50 p-4 flex-shrink-0">
           <div className="space-y-4">
             <div className="flex gap-2">
               <Button
@@ -80,22 +84,21 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
 
         {/* Canvas */}
         <div className="flex-1 overflow-auto bg-white p-6">
-          <Frame data={initialData}>
-            <Element 
-              is={ContainerBlock} 
-              canvas 
-              padding={20} 
-              background="#ffffff"
-            >
-              <HeadingBlock text="Welcome to Visual Builder" level="h1" />
-              <TextBlock text="Start building your page by dragging components from the toolbox." />
-            </Element>
-          </Frame>
+          <div ref={frameRef} className="min-h-[800px] w-full">
+            <Frame data={initialData}>
+              <Element 
+                is={ContainerBlock} 
+                canvas 
+                padding={20} 
+                background="#ffffff"
+              />
+            </Frame>
+          </div>
         </div>
 
         {/* Settings Panel */}
         {enabled && (
-          <div className="w-80 border-l bg-gray-50 p-4">
+          <div className="w-80 border-l bg-gray-50 p-4 flex-shrink-0">
             <SettingsPanel />
           </div>
         )}

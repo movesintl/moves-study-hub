@@ -17,16 +17,28 @@ export const ContainerBlock: React.FC<ContainerBlockProps> = ({
   background = "#ffffff",
   children
 }) => {
-  const { connectors: { connect, drag }, selected } = useNode((state) => ({
-    selected: state.events.selected
+  const { 
+    connectors: { connect, drag }, 
+    selected,
+    hovered,
+    actions: { setProp }
+  } = useNode((state) => ({
+    selected: state.events.selected,
+    hovered: state.events.hovered
   }));
 
   return (
     <div
-      ref={(ref) => ref && connect(drag(ref))}
-      className={`min-h-[100px] w-full transition-all duration-200 ${
+      ref={(ref) => {
+        if (ref) {
+          connect(drag(ref));
+        }
+      }}
+      className={`min-h-[100px] w-full transition-all duration-200 relative ${
         selected 
           ? 'ring-2 ring-blue-500 ring-offset-2' 
+          : hovered 
+          ? 'ring-1 ring-blue-300' 
           : 'border-2 border-dashed border-gray-300 hover:border-gray-400'
       }`}
       style={{
@@ -34,10 +46,22 @@ export const ContainerBlock: React.FC<ContainerBlockProps> = ({
         margin: `${margin}px`,
         backgroundColor: background
       }}
+      onClick={(e) => {
+        e.stopPropagation();
+        // Don't trigger any auto-save, just selection
+      }}
     >
-      {children || (
-        <div className="text-gray-400 text-center py-8">
+      {children && React.Children.count(children) > 0 ? (
+        children
+      ) : (
+        <div className="text-gray-400 text-center py-8 pointer-events-none select-none">
           Drop components here
+        </div>
+      )}
+      
+      {selected && (
+        <div className="absolute top-0 left-0 bg-blue-500 text-white text-xs px-2 py-1 rounded-br">
+          Container
         </div>
       )}
     </div>

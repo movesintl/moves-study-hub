@@ -59,6 +59,7 @@ const PageForm = () => {
       />
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Always show Hero Section */}
         <HeroSection
           formData={formData}
           autoGenerateSlug={autoGenerateSlug}
@@ -95,6 +96,7 @@ const PageForm = () => {
           </>
         )}
 
+        {/* Always show FAQ, Settings, and SEO sections */}
         <FAQSection
           faqs={formData.faqs}
           onAddFaq={handleAddFaq}

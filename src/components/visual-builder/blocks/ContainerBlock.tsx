@@ -23,8 +23,16 @@ export const ContainerBlock: React.FC<ContainerBlockProps> = ({
 
   return (
     <div
-      ref={(ref: HTMLDivElement) => connect(drag(ref))}
-      className={`min-h-[50px] ${selected ? 'ring-2 ring-blue-500' : 'border border-dashed border-gray-300'}`}
+      ref={(ref: HTMLDivElement) => {
+        if (ref) {
+          connect(drag(ref));
+        }
+      }}
+      className={`min-h-[50px] transition-all duration-200 ${
+        selected 
+          ? 'ring-2 ring-blue-500 ring-offset-2' 
+          : 'border border-dashed border-gray-300 hover:border-gray-400'
+      }`}
       style={{
         padding: `${padding}px`,
         margin: `${margin}px`,

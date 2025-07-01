@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Editor, Frame, Element } from '@craftjs/core';
+import React, { useRef } from 'react';
+import { Editor, Frame, Element, useEditor } from '@craftjs/core';
 import { Button } from '@/components/ui/button';
 import { Toolbox } from './Toolbox';
 import { SettingsPanel } from './SettingsPanel';
@@ -19,6 +19,24 @@ interface VisualBuilderProps {
   enabled?: boolean;
   onToggleEnabled?: () => void;
 }
+
+const SaveButton = ({ onSave }: { onSave?: (data: string) => void }) => {
+  const { query } = useEditor();
+
+  const handleSave = () => {
+    if (onSave) {
+      const json = query.serialize();
+      onSave(json);
+    }
+  };
+
+  return (
+    <Button onClick={handleSave} size="sm" className="flex-1">
+      <Save className="w-4 h-4 mr-1" />
+      Save
+    </Button>
+  );
+};
 
 export const VisualBuilder: React.FC<VisualBuilderProps> = ({
   initialData,
@@ -53,23 +71,7 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
                 {enabled ? <EyeOff className="w-4 h-4 mr-1" /> : <Eye className="w-4 h-4 mr-1" />}
                 {enabled ? 'Preview' : 'Edit'}
               </Button>
-              <Button
-                onClick={() => {
-                  // Only save when explicitly clicked, not on every drag
-                  if (onSave) {
-                    // Get the serialized data from the editor
-                    const editorState = (window as any).__CRAFT_EDITOR_STATE__;
-                    if (editorState) {
-                      onSave(JSON.stringify(editorState));
-                    }
-                  }
-                }}
-                size="sm"
-                className="flex-1"
-              >
-                <Save className="w-4 h-4 mr-1" />
-                Save
-              </Button>
+              <SaveButton onSave={onSave} />
             </div>
             
             {enabled && <Toolbox />}
@@ -77,9 +79,9 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
         </div>
 
         {/* Canvas */}
-        <div className="flex-1 overflow-auto bg-white">
+        <div className="flex-1 overflow-auto bg-white p-6">
           <Frame data={initialData}>
-            <Element is={ContainerBlock} canvas padding={16} background="#ffffff">
+            <Element is={ContainerBlock} canvas padding={20} background="#ffffff">
               <HeadingBlock text="Welcome to Visual Builder" level="h1" />
               <TextBlock text="Start building your page by dragging components from the toolbox." />
             </Element>

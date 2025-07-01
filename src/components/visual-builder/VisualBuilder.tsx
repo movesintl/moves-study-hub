@@ -99,7 +99,7 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
         </div>
 
         {/* Canvas */}
-        <div className="flex-1 overflow-auto bg-white">
+        <div className="flex-1 overflow-auto bg-white relative">
           <div ref={frameRef} className="min-h-[800px] w-full p-6">
             <Frame data={getInitialData()}>
               <Element 

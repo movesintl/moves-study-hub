@@ -28,9 +28,8 @@ export const Toolbox = () => {
             }
           }}
           variant="outline"
-          className="w-full justify-start cursor-grab"
+          className="w-full justify-start cursor-grab active:cursor-grabbing"
           size="sm"
-          onMouseDown={(e) => e.preventDefault()}
         >
           <Heading className="w-4 h-4 mr-2" />
           Heading
@@ -43,9 +42,8 @@ export const Toolbox = () => {
             }
           }}
           variant="outline"
-          className="w-full justify-start cursor-grab"
+          className="w-full justify-start cursor-grab active:cursor-grabbing"
           size="sm"
-          onMouseDown={(e) => e.preventDefault()}
         >
           <Type className="w-4 h-4 mr-2" />
           Text
@@ -58,9 +56,8 @@ export const Toolbox = () => {
             }
           }}
           variant="outline"
-          className="w-full justify-start cursor-grab"
+          className="w-full justify-start cursor-grab active:cursor-grabbing"
           size="sm"
-          onMouseDown={(e) => e.preventDefault()}
         >
           <Image className="w-4 h-4 mr-2" />
           Image
@@ -73,9 +70,8 @@ export const Toolbox = () => {
             }
           }}
           variant="outline"
-          className="w-full justify-start cursor-grab"
+          className="w-full justify-start cursor-grab active:cursor-grabbing"
           size="sm"
-          onMouseDown={(e) => e.preventDefault()}
         >
           <MousePointer className="w-4 h-4 mr-2" />
           Button
@@ -88,9 +84,8 @@ export const Toolbox = () => {
             }
           }}
           variant="outline"
-          className="w-full justify-start cursor-grab"
+          className="w-full justify-start cursor-grab active:cursor-grabbing"
           size="sm"
-          onMouseDown={(e) => e.preventDefault()}
         >
           <Minus className="w-4 h-4 mr-2" />
           Divider
@@ -103,9 +98,8 @@ export const Toolbox = () => {
             }
           }}
           variant="outline"
-          className="w-full justify-start cursor-grab"
+          className="w-full justify-start cursor-grab active:cursor-grabbing"
           size="sm"
-          onMouseDown={(e) => e.preventDefault()}
         >
           <Move className="w-4 h-4 mr-2" />
           Spacer
@@ -122,9 +116,8 @@ export const Toolbox = () => {
             }
           }}
           variant="outline"
-          className="w-full justify-start cursor-grab"
+          className="w-full justify-start cursor-grab active:cursor-grabbing"
           size="sm"
-          onMouseDown={(e) => e.preventDefault()}
         >
           <Square className="w-4 h-4 mr-2" />
           Container

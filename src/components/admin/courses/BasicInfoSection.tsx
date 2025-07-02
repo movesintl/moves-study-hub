@@ -32,25 +32,36 @@ export const BasicInfoSection = ({ formData, setFormData, studyAreas, studyLevel
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="study_area_id">Study Area</Label>
-            <Select value={formData.study_area_id} onValueChange={(value) => {
-              const selectedArea = studyAreas.find(area => area.id === value);
-              setFormData({ 
-                ...formData, 
-                study_area_id: value,
-                study_area: selectedArea?.name || ''
-              });
-            }}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select study area" />
-              </SelectTrigger>
-              <SelectContent>
-                {studyAreas.map((area) => (
-                  <SelectItem key={area.id} value={area.id}>{area.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Label htmlFor="slug">URL Slug</Label>
+            <Input
+              id="slug"
+              value={formData.slug}
+              onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+              placeholder="Auto-generated from title"
+            />
+            <p className="text-xs text-gray-500">Leave empty to auto-generate from title</p>
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="study_area_id">Study Area</Label>
+          <Select value={formData.study_area_id} onValueChange={(value) => {
+            const selectedArea = studyAreas.find(area => area.id === value);
+            setFormData({ 
+              ...formData, 
+              study_area_id: value,
+              study_area: selectedArea?.name || ''
+            });
+          }}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select study area" />
+            </SelectTrigger>
+            <SelectContent>
+              {studyAreas.map((area) => (
+                <SelectItem key={area.id} value={area.id}>{area.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="space-y-2">

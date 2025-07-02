@@ -117,7 +117,8 @@ export const useCourseForm = () => {
 
         setFormData({
           ...data,
-          intake_dates: data.intake_dates || []
+          intake_dates: data.intake_dates || [],
+          slug: data.slug || ''
         });
       };
 

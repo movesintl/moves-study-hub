@@ -3,6 +3,7 @@ import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 interface BasicInfoSectionProps {
   formData: {
@@ -14,12 +15,14 @@ interface BasicInfoSectionProps {
   };
   onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onContentChange: (value: string) => void;
 }
 
 export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
   formData,
   onTitleChange,
   onChange,
+  onContentChange,
 }) => {
   return (
     <Card>
@@ -50,18 +53,13 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
           />
         </div>
 
-        <div>
-          <Label htmlFor="content">Content</Label>
-          <textarea
-            id="content"
-            name="content"
-            value={formData.content}
-            onChange={onChange}
-            rows={12}
-            className="mt-1 w-full px-3 py-2 border border-input rounded-md"
-            placeholder="Write your blog post content here..."
-          />
-        </div>
+        <RichTextEditor
+          label="Content"
+          value={formData.content}
+          onChange={onContentChange}
+          placeholder="Write your blog post content here..."
+          height="400px"
+        />
 
         <div>
           <Label htmlFor="tags">Tags (comma separated)</Label>

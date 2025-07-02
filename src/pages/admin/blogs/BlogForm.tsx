@@ -28,6 +28,7 @@ const BlogForm = () => {
     updateFAQ,
     handleCategoryChange,
     handleChange,
+    handleContentChange,
     handleSubmit,
     navigate,
   } = useBlogForm();
@@ -43,6 +44,7 @@ const BlogForm = () => {
           formData={formData}
           onTitleChange={handleTitleChange}
           onChange={handleChange}
+          onContentChange={handleContentChange}
         />
 
         <CategoriesSection

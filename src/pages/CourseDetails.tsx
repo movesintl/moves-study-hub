@@ -1,15 +1,20 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, MapPin, Clock, DollarSign, Calendar, ArrowLeft, GraduationCap, BookOpen, Users, Award, CheckCircle, Globe, BarChart3 } from 'lucide-react';
+import { ExternalLink, MapPin, Clock, DollarSign, Calendar, ArrowLeft, GraduationCap, BookOpen, Users, Award, CheckCircle, Globe, BarChart3, Heart } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
 
 const CourseDetails = () => {
   const { id } = useParams();
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const { data: course, isLoading, error } = useQuery({
     queryKey: ['course', id],
@@ -28,6 +33,73 @@ const CourseDetails = () => {
       return data;
     }
   });
+
+  const { data: isSaved = false } = useQuery({
+    queryKey: ['saved-course', id, user?.id],
+    queryFn: async () => {
+      if (!user?.id || !id) return false;
+      
+      const { data, error } = await supabase
+        .from('saved_courses')
+        .select('id')
+        .eq('course_id', id)
+        .eq('user_id', user.id)
+        .single();
+      
+      if (error && error.code !== 'PGRST116') throw error;
+      return !!data;
+    },
+    enabled: !!user && !!id,
+  });
+
+  const saveMutation = useMutation({
+    mutationFn: async () => {
+      if (!user?.id || !id) throw new Error('User not authenticated');
+      
+      if (isSaved) {
+        const { error } = await supabase
+          .from('saved_courses')
+          .delete()
+          .eq('course_id', id)
+          .eq('user_id', user.id);
+        
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from('saved_courses')
+          .insert({ course_id: id, user_id: user.id });
+        
+        if (error) throw error;
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['saved-course', id, user?.id] });
+      toast({
+        title: isSaved ? "Course removed from saved list" : "Course saved successfully",
+        description: isSaved ? "You can find it in your saved courses." : "You can view it in your saved courses.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to update saved courses. Please try again.",
+        variant: "destructive",
+      });
+      console.error('Save course error:', error);
+    },
+  });
+
+  const handleSaveCourse = () => {
+    if (!user) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to save courses.",
+        variant: "destructive",
+      });
+      return;
+    }
+    saveMutation.mutate();
+  };
 
   const formatTuitionFee = (min: number, max: number, currency: string) => {
     const formatNumber = (num: number) => new Intl.NumberFormat().format(num);
@@ -305,6 +377,16 @@ const CourseDetails = () => {
                   Contact Us to Apply
                 </Button>
               )}
+              
+              <Button 
+                variant={isSaved ? "default" : "outline"} 
+                className={`w-full h-12 font-semibold border-2 ${isSaved ? 'bg-red-500 hover:bg-red-600 text-white' : ''}`}
+                onClick={handleSaveCourse}
+                disabled={saveMutation.isPending}
+              >
+                <Heart className={`h-4 w-4 mr-2 ${isSaved ? 'fill-current' : ''}`} />
+                {saveMutation.isPending ? 'Saving...' : isSaved ? 'Remove from Saved' : 'Save Course'}
+              </Button>
               
               <Button variant="outline" className="w-full h-12 font-semibold border-2" asChild>
                 <Link to="/course-comparison">

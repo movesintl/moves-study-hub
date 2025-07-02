@@ -358,6 +358,7 @@ export type Database = {
           intake_dates: string[] | null
           level: string
           requirements: string | null
+          slug: string | null
           study_area: string
           study_area_id: string | null
           study_level_id: string | null
@@ -384,6 +385,7 @@ export type Database = {
           intake_dates?: string[] | null
           level: string
           requirements?: string | null
+          slug?: string | null
           study_area: string
           study_area_id?: string | null
           study_level_id?: string | null
@@ -410,6 +412,7 @@ export type Database = {
           intake_dates?: string[] | null
           level?: string
           requirements?: string | null
+          slug?: string | null
           study_area?: string
           study_area_id?: string | null
           study_level_id?: string | null
@@ -788,9 +791,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_unique_slug: {
+        Args: { course_title: string; course_id?: string }
+        Returns: string
+      }
       is_admin: {
         Args: { user_id: string }
         Returns: boolean
+      }
+      slugify: {
+        Args: { "": string }
+        Returns: string
       }
     }
     Enums: {

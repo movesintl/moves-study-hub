@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 
 interface CourseFormData {
   title: string;
+  slug: string;
   description: string;
   study_area: string;
   study_area_id: string;
@@ -36,6 +37,7 @@ export const useCourseForm = () => {
 
   const [formData, setFormData] = useState<CourseFormData>({
     title: '',
+    slug: '',
     description: '',
     study_area: '',
     study_area_id: '',

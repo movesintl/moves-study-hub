@@ -110,7 +110,12 @@ const PageView = () => {
           <meta name="description" content={page.meta_description} />
         )}
       </Helmet>
-      
+      <PageViewHero 
+              title={page.title}
+              subtitle={page.subtitle}
+              featureImageUrl={page.feature_image_url}
+            />
+            
       <div className="min-h-screen bg-white">
         {page.visual_builder_enabled && page.visual_builder_data ? (
           <div className="container mx-auto py-8">
@@ -118,12 +123,7 @@ const PageView = () => {
           </div>
         ) : (
           <>
-            <PageViewHero 
-              title={page.title}
-              subtitle={page.subtitle}
-              featureImageUrl={page.feature_image_url}
-            />
-
+            
             <PageViewContent
               pageDescription={page.page_description}
               contentImageUrl={page.content_image_url}
@@ -135,12 +135,10 @@ const PageView = () => {
               content={page.content}
             />
 
-            <PageViewFAQ faqs={page.faqs || []} />
-
-            <PageViewRelatedBlogs relatedBlogs={relatedBlogs} />
           </>
         )}
-
+        <PageViewFAQ faqs={page.faqs || []} />
+        <PageViewRelatedBlogs relatedBlogs={relatedBlogs} />
         <LeadEnquiryForm />
       </div>
     </>

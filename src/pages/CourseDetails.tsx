@@ -376,7 +376,7 @@ const CourseDetails = () => {
                 </Button>
               ) : (
                 <Button className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg" asChild>
-                  <Link to="/student/applications">
+                  <Link to="/student-dashboard/applications">
                     Apply Now
                     <ExternalLink className="h-5 w-5 ml-2" />
                   </Link>

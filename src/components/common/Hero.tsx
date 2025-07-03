@@ -108,7 +108,7 @@ const Hero = () => {
 
           {/* Right Content - Beautiful Image */}
           <div className="relative">
-            <div className="relative overflow-hidden rounded-2xl">
+            <div className="relative overflow-hidden ">
               <img src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/general/1751512836043.png" alt="Students studying abroad" className="w-full h-[600px] object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               

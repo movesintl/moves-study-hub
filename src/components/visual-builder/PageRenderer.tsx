@@ -8,14 +8,21 @@ export const PageRenderer: React.FC<PageRendererProps> = ({ data }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !data) return;
+    if (!containerRef.current || !data) {
+      console.log('PageRenderer: No container or data', { hasContainer: !!containerRef.current, data });
+      return;
+    }
+
+    console.log('PageRenderer: Rendering data', data);
 
     try {
       // Parse visual builder data
       const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
+      console.log('PageRenderer: Parsed data', parsedData);
       
       // Check if it's GrapesJS format (has html/css properties)
       if (parsedData.html !== undefined) {
+        console.log('PageRenderer: Rendering GrapesJS format');
         const html = parsedData.html || '';
         const css = parsedData.css || '';
         
@@ -34,10 +41,18 @@ export const PageRenderer: React.FC<PageRendererProps> = ({ data }) => {
           const contentDiv = document.createElement('div');
           contentDiv.innerHTML = html;
           containerRef.current.appendChild(contentDiv);
+        } else {
+          containerRef.current.innerHTML = `
+            <div class="p-8 text-center bg-gray-50 rounded-lg">
+              <h2 class="text-xl font-semibold mb-4">No Visual Content</h2>
+              <p class="text-gray-600">No HTML content found in visual builder data.</p>
+            </div>
+          `;
         }
       } 
       // Check if it's Craft.js format (has ROOT property with nodes)
       else if (parsedData.ROOT) {
+        console.log('PageRenderer: Rendering Craft.js format');
         // For now, render a simple representation
         // This would need a proper Craft.js renderer in a real implementation
         const renderCraftNodes = (nodeId: string, nodes: any): string => {
@@ -69,8 +84,19 @@ export const PageRenderer: React.FC<PageRendererProps> = ({ data }) => {
         const html = renderCraftNodes('ROOT', parsedData);
         containerRef.current.innerHTML = html;
       }
+      // Check for empty object or no meaningful content
+      else if (Object.keys(parsedData).length === 0 || parsedData === '{}') {
+        console.log('PageRenderer: Empty data object');
+        containerRef.current.innerHTML = `
+          <div class="p-8 text-center bg-yellow-50 rounded-lg border border-yellow-200">
+            <h2 class="text-xl font-semibold mb-4 text-yellow-800">Visual Builder Content Not Set</h2>
+            <p class="text-yellow-700">This page has visual builder enabled but no content has been created yet. Please use the admin panel to design this page.</p>
+          </div>
+        `;
+      }
       // Fallback for other formats
       else {
+        console.log('PageRenderer: Using fallback rendering');
         containerRef.current.innerHTML = `
           <div class="p-8 text-center">
             <h2 class="text-xl font-semibold mb-4">Visual Builder Content</h2>
@@ -86,9 +112,9 @@ export const PageRenderer: React.FC<PageRendererProps> = ({ data }) => {
           containerRef.current.innerHTML = data;
         } catch {
           containerRef.current.innerHTML = `
-            <div class="p-8 text-center">
-              <h2 class="text-xl font-semibold mb-4">Content Unavailable</h2>
-              <p class="text-gray-600">Unable to render visual builder content.</p>
+            <div class="p-8 text-center bg-red-50 rounded-lg border border-red-200">
+              <h2 class="text-xl font-semibold mb-4 text-red-800">Rendering Error</h2>
+              <p class="text-red-700">Unable to render visual builder content. Please check the page configuration in the admin panel.</p>
             </div>
           `;
         }

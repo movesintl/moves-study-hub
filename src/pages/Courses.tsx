@@ -30,10 +30,16 @@ const Courses = () => {
   // Course queries
   const { courses, totalCount, isLoading, error } = useCourseQueries(filters, currentPage, getQueryRange);
 
-  // Reset page when filters change
+  // Reset page when filters change (but not on initial load)
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  
   useEffect(() => {
+    if (isInitialLoad) {
+      setIsInitialLoad(false);
+      return;
+    }
     resetPage();
-  }, [filters, resetPage]);
+  }, [filters.search, filters.study_area, filters.level, filters.country]);
 
   // Scroll to top when page changes
   useEffect(() => {

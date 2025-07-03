@@ -28,7 +28,7 @@ export const UniversityOverview = ({ university }: UniversityOverviewProps) => {
                 </div>
                 
                 <div 
-                  className="prose prose-lg max-w-none text-foreground leading-relaxed"
+                  className="prose prose-lg prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-primary max-w-none leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: university.overview_content }}
                 />
               </div>

@@ -742,6 +742,7 @@ export type Database = {
           location: string | null
           logo_url: string | null
           name: string
+          overview_content: string | null
           updated_at: string
           website_url: string | null
         }
@@ -751,6 +752,7 @@ export type Database = {
           location?: string | null
           logo_url?: string | null
           name: string
+          overview_content?: string | null
           updated_at?: string
           website_url?: string | null
         }
@@ -760,6 +762,7 @@ export type Database = {
           location?: string | null
           logo_url?: string | null
           name?: string
+          overview_content?: string | null
           updated_at?: string
           website_url?: string | null
         }

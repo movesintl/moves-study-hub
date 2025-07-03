@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import MediaSelector from '@/components/admin/MediaSelector';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 const UniversityForm = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const UniversityForm = () => {
     location: '',
     website_url: '',
     logo_url: '',
+    overview_content: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -48,6 +50,7 @@ const UniversityForm = () => {
         location: university.location || '',
         website_url: university.website_url || '',
         logo_url: university.logo_url || '',
+        overview_content: university.overview_content || '',
       });
     }
   }, [university]);
@@ -101,6 +104,10 @@ const UniversityForm = () => {
 
   const handleLogoChange = (value: string) => {
     setFormData(prev => ({ ...prev, logo_url: value }));
+  };
+
+  const handleOverviewChange = (value: string) => {
+    setFormData(prev => ({ ...prev, overview_content: value }));
   };
 
   return (
@@ -157,6 +164,14 @@ const UniversityForm = () => {
               onChange={handleLogoChange}
               label="University Logo"
               placeholder="https://example.com/logo.png"
+            />
+
+            <RichTextEditor
+              label="University Overview"
+              value={formData.overview_content}
+              onChange={handleOverviewChange}
+              placeholder="Enter university overview and description..."
+              height="300px"
             />
 
             <div className="flex gap-4 pt-4">

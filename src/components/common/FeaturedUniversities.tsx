@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { ExternalLink, MapPin, GraduationCap } from 'lucide-react';
+import { MapPin, GraduationCap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface University {
@@ -57,12 +57,6 @@ const FeaturedUniversities = () => {
     return null; // Don't show section if no featured universities
   }
 
-  const stripHtml = (html: string) => {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || '';
-  };
-
   return (
     <section className="py-16 bg-gradient-to-br from-primary/5 via-gray-50 to-accent/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,92 +84,46 @@ const FeaturedUniversities = () => {
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {universities.map((university) => (
-                <CarouselItem key={university.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105 group">
-                    <CardContent className="p-6 h-full flex flex-col">
+                <CarouselItem key={university.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                  <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105 group border-2 hover:border-primary/20">
+                    <CardContent className="p-6 h-full flex flex-col items-center text-center">
                       {/* University Logo */}
-                      <div className="flex items-center justify-center mb-6 h-20">
+                      <div className="flex items-center justify-center mb-4 h-16 w-16">
                         {university.logo_url ? (
                           <img
                             src={university.logo_url}
                             alt={`${university.name} logo`}
-                            className="max-h-16 max-w-full object-contain"
+                            className="max-h-16 max-w-16 object-contain rounded-lg"
                           />
                         ) : (
-                          <div className="h-16 w-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                          <div className="h-16 w-16 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
                             <GraduationCap className="h-8 w-8 text-white" />
                           </div>
                         )}
                       </div>
 
                       {/* University Name */}
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center group-hover:text-primary transition-colors">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">
                         {university.name}
                       </h3>
 
-                      {/* Location */}
-                      {(university.location || university.country) && (
-                        <div className="flex items-center justify-center gap-1 mb-4 text-gray-600">
+                      {/* Country */}
+                      {university.country && (
+                        <div className="flex items-center justify-center gap-1 text-gray-600">
                           <MapPin className="h-4 w-4" />
-                          <span className="text-sm">
-                            {[university.location, university.country].filter(Boolean).join(', ')}
+                          <span className="text-sm font-medium">
+                            {university.country}
                           </span>
                         </div>
                       )}
-
-                      {/* Overview */}
-                      {university.overview_content && (
-                        <p className="text-gray-600 text-sm mb-6 flex-grow line-clamp-4">
-                          {stripHtml(university.overview_content).substring(0, 150)}
-                          {stripHtml(university.overview_content).length > 150 && '...'}
-                        </p>
-                      )}
-
-                      {/* Action Buttons */}
-                      <div className="flex gap-2 mt-auto">
-                        {university.slug && (
-                          <Button 
-                            asChild 
-                            variant="outline" 
-                            size="sm" 
-                            className="flex-1"
-                          >
-                            <Link to={`/universities/${university.slug}`}>
-                              Learn More
-                            </Link>
-                          </Button>
-                        )}
-                        
-                        {university.website_url && (
-                          <Button 
-                            asChild 
-                            size="sm" 
-                            className="flex-1"
-                          >
-                            <a 
-                              href={university.website_url} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-1"
-                            >
-                              Visit Site
-                              <ExternalLink className="h-3 w-3" />
-                            </a>
-                          </Button>
-                        )}
-                      </div>
                     </CardContent>
                   </Card>
                 </CarouselItem>
               ))}
             </CarouselContent>
             
-            {universities.length > 3 && (
-              <>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-              </>
-            )}
+            <CarouselPrevious className="hidden md:flex -left-12" />
+            <CarouselNext className="hidden md:flex -right-12" />
           </Carousel>
         </div>
 

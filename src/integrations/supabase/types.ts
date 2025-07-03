@@ -781,6 +781,7 @@ export type Database = {
         Row: {
           country: string | null
           created_at: string
+          featured: boolean
           id: string
           location: string | null
           logo_url: string | null
@@ -793,6 +794,7 @@ export type Database = {
         Insert: {
           country?: string | null
           created_at?: string
+          featured?: boolean
           id?: string
           location?: string | null
           logo_url?: string | null
@@ -805,6 +807,7 @@ export type Database = {
         Update: {
           country?: string | null
           created_at?: string
+          featured?: boolean
           id?: string
           location?: string | null
           logo_url?: string | null

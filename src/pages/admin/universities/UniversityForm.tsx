@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
@@ -25,6 +26,7 @@ const UniversityForm = () => {
     logo_url: '',
     overview_content: '',
     slug: '',
+    featured: false,
   });
 
   const [loading, setLoading] = useState(false);
@@ -69,6 +71,7 @@ const UniversityForm = () => {
         logo_url: university.logo_url || '',
         overview_content: university.overview_content || '',
         slug: university.slug || '',
+        featured: university.featured || false,
       });
     }
   }, [university]);
@@ -125,6 +128,10 @@ const UniversityForm = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFeaturedChange = (checked: boolean) => {
+    setFormData(prev => ({ ...prev, featured: checked }));
   };
 
   const handleLogoChange = (value: string) => {
@@ -225,6 +232,16 @@ const UniversityForm = () => {
               label="University Logo"
               placeholder="https://example.com/logo.png"
             />
+
+            <div className="flex items-center space-x-2">
+              <Checkbox 
+                id="featured"
+                checked={formData.featured}
+                onCheckedChange={handleFeaturedChange}
+              />
+              <Label htmlFor="featured">Featured University</Label>
+              <p className="text-sm text-muted-foreground">Featured universities will appear on the home page carousel</p>
+            </div>
 
             <RichTextEditor
               label="University Overview"

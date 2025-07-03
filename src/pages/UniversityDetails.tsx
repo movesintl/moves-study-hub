@@ -10,17 +10,17 @@ import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 import { Link } from 'react-router-dom';
 
 const UniversityDetails = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const { data: university, isLoading, error } = useQuery({
-    queryKey: ['university', id],
+    queryKey: ['university', slug],
     queryFn: async () => {
-      console.log('Fetching university with slug:', id);
+      console.log('Fetching university with slug:', slug);
       
       const { data, error } = await supabase
         .from('universities')
         .select('*')
-        .eq('slug', id)
+        .eq('slug', slug)
         .maybeSingle();
       
       if (error) {

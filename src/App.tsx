@@ -66,6 +66,7 @@ import StudyAreasManager from '@/pages/admin/courses/StudyAreasManager';
 import StudyLevelsManager from '@/pages/admin/courses/StudyLevelsManager';
 import BlogCategoriesManager from '@/pages/admin/blogs/BlogCategoriesManager';
 import ApplicationsList from '@/pages/admin/applications/ApplicationsList';
+import MarketingConsents from '@/pages/admin/marketing/MarketingConsents';
 
 const queryClient = new QueryClient();
 
@@ -139,6 +140,7 @@ function App() {
                 <Route path="pages/new" element={<PageForm />} />
                 <Route path="pages/:id/edit" element={<PageForm />} />
                 <Route path="media" element={<MediaLibrary />} />
+                <Route path="marketing" element={<MarketingConsents />} />
                 <Route path="contact" element={<ContactSubmissions />} />
               </Route>
               <Route path="*" element={<NotFound />} />

@@ -11,7 +11,8 @@ import {
   Mail,
   ClipboardList,
   MessageCircle,
-  Layout
+  Layout,
+  Target
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -52,6 +53,7 @@ export const menuItems: MenuItem[] = [
   },
   { name: 'Pages', href: '/admin/pages', icon: Layout },
   { name: 'Media Library', href: '/admin/media', icon: Image },
+  { name: 'Marketing', href: '/admin/marketing', icon: Target },
   { name: 'Team', href: '/admin/team', icon: Users },
   { name: 'Contact', href: '/admin/contact', icon: Mail }
 ];

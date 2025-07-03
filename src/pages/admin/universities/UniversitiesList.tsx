@@ -74,6 +74,7 @@ const UniversitiesList = () => {
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Location</TableHead>
+                <TableHead>Country</TableHead>
                 <TableHead>Website</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
@@ -90,6 +91,7 @@ const UniversitiesList = () => {
                     </div>
                   </TableCell>
                   <TableCell>{university.location || 'N/A'}</TableCell>
+                  <TableCell>{university.country || 'N/A'}</TableCell>
                   <TableCell>
                     {university.website_url ? (
                       <a 

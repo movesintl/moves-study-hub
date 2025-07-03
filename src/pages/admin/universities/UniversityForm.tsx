@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -19,6 +20,7 @@ const UniversityForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     location: '',
+    country: '',
     website_url: '',
     logo_url: '',
     overview_content: '',
@@ -43,11 +45,25 @@ const UniversityForm = () => {
     enabled: isEditing,
   });
 
+  const { data: destinations = [] } = useQuery({
+    queryKey: ['destinations'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('destinations')
+        .select('id, name')
+        .order('name');
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
   useEffect(() => {
     if (university) {
       setFormData({
         name: university.name || '',
         location: university.location || '',
+        country: university.country || '',
         website_url: university.website_url || '',
         logo_url: university.logo_url || '',
         overview_content: university.overview_content || '',
@@ -110,6 +126,10 @@ const UniversityForm = () => {
     setFormData(prev => ({ ...prev, overview_content: value }));
   };
 
+  const handleCountryChange = (value: string) => {
+    setFormData(prev => ({ ...prev, country: value }));
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <h1 className="text-3xl font-bold">
@@ -144,6 +164,22 @@ const UniversityForm = () => {
                 placeholder="e.g., Sydney, Australia"
                 className="mt-1"
               />
+            </div>
+
+            <div>
+              <Label htmlFor="country">Country</Label>
+              <Select value={formData.country} onValueChange={handleCountryChange}>
+                <SelectTrigger className="mt-1">
+                  <SelectValue placeholder="Select a country" />
+                </SelectTrigger>
+                <SelectContent className="bg-white border border-gray-200 shadow-lg z-50 max-h-60 overflow-y-auto">
+                  {destinations.map((destination) => (
+                    <SelectItem key={destination.id} value={destination.name}>
+                      {destination.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div>

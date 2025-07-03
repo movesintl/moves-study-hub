@@ -43,7 +43,7 @@ export const VisualBuilderSection: React.FC<VisualBuilderSectionProps> = ({
       
       {visualBuilderEnabled && (
         <CardContent className="p-0">
-          <div className="h-[900px] border rounded-lg overflow-hidden">
+          <div className="h-[1200px] border rounded-lg overflow-hidden">
             <VisualBuilder
               initialData={visualBuilderData === '{}' ? undefined : visualBuilderData}
               onSave={handleSaveBuilderData}

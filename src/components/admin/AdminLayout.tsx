@@ -18,8 +18,14 @@ const AdminLayout = () => {
           <AdminHeader />
 
           {/* Content Area */}
-          <main className="flex-1 overflow-hidden">
-            <Outlet />
+          <main className="flex-1 p-6 overflow-y-auto">
+            <div className="max-w-none mx-auto">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 min-h-[calc(100vh-8rem)]">
+                <div className="p-6">
+                  <Outlet />
+                </div>
+              </div>
+            </div>
           </main>
         </div>
       </div>

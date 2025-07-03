@@ -6,25 +6,25 @@ interface VisualBuilderLayoutProps {
 
 export const VisualBuilderLayout: React.FC<VisualBuilderLayoutProps> = ({ editorRef }) => {
   return (
-    <div className="flex-1 flex h-full">
+    <div className="flex-1 flex">
       {/* Left Panel - Components */}
-      <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
-        <div className="p-3 border-b border-gray-200 bg-gray-50">
+      <div className="w-72 bg-white border-r border-gray-200 flex flex-col">
+        <div className="p-4 border-b border-gray-200 bg-gray-50">
           <h3 className="font-semibold text-gray-900 text-sm uppercase tracking-wide">Components</h3>
           <p className="text-xs text-gray-600 mt-1">Drag components to the canvas</p>
         </div>
         <div className="flex-1 overflow-y-auto">
-          <div id="blocks-container" className="p-3"></div>
+          <div id="blocks-container" className="p-4"></div>
         </div>
       </div>
 
       {/* Main Editor */}
-      <div className="flex-1 relative min-w-0">
-        <div ref={editorRef} className="h-full w-full" />
+      <div className="flex-1 relative">
+        <div ref={editorRef} className="h-full" />
       </div>
 
       {/* Right Panel - Properties & Settings */}
-      <div className="w-72 bg-white border-l border-gray-200 flex flex-col">
+      <div className="w-80 bg-white border-l border-gray-200 flex flex-col">
         <div className="border-b border-gray-200">
           <div className="panel__switcher bg-gray-50"></div>
         </div>

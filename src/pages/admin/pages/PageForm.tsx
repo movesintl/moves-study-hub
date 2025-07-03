@@ -52,15 +52,13 @@ const PageForm = () => {
   }
 
   return (
-    <div className={`w-full ${formData.visual_builder_enabled ? 'h-screen flex flex-col' : 'space-y-6 p-6 bg-white rounded-xl shadow-sm border border-gray-200 min-h-[calc(100vh-2rem)] m-3'}`}>
-      <div className={formData.visual_builder_enabled ? 'px-6 py-4 border-b border-gray-200 bg-white' : ''}>
-        <PageFormHeader 
-          isEditing={isEditing}
-          onBackClick={handleBackClick}
-        />
-      </div>
+    <div className="w-full space-y-6">
+      <PageFormHeader 
+        isEditing={isEditing}
+        onBackClick={handleBackClick}
+      />
 
-      <form onSubmit={handleSubmit} className={formData.visual_builder_enabled ? 'flex-1 flex flex-col' : 'space-y-6'}>
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* Always show Hero Section */}
         <HeroSection
           formData={formData}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ArrowRight, Globe, GraduationCap, Users, Building2 } from 'lucide-react';
+import { Search, ArrowRight, Globe, GraduationCap, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
@@ -109,53 +109,30 @@ const Hero = () => {
           {/* Right Content - Beautiful Image */}
           <div className="relative">
             <div className="relative overflow-hidden rounded-2xl">
-              <img src="/lovable-uploads/43d8d1f7-03a3-43d0-8e9f-b480ac017b10.png" alt="Happy student with books and backpack" className="w-full h-[700px] object-cover" />
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Students studying abroad" className="w-full w-full object-cover" />
+              <div className=""></div>
               
-              {/* Animated Floating Statistics Cards */}
-              <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-fade-in hover-scale">
+              {/* Floating Achievement Cards */}
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center">
-                    <Users className="h-6 w-6 text-white" />
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                    <GraduationCap className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-gray-900">5K+</div>
-                    <div className="text-sm text-gray-600">Students Placed</div>
+                    <div className="font-semibold text-gray-900">Visa Approved</div>
+                    <div className="text-sm text-gray-600">Australia Student Visa</div>
                   </div>
                 </div>
               </div>
               
-              <div className="absolute top-32 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-fade-in hover-scale" style={{ animationDelay: '0.2s' }}>
+              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
-                    <Building2 className="h-6 w-6 text-white" />
+                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                    <Users className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-gray-900">150+</div>
-                    <div className="text-sm text-gray-600">Institute Connections</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="absolute bottom-32 right-8 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-fade-in hover-scale" style={{ animationDelay: '0.4s' }}>
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <GraduationCap className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">98%</div>
-                    <div className="text-sm text-gray-600">Success Rate</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="absolute bottom-6 left-8 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-fade-in hover-scale" style={{ animationDelay: '0.6s' }}>
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
-                    <Globe className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">25+</div>
-                    <div className="text-sm text-gray-600">Countries</div>
+                    <div className="font-semibold text-gray-900">Application Success</div>
+                    <div className="text-sm text-gray-600">University of Melbourne</div>
                   </div>
                 </div>
               </div>

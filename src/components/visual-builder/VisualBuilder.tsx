@@ -171,16 +171,20 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
 
   const handleSave = () => {
     if (editor && onSave) {
-      const html = editor.getHtml();
-      const css = editor.getCss();
-      const data = JSON.stringify({
-        html,
-        css,
-        components: editor.getComponents(),
-        styles: editor.getStyles()
-      });
-      console.log('Saving GrapesJS data:', data);
-      onSave(data);
+      try {
+        const html = editor.getHtml();
+        const css = editor.getCss();
+        const data = JSON.stringify({
+          html,
+          css,
+          components: editor.getComponents(),
+          // Note: getStyles() doesn't exist in GrapesJS, using getCss() instead
+        });
+        console.log('Saving GrapesJS data:', data);
+        onSave(data);
+      } catch (error) {
+        console.error('Error saving visual builder data:', error);
+      }
     }
   };
 

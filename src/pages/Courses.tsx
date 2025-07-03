@@ -58,6 +58,11 @@ const Courses = () => {
     resetPage();
   }, [filters, resetPage]);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
+
   // Fetch total count for pagination
   const { data: totalCount = 0 } = useQuery({
     queryKey: ['courses-count', filters],

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, Heart, Clock, Calendar, DollarSign, MapPin, Eye } from 'lucide-react';
 
 interface Course {
   id: string;
@@ -17,6 +17,9 @@ interface Course {
   currency?: string;
   featured?: boolean;
   slug?: string;
+  university?: string;
+  country?: string;
+  intake_dates?: string[];
 }
 
 interface UniversityCoursesProps {
@@ -49,11 +52,20 @@ export const UniversityCourses = ({ university, courses }: UniversityCoursesProp
                     {/* Featured Badge */}
                     {course.featured && (
                       <div className="absolute top-4 right-4 z-10">
-                        <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold shadow-lg">
+                        <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold shadow-lg rounded-full px-3 py-1">
                           ✨ Featured
                         </Badge>
                       </div>
                     )}
+                    
+                    {/* Save Button */}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm hover:bg-white shadow-md rounded-full h-10 w-10 p-0 text-gray-400 hover:text-red-500"
+                    >
+                      <Heart className="h-5 w-5" />
+                    </Button>
                     
                     {/* Course Image */}
                     <div className="h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5 flex items-center justify-center relative overflow-hidden">
@@ -62,56 +74,78 @@ export const UniversityCourses = ({ university, courses }: UniversityCoursesProp
                       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent/20 to-transparent rounded-full transform translate-x-16 -translate-y-16"></div>
                     </div>
                     
-                    <div className="flex-1">
-                      <div className="p-6 pb-4">
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        {/* Course Title */}
                         <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 text-card-foreground">
                           {course.title}
                         </h3>
-                      </div>
-                      
-                      <div className="px-6 space-y-5">
+                        
+                        {/* University & Location */}
+                        <div className="flex items-center text-muted-foreground">
+                          <MapPin className="h-4 w-4 mr-2 flex-shrink-0" />
+                          <span className="font-medium truncate">{course.university}</span>
+                          <span className="mx-2">•</span>
+                          <span>{course.country}</span>
+                        </div>
+                        
+                        {/* Description */}
                         <p className="text-muted-foreground line-clamp-2 leading-relaxed">{course.description}</p>
                         
+                        {/* Badges */}
                         <div className="flex flex-wrap gap-2">
-                          <Badge variant="outline" className="font-medium bg-primary/5 text-primary border-primary/20">
+                          <Badge variant="outline" className="font-medium bg-primary/5 text-primary border-primary/20 rounded-full">
                             {course.level}
                           </Badge>
-                          <Badge variant="outline" className="font-medium bg-accent/5 text-accent border-accent/20">
+                          <Badge variant="outline" className="font-medium bg-accent/5 text-accent border-accent/20 rounded-full">
                             {course.study_area}
                           </Badge>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-3 text-sm">
-                          <div className="flex items-center p-2 bg-muted rounded-lg">
-                            <span className="font-medium text-card-foreground">{course.duration_months} months</span>
+                        {/* Duration & Intakes */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                          <div className="flex items-center">
+                            <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
+                            <span className="font-medium">{Math.floor(course.duration_months / 12)} year{Math.floor(course.duration_months / 12) !== 1 ? 's' : ''}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
+                            <span className="truncate">Intakes: {course.intake_dates?.join(', ') || 'February,...'}</span>
                           </div>
                         </div>
 
+                        {/* Tuition Fee */}
                         {(course.tuition_fee_min || course.tuition_fee_max) && (
-                          <div className="bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 p-4 rounded-xl border border-primary/10">
+                          <div className="bg-muted/50 p-4 rounded-xl border">
                             <div className="flex items-center justify-between">
                               <div>
                                 <div className="text-sm text-muted-foreground font-medium">Tuition Fee</div>
-                                <div className="font-bold text-lg text-primary">
+                                <div className="font-bold text-lg text-foreground">
                                   {course.currency} {course.tuition_fee_min?.toLocaleString()}
                                   {course.tuition_fee_max && course.tuition_fee_max !== course.tuition_fee_min && (
                                     <span> - {course.tuition_fee_max?.toLocaleString()}</span>
                                   )}
                                 </div>
                               </div>
+                              <DollarSign className="h-8 w-8 text-muted-foreground/40" />
                             </div>
                           </div>
                         )}
 
-                        <div className="flex gap-3 pt-2 pb-6">
+                        {/* Action Buttons */}
+                        <div className="flex gap-3 pt-2">
                           <Link to={`/courses/${course.slug}`} className="flex-1">
                             <Button variant="outline" className="w-full h-11 font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                              <Eye className="h-4 w-4 mr-2" />
                               View Details
                             </Button>
                           </Link>
+                          <Button className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300">
+                            Apply Now
+                          </Button>
                         </div>
                       </div>
-                    </div>
+                    </CardContent>
                   </Card>
                 ))}
               </div>

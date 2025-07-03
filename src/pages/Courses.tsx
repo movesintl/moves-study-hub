@@ -95,6 +95,8 @@ const Courses = () => {
     queryKey: ['courses', filters, currentPage],
     queryFn: async () => {
       const { from, to } = getQueryRange();
+      
+      console.log('Pagination Debug:', { currentPage, from, to, coursesPerPage });
 
       let query = supabase
         .from('courses')
@@ -119,6 +121,7 @@ const Courses = () => {
 
       const { data, error } = await query;
       if (error) throw error;
+      console.log('Courses fetched:', data?.length, 'courses for page', currentPage);
       return data as Course[];
     }
   });

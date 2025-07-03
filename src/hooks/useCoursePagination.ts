@@ -4,7 +4,13 @@ export const useCoursePagination = (coursesPerPage: number = 9) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const resetPage = () => {
+    console.log('Resetting page to 1');
     setCurrentPage(1);
+  };
+
+  const handleSetCurrentPage = (page: number) => {
+    console.log('Setting current page to:', page);
+    setCurrentPage(page);
   };
 
   const getTotalPages = (totalCount: number) => {
@@ -23,7 +29,7 @@ export const useCoursePagination = (coursesPerPage: number = 9) => {
 
   return {
     currentPage,
-    setCurrentPage,
+    setCurrentPage: handleSetCurrentPage,
     resetPage,
     getTotalPages,
     getPaginationRange,

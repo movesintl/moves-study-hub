@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
-import 'grapesjs-preset-webpage';
 import 'grapesjs-blocks-basic';
+import 'grapesjs-preset-webpage';
 import { VisualBuilderToolbar } from './components/VisualBuilderToolbar';
 import { VisualBuilderLayout } from './components/VisualBuilderLayout';
-import { createGrapesConfig, addCustomCommands, getDefaultContent } from './config/grapesConfig';
+import { visualBuilderBlocks } from './config/blocks';
 import { parseInitialData } from './utils/dataParser';
 
 interface VisualBuilderProps {
@@ -30,18 +30,118 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
 
     try {
       const parsedData = parseInitialData(initialData);
-      const config = createGrapesConfig(editorRef.current);
-      const grapesEditor = grapesjs.init(config);
+      
+      const grapesEditor = grapesjs.init({
+        container: editorRef.current,
+        height: '800px',
+        width: 'auto',
+        plugins: ['gjs-blocks-basic', 'gjs-preset-webpage'],
+        pluginsOpts: {
+          'gjs-blocks-basic': {},
+          'gjs-preset-webpage': {
+            modalImportTitle: 'Import',
+            modalImportButton: 'Import',
+            modalImportLabel: '',
+            modalImportContent: function(editor: any) {
+              return editor.getHtml();
+            },
+            filestackOpts: {},
+            aviaryOpts: false,
+            customStyleManager: []
+          }
+        },
+        blockManager: {
+          appendTo: '#blocks-container',
+          blocks: visualBuilderBlocks
+        },
+
+        layerManager: {
+          appendTo: '#layers-container'
+        },
+        styleManager: {
+          appendTo: '#styles-container',
+          sectors: [
+            {
+              name: 'Dimension',
+              open: false,
+              buildProps: ['width', 'min-height', 'padding'],
+              properties: [
+                {
+                  type: 'integer',
+                  name: 'The width',
+                  property: 'width',
+                  units: ['px', '%'],
+                  defaults: 'auto',
+                  min: 0,
+                }
+              ]
+            },
+            {
+              name: 'Typography',
+              open: false,
+              buildProps: ['font-family', 'font-size', 'font-weight', 'letter-spacing', 'color', 'line-height'],
+            },
+            {
+              name: 'Decorations',
+              open: false,
+              buildProps: ['background-color', 'border-radius', 'border', 'box-shadow'],
+            },
+            {
+              name: 'Extra',
+              open: false,
+              buildProps: ['opacity', 'transition', 'perspective', 'transform'],
+            }
+          ]
+        },
+        traitManager: {
+          appendTo: '#traits-container'
+        },
+        selectorManager: {
+          appendTo: '#selectors-container'
+        },
+        canvas: {
+          styles: [
+            'https://cdn.tailwindcss.com/3.4.0'
+          ],
+          scripts: []
+        },
+        storageManager: false,
+        deviceManager: {
+          devices: [
+            {
+              name: 'Desktop',
+              width: '',
+            },
+            {
+              name: 'Mobile',
+              width: '320px',
+              widthMedia: '480px',
+            }
+          ]
+        }
+      });
 
       // Set initial content
       if (parsedData) {
         grapesEditor.setComponents(parsedData);
       } else {
-        grapesEditor.setComponents(getDefaultContent());
+        grapesEditor.setComponents(`
+          <div class="container mx-auto p-8">
+            <h1 class="text-3xl font-bold mb-4">Welcome to the Page Builder</h1>
+            <p class="text-gray-600 mb-6">Start building your page by dragging components from the left panel.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-gray-100 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-2">Column 1</h3>
+                <p>Add your content here</p>
+              </div>
+              <div class="bg-gray-100 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-2">Column 2</h3>
+                <p>Add your content here</p>
+              </div>
+            </div>
+          </div>
+        `);
       }
-
-      // Add custom commands
-      addCustomCommands(grapesEditor);
 
       setEditor(grapesEditor);
       setIsInitialized(true);

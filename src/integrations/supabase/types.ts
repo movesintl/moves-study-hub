@@ -744,6 +744,7 @@ export type Database = {
           logo_url: string | null
           name: string
           overview_content: string | null
+          slug: string | null
           updated_at: string
           website_url: string | null
         }
@@ -755,6 +756,7 @@ export type Database = {
           logo_url?: string | null
           name: string
           overview_content?: string | null
+          slug?: string | null
           updated_at?: string
           website_url?: string | null
         }
@@ -766,6 +768,7 @@ export type Database = {
           logo_url?: string | null
           name?: string
           overview_content?: string | null
+          slug?: string | null
           updated_at?: string
           website_url?: string | null
         }
@@ -799,6 +802,10 @@ export type Database = {
     Functions: {
       generate_unique_slug: {
         Args: { course_title: string; course_id?: string }
+        Returns: string
+      }
+      generate_university_slug: {
+        Args: { university_name: string; university_id?: string }
         Returns: string
       }
       is_admin: {

@@ -108,7 +108,7 @@ const UniversitiesList = () => {
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
-                      <Link to={`/universities/${university.id}`}>
+                      <Link to={`/universities/${university.slug || university.id}`}>
                         <Button variant="outline" size="sm" title="View University">
                           <Eye className="h-4 w-4" />
                         </Button>

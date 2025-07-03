@@ -24,6 +24,7 @@ const UniversityForm = () => {
     website_url: '',
     logo_url: '',
     overview_content: '',
+    slug: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -67,6 +68,7 @@ const UniversityForm = () => {
         website_url: university.website_url || '',
         logo_url: university.logo_url || '',
         overview_content: university.overview_content || '',
+        slug: university.slug || '',
       });
     }
   }, [university]);
@@ -193,6 +195,21 @@ const UniversityForm = () => {
                 placeholder="https://university.edu"
                 className="mt-1"
               />
+            </div>
+
+            <div>
+              <Label htmlFor="slug">URL Slug</Label>
+              <Input
+                id="slug"
+                name="slug"
+                value={formData.slug}
+                onChange={handleChange}
+                placeholder="university-name (auto-generated if left empty)"
+                className="mt-1"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Leave empty to auto-generate from university name
+              </p>
             </div>
 
             <MediaSelector

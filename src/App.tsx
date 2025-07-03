@@ -22,6 +22,7 @@ import ApplicationAssistance from '@/pages/services/ApplicationAssistance';
 import ScholarshipGuidance from '@/pages/services/ScholarshipGuidance';
 import PreDepartureSupport from '@/pages/services/PreDepartureSupport';
 import UniversityDetails from '@/pages/UniversityDetails';
+import Universities from '@/pages/Universities';
 import Destinations from '@/pages/Destinations';
 import DestinationDetails from '@/pages/DestinationDetails';
 import BlogDetails from '@/pages/BlogDetails';
@@ -90,7 +91,8 @@ function App() {
                 <Route path="services/application-assistance" element={<ApplicationAssistance />} />
                 <Route path="services/scholarship-guidance" element={<ScholarshipGuidance />} />
                 <Route path="services/pre-departure-support" element={<PreDepartureSupport />} />
-                <Route path="universities/:id" element={<UniversityDetails />} />
+                <Route path="universities" element={<Universities />} />
+                <Route path="universities/:slug" element={<UniversityDetails />} />
                 <Route path="destinations" element={<Destinations />} />
                 <Route path="destinations/:slug" element={<DestinationDetails />} />
                 <Route path="blogs/:id" element={<BlogDetails />} />

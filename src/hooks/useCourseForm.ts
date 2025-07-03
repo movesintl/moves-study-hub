@@ -17,8 +17,7 @@ interface CourseFormData {
   university: string;
   university_id: string;
   destination_id: string;
-  tuition_fee_min: number;
-  tuition_fee_max: number;
+  tuition_fee: number;
   currency: string;
   duration_months: number;
   intake_dates: string[];
@@ -47,8 +46,7 @@ export const useCourseForm = () => {
     university: '',
     university_id: '',
     destination_id: '',
-    tuition_fee_min: 0,
-    tuition_fee_max: 0,
+    tuition_fee: 0,
     currency: 'AUD',
     duration_months: 12,
     intake_dates: [],
@@ -131,8 +129,7 @@ export const useCourseForm = () => {
 
     const courseData = {
       ...formData,
-      tuition_fee_min: Number(formData.tuition_fee_min),
-      tuition_fee_max: Number(formData.tuition_fee_max),
+      tuition_fee: Number(formData.tuition_fee),
       duration_months: Number(formData.duration_months)
     };
 

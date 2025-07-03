@@ -19,8 +19,7 @@ interface Course {
   study_area: string;
   level: string;
   duration_months: number;
-  tuition_fee_min?: number;
-  tuition_fee_max?: number;
+  tuition_fee?: number;
   currency?: string;
   thumbnail_url?: string;
   featured?: boolean;

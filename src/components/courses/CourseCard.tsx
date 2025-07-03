@@ -16,8 +16,7 @@ interface Course {
   study_area: string;
   level: string;
   duration_months: number;
-  tuition_fee_min?: number;
-  tuition_fee_max?: number;
+  tuition_fee?: number;
   currency?: string;
   thumbnail_url?: string;
   featured?: boolean;
@@ -156,8 +155,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             </div>
             
             <div className="flex items-center text-sm text-muted-foreground">
-              <DollarSign className="h-4 w-4 mr-2" />
-              {formatFee(course.tuition_fee_min, course.tuition_fee_max, course.currency)}
+            <DollarSign className="h-4 w-4 mr-2" />
+            {course.tuition_fee && course.currency && `${course.currency} ${course.tuition_fee.toLocaleString()}`}
             </div>
           </div>
 

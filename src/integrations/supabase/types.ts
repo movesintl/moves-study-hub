@@ -364,8 +364,7 @@ export type Database = {
           study_level_id: string | null
           thumbnail_url: string | null
           title: string
-          tuition_fee_max: number | null
-          tuition_fee_min: number | null
+          tuition_fee: number | null
           university: string
           university_id: string | null
           updated_at: string
@@ -391,8 +390,7 @@ export type Database = {
           study_level_id?: string | null
           thumbnail_url?: string | null
           title: string
-          tuition_fee_max?: number | null
-          tuition_fee_min?: number | null
+          tuition_fee?: number | null
           university: string
           university_id?: string | null
           updated_at?: string
@@ -418,8 +416,7 @@ export type Database = {
           study_level_id?: string | null
           thumbnail_url?: string | null
           title?: string
-          tuition_fee_max?: number | null
-          tuition_fee_min?: number | null
+          tuition_fee?: number | null
           university?: string
           university_id?: string | null
           updated_at?: string

@@ -125,10 +125,7 @@ const CoursesList = () => {
                 <div className="flex items-center space-x-4 text-sm text-gray-600">
                   <span>{course.duration_months} months</span>
                   <span>•</span>
-                  <span>{course.currency} {course.tuition_fee_min?.toLocaleString()}</span>
-                  {course.tuition_fee_max && course.tuition_fee_max !== course.tuition_fee_min && (
-                    <span>- {course.tuition_fee_max?.toLocaleString()}</span>
-                  )}
+                  <span>{course.currency} {course.tuition_fee?.toLocaleString()}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Button variant="ghost" size="sm" asChild>

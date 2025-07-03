@@ -19,8 +19,7 @@ interface Course {
   level: string;
   country: string;
   university: string;
-  tuition_fee_min: number;
-  tuition_fee_max: number;
+  tuition_fee: number;
   currency: string;
   duration_months: number;
   intake_dates: string[];
@@ -498,7 +497,7 @@ const Courses = () => {
                           <div>
                             <div className="text-sm text-gray-600 font-medium">Tuition Fee</div>
                             <div className="font-bold text-lg text-primary">
-                              {formatTuitionFee(course.tuition_fee_min, course.tuition_fee_max, course.currency)}
+                              {course.currency} {course.tuition_fee?.toLocaleString()}
                             </div>
                           </div>
                           <DollarSign className="h-8 w-8 text-primary/40" />

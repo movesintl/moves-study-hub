@@ -202,7 +202,7 @@ const CourseDetails = () => {
             <div className="text-right">
               <div className="text-white/80 text-sm mb-1">Tuition Fee</div>
               <div className="text-2xl font-bold">
-                {formatTuitionFee(course.tuition_fee_min, course.tuition_fee_max, course.currency)}
+                {course.currency} {course.tuition_fee?.toLocaleString()}
               </div>
             </div>
           </div>
@@ -299,7 +299,7 @@ const CourseDetails = () => {
                     <div>
                       <div className="text-sm text-gray-600 mb-1">Tuition Fee</div>
                       <div className="text-xl font-bold text-primary">
-                        {formatTuitionFee(course.tuition_fee_min, course.tuition_fee_max, course.currency)}
+                        {course.currency} {course.tuition_fee?.toLocaleString()}
                       </div>
                     </div>
                     <DollarSign className="h-8 w-8 text-primary/40" />

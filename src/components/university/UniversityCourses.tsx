@@ -16,8 +16,7 @@ interface Course {
   study_area: string;
   level: string;
   duration_months: number;
-  tuition_fee_min?: number;
-  tuition_fee_max?: number;
+  tuition_fee?: number;
   currency?: string;
   featured?: boolean;
   slug?: string;
@@ -227,16 +226,13 @@ export const UniversityCourses = ({ university, courses }: UniversityCoursesProp
                         </div>
 
                         {/* Tuition Fee */}
-                        {(course.tuition_fee_min || course.tuition_fee_max) && (
+                        {course.tuition_fee && (
                           <div className="bg-muted/50 p-4 rounded-xl border">
                             <div className="flex items-center justify-between">
                               <div>
                                 <div className="text-sm text-muted-foreground font-medium">Tuition Fee</div>
                                 <div className="font-bold text-lg text-foreground">
-                                  {course.currency} {course.tuition_fee_min?.toLocaleString()}
-                                  {course.tuition_fee_max && course.tuition_fee_max !== course.tuition_fee_min && (
-                                    <span> - {course.tuition_fee_max?.toLocaleString()}</span>
-                                  )}
+                                  {course.currency} {course.tuition_fee?.toLocaleString()}
                                 </div>
                               </div>
                               <DollarSign className="h-8 w-8 text-muted-foreground/40" />

@@ -13,8 +13,7 @@ interface Course {
   study_area: string;
   level: string;
   duration_months: number;
-  tuition_fee_min?: number;
-  tuition_fee_max?: number;
+  tuition_fee?: number;
   currency?: string;
   thumbnail_url?: string;
   featured?: boolean;
@@ -133,7 +132,7 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
                 <div>
                   <div className="text-sm text-gray-600 font-medium">Tuition Fee</div>
                   <div className="font-bold text-lg text-primary">
-                    {formatTuitionFee(course.tuition_fee_min, course.tuition_fee_max, course.currency)}
+                    {course.tuition_fee && course.currency && `${course.currency} ${course.tuition_fee.toLocaleString()}`}
                   </div>
                 </div>
                 <DollarSign className="h-8 w-8 text-primary/40" />

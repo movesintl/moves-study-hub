@@ -12,8 +12,7 @@ interface CourseCardProps {
     study_area: string;
     level: string;
     duration_months: number;
-    tuition_fee_min?: number;
-    tuition_fee_max?: number;
+    tuition_fee?: number;
     currency?: string;
     featured?: boolean;
     slug?: string;
@@ -53,14 +52,11 @@ export const CourseCard = ({ course }: CourseCardProps) => {
               <span className="text-sm text-muted-foreground">Duration</span>
               <span className="font-semibold text-card-foreground">{course.duration_months} months</span>
             </div>
-            {(course.tuition_fee_min || course.tuition_fee_max) && (
+            {course.tuition_fee && (
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Tuition</span>
                 <span className="font-bold text-primary">
-                  {course.currency} {course.tuition_fee_min?.toLocaleString()}
-                  {course.tuition_fee_max && course.tuition_fee_max !== course.tuition_fee_min && (
-                    <span> - {course.tuition_fee_max?.toLocaleString()}</span>
-                  )}
+                  {course.currency} {course.tuition_fee?.toLocaleString()}
                 </span>
               </div>
             )}

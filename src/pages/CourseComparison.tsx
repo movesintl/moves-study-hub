@@ -16,8 +16,7 @@ interface Course {
   level: string;
   country: string;
   university: string;
-  tuition_fee_min: number;
-  tuition_fee_max: number;
+  tuition_fee: number;
   currency: string;
   duration_months: number;
   intake_dates: string[];
@@ -166,7 +165,7 @@ const CourseComparison = () => {
                       <span className="font-medium">Study Area:</span> {course.study_area}
                     </div>
                     <div>
-                      <span className="font-medium">Tuition:</span> {formatTuitionFee(course.tuition_fee_min, course.tuition_fee_max, course.currency)}
+                      <span className="font-medium">Tuition:</span> {course.currency} {course.tuition_fee?.toLocaleString()}
                     </div>
                   </div>
                   
@@ -245,7 +244,7 @@ const CourseComparison = () => {
                 <div key={`tuition-${course.id}`} className="py-3 border-t">
                   <span className="flex items-center font-semibold text-primary">
                     <DollarSign className="h-4 w-4 mr-1" />
-                    {formatTuitionFee(course.tuition_fee_min, course.tuition_fee_max, course.currency)}
+                    {course.currency} {course.tuition_fee?.toLocaleString()}
                   </span>
                 </div>
               ))}

@@ -20,8 +20,7 @@ interface SavedCourse {
     country: string;
     level: string;
     duration_months: number;
-    tuition_fee_min?: number;
-    tuition_fee_max?: number;
+    tuition_fee?: number;
     currency: string;
     thumbnail_url?: string;
     slug: string;
@@ -55,8 +54,7 @@ const SavedCourses = () => {
             country,
             level,
             duration_months,
-            tuition_fee_min,
-            tuition_fee_max,
+            tuition_fee,
             currency,
             thumbnail_url,
             slug
@@ -205,11 +203,7 @@ const SavedCourses = () => {
                   <div className="text-sm">
                     <span className="font-medium">Tuition Fee:</span>
                     <p className="text-gray-600">
-                      {formatFeeRange(
-                        savedCourse.courses.tuition_fee_min,
-                        savedCourse.courses.tuition_fee_max,
-                        savedCourse.courses.currency
-                      )}
+                      {savedCourse.courses.currency} {savedCourse.courses.tuition_fee?.toLocaleString()}
                     </p>
                   </div>
 

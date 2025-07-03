@@ -22,7 +22,7 @@ export const FeesIntakeSection = ({ formData, setFormData }: FeesIntakeSectionPr
         <CardTitle>Fees & Intake</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="currency">Currency</Label>
             <Select value={formData.currency} onValueChange={(value) => setFormData({ ...formData, currency: value })}>
@@ -39,21 +39,12 @@ export const FeesIntakeSection = ({ formData, setFormData }: FeesIntakeSectionPr
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="tuition_fee_min">Minimum Fee</Label>
+            <Label htmlFor="tuition_fee">Tuition Fee</Label>
             <Input
-              id="tuition_fee_min"
+              id="tuition_fee"
               type="number"
-              value={formData.tuition_fee_min}
-              onChange={(e) => setFormData({ ...formData, tuition_fee_min: Number(e.target.value) })}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="tuition_fee_max">Maximum Fee</Label>
-            <Input
-              id="tuition_fee_max"
-              type="number"
-              value={formData.tuition_fee_max}
-              onChange={(e) => setFormData({ ...formData, tuition_fee_max: Number(e.target.value) })}
+              value={formData.tuition_fee}
+              onChange={(e) => setFormData({ ...formData, tuition_fee: Number(e.target.value) })}
             />
           </div>
         </div>

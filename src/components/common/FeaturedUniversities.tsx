@@ -58,18 +58,29 @@ const FeaturedUniversities = () => {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-br from-primary/5 via-gray-50 to-accent/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]" />
+      <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <GraduationCap className="h-8 w-8 text-primary" />
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Featured Universities
-            </h2>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg shadow-blue-500/10 mb-6 border border-white/20">
+            <div className="h-10 w-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+              <GraduationCap className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-sm font-semibold text-slate-600 uppercase tracking-wider">
+              Our Partners
+            </span>
           </div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover world-class institutions that have partnered with us to offer exceptional educational opportunities
+          
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent mb-4">
+            World-Class Universities
+          </h2>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Discover exceptional institutions that shape the future of education and innovation
           </p>
         </div>
 
@@ -79,61 +90,103 @@ const FeaturedUniversities = () => {
             opts={{
               align: "start",
               loop: true,
+              skipSnaps: false,
+              dragFree: true,
             }}
             className="w-full"
           >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {universities.map((university) => (
-                <CarouselItem key={university.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105 group border-2 hover:border-primary/20">
-                    <CardContent className="p-6 h-full flex flex-col items-center text-center">
-                      {/* University Logo */}
-                      <div className="flex items-center justify-center mb-4 h-16 w-16">
-                        {university.logo_url ? (
-                          <img
-                            src={university.logo_url}
-                            alt={`${university.name} logo`}
-                            className="max-h-16 max-w-16 object-contain rounded-lg"
-                          />
-                        ) : (
-                          <div className="h-16 w-16 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                            <GraduationCap className="h-8 w-8 text-white" />
+            <CarouselContent className="-ml-3 md:-ml-4">
+              {universities.map((university, index) => (
+                <CarouselItem key={university.id} className="pl-3 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6">
+                  <div 
+                    className="group h-full"
+                    style={{ 
+                      animationDelay: `${index * 100}ms`,
+                    }}
+                  >
+                    <Card className="h-full bg-white/60 backdrop-blur-sm border-0 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 hover:scale-105 hover:-translate-y-2 group-hover:bg-white/80">
+                      <CardContent className="p-6 h-full flex flex-col items-center text-center justify-between min-h-[200px]">
+                        {/* University Logo */}
+                        <div className="flex items-center justify-center mb-4 relative">
+                          <div className="h-16 w-16 bg-gradient-to-br from-white to-slate-50 rounded-2xl shadow-lg shadow-slate-200/50 flex items-center justify-center p-2 group-hover:shadow-blue-500/20 transition-all duration-500">
+                            {university.logo_url ? (
+                              <img
+                                src={university.logo_url}
+                                alt={`${university.name} logo`}
+                                className="max-h-12 max-w-12 object-contain filter group-hover:scale-110 transition-transform duration-500"
+                              />
+                            ) : (
+                              <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                                <GraduationCap className="h-6 w-6 text-white" />
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-
-                      {/* University Name */}
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">
-                        {university.name}
-                      </h3>
-
-                      {/* Country */}
-                      {university.country && (
-                        <div className="flex items-center justify-center gap-1 text-gray-600">
-                          <MapPin className="h-4 w-4" />
-                          <span className="text-sm font-medium">
-                            {university.country}
-                          </span>
+                          
+                          {/* Decorative ring */}
+                          <div className="absolute inset-0 h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
+
+                        {/* University Name */}
+                        <div className="flex-grow flex flex-col justify-center">
+                          <h3 className="text-base font-semibold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2 leading-tight">
+                            {university.name}
+                          </h3>
+
+                          {/* Country */}
+                          {university.country && (
+                            <div className="flex items-center justify-center gap-1.5 text-slate-500 group-hover:text-slate-600 transition-colors duration-300">
+                              <div className="h-1 w-1 bg-slate-400 rounded-full" />
+                              <span className="text-sm font-medium tracking-wide">
+                                {university.country}
+                              </span>
+                              <div className="h-1 w-1 bg-slate-400 rounded-full" />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Hover overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
+                      </CardContent>
+                    </Card>
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
             
-            <CarouselPrevious className="hidden md:flex -left-12" />
-            <CarouselNext className="hidden md:flex -right-12" />
+            {/* Custom Navigation */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <CarouselPrevious className="relative inset-auto translate-y-0 h-12 w-12 bg-white/80 backdrop-blur-sm border-0 shadow-lg shadow-slate-200/50 hover:shadow-blue-500/20 hover:bg-white transition-all duration-300 hover:scale-110" />
+              <div className="flex gap-2">
+                {Array.from({ length: Math.ceil(universities.length / 5) }).map((_, i) => (
+                  <div 
+                    key={i} 
+                    className="h-2 w-8 bg-slate-200 rounded-full hover:bg-blue-400 transition-colors duration-300 cursor-pointer"
+                  />
+                ))}
+              </div>
+              <CarouselNext className="relative inset-auto translate-y-0 h-12 w-12 bg-white/80 backdrop-blur-sm border-0 shadow-lg shadow-slate-200/50 hover:shadow-blue-500/20 hover:bg-white transition-all duration-300 hover:scale-110" />
+            </div>
           </Carousel>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-12">
-          <Button asChild size="lg" className="hover:scale-105 transition-transform">
-            <Link to="/universities">
-              View All Universities
+        {/* Enhanced Call to Action */}
+        <div className="text-center mt-16">
+          <Button 
+            asChild 
+            size="lg" 
+            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300 border-0 text-base"
+          >
+            <Link to="/universities" className="flex items-center gap-2">
+              Explore All Universities
+              <div className="h-5 w-5 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-xs">→</span>
+              </div>
             </Link>
           </Button>
+          
+          <p className="text-slate-500 text-sm mt-4 font-medium">
+            Discover {universities.length}+ partnered institutions worldwide
+          </p>
         </div>
       </div>
     </section>

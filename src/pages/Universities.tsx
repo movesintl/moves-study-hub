@@ -26,13 +26,13 @@ const Universities = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-16">
           <div className="animate-pulse space-y-8">
-            <div className="h-12 bg-gray-200 rounded w-1/2 mx-auto"></div>
+            <div className="h-12 bg-muted rounded w-1/2 mx-auto"></div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="h-64 bg-gray-200 rounded-lg"></div>
+                <div key={i} className="h-64 bg-muted rounded-lg"></div>
               ))}
             </div>
           </div>
@@ -42,19 +42,21 @@ const Universities = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-50 py-16 lg:py-24">
+      <section className="bg-muted py-16 lg:py-24 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <Building2 className="h-8 w-8 text-blue-600" />
-              <span className="text-blue-600 font-medium">Universities</span>
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="p-3 bg-primary/10 rounded-2xl">
+                <Building2 className="h-8 w-8 text-primary" />
+              </div>
+              <span className="text-primary font-semibold text-lg">Universities</span>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
               Explore Top Universities
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
               Discover prestigious institutions offering world-class education and diverse academic programs
             </p>
           </div>
@@ -68,12 +70,12 @@ const Universities = () => {
             {universities.length > 0 ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {universities.map((university) => (
-                  <Card key={university.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-md bg-white overflow-hidden">
+                  <Card key={university.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 shadow-md overflow-hidden border border-border">
                     <CardContent className="p-0">
                       {/* Header with Logo */}
-                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 text-center">
+                      <div className="bg-secondary/50 p-8 text-center">
                         {university.logo_url ? (
-                          <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full p-3 shadow-sm">
+                          <div className="w-20 h-20 mx-auto mb-4 bg-card rounded-full p-3 shadow-sm">
                             <img 
                               src={university.logo_url} 
                               alt={university.name}
@@ -81,22 +83,22 @@ const Universities = () => {
                             />
                           </div>
                         ) : (
-                          <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-sm">
-                            <Building2 className="h-10 w-10 text-blue-600" />
+                          <div className="w-20 h-20 mx-auto mb-4 bg-card rounded-full flex items-center justify-center shadow-sm">
+                            <Building2 className="h-10 w-10 text-primary" />
                           </div>
                         )}
                         
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                        <h3 className="text-xl font-bold text-card-foreground group-hover:text-primary transition-colors line-clamp-2">
                           {university.name}
                         </h3>
                       </div>
 
                       {/* Content */}
-                      <div className="p-6 space-y-4">
+                      <div className="p-6 space-y-4 bg-card">
                         {/* Location & Country */}
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           {university.location && (
-                            <div className="flex items-center gap-2 text-gray-600">
+                            <div className="flex items-center gap-2 text-muted-foreground">
                               <MapPin className="h-4 w-4" />
                               <span className="text-sm">{university.location}</span>
                             </div>
@@ -109,13 +111,13 @@ const Universities = () => {
                         </div>
 
                         {/* Stats */}
-                        <div className="py-3 border-t border-gray-100">
+                        <div className="py-3 border-t border-border">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <GraduationCap className="h-4 w-4 text-blue-600" />
-                              <span className="text-sm text-gray-600">Programs</span>
+                              <GraduationCap className="h-4 w-4 text-primary" />
+                              <span className="text-sm text-muted-foreground">Programs</span>
                             </div>
-                            <span className="font-semibold text-gray-900">
+                            <span className="font-semibold text-card-foreground">
                               {university.courses?.[0]?.count || 0}
                             </span>
                           </div>
@@ -124,7 +126,7 @@ const Universities = () => {
                         {/* Actions */}
                         <div className="space-y-3 pt-4">
                           <Link to={`/universities/${university.slug || university.id}`}>
-                            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                            <Button className="w-full">
                               View University
                             </Button>
                           </Link>
@@ -146,15 +148,15 @@ const Universities = () => {
             ) : (
               <div className="text-center py-20">
                 <div className="max-w-md mx-auto">
-                  <div className="bg-gray-100 rounded-full p-6 w-24 h-24 mx-auto mb-6 flex items-center justify-center">
-                    <Building2 className="h-12 w-12 text-gray-400" />
+                  <div className="bg-secondary rounded-full p-6 w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                    <Building2 className="h-12 w-12 text-muted-foreground" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">No Universities Found</h3>
-                  <p className="text-gray-600 mb-8">
+                  <h3 className="text-2xl font-bold text-foreground mb-4">No Universities Found</h3>
+                  <p className="text-muted-foreground mb-8">
                     There are no universities available at the moment. Check back later for updates.
                   </p>
                   <Link to="/contact">
-                    <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+                    <Button size="lg">
                       Contact Us
                     </Button>
                   </Link>

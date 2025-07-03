@@ -9,6 +9,8 @@ import { ExternalLink, MapPin, Clock, DollarSign, Calendar, ArrowLeft, Graduatio
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import HowToApply from '@/components/common/HowToApply';
+import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 
 const CourseDetails = () => {
   const { slug } = useParams();
@@ -23,7 +25,7 @@ const CourseDetails = () => {
         .from('courses')
         .select(`
           *,
-          universities:university_id(name, location, logo_url, website_url),
+          universities:university_id(name, location, logo_url, website_url, slug),
           destinations:destination_id(name, featured_image_url)
         `)
         .eq('slug', slug)
@@ -350,12 +352,12 @@ const CourseDetails = () => {
                         <p className="text-gray-600 mt-1">{course.universities.location}</p>
                       )}
                     </div>
-                    {course.universities.website_url && (
+                    {course.universities.slug && (
                       <Button variant="outline" size="sm" className="w-full" asChild>
-                        <a href={course.universities.website_url} target="_blank" rel="noopener noreferrer">
+                        <Link to={`/universities/${course.universities.slug}`}>
                           <ExternalLink className="h-4 w-4 mr-2" />
-                          Visit University Website
-                        </a>
+                          View University Details
+                        </Link>
                       </Button>
                     )}
                   </div>
@@ -398,6 +400,12 @@ const CourseDetails = () => {
           </div>
         </div>
       </div>
+      
+      {/* How to Apply Section */}
+      <HowToApply />
+      
+      {/* Lead Enquiry Form */}
+      <LeadEnquiryForm />
     </div>
   );
 };

@@ -12,11 +12,13 @@ export const SettingsPanel = () => {
     let selected;
 
     if (currentNodeId) {
+      const node = state.nodes[currentNodeId];
       selected = {
         id: currentNodeId,
-        name: state.nodes[currentNodeId].data.name,
-        settings: state.nodes[currentNodeId].related && state.nodes[currentNodeId].related.settings,
-        isDeletable: query.node(currentNodeId).isDeletable()
+        name: node.data.name,
+        settings: node.related && node.related.settings,
+        isDeletable: query.node(currentNodeId).isDeletable(),
+        parent: node.data.parent
       };
     }
 
@@ -26,6 +28,12 @@ export const SettingsPanel = () => {
     };
   });
 
+  const handleDelete = () => {
+    if (selected && selected.parent && selected.parent !== 'ROOT') {
+      actions.delete(selected.id);
+    }
+  };
+
   return (
     <Card className="w-80">
       <CardHeader>
@@ -34,10 +42,10 @@ export const SettingsPanel = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {selected && selected.isDeletable && selected.name !== 'ContainerBlock' && (
+        {selected && selected.isDeletable && selected.parent && selected.parent !== 'ROOT' && (
           <>
             <Button 
-              onClick={() => actions.delete(selected.id)} 
+              onClick={handleDelete} 
               variant="destructive" 
               size="sm" 
               className="w-full mb-4"

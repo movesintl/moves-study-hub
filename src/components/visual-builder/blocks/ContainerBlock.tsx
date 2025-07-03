@@ -204,31 +204,44 @@ export const ContainerBlock: React.FC<ContainerBlockProps> = ({
 };
 
 export const ContainerBlockSettings = () => {
-  const { actions: { setProp }, props, id } = useNode((node) => ({
+  const { actions: { setProp }, props, id, parent } = useNode((node) => ({
     props: node.data.props,
-    id: node.id
+    id: node.id,
+    parent: node.data.parent
   }));
   
-  const { actions } = useEditor();
+  const { actions, query } = useEditor();
 
   const handleDelete = () => {
+    // Prevent deleting the root node
+    if (!parent || parent === 'ROOT') {
+      console.log('Cannot delete root container');
+      return;
+    }
     actions.delete(id);
   };
 
+  // Check if this is the root container
+  const isRootContainer = !parent || parent === 'ROOT';
+
   return (
     <div className="space-y-4 max-h-96 overflow-y-auto">
-      {/* Delete Button */}
-      <Button 
-        onClick={handleDelete} 
-        variant="destructive" 
-        size="sm" 
-        className="w-full"
-      >
-        <Trash2 className="w-4 h-4 mr-2" />
-        Delete Container
-      </Button>
-      
-      <Separator />
+      {/* Delete Button - only show for non-root containers */}
+      {!isRootContainer && (
+        <>
+          <Button 
+            onClick={handleDelete} 
+            variant="destructive" 
+            size="sm" 
+            className="w-full"
+          >
+            <Trash2 className="w-4 h-4 mr-2" />
+            Delete Container
+          </Button>
+          
+          <Separator />
+        </>
+      )}
       
       <Tabs defaultValue="layout" className="w-full">
         <TabsList className="grid w-full grid-cols-4">

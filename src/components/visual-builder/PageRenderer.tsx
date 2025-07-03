@@ -125,7 +125,7 @@ export const PageRenderer: React.FC<PageRendererProps> = ({ data }) => {
   return (
     <div 
       ref={containerRef} 
-      className="w-full min-h-screen"
+      className="w-full"
       style={{ 
         fontFamily: 'inherit',
         lineHeight: 'inherit',

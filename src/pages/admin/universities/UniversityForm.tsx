@@ -78,10 +78,16 @@ const UniversityForm = () => {
     setLoading(true);
 
     try {
+      // Prepare form data, excluding slug if empty (let trigger handle it)
+      const submitData = { ...formData };
+      if (!submitData.slug || submitData.slug.trim() === '') {
+        delete submitData.slug;
+      }
+
       if (isEditing) {
         const { error } = await supabase
           .from('universities')
-          .update(formData)
+          .update(submitData)
           .eq('id', id);
 
         if (error) throw error;
@@ -93,7 +99,7 @@ const UniversityForm = () => {
       } else {
         const { error } = await supabase
           .from('universities')
-          .insert([formData]);
+          .insert([submitData]);
 
         if (error) throw error;
 
@@ -105,6 +111,7 @@ const UniversityForm = () => {
 
       navigate('/admin/universities');
     } catch (error) {
+      console.error('University form error:', error);
       toast({
         title: "Error",
         description: `Failed to ${isEditing ? 'update' : 'create'} university`,

@@ -12,16 +12,23 @@ import { Link } from 'react-router-dom';
 const UniversityDetails = () => {
   const { id } = useParams();
 
-  const { data: university, isLoading } = useQuery({
+  const { data: university, isLoading, error } = useQuery({
     queryKey: ['university', id],
     queryFn: async () => {
+      console.log('Fetching university with slug:', id);
+      
       const { data, error } = await supabase
         .from('universities')
         .select('*')
         .eq('slug', id)
-        .single();
+        .maybeSingle();
       
-      if (error) throw error;
+      if (error) {
+        console.error('University fetch error:', error);
+        throw error;
+      }
+      
+      console.log('University data:', data);
       return data;
     }
   });
@@ -31,12 +38,19 @@ const UniversityDetails = () => {
     queryFn: async () => {
       if (!university?.id) return [];
       
+      console.log('Fetching courses for university:', university.id);
+      
       const { data, error } = await supabase
         .from('courses')
         .select('*')
         .eq('university_id', university.id);
       
-      if (error) throw error;
+      if (error) {
+        console.error('Courses fetch error:', error);
+        throw error;
+      }
+      
+      console.log('Courses data:', data);
       return data;
     },
     enabled: !!university?.id

@@ -28,6 +28,7 @@ interface Course {
   requirements: string;
   image_url: string;
   featured: boolean;
+  slug: string;
 }
 
 interface Filters {
@@ -505,7 +506,7 @@ const Courses = () => {
                       </div>
 
                       <div className="flex gap-3 pt-2">
-                        <Link to={`/courses/${course.id}`} className="flex-1">
+                        <Link to={`/courses/${course.slug}`} className="flex-1">
                           <Button variant="outline" className="w-full h-11 font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300">
                             <Eye className="h-4 w-4 mr-2" />
                             View Details

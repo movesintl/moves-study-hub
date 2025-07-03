@@ -129,7 +129,7 @@ const UniversityDetails = () => {
                     )}
                   </div>
                   <Button className="w-full" variant="outline" asChild>
-                    <a href={`/courses/${course.id}`}>View Details</a>
+                    <a href={`/courses/${course.slug}`}>View Details</a>
                   </Button>
                 </CardContent>
               </Card>

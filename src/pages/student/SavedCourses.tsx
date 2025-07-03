@@ -24,6 +24,7 @@ interface SavedCourse {
     tuition_fee_max?: number;
     currency: string;
     thumbnail_url?: string;
+    slug: string;
   };
 }
 
@@ -57,7 +58,8 @@ const SavedCourses = () => {
             tuition_fee_min,
             tuition_fee_max,
             currency,
-            thumbnail_url
+            thumbnail_url,
+            slug
           )
         `)
         .eq('user_id', user?.id)
@@ -217,7 +219,7 @@ const SavedCourses = () => {
 
                   <div className="flex gap-2 pt-2">
                     <Button asChild size="sm" className="flex-1">
-                      <Link to={`/courses/${savedCourse.courses.id}`}>
+                      <Link to={`/courses/${savedCourse.courses.slug}`}>
                         <ExternalLink className="h-4 w-4 mr-2" />
                         View Details
                       </Link>

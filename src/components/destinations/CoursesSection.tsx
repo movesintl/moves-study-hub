@@ -13,6 +13,7 @@ interface Course {
   level: string;
   duration_months: number;
   featured: boolean;
+  slug: string;
 }
 
 interface CoursesSectionProps {
@@ -48,7 +49,7 @@ const CoursesSection = ({ destinationName, courses }: CoursesSectionProps) => {
                 <span>{course.duration_months} months</span>
               </div>
               <Button className="w-full" variant="outline" size="sm" asChild>
-                <a href={`/courses/${course.id}`}>View Details</a>
+                <a href={`/courses/${course.slug}`}>View Details</a>
               </Button>
             </CardContent>
           </Card>

@@ -11,13 +11,13 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
 const CourseDetails = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   const { data: course, isLoading, error } = useQuery({
-    queryKey: ['course', id],
+    queryKey: ['course', slug],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('courses')
@@ -26,7 +26,7 @@ const CourseDetails = () => {
           universities:university_id(name, location, logo_url, website_url),
           destinations:destination_id(name, featured_image_url)
         `)
-        .eq('id', id)
+        .eq('slug', slug)
         .single();
       
       if (error) throw error;
@@ -35,45 +35,45 @@ const CourseDetails = () => {
   });
 
   const { data: isSaved = false } = useQuery({
-    queryKey: ['saved-course', id, user?.id],
+    queryKey: ['saved-course', course?.id, user?.id],
     queryFn: async () => {
-      if (!user?.id || !id) return false;
+      if (!user?.id || !course?.id) return false;
       
       const { data, error } = await supabase
         .from('saved_courses')
         .select('id')
-        .eq('course_id', id)
+        .eq('course_id', course.id)
         .eq('user_id', user.id)
         .single();
       
       if (error && error.code !== 'PGRST116') throw error;
       return !!data;
     },
-    enabled: !!user && !!id,
+    enabled: !!user && !!course,
   });
 
   const saveMutation = useMutation({
     mutationFn: async () => {
-      if (!user?.id || !id) throw new Error('User not authenticated');
+      if (!user?.id || !course?.id) throw new Error('User not authenticated');
       
       if (isSaved) {
         const { error } = await supabase
           .from('saved_courses')
           .delete()
-          .eq('course_id', id)
+          .eq('course_id', course.id)
           .eq('user_id', user.id);
         
         if (error) throw error;
       } else {
         const { error } = await supabase
           .from('saved_courses')
-          .insert({ course_id: id, user_id: user.id });
+          .insert({ course_id: course.id, user_id: user.id });
         
         if (error) throw error;
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['saved-course', id, user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['saved-course', course?.id, user?.id] });
       toast({
         title: isSaved ? "Course removed from saved list" : "Course saved successfully",
         description: isSaved ? "You can find it in your saved courses." : "You can view it in your saved courses.",

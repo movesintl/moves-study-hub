@@ -80,6 +80,17 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
     e.preventDefault();
     setLoading(true);
 
+    // Validate mandatory fields
+    if (!formData.agrees_to_terms) {
+      toast({
+        title: "Agreement Required",
+        description: "You must agree to the Terms and Privacy Policy to continue.",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
     try {
       // Prepare data for counselling_bookings table
       const bookingData = {

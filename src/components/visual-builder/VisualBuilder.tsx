@@ -28,7 +28,9 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
   useEffect(() => {
     if (!editorRef.current || isInitialized) return;
 
-    try {
+    // Small delay to ensure DOM elements are ready
+    const initTimer = setTimeout(() => {
+      try {
       const parsedData = parseInitialData(initialData);
       
       const grapesEditor = grapesjs.init({
@@ -51,8 +53,7 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
           }
         },
         blockManager: {
-          appendTo: '#blocks-container',
-          blocks: visualBuilderBlocks
+          appendTo: '#blocks-container'
         },
 
         layerManager: {
@@ -121,6 +122,16 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
         }
       });
 
+      // Add blocks after editor initialization
+      console.log('Adding blocks to GrapesJS:', visualBuilderBlocks.length);
+      visualBuilderBlocks.forEach((block, index) => {
+        console.log(`Adding block ${index + 1}:`, block.id, block.label);
+        grapesEditor.BlockManager.add(block.id, block);
+      });
+      
+      // Force render blocks
+      grapesEditor.BlockManager.render();
+
       // Set initial content
       if (parsedData) {
         grapesEditor.setComponents(parsedData);
@@ -145,15 +156,17 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
 
       setEditor(grapesEditor);
       setIsInitialized(true);
-
-      return () => {
-        if (grapesEditor) {
-          grapesEditor.destroy();
-        }
-      };
     } catch (error) {
       console.error('Failed to initialize GrapesJS:', error);
     }
+    }, 100);
+
+    return () => {
+      clearTimeout(initTimer);
+      if (editor) {
+        editor.destroy();
+      }
+    };
   }, [initialData, isInitialized]);
 
   const handleSave = () => {

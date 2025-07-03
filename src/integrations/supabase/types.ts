@@ -243,6 +243,9 @@ export type Database = {
       counselling_bookings: {
         Row: {
           admin_notes: string | null
+          agrees_to_contact: boolean | null
+          agrees_to_marketing: boolean | null
+          agrees_to_terms: boolean | null
           course_interest: string | null
           created_at: string
           current_education_level: string | null
@@ -262,6 +265,9 @@ export type Database = {
         }
         Insert: {
           admin_notes?: string | null
+          agrees_to_contact?: boolean | null
+          agrees_to_marketing?: boolean | null
+          agrees_to_terms?: boolean | null
           course_interest?: string | null
           created_at?: string
           current_education_level?: string | null
@@ -281,6 +287,9 @@ export type Database = {
         }
         Update: {
           admin_notes?: string | null
+          agrees_to_contact?: boolean | null
+          agrees_to_marketing?: boolean | null
+          agrees_to_terms?: boolean | null
           course_interest?: string | null
           created_at?: string
           current_education_level?: string | null
@@ -491,6 +500,42 @@ export type Database = {
           updated_at?: string
           visa_info?: string | null
           why_study_points?: Json | null
+        }
+        Relationships: []
+      }
+      marketing_consents: {
+        Row: {
+          consent_date: string
+          created_at: string
+          id: string
+          is_active: boolean
+          source: string | null
+          student_email: string
+          student_name: string
+          student_phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          consent_date?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          source?: string | null
+          student_email: string
+          student_name: string
+          student_phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          consent_date?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          source?: string | null
+          student_email?: string
+          student_name?: string
+          student_phone?: string | null
+          updated_at?: string
         }
         Relationships: []
       }

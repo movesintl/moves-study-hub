@@ -30,6 +30,7 @@ import CourseComparison from '@/pages/CourseComparison';
 import Auth from '@/pages/Auth';
 import NotFound from '@/pages/NotFound';
 import Contact from '@/pages/Contact';
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import ContactSubmissions from '@/pages/admin/contact/ContactSubmissions';
 import PageView from '@/pages/PageView';
 
@@ -98,6 +99,7 @@ function App() {
                 <Route path="blogs/:id" element={<BlogDetails />} />
                 <Route path="course-comparison" element={<CourseComparison />} />
                 <Route path="contact" element={<Contact />} />
+                <Route path="privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="pages/:slug" element={<PageView />} />
               </Route>
               <Route path="/student-dashboard" element={<StudentDashboard />}>

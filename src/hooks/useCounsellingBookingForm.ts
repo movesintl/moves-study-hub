@@ -18,6 +18,9 @@ interface FormData {
   preferred_date: string;
   preferred_time: string;
   message: string;
+  agrees_to_terms: boolean;
+  agrees_to_contact: boolean;
+  agrees_to_marketing: boolean;
 }
 
 export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess?: () => void) => {
@@ -38,6 +41,9 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
     preferred_date: '',
     preferred_time: '',
     message: '',
+    agrees_to_terms: false,
+    agrees_to_contact: false,
+    agrees_to_marketing: false,
   });
 
   // Fetch destinations
@@ -66,7 +72,7 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
     },
   });
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
+  const handleInputChange = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -89,6 +95,9 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
         preferred_date: formData.preferred_date || null,
         preferred_time: formData.preferred_time || null,
         message: formData.message,
+        agrees_to_terms: formData.agrees_to_terms,
+        agrees_to_contact: formData.agrees_to_contact,
+        agrees_to_marketing: formData.agrees_to_marketing,
         status: 'pending'
       };
 
@@ -101,6 +110,25 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
       if (error) {
         console.error('Supabase error:', error);
         throw error;
+      }
+
+      // If user agreed to marketing, add them to marketing_consents table
+      if (formData.agrees_to_marketing) {
+        const marketingData = {
+          student_email: formData.student_email,
+          student_name: formData.student_name,
+          student_phone: formData.student_phone || null,
+          source: 'counselling_form'
+        };
+
+        const { error: marketingError } = await supabase
+          .from('marketing_consents')
+          .insert([marketingData]);
+
+        if (marketingError) {
+          console.error('Marketing consent error:', marketingError);
+          // Don't throw error here, as the main booking was successful
+        }
       }
 
       toast({
@@ -122,6 +150,9 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
         preferred_date: '',
         preferred_time: '',
         message: '',
+        agrees_to_terms: false,
+        agrees_to_contact: false,
+        agrees_to_marketing: false,
       });
 
       onSuccess?.();

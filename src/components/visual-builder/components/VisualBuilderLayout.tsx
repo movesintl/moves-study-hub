@@ -33,7 +33,7 @@ export const VisualBuilderLayout: React.FC<VisualBuilderLayoutProps> = ({ editor
             <div className="space-y-6">
               <div>
                 <h4 className="font-medium text-gray-900 mb-3 text-sm uppercase tracking-wide">Layers</h4>
-                <div id="layers-container" className="border border-gray-200 rounded-lg min-h-[200px] bg-gray-50"></div>
+                <div id="layers-container" className="border border-gray-200 rounded-lg min-h-[200px] max-h-[300px] bg-gray-50 overflow-y-auto overflow-x-hidden"></div>
               </div>
               <div>
                 <h4 className="font-medium text-gray-900 mb-3 text-sm uppercase tracking-wide">Styles</h4>

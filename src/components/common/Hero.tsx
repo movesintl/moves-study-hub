@@ -109,8 +109,7 @@ const Hero = () => {
           {/* Right Content - Beautiful Image */}
           <div className="relative">
             <div className="relative overflow-hidden rounded-2xl">
-              <img src="/lovable-uploads/43d8d1f7-03a3-43d0-8e9f-b480ac017b10.png" alt="Happy student with books and backpack" className="w-full h-[600px] object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              <img src="/lovable-uploads/43d8d1f7-03a3-43d0-8e9f-b480ac017b10.png" alt="Happy student with books and backpack" className="w-full h-[700px] object-cover" />
               
               {/* Animated Floating Statistics Cards */}
               <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-fade-in hover-scale">

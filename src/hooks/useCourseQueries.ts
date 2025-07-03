@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Filters } from './useCourseFilters';
+import { Filters } from '@/hooks/useCourseFilters';
 
 interface Course {
   id: string;
@@ -55,6 +55,7 @@ export const useCourseQueries = (filters: Filters, currentPage: number, getQuery
     queryKey: ['courses', filters, currentPage],
     queryFn: async () => {
       const { from, to } = getQueryRange();
+      console.log('Pagination Debug:', { currentPage, from, to });
 
       let query = supabase
         .from('courses')

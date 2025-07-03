@@ -463,12 +463,16 @@ export type Database = {
       }
       destinations: {
         Row: {
+          average_fee: string | null
+          cost_of_living_info: string | null
           created_at: string
           description: string | null
           featured_image_url: string | null
+          flag_icon_url: string | null
           id: string
           job_market_points: Json | null
           lifestyle_info: string | null
+          more_information: string | null
           name: string
           slug: string
           updated_at: string
@@ -476,12 +480,16 @@ export type Database = {
           why_study_points: Json | null
         }
         Insert: {
+          average_fee?: string | null
+          cost_of_living_info?: string | null
           created_at?: string
           description?: string | null
           featured_image_url?: string | null
+          flag_icon_url?: string | null
           id?: string
           job_market_points?: Json | null
           lifestyle_info?: string | null
+          more_information?: string | null
           name: string
           slug: string
           updated_at?: string
@@ -489,12 +497,16 @@ export type Database = {
           why_study_points?: Json | null
         }
         Update: {
+          average_fee?: string | null
+          cost_of_living_info?: string | null
           created_at?: string
           description?: string | null
           featured_image_url?: string | null
+          flag_icon_url?: string | null
           id?: string
           job_market_points?: Json | null
           lifestyle_info?: string | null
+          more_information?: string | null
           name?: string
           slug?: string
           updated_at?: string

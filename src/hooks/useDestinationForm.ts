@@ -14,6 +14,10 @@ interface FormData {
   slug: string;
   why_study_points: string[];
   job_market_points: string[];
+  average_fee: string;
+  flag_icon_url: string;
+  cost_of_living_info: string;
+  more_information: string;
 }
 
 // Type guard to check if a value is an array of strings
@@ -36,6 +40,10 @@ export const useDestinationForm = () => {
     slug: '',
     why_study_points: [],
     job_market_points: [],
+    average_fee: '',
+    flag_icon_url: '',
+    cost_of_living_info: '',
+    more_information: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -68,6 +76,10 @@ export const useDestinationForm = () => {
         slug: destination.slug || '',
         why_study_points: isStringArray(destination.why_study_points) ? destination.why_study_points : [],
         job_market_points: isStringArray(destination.job_market_points) ? destination.job_market_points : [],
+        average_fee: destination.average_fee || '',
+        flag_icon_url: destination.flag_icon_url || '',
+        cost_of_living_info: destination.cost_of_living_info || '',
+        more_information: destination.more_information || '',
       });
     }
   }, [destination]);
@@ -146,6 +158,10 @@ export const useDestinationForm = () => {
     setFormData(prev => ({ ...prev, featured_image_url: value }));
   };
 
+  const handleRichTextChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
   // Why Study Points handlers
   const addWhyStudyPoint = () => {
     setFormData(prev => ({
@@ -197,6 +213,7 @@ export const useDestinationForm = () => {
     handleSubmit,
     handleChange,
     handleImageChange,
+    handleRichTextChange,
     addWhyStudyPoint,
     removeWhyStudyPoint,
     updateWhyStudyPoint,

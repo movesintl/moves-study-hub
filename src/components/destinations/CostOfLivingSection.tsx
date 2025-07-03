@@ -5,9 +5,10 @@ import { Card, CardContent } from '@/components/ui/card';
 
 interface CostOfLivingSectionProps {
   destinationName: string;
+  costOfLivingContent?: string;
 }
 
-const CostOfLivingSection = ({ destinationName }: CostOfLivingSectionProps) => {
+const CostOfLivingSection = ({ destinationName, costOfLivingContent }: CostOfLivingSectionProps) => {
   const getCountrySpecificData = (countryName: string) => {
     const countryData: {
       [key: string]: {
@@ -57,6 +58,23 @@ const CostOfLivingSection = ({ destinationName }: CostOfLivingSectionProps) => {
   };
 
   const countryData = getCountrySpecificData(destinationName);
+
+  // If custom content is provided, use it; otherwise, use the template
+  if (costOfLivingContent) {
+    return (
+      <section>
+        <div className="text-center mb-12">
+          <DollarSign className="h-12 w-12 text-green-500 mx-auto mb-4" />
+          <h2 className="text-3xl font-bold mb-4">Cost of Living</h2>
+          <p className="text-gray-600">Living expenses information for {destinationName}</p>
+        </div>
+        <div 
+          className="prose prose-lg max-w-none"
+          dangerouslySetInnerHTML={{ __html: costOfLivingContent }}
+        />
+      </section>
+    );
+  }
 
   return (
     <section>

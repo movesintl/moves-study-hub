@@ -22,7 +22,7 @@ const CountryCards = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('destinations')
-        .select('*')
+        .select('id, name, slug, description, flag_icon_url, average_fee')
         .order('name');
       
       if (error) {
@@ -150,10 +150,20 @@ const CountryCards = () => {
                       {/* Header with gradient */}
                       <div className={`bg-gradient-to-r ${config.gradient} p-6 text-white relative overflow-hidden`}>
                         <div className="absolute top-0 right-0 text-6xl opacity-20">
-                          {config.flag}
+                          {destination.flag_icon_url ? (
+                            <img src={destination.flag_icon_url} alt={`${destination.name} flag`} className="w-16 h-16 object-cover" />
+                          ) : (
+                            config.flag
+                          )}
                         </div>
                         <div className="relative z-10">
-                          <div className="text-3xl mb-2">{config.flag}</div>
+                          <div className="text-3xl mb-2">
+                            {destination.flag_icon_url ? (
+                              <img src={destination.flag_icon_url} alt={`${destination.name} flag`} className="w-12 h-12 object-cover rounded" />
+                            ) : (
+                              config.flag
+                            )}
+                          </div>
                           <h3 className="text-2xl font-bold mb-2">{destination.name}</h3>
                           <p className="text-sm opacity-90">{destination.description || `Discover amazing opportunities to study in ${destination.name}`}</p>
                         </div>
@@ -181,7 +191,7 @@ const CountryCards = () => {
                               <DollarSign className="h-4 w-4 mr-1" />
                               Average Fee
                             </span>
-                            <span className="font-medium">{config.averageFee}</span>
+                            <span className="font-medium">{destination.average_fee || config.averageFee}</span>
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="flex items-center text-gray-600">

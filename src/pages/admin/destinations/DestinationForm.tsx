@@ -5,6 +5,7 @@ import BasicInfoSection from '@/components/admin/destinations/BasicInfoSection';
 import WhyStudyPointsSection from '@/components/admin/destinations/WhyStudyPointsSection';
 import JobMarketPointsSection from '@/components/admin/destinations/JobMarketPointsSection';
 import AdditionalInfoSection from '@/components/admin/destinations/AdditionalInfoSection';
+import ContentSection from '@/components/admin/destinations/ContentSection';
 import { useDestinationForm } from '@/hooks/useDestinationForm';
 
 const DestinationForm = () => {
@@ -15,6 +16,7 @@ const DestinationForm = () => {
     handleSubmit,
     handleChange,
     handleImageChange,
+    handleRichTextChange,
     addWhyStudyPoint,
     removeWhyStudyPoint,
     updateWhyStudyPoint,
@@ -55,6 +57,11 @@ const DestinationForm = () => {
         <AdditionalInfoSection
           formData={formData}
           onChange={handleChange}
+        />
+
+        <ContentSection
+          formData={formData}
+          onRichTextChange={handleRichTextChange}
         />
 
         <div className="flex gap-4 pt-4">

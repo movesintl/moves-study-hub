@@ -13,6 +13,23 @@ import CoursesSection from '@/components/destinations/CoursesSection';
 import JobMarketSection from '@/components/destinations/JobMarketSection';
 import CounsellingSection from '@/components/destinations/CounsellingSection';
 
+const MoreInformationSection = ({ content }: { content: string }) => {
+  if (!content) return null;
+  
+  return (
+    <section>
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold mb-4">More Information</h2>
+        <p className="text-gray-600">Additional details about studying in this destination</p>
+      </div>
+      <div 
+        className="prose prose-lg max-w-none"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </section>
+  );
+};
+
 const DestinationDetails = () => {
   const { slug } = useParams();
 
@@ -97,7 +114,12 @@ const DestinationDetails = () => {
 
         <LifestyleVisaSection destination={destination} />
 
-        <CostOfLivingSection destinationName={destination.name} />
+        <MoreInformationSection content={destination.more_information || ''} />
+
+        <CostOfLivingSection 
+          destinationName={destination.name} 
+          costOfLivingContent={destination.cost_of_living_info}
+        />
 
         <UniversitiesSection 
           destinationName={destination.name} 

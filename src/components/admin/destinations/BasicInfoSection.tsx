@@ -12,6 +12,8 @@ interface BasicInfoSectionProps {
     slug: string;
     description: string;
     featured_image_url: string;
+    average_fee: string;
+    flag_icon_url: string;
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onImageChange: (value: string) => void;
@@ -69,6 +71,31 @@ const BasicInfoSection = ({ formData, onChange, onImageChange }: BasicInfoSectio
           onChange={onImageChange}
           label="Featured Image"
           placeholder="https://example.com/image.jpg"
+        />
+
+        <div>
+          <Label htmlFor="average_fee">Average Fee</Label>
+          <Input
+            id="average_fee"
+            name="average_fee"
+            value={formData.average_fee}
+            onChange={onChange}
+            className="mt-1"
+            placeholder="e.g., $30,000 - $45,000"
+          />
+          <p className="text-sm text-gray-500 mt-1">
+            Average tuition fee range for this destination
+          </p>
+        </div>
+
+        <MediaSelector
+          value={formData.flag_icon_url}
+          onChange={(value) => {
+            const event = { target: { name: 'flag_icon_url', value } } as any;
+            onChange(event);
+          }}
+          label="Flag Icon"
+          placeholder="https://example.com/flag.png"
         />
       </CardContent>
     </Card>

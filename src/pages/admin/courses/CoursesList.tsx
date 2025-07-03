@@ -132,7 +132,7 @@ const CoursesList = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Button variant="ghost" size="sm" asChild>
-                    <Link to={`/admin/courses/${course.id}`}>
+                    <Link to={`/courses/${course.slug}`}>
                       <Eye className="h-4 w-4" />
                     </Link>
                   </Button>

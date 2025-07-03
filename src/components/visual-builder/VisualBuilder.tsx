@@ -501,9 +501,9 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
       {/* Editor Layout */}
       <div className="flex-1 flex">
         {/* Left Panel - Blocks */}
-        <div className="w-64 bg-gray-50 border-r p-4">
-          <h3 className="font-semibold mb-4">Components</h3>
-          <div id="blocks-container"></div>
+        <div className="w-64 bg-gray-50 border-r p-4 overflow-y-auto">
+          <h3 className="font-semibold mb-4 text-gray-800">Components</h3>
+          <div id="blocks-container" className="space-y-2"></div>
         </div>
 
         {/* Main Editor */}

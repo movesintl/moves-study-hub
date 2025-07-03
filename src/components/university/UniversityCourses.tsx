@@ -1,9 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GraduationCap, Heart, Clock, Calendar, DollarSign, MapPin, Eye } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+import { useQuery } from '@tanstack/react-query';
 
 interface Course {
   id: string;
@@ -30,6 +34,113 @@ interface UniversityCoursesProps {
 }
 
 export const UniversityCourses = ({ university, courses }: UniversityCoursesProps) => {
+  const { toast } = useToast();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [savedCourseIds, setSavedCourseIds] = useState<Set<string>>(new Set());
+
+  // Fetch saved courses - only if user is logged in
+  const { data: savedCourses, refetch: refetchSaved } = useQuery({
+    queryKey: ['saved-courses-ids', user?.id],
+    queryFn: async () => {
+      if (!user?.id) return [];
+      
+      const { data, error } = await supabase
+        .from('saved_courses')
+        .select('course_id')
+        .eq('user_id', user.id);
+      
+      if (error) throw error;
+      return data.map(item => item.course_id);
+    },
+    enabled: !!user?.id
+  });
+
+  useEffect(() => {
+    if (savedCourses) {
+      setSavedCourseIds(new Set(savedCourses));
+    }
+  }, [savedCourses]);
+
+  const toggleSaveCourse = async (courseId: string) => {
+    if (!user?.id) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to save courses.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const isSaved = savedCourseIds.has(courseId);
+    
+    if (isSaved) {
+      const { error } = await supabase
+        .from('saved_courses')
+        .delete()
+        .eq('course_id', courseId)
+        .eq('user_id', user.id);
+      
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to remove course from saved list",
+          variant: "destructive"
+        });
+      } else {
+        setSavedCourseIds(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(courseId);
+          return newSet;
+        });
+        toast({
+          title: "Success",
+          description: "Course removed from saved list"
+        });
+        refetchSaved();
+      }
+    } else {
+      const { error } = await supabase
+        .from('saved_courses')
+        .insert({ 
+          course_id: courseId, 
+          user_id: user.id 
+        });
+      
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to save course",
+          variant: "destructive"
+        });
+      } else {
+        setSavedCourseIds(prev => new Set(prev).add(courseId));
+        toast({
+          title: "Success",
+          description: "Course saved successfully"
+        });
+        refetchSaved();
+      }
+    }
+  };
+
+  const handleApplyNow = (courseId: string) => {
+    if (!user) {
+      // Store the course ID in sessionStorage so we can redirect back after login
+      sessionStorage.setItem('pendingCourseApplication', courseId);
+      toast({
+        title: "Login Required",
+        description: "Please log in to apply for this course.",
+      });
+      navigate('/auth');
+      return;
+    }
+
+    // User is logged in, redirect to student dashboard applications page
+    navigate('/student-dashboard/applications', { 
+      state: { preselectedCourseId: courseId } 
+    });
+  };
   return (
     <section className="py-16 lg:py-20 bg-muted">
       <div className="container mx-auto px-4">
@@ -62,9 +173,10 @@ export const UniversityCourses = ({ university, courses }: UniversityCoursesProp
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm hover:bg-white shadow-md rounded-full h-10 w-10 p-0 text-gray-400 hover:text-red-500"
+                      className={`absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm hover:bg-white shadow-md rounded-full h-10 w-10 p-0 ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
+                      onClick={() => toggleSaveCourse(course.id)}
                     >
-                      <Heart className="h-5 w-5" />
+                      <Heart className={`h-5 w-5 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
                     </Button>
                     
                     {/* Course Image */}
@@ -140,7 +252,10 @@ export const UniversityCourses = ({ university, courses }: UniversityCoursesProp
                               View Details
                             </Button>
                           </Link>
-                          <Button className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300">
+                          <Button 
+                            onClick={() => handleApplyNow(course.id)}
+                            className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
+                          >
                             Apply Now
                           </Button>
                         </div>

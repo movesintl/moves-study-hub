@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { emailTemplateEngine, TemplateType } from "./templateEngine.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -13,6 +14,7 @@ interface BulkEmailRequest {
   recipients: { email: string; name: string }[];
   subject: string;
   content: string;
+  template?: TemplateType;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -22,7 +24,7 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { recipients, subject, content }: BulkEmailRequest = await req.json();
+    const { recipients, subject, content, template = 'newsletter' }: BulkEmailRequest = await req.json();
 
     if (!recipients || recipients.length === 0) {
       throw new Error("No recipients provided");
@@ -43,28 +45,18 @@ const handler = async (req: Request): Promise<Response> => {
       
       const batchPromises = batch.map(async (recipient) => {
         try {
+          // Generate HTML using the template engine
+          const html = await emailTemplateEngine.renderTemplate(template, {
+            recipientName: recipient.name,
+            subject: subject,
+            content: content
+          });
+
           const emailResponse = await resend.emails.send({
             from: "Moves International <onboarding@resend.dev>",
             to: [recipient.email],
             subject: subject,
-            html: `
-              <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
-                <h2>Hello ${recipient.name}!</h2>
-                <div style="line-height: 1.6; margin: 20px 0;">
-                  ${content.replace(/\n/g, '<br>')}
-                </div>
-                <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
-                <p style="color: #666; font-size: 14px;">
-                  This email was sent to you because you opted in to receive updates from Moves International.
-                  <br><br>
-                  If you no longer wish to receive these emails, please contact us.
-                </p>
-                <p style="color: #666; font-size: 12px;">
-                  <strong>Moves International</strong><br>
-                  Your trusted partner in international education
-                </p>
-              </div>
-            `,
+            html: html,
           });
 
           return {

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{subject}}</title>
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 300; }
+        .content { padding: 40px 30px; }
+        .content h2 { color: #333; margin-top: 0; font-size: 24px; }
+        .content p { color: #666; line-height: 1.6; margin-bottom: 20px; font-size: 16px; }
+        .cta-button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white !important; padding: 15px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; font-weight: bold; }
+        .footer { background-color: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid #eee; }
+        .footer p { color: #999; font-size: 14px; margin: 5px 0; }
+        .social-links { margin: 20px 0; }
+        .social-links a { display: inline-block; margin: 0 10px; }
+        @media only screen and (max-width: 600px) {
+            .container { width: 100% !important; }
+            .header, .content, .footer { padding: 20px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Moves International</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">Your trusted partner in international education</p>
+        </div>
+        
+        <div class="content">
+            <h2>Hello {{recipientName}}!</h2>
+            <div>{{content}}</div>
+            
+            <div style="margin: 30px 0; padding: 20px; background-color: #f8f9fa; border-left: 4px solid #667eea; border-radius: 0 5px 5px 0;">
+                <p style="margin: 0; font-style: italic; color: #555;">
+                    "Education is the most powerful weapon which you can use to change the world." - Nelson Mandela
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Moves International</strong></p>
+            <p>Helping students achieve their international education dreams</p>
+            <p style="font-size: 12px; margin-top: 20px;">
+                This email was sent to you because you opted in to receive updates from Moves International.<br>
+                If you no longer wish to receive these emails, please contact us.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

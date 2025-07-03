@@ -12,10 +12,13 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { MarketingConsent } from '../types';
+
+type TemplateType = 'newsletter' | 'announcement' | 'promotional';
 
 interface BulkEmailDialogProps {
   selectedCount: number;
@@ -34,6 +37,7 @@ const BulkEmailDialog = ({
   const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
   const [emailSubject, setEmailSubject] = useState('');
   const [emailContent, setEmailContent] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>('newsletter');
   const [isSending, setIsSending] = useState(false);
 
   const handleSendBulkEmail = async () => {
@@ -66,6 +70,7 @@ const BulkEmailDialog = ({
           recipients: selectedEmails,
           subject: emailSubject,
           content: emailContent,
+          template: selectedTemplate,
         },
       });
 
@@ -110,6 +115,20 @@ const BulkEmailDialog = ({
         
         <div className="space-y-4">
           <div>
+            <Label htmlFor="template">Email Template</Label>
+            <Select value={selectedTemplate} onValueChange={(value: TemplateType) => setSelectedTemplate(value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a template" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newsletter">Newsletter - Professional & Clean</SelectItem>
+                <SelectItem value="announcement">Announcement - Important Updates</SelectItem>
+                <SelectItem value="promotional">Promotional - Marketing & Offers</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
             <Label htmlFor="subject">Subject</Label>
             <Input
               id="subject"
@@ -125,9 +144,12 @@ const BulkEmailDialog = ({
               id="content"
               value={emailContent}
               onChange={(e) => setEmailContent(e.target.value)}
-              placeholder="Enter email content..."
-              rows={6}
+              placeholder="Enter email content. Use double line breaks (press Enter twice) to create new paragraphs."
+              rows={8}
             />
+            <p className="text-sm text-muted-foreground mt-1">
+              Tip: The content will be automatically formatted based on your selected template.
+            </p>
           </div>
         </div>
         

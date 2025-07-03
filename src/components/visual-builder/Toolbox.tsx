@@ -109,7 +109,7 @@ export const Toolbox = () => {
           ref={(ref) => {
             if (ref) {
               connectors.create(ref, 
-                <Element is={ContainerBlock} canvas padding={16} background="#f8f9fa">
+                <Element is={ContainerBlock} canvas paddingTop={16} paddingBottom={16} paddingLeft={16} paddingRight={16} background="#f8f9fa">
                   <TextBlock text="Drop components here" />
                 </Element>
               );

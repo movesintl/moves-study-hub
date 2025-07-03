@@ -105,7 +105,10 @@ export const VisualBuilder: React.FC<VisualBuilderProps> = ({
               <Element 
                 is={ContainerBlock} 
                 canvas 
-                padding={20} 
+                paddingTop={20} 
+                paddingBottom={20}
+                paddingLeft={20}
+                paddingRight={20}
                 background="#ffffff"
               >
                 <TextBlock text="Welcome to the page builder! Drag components from the left panel to start building your page." />

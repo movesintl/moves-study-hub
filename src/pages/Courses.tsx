@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
@@ -51,6 +52,13 @@ const Courses = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [savedCourseIds, setSavedCourseIds] = useState<Set<string>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+  const coursesPerPage = 9;
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
 
   // Update URL when filters change (with debounce to prevent excessive updates)
   useEffect(() => {
@@ -67,14 +75,46 @@ const Courses = () => {
     return () => clearTimeout(timeoutId);
   }, [filters, setSearchParams]);
 
-  const { data: courses = [], isLoading, error } = useQuery({
-    queryKey: ['courses', filters],
+  // Fetch total count for pagination
+  const { data: totalCount = 0 } = useQuery({
+    queryKey: ['courses-count', filters],
     queryFn: async () => {
+      let query = supabase
+        .from('courses')
+        .select('*', { count: 'exact', head: true });
+
+      // Apply same filters for count
+      if (filters.search) {
+        query = query.or(`title.ilike.%${filters.search}%,description.ilike.%${filters.search}%,university.ilike.%${filters.search}%`);
+      }
+      if (filters.study_area && filters.study_area !== 'all') {
+        query = query.eq('study_area', filters.study_area);
+      }
+      if (filters.level && filters.level !== 'all') {
+        query = query.eq('level', filters.level);
+      }
+      if (filters.country && filters.country !== 'all') {
+        query = query.eq('country', filters.country);
+      }
+
+      const { count, error } = await query;
+      if (error) throw error;
+      return count || 0;
+    }
+  });
+
+  const { data: courses = [], isLoading, error } = useQuery({
+    queryKey: ['courses', filters, currentPage],
+    queryFn: async () => {
+      const from = (currentPage - 1) * coursesPerPage;
+      const to = from + coursesPerPage - 1;
+
       let query = supabase
         .from('courses')
         .select('*')
         .order('featured', { ascending: false })
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .range(from, to);
 
       // Apply filters
       if (filters.search) {
@@ -240,6 +280,7 @@ const Courses = () => {
   };
 
   const hasActiveFilters = filters.search || filters.study_area !== 'all' || filters.level !== 'all' || filters.country !== 'all';
+  const totalPages = Math.ceil(totalCount / coursesPerPage);
 
   if (error) {
     return (
@@ -261,7 +302,8 @@ const Courses = () => {
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Discover Courses</h1>
               <p className="text-gray-600 mt-1">
-                {courses.length} course{courses.length !== 1 ? 's' : ''} available
+                {totalCount} course{totalCount !== 1 ? 's' : ''} available
+                {totalPages > 1 && ` • Page ${currentPage} of ${totalPages}`}
               </p>
             </div>
 
@@ -541,12 +583,77 @@ const Courses = () => {
               </div>
             )}
 
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-12 flex justify-center">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage > 1) setCurrentPage(currentPage - 1);
+                        }}
+                        className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
+                      />
+                    </PaginationItem>
+                    
+                    {[...Array(totalPages)].map((_, i) => {
+                      const page = i + 1;
+                      if (
+                        page === 1 ||
+                        page === totalPages ||
+                        (page >= currentPage - 1 && page <= currentPage + 1)
+                      ) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationLink
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setCurrentPage(page);
+                              }}
+                              isActive={page === currentPage}
+                            >
+                              {page}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      } else if (
+                        page === currentPage - 2 ||
+                        page === currentPage + 2
+                      ) {
+                        return (
+                          <PaginationItem key={page}>
+                            <span className="px-3 py-2">...</span>
+                          </PaginationItem>
+                        );
+                      }
+                      return null;
+                    })}
+                    
+                    <PaginationItem>
+                      <PaginationNext 
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                        }}
+                        className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
+            )}
+
             {/* Results Summary */}
             {courses.length > 0 && (
-              <div className="mt-12 text-center">
+              <div className="mt-8 text-center">
                 <div className="inline-flex items-center px-6 py-3 bg-white rounded-full shadow-sm border">
                   <span className="text-gray-600">
-                    Showing {courses.length} course{courses.length !== 1 ? 's' : ''}
+                    Showing {((currentPage - 1) * coursesPerPage) + 1}-{Math.min(currentPage * coursesPerPage, totalCount)} of {totalCount} course{totalCount !== 1 ? 's' : ''}
                     {hasActiveFilters && ' matching your criteria'}
                   </span>
                   {savedCourseIds.size > 0 && (

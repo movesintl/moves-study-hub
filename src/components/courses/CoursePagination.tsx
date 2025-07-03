@@ -38,7 +38,6 @@ export const CoursePagination = ({ currentPage, totalPages, onPageChange }: Cour
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log('Pagination click:', page);
                       onPageChange(page);
                     }}
                     isActive={page === currentPage}

@@ -5,7 +5,6 @@ import RichTextEditor from '@/components/admin/RichTextEditor';
 interface ContentSectionProps {
   formData: {
     more_information: string;
-    cost_of_living_info: string;
   };
   onRichTextChange: (field: string, value: string) => void;
 }
@@ -22,14 +21,6 @@ const ContentSection = ({ formData, onRichTextChange }: ContentSectionProps) => 
           value={formData.more_information}
           onChange={(value) => onRichTextChange('more_information', value)}
           placeholder="Additional information about studying in this destination..."
-          height="300px"
-        />
-
-        <RichTextEditor
-          label="Cost of Living Information"
-          value={formData.cost_of_living_info}
-          onChange={(value) => onRichTextChange('cost_of_living_info', value)}
-          placeholder="Detailed cost of living information and breakdown..."
           height="300px"
         />
       </CardContent>

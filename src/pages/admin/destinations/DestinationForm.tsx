@@ -6,6 +6,8 @@ import WhyStudyPointsSection from '@/components/admin/destinations/WhyStudyPoint
 import JobMarketPointsSection from '@/components/admin/destinations/JobMarketPointsSection';
 import AdditionalInfoSection from '@/components/admin/destinations/AdditionalInfoSection';
 import ContentSection from '@/components/admin/destinations/ContentSection';
+import CostOfLivingSection from '@/components/admin/destinations/CostOfLivingSection';
+import FAQSection from '@/components/admin/destinations/FAQSection';
 import { useDestinationForm } from '@/hooks/useDestinationForm';
 
 const DestinationForm = () => {
@@ -23,8 +25,25 @@ const DestinationForm = () => {
     addJobMarketPoint,
     removeJobMarketPoint,
     updateJobMarketPoint,
+    addFAQ,
+    removeFAQ,
+    updateFAQ,
     navigate,
   } = useDestinationForm();
+
+  // Parse cost of living data from string to array
+  const costOfLivingData = React.useMemo(() => {
+    if (!formData.cost_of_living_info) return [];
+    try {
+      return JSON.parse(formData.cost_of_living_info);
+    } catch {
+      return [];
+    }
+  }, [formData.cost_of_living_info]);
+
+  const handleCostOfLivingChange = (data: { category: string; amount: string; }[]) => {
+    handleRichTextChange('cost_of_living_info', JSON.stringify(data));
+  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -62,6 +81,18 @@ const DestinationForm = () => {
         <ContentSection
           formData={formData}
           onRichTextChange={handleRichTextChange}
+        />
+
+        <CostOfLivingSection
+          costOfLivingData={costOfLivingData}
+          onCostOfLivingChange={handleCostOfLivingChange}
+        />
+
+        <FAQSection
+          faqs={formData.faqs}
+          onAddFAQ={addFAQ}
+          onRemoveFAQ={removeFAQ}
+          onUpdateFAQ={updateFAQ}
         />
 
         <div className="flex gap-4 pt-4">

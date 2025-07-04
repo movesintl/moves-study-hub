@@ -18,11 +18,22 @@ interface FormData {
   flag_icon_url: string;
   cost_of_living_info: string;
   more_information: string;
+  faqs: { question: string; answer: string; }[];
 }
 
 // Type guard to check if a value is an array of strings
 const isStringArray = (value: any): value is string[] => {
   return Array.isArray(value) && value.every(item => typeof item === 'string');
+};
+
+// Type guard to check if a value is an array of FAQ objects
+const isFAQArray = (value: any): value is { question: string; answer: string; }[] => {
+  return Array.isArray(value) && value.every(item => 
+    typeof item === 'object' && 
+    item !== null && 
+    typeof item.question === 'string' && 
+    typeof item.answer === 'string'
+  );
 };
 
 export const useDestinationForm = () => {
@@ -44,6 +55,7 @@ export const useDestinationForm = () => {
     flag_icon_url: '',
     cost_of_living_info: '',
     more_information: '',
+    faqs: [],
   });
 
   const [loading, setLoading] = useState(false);
@@ -80,6 +92,7 @@ export const useDestinationForm = () => {
         flag_icon_url: destination.flag_icon_url || '',
         cost_of_living_info: destination.cost_of_living_info || '',
         more_information: destination.more_information || '',
+        faqs: isFAQArray(destination.faqs) ? destination.faqs : [],
       });
     }
   }, [destination]);
@@ -206,6 +219,28 @@ export const useDestinationForm = () => {
     }));
   };
 
+  // FAQ handlers
+  const addFAQ = () => {
+    setFormData(prev => ({
+      ...prev,
+      faqs: [...prev.faqs, { question: '', answer: '' }]
+    }));
+  };
+
+  const removeFAQ = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      faqs: prev.faqs.filter((_, i) => i !== index)
+    }));
+  };
+
+  const updateFAQ = (index: number, field: 'question' | 'answer', value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      faqs: prev.faqs.map((faq, i) => i === index ? { ...faq, [field]: value } : faq)
+    }));
+  };
+
   return {
     formData,
     loading,
@@ -220,6 +255,9 @@ export const useDestinationForm = () => {
     addJobMarketPoint,
     removeJobMarketPoint,
     updateJobMarketPoint,
+    addFAQ,
+    removeFAQ,
+    updateFAQ,
     navigate,
   };
 };

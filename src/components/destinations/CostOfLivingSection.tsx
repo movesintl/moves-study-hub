@@ -59,21 +59,40 @@ const CostOfLivingSection = ({ destinationName, costOfLivingContent }: CostOfLiv
 
   const countryData = getCountrySpecificData(destinationName);
 
-  // If custom content is provided, use it; otherwise, use the template
+  // If custom structured content is provided, use it; otherwise, use the template
   if (costOfLivingContent) {
-    return (
-      <section>
-        <div className="text-center mb-12">
-          <DollarSign className="h-12 w-12 text-green-500 mx-auto mb-4" />
-          <h2 className="text-3xl font-bold mb-4">Cost of Living</h2>
-          <p className="text-gray-600">Living expenses information for {destinationName}</p>
-        </div>
-        <div 
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: costOfLivingContent }}
-        />
-      </section>
-    );
+    try {
+      const costData = JSON.parse(costOfLivingContent);
+      if (Array.isArray(costData) && costData.length > 0) {
+        return (
+          <section>
+            <div className="text-center mb-12">
+              <DollarSign className="h-12 w-12 text-green-500 mx-auto mb-4" />
+              <h2 className="text-3xl font-bold mb-4">Cost of Living</h2>
+              <p className="text-gray-600">Estimated expenses for international students in {destinationName}</p>
+            </div>
+
+            <Card className="max-w-4xl mx-auto">
+              <CardContent className="p-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+                  {costData.map((item: { category: string; amount: string }, index: number) => (
+                    <div key={index} className="text-center">
+                      <div className="bg-primary/10 rounded-full p-4 w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+                        <DollarSign className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="font-semibold capitalize mb-2">{item.category}</h3>
+                      <p className="text-sm text-gray-600">{item.amount}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+        );
+      }
+    } catch {
+      // If parsing fails, fall through to default template
+    }
   }
 
   return (

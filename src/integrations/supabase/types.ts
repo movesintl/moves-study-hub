@@ -467,6 +467,7 @@ export type Database = {
           cost_of_living_info: string | null
           created_at: string
           description: string | null
+          faqs: Json | null
           featured_image_url: string | null
           flag_icon_url: string | null
           id: string
@@ -484,6 +485,7 @@ export type Database = {
           cost_of_living_info?: string | null
           created_at?: string
           description?: string | null
+          faqs?: Json | null
           featured_image_url?: string | null
           flag_icon_url?: string | null
           id?: string
@@ -501,6 +503,7 @@ export type Database = {
           cost_of_living_info?: string | null
           created_at?: string
           description?: string | null
+          faqs?: Json | null
           featured_image_url?: string | null
           flag_icon_url?: string | null
           id?: string

@@ -12,6 +12,7 @@ import UniversitiesSection from '@/components/destinations/UniversitiesSection';
 import CoursesSection from '@/components/destinations/CoursesSection';
 import JobMarketSection from '@/components/destinations/JobMarketSection';
 import CounsellingSection from '@/components/destinations/CounsellingSection';
+import PageViewFAQ from '@/pages/components/PageViewFAQ';
 
 const MoreInformationSection = ({ content }: { content: string }) => {
   if (!content) return null;
@@ -137,6 +138,11 @@ const DestinationDetails = () => {
         />
 
         <CounsellingSection destinationName={destination.name} />
+
+        <PageViewFAQ faqs={Array.isArray(destination.faqs) ? destination.faqs.filter((faq: any) => 
+          typeof faq === 'object' && faq !== null && 
+          typeof faq.question === 'string' && typeof faq.answer === 'string'
+        ) as { question: string; answer: string; }[] : []} />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import FeaturedUniversities from "@/components/common/FeaturedUniversities";
 import Testimonials from "@/components/common/Testimonials";
 import CounsellingPopup from "@/components/common/CounsellingPopup";
 import Services from "@/components/common/Services";
+import Process from "@/components/common/Process";
 
 const Home = () => {
   return (
@@ -23,6 +24,9 @@ const Home = () => {
       <div className="bg-gradient-to-b from-gray-50 to-white">
         <LeadEnquiryForm />
       </div>
+
+      {/* Process */}
+      {/* <Process /> */}
 
       <div className="bg-white">
         <CountryCards />

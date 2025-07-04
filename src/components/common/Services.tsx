@@ -23,10 +23,9 @@ export default function Services() {
                 Get Better About Us
               </p>
 
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-4xl lg:text-5xl font-bold text-[#023047] leading-tight">
                 Best <span className="text-[#FA8500]">guidance</span> given by
-                our highly{" "}
-                <span className="text-gray-700">specialized consultants.</span>
+                our highly specialized consultants.
               </h1>
 
               <p className="text-gray-600 text-lg leading-relaxed">

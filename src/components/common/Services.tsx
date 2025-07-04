@@ -15,7 +15,7 @@ export default function Services() {
             </div>
 
             {/* Main consultant photo */}
-            <div className="relative w-80 h-96 rounded-lg overflow-hidden shadow-xl">
+            <div className="relative w-full h-full rounded-lg overflow-hidden shadow-xl">
               <img
                 src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/general/1751512836043.png"
                 alt="Professional consultant with glasses and blue shirt"

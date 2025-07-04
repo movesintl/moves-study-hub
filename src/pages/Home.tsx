@@ -18,13 +18,10 @@ const Home = () => {
       <Hero />
 
       {/* Services */}
-      <div> className="bg-gradient-to-br from-primary/5 via-gray-50 to-accent/5"
-        <Services />
-      </div>
-      
+      <Services />
 
       {/* Updated layout with better spacing and visual hierarchy */}
-      <div className="bg-gradient-to-b from-gray-50 to-white">
+      <div className ="bg-gradient-to-b from-gray-50 to-white">
         <LeadEnquiryForm />
       </div>
 

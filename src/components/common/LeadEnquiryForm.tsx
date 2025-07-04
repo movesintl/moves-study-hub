@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Users, Award } from "lucide-react";
+import { Users, Award, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCounsellingBookingForm } from "@/hooks/useCounsellingBookingForm";
 import { PersonalInfoSection } from "@/components/forms/counselling/PersonalInfoSection";
@@ -20,13 +20,13 @@ const LeadEnquiryForm = () => {
 
   return (
     <section className="bg-gradient-to-br from-gray-50 to-white py-20 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-5 gap-6 relative">
-        {/* Left Column: Sticky Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[60%_40%] gap-12 relative">
+        {/* Left Column */}
         <div
-          className="lg:col-span-3 space-y-6 hidden lg:block"
+          className="space-y-6 "
           style={{
             position: "sticky",
-            top: "100px",
+            top: "-35px",
             alignSelf: "start",
           }}
         >
@@ -42,8 +42,11 @@ const LeadEnquiryForm = () => {
             </p>
           </div>
 
-          {/* Your actual form */}
-          <div className="bg-white rounded-2xl border border-gray-100 p-5">
+          {/* Form */}
+          <div
+            className="bg-white rounded-2xl border  border-dashed border-gray-400 p-6
+"
+          >
             <form onSubmit={handleSubmit} className="space-y-3">
               <PersonalInfoSection
                 formData={formData}
@@ -150,33 +153,24 @@ const LeadEnquiryForm = () => {
           </div>
         </div>
 
-        {/* Right Column: Scrollable */}
-        <div className="lg:col-span-2 flex flex-col space-y-6">
-          <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
-            alt="Student consulting"
-            className="rounded-xl shadow-xl w-full object-cover"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
-            alt="Student consulting"
-            className="rounded-xl shadow-xl w-full object-cover"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
-            alt="Student consulting"
-            className="rounded-xl shadow-xl w-full object-cover"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
-            alt="Student consulting"
-            className="rounded-xl shadow-xl w-full object-cover"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
-            alt="Student consulting"
-            className="rounded-xl shadow-xl w-full object-cover"
-          />
+        {/* Right Column */}
+        <div className="flex flex-col space-y-6">
+          {[...Array(5)].map((_, idx) => (
+            <div
+              key={idx}
+              className="shadow-[0_1.5px_3px_rgba(0,0,0,0.1)] rounded-md overflow-hidden"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
+                alt="Student consulting"
+                className="rounded-t-xl shadow-xl w-full object-cover"
+              />
+              <div className="flex items-center font-bold justify-between p-5 bg-white">
+                <p>Professional Year Admission</p>
+                <ChevronRight />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

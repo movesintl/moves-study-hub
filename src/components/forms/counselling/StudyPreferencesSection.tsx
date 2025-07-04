@@ -1,9 +1,14 @@
-
-import React from 'react';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
+import React from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 interface StudyPreferencesSectionProps {
   formData: {
@@ -20,25 +25,21 @@ interface StudyPreferencesSectionProps {
   onInputChange: (field: string, value: string) => void;
 }
 
-export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = ({
-  formData,
-  destinations,
-  studyLevels,
-  onInputChange,
-}) => {
+export const StudyPreferencesSection: React.FC<
+  StudyPreferencesSectionProps
+> = ({ formData, destinations, studyLevels, onInputChange }) => {
   return (
     <>
       <div className="grid md:grid-cols-2 gap-3">
         <div className="space-y-1.5">
-          <Label htmlFor="preferred_destination" className="text-sm font-medium text-gray-700">
-            Your preferred study destination*
-          </Label>
-          <Select 
+          <Select
             value={formData.preferred_destination}
-            onValueChange={(value) => onInputChange('preferred_destination', value)}
+            onValueChange={(value) =>
+              onInputChange("preferred_destination", value)
+            }
           >
             <SelectTrigger className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
-              <SelectValue placeholder="Select destination" />
+              <SelectValue placeholder="Your preferred study destination *" />
             </SelectTrigger>
             <SelectContent>
               {destinations?.map((destination) => (
@@ -50,22 +51,21 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
           </Select>
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="study_level" className="text-sm font-medium text-gray-700">
-            When would you like to start?*
-          </Label>
-          <Select 
+          <Select
             value={formData.study_level}
-            onValueChange={(value) => onInputChange('study_level', value)}
+            onValueChange={(value) => onInputChange("study_level", value)}
           >
             <SelectTrigger className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
-              <SelectValue placeholder="Select timeline" />
+              <SelectValue placeholder="When would you like to start? *" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Immediately">Immediately</SelectItem>
               <SelectItem value="Within 3 months">Within 3 months</SelectItem>
               <SelectItem value="Within 6 months">Within 6 months</SelectItem>
               <SelectItem value="Within 12 months">Within 12 months</SelectItem>
-              <SelectItem value="More than 12 months">More than 12 months</SelectItem>
+              <SelectItem value="More than 12 months">
+                More than 12 months
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -73,15 +73,12 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
 
       <div className="grid md:grid-cols-2 gap-3">
         <div className="space-y-1.5">
-          <Label htmlFor="course_interest" className="text-sm font-medium text-gray-700">
-            Preferred mode of counselling*
-          </Label>
-          <Select 
+          <Select
             value={formData.course_interest}
-            onValueChange={(value) => onInputChange('course_interest', value)}
+            onValueChange={(value) => onInputChange("course_interest", value)}
           >
             <SelectTrigger className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
-              <SelectValue placeholder="Select mode" />
+              <SelectValue placeholder="Preferred mode of counselling *" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Phone Call">Phone Call</SelectItem>
@@ -92,15 +89,14 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
           </Select>
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="current_education_level" className="text-sm font-medium text-gray-700">
-            Nearest Moves International Office*
-          </Label>
-          <Select 
+          <Select
             value={formData.current_education_level}
-            onValueChange={(value) => onInputChange('current_education_level', value)}
+            onValueChange={(value) =>
+              onInputChange("current_education_level", value)
+            }
           >
             <SelectTrigger className="h-10 border-gray-200 focus:border-primary focus:ring-primary rounded-lg">
-              <SelectValue placeholder="Select office" />
+              <SelectValue placeholder="Nearest Moves International Office *" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Sydney">Sydney</SelectItem>
@@ -116,15 +112,12 @@ export const StudyPreferencesSection: React.FC<StudyPreferencesSectionProps> = (
 
       {/* Additional message field */}
       <div className="space-y-1.5">
-        <Label htmlFor="message" className="text-sm font-medium text-gray-700">
-          Additional message (optional)
-        </Label>
         <Textarea
           id="message"
           value={formData.message}
-          onChange={(e) => onInputChange('message', e.target.value)}
+          onChange={(e) => onInputChange("message", e.target.value)}
           className="min-h-[80px] border-gray-200 focus:border-primary focus:ring-primary rounded-lg"
-          placeholder="Tell us more about your study goals..."
+          placeholder="Additional message (optional)"
         />
       </div>
     </>

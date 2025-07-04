@@ -4,7 +4,7 @@ export default function Services() {
   return (
     <section className="bg-gradient-to-br from-blue-50 to-white py-12 px-4 md:px-6 lg:px-8 md:pt-20">
       <div className="max-w-[1200px] mx-auto">
-        <div className="grid lg:grid-cols-2 gap-4 items-stretch">
+        <div className="flex flex-col-reverse lg:flex-row gap-8 lg:gap-12">
           {/* Left Container */}
           <div className="relative w-full h-full">
             <img

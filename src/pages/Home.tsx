@@ -26,7 +26,7 @@ const Home = () => {
       </div>
 
       {/* Process */}
-      {/* <Process /> */}
+      <Process />
 
       <div className="bg-white">
         <CountryCards />

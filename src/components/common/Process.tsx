@@ -1,13 +1,22 @@
+import bg from "@/../public/bg.svg";
 export default function Process() {
   return (
-    <section className="bg-gray-50 py-16 px-4 md:px-6 lg:px-8 relative overflow-hidden">
+    <section
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
+      className=" py-16 px-4 md:px-6 lg:px-8 relative overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 pt-0 lg:pt-24">
           <p className="text-gray-500 text-sm font-medium uppercase tracking-wide mb-2">
             OUR PROCESS
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             How It Works
           </h2>
         </div>
@@ -16,7 +25,7 @@ export default function Process() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4  -mt-8">
           {/* Step 1 */}
           <div className="text-center relative h-[300px] flex justify-center items-center">
-            <div>
+            <div className="border-r-[1px] border-gray-300 h-fit pr-12">
               <div className="relative mb-6">
                 <div className="w-32 h-32 mx-auto bg-blue-100 rounded-full flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full"></div>
@@ -32,9 +41,7 @@ export default function Process() {
                   </div>
                 </div>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Browse From More Than
-              </h3>
+              <h3 className=" text-gray-900 mb-2">Browse From More Than</h3>
               <p className="font-semibold text-gray-900">
                 1000 Courses & Colleges
               </p>
@@ -43,7 +50,7 @@ export default function Process() {
 
           {/* Step 2 */}
           <div className="text-center relative h-[400px] flex justify-center items-center">
-            <div>
+            <div className="border-r-[1px] border-gray-300 h-fit pr-12">
               <div className="relative mb-6">
                 <div className="w-32 h-32 mx-auto bg-red-100 rounded-full flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-red-400 to-pink-400 rounded-full"></div>
@@ -63,9 +70,7 @@ export default function Process() {
                 <div className="absolute top-4 right-4 w-3 h-3 bg-red-300 rounded-full"></div>
                 <div className="absolute bottom-8 left-2 w-2 h-2 bg-pink-300 rounded-full"></div>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Set Your Desired
-              </h3>
+              <h3 className=" text-gray-900 mb-2">Set Your Desired</h3>
               <p className="font-semibold text-gray-900">
                 Filters & Shortlist Courses
               </p>
@@ -74,7 +79,7 @@ export default function Process() {
 
           {/* Step 3 */}
           <div className="text-center relative h-[500px] flex justify-center items-center">
-            <div>
+            <div className="border-r-[1px] border-gray-300 h-fit pr-12">
               <div className="relative mb-6">
                 <div className="w-32 h-32 mx-auto bg-cyan-100 rounded-full flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-full"></div>
@@ -94,9 +99,7 @@ export default function Process() {
                   </div>
                 </div>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Compare Courses
-              </h3>
+              <h3 className=" text-gray-900 mb-2">Compare Courses</h3>
               <p className="font-semibold text-gray-900">
                 On The Go Before You Apply
               </p>
@@ -104,7 +107,7 @@ export default function Process() {
           </div>
 
           {/* Step 4 */}
-          <div className="text-center relative h-[600px] flex justify-center items-center">
+          <div className="text-center relative h-[600px]  flex justify-center items-center">
             <div>
               <div className="relative mb-6">
                 <div className="w-32 h-32 mx-auto bg-yellow-100 rounded-full flex items-center justify-center relative overflow-hidden">
@@ -130,9 +133,7 @@ export default function Process() {
                 <div className="absolute top-2 right-8 w-2 h-2 bg-pink-300 rounded-full"></div>
                 <div className="absolute bottom-4 left-4 w-3 h-3 bg-purple-300 rounded-full"></div>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Hassle Free Application
-              </h3>
+              <h3 className=" text-gray-900 mb-2">Hassle Free Application</h3>
               <p className="font-semibold text-gray-900">
                 Tracking and Counselling
               </p>

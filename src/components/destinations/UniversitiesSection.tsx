@@ -1,8 +1,8 @@
 
-import React from 'react';
-import { Star } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import React, { useRef } from 'react';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import DestinationUniversityCard from './DestinationUniversityCard';
 
 interface University {
   id: string;
@@ -18,41 +18,85 @@ interface UniversitiesSectionProps {
 }
 
 const UniversitiesSection = ({ destinationName, universities }: UniversitiesSectionProps) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 320; // Width of card + gap
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   if (universities.length === 0) {
     return null;
   }
 
   return (
-    <section>
-      <div className="text-center mb-12">
-        <Star className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
-        <h2 className="text-3xl font-bold mb-4">Top Universities</h2>
-        <p className="text-gray-600">Premier educational institutions in {destinationName}</p>
-      </div>
+    <section className="py-16 bg-gradient-to-b from-muted/20 to-background">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-accent/10 to-primary/10 rounded-full mb-4">
+            <Star className="h-8 w-8 text-accent" />
+          </div>
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+            Top Universities
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Premier educational institutions in {destinationName}
+          </p>
+        </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {universities.map((university) => (
-          <Card key={university.id} className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              {university.logo_url && (
-                <img 
-                  src={university.logo_url} 
-                  alt={university.name}
-                  className="w-16 h-16 object-contain mx-auto mb-4"
-                />
-              )}
-              <h3 className="font-semibold mb-2">{university.name}</h3>
-              <p className="text-sm text-gray-600 mb-4">{university.location}</p>
-              {university.website_url && (
-                <Button variant="outline" size="sm" asChild>
-                  <a href={university.website_url} target="_blank" rel="noopener noreferrer">
-                    Visit Website
-                  </a>
-                </Button>
-              )}
-            </CardContent>
-          </Card>
-        ))}
+        <div className="relative">
+          {/* Navigation Buttons */}
+          {universities.length > 3 && (
+            <>
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-card/90 backdrop-blur-sm border-accent/20 hover:bg-accent hover:text-accent-foreground shadow-lg"
+                onClick={() => scroll('left')}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-card/90 backdrop-blur-sm border-accent/20 hover:bg-accent hover:text-accent-foreground shadow-lg"
+                onClick={() => scroll('right')}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </>
+          )}
+
+          {/* Universities Slider */}
+          <div 
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto scrollbar-hide pb-4"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {universities.map((university) => (
+              <div key={university.id} className="flex-none w-80">
+                <DestinationUniversityCard university={university} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* View All Button */}
+        <div className="text-center mt-8">
+          <Button 
+            className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-accent-foreground font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300"
+            asChild
+          >
+            <a href="/universities">
+              View All Universities
+            </a>
+          </Button>
+        </div>
       </div>
     </section>
   );

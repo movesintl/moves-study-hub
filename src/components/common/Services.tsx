@@ -1,4 +1,4 @@
-export default function Component() {
+export default function Services() {
   return (
     <section className="bg-gradient-to-br from-blue-50 to-white py-12 px-4 md:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -7,7 +7,7 @@ export default function Component() {
           <div className="relative flex justify-center">
             {/* Experience Badge */}
             <div className="absolute -top-4 -left-4 z-10">
-              <div className="bg-cyan-400 text-white px-4 py-3 rounded-lg shadow-lg">
+              <div className="bg-[#023047] text-white px-4 py-3 rounded-lg shadow-lg">
                 <div className="text-2xl font-bold">10+</div>
                 <div className="text-sm">Years</div>
                 <div className="text-sm">Experience</div>
@@ -15,11 +15,11 @@ export default function Component() {
             </div>
 
             {/* Main consultant photo */}
-            <div className="relative bg-gray-200 rounded-lg overflow-hidden w-80 h-96">
+            <div className="relative w-80 h-96 rounded-lg overflow-hidden shadow-xl">
               <img
-                src="/placeholder.svg?height=384&width=320"
+                src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/general/1751512836043.png"
                 alt="Professional consultant with glasses and blue shirt"
-                className="object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
 
@@ -56,22 +56,29 @@ export default function Component() {
             </div>
 
             {/* Service containers - matching the design exactly */}
-            <div className="flex flex-wrap gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <ServiceContainer
+                title="Analytics"
+                primary="blue"
+                secondary="blue"
+              />
+              <ServiceContainer title="Billing" primary="red" secondary="red" />
+              <ServiceContainer
+                title="Support"
+                primary="gray"
+                secondary="gray"
+              />
               <ServiceContainer
                 title="Analytics"
                 primary="blue"
                 secondary="green"
               />
               <ServiceContainer
-                title="Billing"
-                primary="red"
-                secondary="yellow"
-              />
-              <ServiceContainer
-                title="Support"
-                primary="gray"
+                title="Analytics"
+                primary="blue"
                 secondary="blue"
               />
+              <ServiceContainer title="Billing" primary="red" secondary="red" />
             </div>
           </div>
         </div>
@@ -80,15 +87,12 @@ export default function Component() {
   );
 }
 
-import React from "react";
-
-// ✅ Define allowed Tailwind color classes
 const bgColors: Record<string, string> = {
-  blue: "bg-blue-500",
-  red: "bg-red-500",
-  green: "bg-green-500",
-  yellow: "bg-yellow-500",
-  gray: "bg-gray-500",
+  blue: "bg-blue-300",
+  red: "bg-red-300",
+  green: "bg-green-530",
+  yellow: "bg-yellow-300",
+  gray: "bg-gray-300",
 };
 
 const borderColors: Record<string, string> = {
@@ -125,9 +129,9 @@ export function ServiceContainer({
 
   return (
     <div
-      className={`text-white px-6 py-4 rounded-lg shadow-md min-w-[140px] text-center border-l-4 ${bg} ${border}`}
+      className={`text-white px-4 py-2 rounded-lg shadow-md min-w-[140px] text-center border-l-4 ${bg} ${border} textblue`}
     >
-      <div className={`font-semibold text-sm ${text}`}>{title}</div>
+      <div className={`font-semibold text-lg ${text}`}>{title}</div>
     </div>
   );
 }

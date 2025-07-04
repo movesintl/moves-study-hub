@@ -25,6 +25,11 @@ const Home = () => {
         <LeadEnquiryForm />
       </div>
 
+      {/* Popular Courses Section */}
+      <div className="bg-gradient-to-b from-white to-gray-50">
+        <PopularCourses />
+      </div>
+
       {/* Process */}
       <Process />
 
@@ -38,11 +43,6 @@ const Home = () => {
 
       <div className="bg-white">
         <ServicesOverview />
-      </div>
-
-      {/* Popular Courses Section */}
-      <div className="bg-gradient-to-b from-white to-gray-50">
-        <PopularCourses />
       </div>
 
       {/* Featured Universities Section */}

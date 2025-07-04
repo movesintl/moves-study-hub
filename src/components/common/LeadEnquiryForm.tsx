@@ -22,14 +22,7 @@ const LeadEnquiryForm = () => {
     <section className="bg-gradient-to-br from-gray-50 to-white py-20 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[60%_40%] gap-12 relative">
         {/* Left Column */}
-        <div
-          className="space-y-6 "
-          style={{
-            position: "sticky",
-            top: "-35px",
-            alignSelf: "start",
-          }}
-        >
+        <div className="space-y-6 lg:sticky lg:top-[-35px] lg:self-start">
           {/* Header Text */}
           <div>
             <h2 className="text-3xl font-bold text-gray-900">

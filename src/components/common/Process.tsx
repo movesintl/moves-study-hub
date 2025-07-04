@@ -4,7 +4,7 @@ export default function Process() {
     <section
       style={{
         backgroundImage: `url(${bg})`,
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
@@ -22,7 +22,7 @@ export default function Process() {
         </div>
 
         {/* Process Steps */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4  -mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 -mt-8">
           {/* Step 1 */}
           <div className="text-center relative h-[300px] flex justify-center items-center">
             <div className="border-r-[1px] border-gray-300 h-fit pr-12">

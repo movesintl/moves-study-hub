@@ -3,6 +3,7 @@ import Hero from "@/components/common/Hero";
 import CountryCards from "@/components/common/CountryCards";
 import WhyChooseUs from "@/components/common/WhyChooseUs";
 import LeadEnquiryForm from "@/components/common/LeadEnquiryForm";
+import ServicesOverview from "@/components/common/ServicesOverview";
 import PopularCourses from "@/components/common/PopularCourses";
 import FeaturedUniversities from "@/components/common/FeaturedUniversities";
 import Testimonials from "@/components/common/Testimonials";
@@ -17,7 +18,10 @@ const Home = () => {
       <Hero />
 
       {/* Services */}
-      <Services />
+      <div> className="bg-gradient-to-br from-primary/5 via-gray-50 to-accent/5"
+        <Services />
+      </div>
+      
 
       {/* Updated layout with better spacing and visual hierarchy */}
       <div className="bg-gradient-to-b from-gray-50 to-white">
@@ -40,6 +44,9 @@ const Home = () => {
         <WhyChooseUs />
       </div>
 
+      <div className="bg-white">
+        <ServicesOverview />
+      </div>
 
       {/* Featured Universities Section */}
       <FeaturedUniversities />

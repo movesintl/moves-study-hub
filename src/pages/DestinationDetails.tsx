@@ -11,8 +11,8 @@ import CostOfLivingSection from '@/components/destinations/CostOfLivingSection';
 import UniversitiesSection from '@/components/destinations/UniversitiesSection';
 import CoursesSection from '@/components/destinations/CoursesSection';
 import JobMarketSection from '@/components/destinations/JobMarketSection';
-import CounsellingSection from '@/components/destinations/CounsellingSection';
 import PageViewFAQ from '@/pages/components/PageViewFAQ';
+import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 
 const MoreInformationSection = ({ content }: { content: string }) => {
   if (!content) return null;
@@ -108,42 +108,51 @@ const DestinationDetails = () => {
       <DestinationHero destination={destination} />
 
       <div className="container mx-auto py-12 px-4 space-y-16">
+        {/* 2. Why Study in Destination Country? */}
         <WhyStudySection 
           destinationName={destination.name} 
           whyStudyPoints={whyStudyPoints} 
         />
 
-        <LifestyleVisaSection destination={destination} />
-
+        {/* 3. More Information */}
         <MoreInformationSection content={destination.more_information || ''} />
 
+        {/* 4. Cost of Living */}
         <CostOfLivingSection 
           destinationName={destination.name} 
           costOfLivingContent={destination.cost_of_living_info}
         />
 
+        {/* 5. Lifestyle & Culture + Visa Information */}
+        <LifestyleVisaSection destination={destination} />
+
+        {/* 6. Top Universities (slider) */}
         <UniversitiesSection 
           destinationName={destination.name} 
           universities={universities} 
         />
 
+        {/* 7. Popular Courses (Slider) */}
         <CoursesSection 
           destinationName={destination.name} 
           courses={courses} 
         />
 
+        {/* 8. Job Market & Career Opportunities */}
         <JobMarketSection 
           destinationName={destination.name} 
           jobMarketPoints={jobMarketPoints} 
         />
 
-        <CounsellingSection destinationName={destination.name} />
-
+        {/* 9. FAQs */}
         <PageViewFAQ faqs={Array.isArray(destination.faqs) ? destination.faqs.filter((faq: any) => 
           typeof faq === 'object' && faq !== null && 
           typeof faq.question === 'string' && typeof faq.answer === 'string'
         ) as { question: string; answer: string; }[] : []} />
       </div>
+
+      {/* 10. LeadEnquiryForm */}
+      <LeadEnquiryForm />
     </div>
   );
 };

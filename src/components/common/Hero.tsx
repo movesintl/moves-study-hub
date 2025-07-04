@@ -143,7 +143,7 @@ const Hero = () => {
               <img
                 src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/general/1751512836043.png"
                 alt="Students studying abroad"
-                className="w-full h-[800px] object-cover"
+                className="w-full h-[750px] object-cover"
               />
               {/* <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div> */}
 

@@ -102,7 +102,7 @@ const Hero = () => {
                 size="lg"
                 variant="outline"
                 onClick={() => navigate("/courses")}
-                className="border-white hover:bg-white text-[#023047]"
+                className="border-white hover:bg-white hover:text-[#023047] text-[#023047]"
               >
                 Browse Courses
               </Button>

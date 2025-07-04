@@ -14,6 +14,11 @@ interface Course {
   duration_months: number;
   featured: boolean;
   slug: string;
+  university: string;
+  country: string;
+  intake_dates: string[] | null;
+  tuition_fee: number | null;
+  currency: string | null;
 }
 
 interface CoursesSectionProps {

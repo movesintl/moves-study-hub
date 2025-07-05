@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import MediaSelector from '@/components/admin/MediaSelector';
+import { FeaturedImageSection } from '@/pages/admin/blogs/components/FeaturedImageSection';
 
 const ServiceForm = () => {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ const ServiceForm = () => {
     short_description: '',
     full_details: '',
     icon_url: '',
+    feature_image_url: '',
+    feature_image_alt: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -48,6 +51,8 @@ const ServiceForm = () => {
         short_description: service.short_description || '',
         full_details: service.full_details || '',
         icon_url: service.icon_url || '',
+        feature_image_url: service.feature_image_url || '',
+        feature_image_alt: service.feature_image_alt || '',
       });
     }
   }, [service]);
@@ -101,6 +106,20 @@ const ServiceForm = () => {
 
   const handleIconChange = (value: string) => {
     setFormData(prev => ({ ...prev, icon_url: value }));
+  };
+
+  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFormData(prev => ({ 
+          ...prev, 
+          feature_image_url: event.target?.result as string 
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -158,6 +177,15 @@ const ServiceForm = () => {
               onChange={handleIconChange}
               label="Service Icon"
               placeholder="https://example.com/icon.svg"
+            />
+
+            <FeaturedImageSection
+              formData={{
+                featured_image_url: formData.feature_image_url,
+                featured_image_alt: formData.feature_image_alt,
+              }}
+              onChange={handleChange}
+              onImageFileChange={handleImageFileChange}
             />
 
             <div className="flex gap-4 pt-4">

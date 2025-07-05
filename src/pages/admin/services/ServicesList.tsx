@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -93,22 +93,27 @@ const ServicesList = () => {
                       {service.short_description || 'No description'}
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="flex gap-2">
-                      <Link to={`/admin/services/${service.id}/edit`}>
-                        <Button variant="outline" size="sm">
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                      </Link>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleDelete(service.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
+                   <TableCell>
+                     <div className="flex gap-2">
+                       <Link to={`/services/${service.id}`}>
+                         <Button variant="outline" size="sm">
+                           <Eye className="h-4 w-4" />
+                         </Button>
+                       </Link>
+                       <Link to={`/admin/services/${service.id}/edit`}>
+                         <Button variant="outline" size="sm">
+                           <Edit className="h-4 w-4" />
+                         </Button>
+                       </Link>
+                       <Button 
+                         variant="outline" 
+                         size="sm"
+                         onClick={() => handleDelete(service.id)}
+                       >
+                         <Trash2 className="h-4 w-4" />
+                       </Button>
+                     </div>
+                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>

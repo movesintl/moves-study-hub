@@ -9,15 +9,15 @@ import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
 const ServiceDetails = () => {
-  const { id } = useParams();
+  const { id: slug } = useParams();
 
   const { data: service, isLoading } = useQuery({
-    queryKey: ['service', id],
+    queryKey: ['service', slug],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('services')
         .select('*')
-        .eq('id', id)
+        .eq('slug', slug)
         .single();
       
       if (error) throw error;
@@ -47,18 +47,9 @@ const ServiceDetails = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-primary to-primary-glow">
-        {service.feature_image_url && (
-          <div className="absolute inset-0">
-            <img 
-              src={service.feature_image_url} 
-              alt={service.feature_image_alt || service.title}
-              className="w-full h-full object-cover opacity-20"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary-glow/80" />
-          </div>
-        )}
-        <div className="relative container mx-auto px-4 py-16">
+      <section className="relative bg-gradient-to-br from-primary via-primary-glow to-accent overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-transparent" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <Button variant="ghost" asChild className="mb-6 text-white hover:bg-white/20">
             <Link to="/services">
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -66,19 +57,26 @@ const ServiceDetails = () => {
             </Link>
           </Button>
           
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-6 mb-6">
-              {service.icon_url && (
-                <div className="flex-shrink-0 bg-white/20 p-4 rounded-2xl backdrop-blur-sm">
-                  <img 
-                    src={service.icon_url} 
-                    alt={service.title}
-                    className="h-16 w-16 object-contain"
-                  />
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Content */}
+            <div className="space-y-8">
+              <div className="flex items-center gap-4 mb-6">
+                {service.icon_url && (
+                  <div className="flex-shrink-0 bg-white/20 p-4 rounded-2xl backdrop-blur-sm">
+                    <img 
+                      src={service.icon_url} 
+                      alt={service.title}
+                      className="h-16 w-16 object-contain"
+                    />
+                  </div>
+                )}
+                <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Award className="h-8 w-8 text-white" />
                 </div>
-              )}
-              <div>
-                <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+              </div>
+              
+              <div className="space-y-6">
+                <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
                   {service.title}
                 </h1>
                 {service.short_description && (
@@ -87,24 +85,61 @@ const ServiceDetails = () => {
                   </p>
                 )}
               </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6">
+                  <Link to="/contact" className="flex items-center">
+                    Get Started Today
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6">
+                  <Link to="/contact" className="flex items-center">
+                    <Users className="h-5 w-5 mr-2" />
+                    Speak to Expert
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="flex items-center gap-8 text-white/80">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5" />
+                  <span>Expert guidance</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-5 w-5" />
+                  <span>Quick process</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Award className="h-5 w-5" />
+                  <span>Proven results</span>
+                </div>
+              </div>
             </div>
-            
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                <Link to="/contact" className="flex items-center">
-                  Get Started Today
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" className="text-white border-white hover:bg-white/20">
-                <Link to="/contact" className="flex items-center">
-                  <Users className="h-5 w-5 mr-2" />
-                  Speak to Expert
-                </Link>
-              </Button>
+
+            {/* Right Column - Feature Image */}
+            <div className="lg:text-center">
+              {service.feature_image_url ? (
+                <div className="relative">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-white/20 to-white/10 rounded-3xl blur-xl" />
+                  <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+                    <img 
+                      src={service.feature_image_url} 
+                      alt={service.feature_image_alt || service.title}
+                      className="w-full h-64 lg:h-80 object-cover rounded-2xl shadow-2xl"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+                  <div className="w-full h-64 lg:h-80 bg-gradient-to-br from-white/20 to-white/5 rounded-2xl flex items-center justify-center">
+                    <Award className="h-24 w-24 text-white/60" />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Service Details Section */}
       <div className="container mx-auto px-4 py-16">

@@ -95,7 +95,7 @@ const ServicesList = () => {
                   </TableCell>
                    <TableCell>
                      <div className="flex gap-2">
-                       <Link to={`/services/${service.id}`}>
+                       <Link to={`/services/${service.slug || service.id}`}>
                          <Button variant="outline" size="sm">
                            <Eye className="h-4 w-4" />
                          </Button>

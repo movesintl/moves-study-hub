@@ -744,6 +744,7 @@ export type Database = {
           icon_url: string | null
           id: string
           short_description: string | null
+          slug: string | null
           title: string
           updated_at: string
         }
@@ -755,6 +756,7 @@ export type Database = {
           icon_url?: string | null
           id?: string
           short_description?: string | null
+          slug?: string | null
           title: string
           updated_at?: string
         }
@@ -766,6 +768,7 @@ export type Database = {
           icon_url?: string | null
           id?: string
           short_description?: string | null
+          slug?: string | null
           title?: string
           updated_at?: string
         }
@@ -866,6 +869,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_service_slug: {
+        Args: { service_title: string; service_id?: string }
+        Returns: string
+      }
       generate_unique_slug: {
         Args: { course_title: string; course_id?: string }
         Returns: string

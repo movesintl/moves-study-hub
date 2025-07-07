@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, CheckCircle, Users, Clock, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 
 const ServiceDetails = () => {
   const { id: slug } = useParams();
@@ -152,11 +153,10 @@ const ServiceDetails = () => {
               </CardHeader>
               <CardContent>
                 {service.full_details && (
-                  <div className="prose prose-lg max-w-none">
-                    <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                      {service.full_details}
-                    </p>
-                  </div>
+                  <div 
+                    className="prose prose-lg max-w-none text-muted-foreground"
+                    dangerouslySetInnerHTML={{ __html: service.full_details }}
+                  />
                 )}
               </CardContent>
             </Card>
@@ -260,6 +260,9 @@ const ServiceDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* Lead Enquiry Form */}
+      <LeadEnquiryForm />
     </div>
   );
 };

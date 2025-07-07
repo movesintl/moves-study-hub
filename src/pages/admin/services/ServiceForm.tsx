@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import MediaSelector from '@/components/admin/MediaSelector';
 import { FeaturedImageSection } from '@/pages/admin/blogs/components/FeaturedImageSection';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 const ServiceForm = () => {
   const navigate = useNavigate();
@@ -159,18 +160,13 @@ const ServiceForm = () => {
               />
             </div>
 
-            <div>
-              <Label htmlFor="full_details">Full Details</Label>
-              <textarea
-                id="full_details"
-                name="full_details"
-                value={formData.full_details}
-                onChange={handleChange}
-                rows={6}
-                className="mt-1 w-full px-3 py-2 border border-input rounded-md"
-                placeholder="Complete details about the service..."
-              />
-            </div>
+            <RichTextEditor
+              label="Full Details"
+              value={formData.full_details}
+              onChange={(value) => setFormData(prev => ({ ...prev, full_details: value }))}
+              placeholder="Complete details about the service..."
+              height="300px"
+            />
 
             <MediaSelector
               value={formData.icon_url}

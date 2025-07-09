@@ -1,219 +1,268 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, DollarSign, Search, FileText, Award, Globe } from 'lucide-react';
+import { CheckCircle, DollarSign, Search, FileText, Award, Globe, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 
 const ScholarshipGuidance = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-red-600 to-red-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Scholarship Guidance</h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Unlock funding opportunities and make your education dreams affordable
-            </p>
-            <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100">
-              Find Scholarships
-            </Button>
+      <section className="relative bg-gradient-to-br from-primary via-primary-glow to-accent overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-transparent" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+          <Button variant="ghost" asChild className="mb-6 text-white hover:bg-white/20">
+            <Link to="/services">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Services
+            </Link>
+          </Button>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Award className="h-8 w-8 text-white" />
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
+                  Scholarship Guidance
+                </h1>
+                <p className="text-xl text-white/90 leading-relaxed">
+                  Unlock funding opportunities and make your education dreams affordable with expert scholarship guidance
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6">
+                  <Link to="/contact" className="flex items-center">
+                    Find Scholarships
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6">
+                  <Link to="/contact" className="flex items-center">
+                    <Search className="h-5 w-5 mr-2" />
+                    Free Assessment
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="flex items-center gap-8 text-white/80">
+                <div className="flex items-center gap-2">
+                  <DollarSign className="h-5 w-5" />
+                  <span>$2.5M+ Secured</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Award className="h-5 w-5" />
+                  <span>85% Success Rate</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:text-center">
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+                <div className="w-full h-64 lg:h-80 bg-gradient-to-br from-white/20 to-white/5 rounded-2xl flex items-center justify-center">
+                  <Award className="h-24 w-24 text-white/60" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Services Section */}
-      <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Scholarship Services</h2>
-            <p className="text-xl text-gray-600">Comprehensive support to secure funding for your education</p>
-          </div>
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-foreground mb-4">Our Scholarship Services</h2>
+          <p className="text-xl text-muted-foreground">Comprehensive support to secure funding for your education</p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card>
-              <CardHeader>
-                <Search className="h-10 w-10 text-red-500 mb-4" />
-                <CardTitle>Scholarship Search</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Access our database of 1000+ scholarships from universities and organizations worldwide.
-                </p>
-              </CardContent>
-            </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <Search className="h-10 w-10 text-primary mb-4" />
+              <CardTitle className="text-foreground">Scholarship Search</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Access our database of 1000+ scholarships from universities and organizations worldwide.
+              </p>
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <FileText className="h-10 w-10 text-red-500 mb-4" />
-                <CardTitle>Application Support</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Expert assistance with scholarship applications, essays, and required documentation.
-                </p>
-              </CardContent>
-            </Card>
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <FileText className="h-10 w-10 text-primary mb-4" />
+              <CardTitle className="text-foreground">Application Support</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Expert assistance with scholarship applications, essays, and required documentation.
+              </p>
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <Award className="h-10 w-10 text-red-500 mb-4" />
-                <CardTitle>Merit Assessment</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Evaluate your profile and identify scholarships where you have the highest chances.
-                </p>
-              </CardContent>
-            </Card>
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <Award className="h-10 w-10 text-primary mb-4" />
+              <CardTitle className="text-foreground">Merit Assessment</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Evaluate your profile and identify scholarships where you have the highest chances.
+              </p>
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <Globe className="h-10 w-10 text-red-500 mb-4" />
-                <CardTitle>Country-Specific Guidance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Specialized knowledge of scholarships available in Australia, Canada, UK, and USA.
-                </p>
-              </CardContent>
-            </Card>
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <Globe className="h-10 w-10 text-primary mb-4" />
+              <CardTitle className="text-foreground">Country-Specific Guidance</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Specialized knowledge of scholarships available in Australia, Canada, UK, and USA.
+              </p>
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <DollarSign className="h-10 w-10 text-red-500 mb-4" />
-                <CardTitle>Financial Planning</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Help you plan your finances and combine multiple funding sources effectively.
-                </p>
-              </CardContent>
-            </Card>
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <DollarSign className="h-10 w-10 text-primary mb-4" />
+              <CardTitle className="text-foreground">Financial Planning</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Help you plan your finances and combine multiple funding sources effectively.
+              </p>
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <CheckCircle className="h-10 w-10 text-red-500 mb-4" />
-                <CardTitle>Success Tracking</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Monitor application progress and provide updates throughout the process.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CheckCircle className="h-10 w-10 text-primary mb-4" />
+              <CardTitle className="text-foreground">Success Tracking</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Monitor application progress and provide updates throughout the process.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
       {/* Scholarship Types */}
-      <div className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-card py-16">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Types of Scholarships</h2>
-            <p className="text-xl text-gray-600">Various funding opportunities available</p>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Types of Scholarships</h2>
+            <p className="text-xl text-muted-foreground">Various funding opportunities available</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle className="text-xl">Merit-Based Scholarships</CardTitle>
+                <CardTitle className="text-xl text-foreground">Merit-Based Scholarships</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-gray-600">
+                <ul className="space-y-2">
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Academic excellence scholarships
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Academic excellence scholarships</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Leadership awards
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Leadership awards</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Sports scholarships
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Sports scholarships</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Talent-based awards
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Talent-based awards</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle className="text-xl">Need-Based Scholarships</CardTitle>
+                <CardTitle className="text-xl text-foreground">Need-Based Scholarships</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-gray-600">
+                <ul className="space-y-2">
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Financial aid programs
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Financial aid programs</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Government scholarships
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Government scholarships</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    University bursaries
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">University bursaries</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Community grants
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Community grants</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle className="text-xl">Subject-Specific Scholarships</CardTitle>
+                <CardTitle className="text-xl text-foreground">Subject-Specific Scholarships</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-gray-600">
+                <ul className="space-y-2">
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    STEM scholarships
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">STEM scholarships</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Business and MBA funding
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Business and MBA funding</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Arts and humanities awards
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Arts and humanities awards</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Research grants
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Research grants</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle className="text-xl">Country-Specific Programs</CardTitle>
+                <CardTitle className="text-xl text-foreground">Country-Specific Programs</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-gray-600">
+                <ul className="space-y-2">
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Australia Awards Scholarships
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Australia Awards Scholarships</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    Canadian government funding
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">Canadian government funding</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    UK Chevening Scholarships
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">UK Chevening Scholarships</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1" />
-                    US Fulbright Program
+                    <CheckCircle className="h-4 w-4 text-primary mr-2 mt-1" />
+                    <span className="text-muted-foreground">US Fulbright Program</span>
                   </li>
                 </ul>
               </CardContent>
@@ -223,51 +272,34 @@ const ScholarshipGuidance = () => {
       </div>
 
       {/* Success Stats */}
-      <div className="bg-red-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Success Record</h2>
-            <p className="text-xl">Helping students secure millions in scholarships</p>
-          </div>
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-foreground mb-4">Our Success Record</h2>
+          <p className="text-xl text-muted-foreground">Helping students secure millions in scholarships</p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold mb-2">$2.5M+</div>
-              <div className="text-lg">Scholarships Secured</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <div className="text-lg">Students Helped</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">85%</div>
-              <div className="text-lg">Success Rate</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">1000+</div>
-              <div className="text-lg">Scholarships Database</div>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div className="text-4xl font-bold text-primary mb-2">$2.5M+</div>
+            <div className="text-muted-foreground text-lg">Scholarships Secured</div>
+          </div>
+          <div>
+            <div className="text-4xl font-bold text-primary mb-2">500+</div>
+            <div className="text-muted-foreground text-lg">Students Helped</div>
+          </div>
+          <div>
+            <div className="text-4xl font-bold text-primary mb-2">85%</div>
+            <div className="text-muted-foreground text-lg">Success Rate</div>
+          </div>
+          <div>
+            <div className="text-4xl font-bold text-primary mb-2">1000+</div>
+            <div className="text-muted-foreground text-lg">Scholarships Database</div>
           </div>
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Start Your Scholarship Journey</h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Don't let finances hold you back from your education dreams. Let us help you find and secure scholarships.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-red-600 hover:bg-red-700">
-              Book Free Consultation
-            </Button>
-            <Button size="lg" variant="outline" className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
-              View Scholarship Database
-            </Button>
-          </div>
-        </div>
-      </div>
+      {/* Lead Enquiry Form */}
+      <LeadEnquiryForm />
     </div>
   );
 };

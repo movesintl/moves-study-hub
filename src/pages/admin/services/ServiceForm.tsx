@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import MediaSelector from '@/components/admin/MediaSelector';
-import { FeaturedImageSection } from '@/pages/admin/blogs/components/FeaturedImageSection';
+
 import RichTextEditor from '@/components/admin/RichTextEditor';
 
 const ServiceForm = () => {
@@ -109,19 +109,6 @@ const ServiceForm = () => {
     setFormData(prev => ({ ...prev, icon_url: value }));
   };
 
-  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setFormData(prev => ({ 
-          ...prev, 
-          feature_image_url: event.target?.result as string 
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -175,14 +162,26 @@ const ServiceForm = () => {
               placeholder="https://example.com/icon.svg"
             />
 
-            <FeaturedImageSection
-              formData={{
-                featured_image_url: formData.feature_image_url,
-                featured_image_alt: formData.feature_image_alt,
-              }}
-              onChange={handleChange}
-              onImageFileChange={handleImageFileChange}
+            <MediaSelector
+              value={formData.feature_image_url}
+              onChange={(value) => setFormData(prev => ({ ...prev, feature_image_url: value }))}
+              label="Featured Image"
+              placeholder="https://example.com/featured-image.jpg"
             />
+
+            {formData.feature_image_url && (
+              <div>
+                <Label htmlFor="feature_image_alt">Featured Image Alt Text</Label>
+                <Input
+                  id="feature_image_alt"
+                  name="feature_image_alt"
+                  value={formData.feature_image_alt}
+                  onChange={handleChange}
+                  placeholder="Describe the image for accessibility"
+                  className="mt-1"
+                />
+              </div>
+            )}
 
             <div className="flex gap-4 pt-4">
               <Button type="submit" disabled={loading}>

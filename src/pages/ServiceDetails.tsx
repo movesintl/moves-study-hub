@@ -120,21 +120,14 @@ const ServiceDetails = () => {
             {/* Right Column - Feature Image */}
             <div className="lg:text-center">
               {service.feature_image_url ? (
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-white/20 to-white/10 rounded-3xl blur-xl" />
-                  <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
-                    <img 
-                      src={service.feature_image_url} 
-                      alt={service.feature_image_alt || service.title}
-                      className="w-full h-64 lg:h-80 object-cover rounded-2xl shadow-2xl"
-                    />
-                  </div>
-                </div>
+                <img 
+                  src={service.feature_image_url} 
+                  alt={service.feature_image_alt || service.title}
+                  className="w-full h-64 lg:h-80 object-cover"
+                />
               ) : (
-                <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
-                  <div className="w-full h-64 lg:h-80 bg-gradient-to-br from-white/20 to-white/5 rounded-2xl flex items-center justify-center">
-                    <Award className="h-24 w-24 text-white/60" />
-                  </div>
+                <div className="w-full h-64 lg:h-80 bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
+                  <Award className="h-24 w-24 text-white/60" />
                 </div>
               )}
             </div>

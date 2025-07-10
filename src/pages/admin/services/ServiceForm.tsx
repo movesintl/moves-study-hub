@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import MediaSelector from '@/components/admin/MediaSelector';
 import RichTextEditor from '@/components/admin/RichTextEditor';
 import FAQSection from '@/pages/admin/pages/components/FAQSection';
+import HowItWorksSection from '@/components/admin/services/HowItWorksSection';
 
 const ServiceForm = () => {
   const navigate = useNavigate();
@@ -25,6 +26,10 @@ const ServiceForm = () => {
     feature_image_url: '',
     feature_image_alt: '',
     faqs: [] as Array<{ question: string; answer: string }>,
+    how_it_works_title: '',
+    how_it_works_description: '',
+    how_it_works_feature_image_url: '',
+    how_it_works_blurbs: [] as Array<{ icon: string; title: string; description: string }>,
   });
 
   const [loading, setLoading] = useState(false);
@@ -56,6 +61,10 @@ const ServiceForm = () => {
         feature_image_url: service.feature_image_url || '',
         feature_image_alt: service.feature_image_alt || '',
         faqs: Array.isArray(service.faqs) ? service.faqs as Array<{ question: string; answer: string }> : [],
+        how_it_works_title: service.how_it_works_title || '',
+        how_it_works_description: service.how_it_works_description || '',
+        how_it_works_feature_image_url: service.how_it_works_feature_image_url || '',
+        how_it_works_blurbs: Array.isArray(service.how_it_works_blurbs) ? service.how_it_works_blurbs as Array<{ icon: string; title: string; description: string }> : [],
       });
     }
   }, [service]);
@@ -134,6 +143,29 @@ const ServiceForm = () => {
     }));
   };
 
+  const addHowItWorksBlurb = () => {
+    setFormData(prev => ({
+      ...prev,
+      how_it_works_blurbs: [...prev.how_it_works_blurbs, { icon: '', title: '', description: '' }]
+    }));
+  };
+
+  const removeHowItWorksBlurb = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      how_it_works_blurbs: prev.how_it_works_blurbs.filter((_, i) => i !== index)
+    }));
+  };
+
+  const updateHowItWorksBlurb = (index: number, field: 'icon' | 'title' | 'description', value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      how_it_works_blurbs: prev.how_it_works_blurbs.map((blurb, i) => 
+        i === index ? { ...blurb, [field]: value } : blurb
+      )
+    }));
+  };
+
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -207,6 +239,19 @@ const ServiceForm = () => {
                 />
               </div>
             )}
+
+            <HowItWorksSection
+              title={formData.how_it_works_title}
+              description={formData.how_it_works_description}
+              featureImageUrl={formData.how_it_works_feature_image_url}
+              blurbs={formData.how_it_works_blurbs}
+              onTitleChange={(value) => setFormData(prev => ({ ...prev, how_it_works_title: value }))}
+              onDescriptionChange={(value) => setFormData(prev => ({ ...prev, how_it_works_description: value }))}
+              onFeatureImageChange={(value) => setFormData(prev => ({ ...prev, how_it_works_feature_image_url: value }))}
+              onAddBlurb={addHowItWorksBlurb}
+              onRemoveBlurb={removeHowItWorksBlurb}
+              onUpdateBlurb={updateHowItWorksBlurb}
+            />
 
             <FAQSection
               faqs={formData.faqs}

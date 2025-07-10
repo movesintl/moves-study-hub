@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 import PageViewFAQ from '@/pages/components/PageViewFAQ';
+import HowItWorksDisplay from '@/components/services/HowItWorksDisplay';
 
 const ServiceDetails = () => {
   const { id: slug } = useParams();
@@ -254,6 +255,14 @@ const ServiceDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* How It Works Section */}
+      <HowItWorksDisplay
+        title={service.how_it_works_title}
+        description={service.how_it_works_description}
+        featureImageUrl={service.how_it_works_feature_image_url}
+        blurbs={service.how_it_works_blurbs as Array<{ icon: string; title: string; description: string }>}
+      />
 
       {/* FAQ Section */}
       {service.faqs && Array.isArray(service.faqs) && service.faqs.length > 0 && (

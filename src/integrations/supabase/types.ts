@@ -747,6 +747,10 @@ export type Database = {
           feature_image_alt: string | null
           feature_image_url: string | null
           full_details: string | null
+          how_it_works_blurbs: Json | null
+          how_it_works_description: string | null
+          how_it_works_feature_image_url: string | null
+          how_it_works_title: string | null
           icon_url: string | null
           id: string
           short_description: string | null
@@ -760,6 +764,10 @@ export type Database = {
           feature_image_alt?: string | null
           feature_image_url?: string | null
           full_details?: string | null
+          how_it_works_blurbs?: Json | null
+          how_it_works_description?: string | null
+          how_it_works_feature_image_url?: string | null
+          how_it_works_title?: string | null
           icon_url?: string | null
           id?: string
           short_description?: string | null
@@ -773,6 +781,10 @@ export type Database = {
           feature_image_alt?: string | null
           feature_image_url?: string | null
           full_details?: string | null
+          how_it_works_blurbs?: Json | null
+          how_it_works_description?: string | null
+          how_it_works_feature_image_url?: string | null
+          how_it_works_title?: string | null
           icon_url?: string | null
           id?: string
           short_description?: string | null

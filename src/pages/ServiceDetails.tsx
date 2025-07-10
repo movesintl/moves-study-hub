@@ -8,6 +8,7 @@ import { ArrowLeft, CheckCircle, Users, Clock, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
+import PageViewFAQ from '@/pages/components/PageViewFAQ';
 
 const ServiceDetails = () => {
   const { id: slug } = useParams();
@@ -253,6 +254,11 @@ const ServiceDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* FAQ Section */}
+      {service.faqs && Array.isArray(service.faqs) && service.faqs.length > 0 && (
+        <PageViewFAQ faqs={service.faqs as Array<{ question: string; answer: string }>} />
+      )}
 
       {/* Lead Enquiry Form */}
       <LeadEnquiryForm />

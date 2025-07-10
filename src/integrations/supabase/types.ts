@@ -743,6 +743,7 @@ export type Database = {
       services: {
         Row: {
           created_at: string
+          faqs: Json | null
           feature_image_alt: string | null
           feature_image_url: string | null
           full_details: string | null
@@ -755,6 +756,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          faqs?: Json | null
           feature_image_alt?: string | null
           feature_image_url?: string | null
           full_details?: string | null
@@ -767,6 +769,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          faqs?: Json | null
           feature_image_alt?: string | null
           feature_image_url?: string | null
           full_details?: string | null

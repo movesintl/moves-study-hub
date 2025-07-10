@@ -8,8 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import MediaSelector from '@/components/admin/MediaSelector';
-
 import RichTextEditor from '@/components/admin/RichTextEditor';
+import FAQSection from '@/pages/admin/pages/components/FAQSection';
 
 const ServiceForm = () => {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const ServiceForm = () => {
     icon_url: '',
     feature_image_url: '',
     feature_image_alt: '',
+    faqs: [] as Array<{ question: string; answer: string }>,
   });
 
   const [loading, setLoading] = useState(false);
@@ -54,6 +55,7 @@ const ServiceForm = () => {
         icon_url: service.icon_url || '',
         feature_image_url: service.feature_image_url || '',
         feature_image_alt: service.feature_image_alt || '',
+        faqs: Array.isArray(service.faqs) ? service.faqs as Array<{ question: string; answer: string }> : [],
       });
     }
   }, [service]);
@@ -107,6 +109,29 @@ const ServiceForm = () => {
 
   const handleIconChange = (value: string) => {
     setFormData(prev => ({ ...prev, icon_url: value }));
+  };
+
+  const addFaq = () => {
+    setFormData(prev => ({
+      ...prev,
+      faqs: [...prev.faqs, { question: '', answer: '' }]
+    }));
+  };
+
+  const removeFaq = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      faqs: prev.faqs.filter((_, i) => i !== index)
+    }));
+  };
+
+  const updateFaq = (index: number, field: 'question' | 'answer', value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      faqs: prev.faqs.map((faq, i) => 
+        i === index ? { ...faq, [field]: value } : faq
+      )
+    }));
   };
 
 
@@ -182,6 +207,13 @@ const ServiceForm = () => {
                 />
               </div>
             )}
+
+            <FAQSection
+              faqs={formData.faqs}
+              onAddFaq={addFaq}
+              onRemoveFaq={removeFaq}
+              onUpdateFaq={updateFaq}
+            />
 
             <div className="flex gap-4 pt-4">
               <Button type="submit" disabled={loading}>

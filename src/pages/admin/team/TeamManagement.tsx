@@ -11,11 +11,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Users, UserPlus, Mail } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import StaffManagement from '@/components/admin/team/StaffManagement';
 
 const inviteSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -111,122 +113,138 @@ const TeamManagement = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">Team Management</h1>
-          <p className="text-gray-600">Manage your team members and their roles</p>
-        </div>
-        <Dialog open={isInviteOpen} onOpenChange={setIsInviteOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <UserPlus className="mr-2 h-4 w-4" />
-              Invite Member
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Invite Team Member</DialogTitle>
-            </DialogHeader>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="email" placeholder="user@example.com" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="role"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Role</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a role" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="user">User</SelectItem>
-                          <SelectItem value="editor">Editor</SelectItem>
-                          <SelectItem value="admin">Admin</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full" disabled={inviteUserMutation.isPending}>
-                  {inviteUserMutation.isPending ? 'Sending...' : 'Send Invitation'}
-                </Button>
-              </form>
-            </Form>
-          </DialogContent>
-        </Dialog>
+      <div>
+        <h1 className="text-3xl font-bold">Team Management</h1>
+        <p className="text-muted-foreground">Manage your team members and staff information</p>
       </div>
 
-      <div className="grid gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Users className="h-5 w-5" />
-              Team Members
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isLoading ? (
-              <div>Loading...</div>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>User ID</TableHead>
-                    <TableHead>Role</TableHead>
-                    <TableHead>Created</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {teamMembers?.map((member) => (
-                    <TableRow key={member.id}>
-                      <TableCell className="font-mono text-sm">{member.user_id}</TableCell>
-                      <TableCell>
-                        <Badge variant={member.role === 'admin' ? 'default' : member.role === 'editor' ? 'secondary' : 'outline'}>
-                          {member.role}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{new Date(member.created_at).toLocaleDateString()}</TableCell>
-                      <TableCell>
-                        <Select
-                          onValueChange={(value) => handleRoleChange(member.user_id!, value)}
-                          defaultValue={member.role || 'user'}
-                        >
-                          <SelectTrigger className="w-32">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="user">User</SelectItem>
-                            <SelectItem value="editor">Editor</SelectItem>
-                            <SelectItem value="admin">Admin</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
+      <Tabs defaultValue="members" className="space-y-6">
+        <TabsList>
+          <TabsTrigger value="members">Team Members</TabsTrigger>
+          <TabsTrigger value="staff">Our Staff</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="members" className="space-y-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <h2 className="text-xl font-semibold">Team Members</h2>
+              <p className="text-muted-foreground">Manage user roles and permissions</p>
+            </div>
+            <Dialog open={isInviteOpen} onOpenChange={setIsInviteOpen}>
+              <DialogTrigger asChild>
+                <Button>
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Invite Member
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Invite Team Member</DialogTitle>
+                </DialogHeader>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input {...field} type="email" placeholder="user@example.com" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="role"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Role</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a role" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="user">User</SelectItem>
+                              <SelectItem value="editor">Editor</SelectItem>
+                              <SelectItem value="admin">Admin</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit" className="w-full" disabled={inviteUserMutation.isPending}>
+                      {inviteUserMutation.isPending ? 'Sending...' : 'Send Invitation'}
+                    </Button>
+                  </form>
+                </Form>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="h-5 w-5" />
+                Team Members
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>User ID</TableHead>
+                      <TableHead>Role</TableHead>
+                      <TableHead>Created</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </CardContent>
-        </Card>
-      </div>
+                  </TableHeader>
+                  <TableBody>
+                    {teamMembers?.map((member) => (
+                      <TableRow key={member.id}>
+                        <TableCell className="font-mono text-sm">{member.user_id}</TableCell>
+                        <TableCell>
+                          <Badge variant={member.role === 'admin' ? 'default' : member.role === 'editor' ? 'secondary' : 'outline'}>
+                            {member.role}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>{new Date(member.created_at).toLocaleDateString()}</TableCell>
+                        <TableCell>
+                          <Select
+                            onValueChange={(value) => handleRoleChange(member.user_id!, value)}
+                            defaultValue={member.role || 'user'}
+                          >
+                            <SelectTrigger className="w-32">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="user">User</SelectItem>
+                              <SelectItem value="editor">Editor</SelectItem>
+                              <SelectItem value="admin">Admin</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="staff">
+          <StaffManagement />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

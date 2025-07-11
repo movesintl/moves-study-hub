@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import OurStaff from '@/components/common/OurStaff';
 import { 
   Globe, 
   Users, 
@@ -205,6 +206,9 @@ const About = () => {
           </div>
         </div>
       </div>
+
+      {/* Our Staff Section */}
+      <OurStaff />
 
       {/* Call to Action Section */}
       <div className="bg-gradient-to-r from-primary to-accent text-white py-16">

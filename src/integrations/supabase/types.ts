@@ -821,6 +821,51 @@ export type Database = {
         }
         Relationships: []
       }
+      staff_members: {
+        Row: {
+          created_at: string
+          description: string | null
+          designation: string
+          display_order: number | null
+          email: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          phone: string | null
+          profile_image_url: string | null
+          social_media_links: Json | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          designation: string
+          display_order?: number | null
+          email?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          phone?: string | null
+          profile_image_url?: string | null
+          social_media_links?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          designation?: string
+          display_order?: number | null
+          email?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          phone?: string | null
+          profile_image_url?: string | null
+          social_media_links?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       universities: {
         Row: {
           country: string | null

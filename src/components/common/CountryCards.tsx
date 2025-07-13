@@ -1,55 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, MapPin, DollarSign, Clock, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
 import { Button } from '../ui/button';
+
+const SUPABASE_URL = "https://coadhiipbnnqlmslpzeu.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNvYWRoaWlwYm5ucWxtc2xwemV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyODczNDgsImV4cCI6MjA2NTg2MzM0OH0.P37hdEGhEbZ_AWU1IAdFihnw2yhWEkWfClidFVjDqI4";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 const CountryCards = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [destinations, setDestinations] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Mock destinations data (replace with your actual data)
-  const destinations = [
-    {
-      id: 1,
-      name: 'Australia',
-      slug: 'australia',
-      description: 'Experience world-class education in the land down under',
-      flag_icon_url: null,
-      average_fee: '$30,000 - $45,000'
-    },
-    {
-      id: 2,
-      name: 'Canada',
-      slug: 'canada',
-      description: 'Study in one of the world\'s most welcoming countries',
-      flag_icon_url: null,
-      average_fee: '$25,000 - $35,000'
-    },
-    {
-      id: 3,
-      name: 'United Kingdom',
-      slug: 'uk',
-      description: 'Discover centuries of academic excellence',
-      flag_icon_url: null,
-      average_fee: '$35,000 - $50,000'
-    },
-    {
-      id: 4,
-      name: 'New Zealand',
-      slug: 'new-zealand',
-      description: 'Study in breathtaking natural beauty',
-      flag_icon_url: null,
-      average_fee: '$28,000 - $40,000'
-    },
-    {
-      id: 5,
-      name: 'Germany',
-      slug: 'germany',
-      description: 'Excellence in engineering and innovation',
-      flag_icon_url: null,
-      average_fee: '$15,000 - $25,000'
-    }
-  ];
+  // Fetch destinations from Supabase
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('destinations')
+          .select('id, name, slug, description, flag_icon_url, average_fee, why_study_points')
+          .order('name');
+        
+        if (error) {
+          console.error('Error fetching destinations:', error);
+        } else {
+          setDestinations(data || []);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
+    fetchDestinations();
+  }, []);
+
+  // Country-specific configurations
   const countryConfig = {
     'Australia': {
       flag: '🇦🇺',
@@ -90,6 +79,14 @@ const CountryCards = () => {
       duration: '1-4 years',
       intakes: 'Oct, Apr',
       gradient: 'from-yellow-400 to-red-600'
+    },
+    'USA': {
+      flag: '🇺🇸',
+      features: ['World-class universities', 'Innovation hub', 'Diverse opportunities'],
+      averageFee: '$40,000 - $60,000',
+      duration: '1-4 years',
+      intakes: 'Aug, Jan',
+      gradient: 'from-blue-500 to-red-500'
     }
   };
 
@@ -103,39 +100,36 @@ const CountryCards = () => {
   });
 
   const nextSlide = () => {
-    if (isTransitioning) return;
+    if (isTransitioning || destinations.length === 0) return;
     setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % destinations.length);
-      setTimeout(() => setIsTransitioning(false), 200);
-    }, 200);
+    setCurrentIndex((prev) => (prev + 1) % destinations.length);
+    setTimeout(() => setIsTransitioning(false), 600);
   };
 
   const prevSlide = () => {
-    if (isTransitioning) return;
+    if (isTransitioning || destinations.length === 0) return;
     setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev - 1 + destinations.length) % destinations.length);
-      setTimeout(() => setIsTransitioning(false), 200);
-    }, 200);
+    setCurrentIndex((prev) => (prev - 1 + destinations.length) % destinations.length);
+    setTimeout(() => setIsTransitioning(false), 600);
   };
 
   const goToSlide = (index) => {
-    if (isTransitioning || index === currentIndex) return;
+    if (isTransitioning || index === currentIndex || destinations.length === 0) return;
     setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentIndex(index);
-      setTimeout(() => setIsTransitioning(false), 200);
-    }, 200);
+    setCurrentIndex(index);
+    setTimeout(() => setIsTransitioning(false), 600);
   };
 
   // Auto-play functionality
   useEffect(() => {
-    const interval = setInterval(nextSlide, 4000);
+    if (destinations.length === 0) return;
+    const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [destinations.length, isTransitioning]);
 
   const getVisibleItems = () => {
+    if (destinations.length === 0) return [];
+    
     const items = [];
     const totalItems = destinations.length;
     
@@ -152,8 +146,45 @@ const CountryCards = () => {
     return items;
   };
 
+  if (isLoading) {
+    return (
+      <div className="py-20" style={{ backgroundColor: '#f5f6f6' }}>
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Choose Your Study Destination
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Loading destinations...
+            </p>
+            <div className="flex justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!destinations || destinations.length === 0) {
+    return (
+      <div className="py-20" style={{ backgroundColor: '#f5f6f6' }}>
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Choose Your Study Destination
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              No destinations available at the moment.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="py-20" style={{ backgroundColor: '#f5f6f6' }}>
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -169,60 +200,64 @@ const CountryCards = () => {
         {/* Carousel Container */}
         <div className="relative max-w-6xl mx-auto">
           <div className="overflow-hidden">
-            <div className="flex items-center justify-center gap-4 py-8 relative">
+            <div className="flex items-center justify-center gap-6 py-8 relative">
               {getVisibleItems().map((destination, index) => {
                 const config = countryConfig[destination.name] || getDefaultConfig(destination.name);
                 const isCenter = destination.isCenter;
-                const position = destination.position; // -1 (left), 0 (center), 1 (right)
+                const position = destination.position;
+                
+                // Get features from database or fallback to config
+                const features = destination.why_study_points && Array.isArray(destination.why_study_points) 
+                  ? destination.why_study_points.slice(0, 3) 
+                  : config.features;
                 
                 return (
                   <div
                     key={`${destination.id}-${index}`}
-                    className={`transition-all duration-600 ease-out transform ${
+                    className={`transition-all duration-500 ease-out transform ${
                       isCenter 
-                        ? 'scale-100 opacity-100 z-10 translate-x-0' 
-                        : 'scale-75 opacity-40 z-0'
+                        ? 'scale-100 opacity-100 z-20' 
+                        : 'scale-85 opacity-60 z-10'
                     } ${
-                      isTransitioning 
-                        ? position === -1 
-                          ? 'translate-x-[-100px] opacity-20' 
-                          : position === 1 
-                          ? 'translate-x-[100px] opacity-20'
-                          : 'translate-x-0 opacity-60'
-                        : position === -1 
-                        ? 'translate-x-0' 
+                      position === -1 
+                        ? '-translate-x-4' 
                         : position === 1 
-                        ? 'translate-x-0'
+                        ? 'translate-x-4'
                         : 'translate-x-0'
-                    }`}
+                    } hover:scale-105 cursor-pointer`}
                     style={{
-                      flex: isCenter ? '0 0 400px' : '0 0 300px',
-                      cursor: isCenter ? 'default' : 'pointer'
+                      flex: '0 0 360px',
+                      filter: isCenter ? 'none' : 'brightness(0.9)',
                     }}
                     onClick={() => !isCenter && goToSlide(destinations.findIndex(d => d.id === destination.id))}
                   >
-                    <div className={`bg-white rounded-xl shadow-lg overflow-hidden h-96 transition-all duration-600 ${
-                      isCenter ? 'shadow-2xl transform hover:shadow-3xl' : 'shadow-md hover:shadow-lg transform hover:scale-80'
-                    } ${isTransitioning ? 'shadow-xl' : ''}`}>
+                    <div className={`bg-white rounded-2xl shadow-lg overflow-hidden h-[400px] transition-all duration-500 ease-out ${
+                      isCenter 
+                        ? 'shadow-2xl ring-2 ring-blue-100' 
+                        : 'shadow-md hover:shadow-xl'
+                    }`}>
                       {/* Header with gradient */}
                       <div className={`bg-gradient-to-r ${config.gradient} p-6 text-white relative overflow-hidden`}>
                         <div className="absolute inset-0 bg-black/10"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
                         <div className="relative z-10">
                           <div className="flex items-center gap-4 mb-3">
-                            <div className="text-4xl">
+                            <div className="text-4xl transform transition-transform duration-300 hover:scale-110">
                               {destination.flag_icon_url ? (
                                 <img 
                                   src={destination.flag_icon_url} 
                                   alt={`${destination.name} flag`}
-                                  className="w-12 h-8 object-cover rounded"
+                                  className="w-12 h-8 object-cover rounded shadow-md"
                                 />
                               ) : (
                                 config.flag
                               )}
                             </div>
-                            <div>
-                              <h3 className="text-xl font-bold">{destination.name}</h3>
-                              <p className="text-white/90 text-sm">{destination.description}</p>
+                            <div className="flex-1">
+                              <h3 className="text-xl font-bold mb-1">{destination.name}</h3>
+                              <p className="text-white/90 text-sm line-clamp-2 leading-relaxed">
+                                {destination.description || `Discover amazing opportunities to study in ${destination.name}`}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -231,39 +266,46 @@ const CountryCards = () => {
                       {/* Content */}
                       <div className="p-6">
                         {/* Key Features */}
-                        <div className="mb-4">
-                          <h4 className="font-semibold text-gray-900 mb-2">Key Benefits</h4>
-                          <ul className="space-y-1">
-                            {config.features.slice(0, 2).map((feature, featureIndex) => (
-                              <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></div>
-                                {feature}
+                        <div className="mb-6">
+                          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                            <GraduationCap className="w-4 h-4 text-blue-600" />
+                            Key Benefits
+                          </h4>
+                          <ul className="space-y-2">
+                            {features.slice(0, 2).map((feature, featureIndex) => (
+                              <li key={featureIndex} className="flex items-start text-sm text-gray-700">
+                                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                <span className="line-clamp-1 leading-relaxed">
+                                  {typeof feature === 'string' ? feature : feature.point || feature}
+                                </span>
                               </li>
                             ))}
                           </ul>
                         </div>
 
                         {/* Details */}
-                        <div className="space-y-2 mb-4">
-                          <div className="flex items-center text-sm text-gray-600">
-                            <DollarSign className="w-4 h-4 mr-2 text-green-600" />
-                            <span className="font-medium">Average Fee:</span>
-                            <span className="ml-1">{destination.average_fee || config.averageFee}</span>
+                        <div className="space-y-3 mb-6">
+                          <div className="flex items-center text-sm text-gray-700">
+                            <DollarSign className="w-4 h-4 mr-3 text-green-600 flex-shrink-0" />
+                            <span className="font-medium min-w-0">
+                              {destination.average_fee || config.averageFee}
+                            </span>
                           </div>
-                          <div className="flex items-center text-sm text-gray-600">
-                            <Clock className="w-4 h-4 mr-2 text-blue-600" />
-                            <span className="font-medium">Duration:</span>
-                            <span className="ml-1">{config.duration}</span>
+                          <div className="flex items-center text-sm text-gray-700">
+                            <Clock className="w-4 h-4 mr-3 text-blue-600 flex-shrink-0" />
+                            <span className="font-medium">{config.duration}</span>
                           </div>
                         </div>
 
                         {/* CTA Button */}
-                        {isCenter && (
-                          <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center gap-2">
-                            Explore {destination.name}
-                            <ArrowRight className="w-4 h-4" />
-                          </button>
-                        )}
+                        <button className={`w-full py-2.5 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium ${
+                          isCenter 
+                            ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}>
+                          {isCenter ? 'Explore' : 'View'} {destination.name}
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -276,7 +318,7 @@ const CountryCards = () => {
           <button
             onClick={prevSlide}
             disabled={isTransitioning}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-105 disabled:opacity-50"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -284,29 +326,30 @@ const CountryCards = () => {
           <button
             onClick={nextSlide}
             disabled={isTransitioning}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-105 disabled:opacity-50"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
         </div>
 
         {/* Dots Indicator */}
-        <div className="flex justify-center mt-8 space-x-2">
+        <div className="flex justify-center mt-8 space-x-3">
           {destinations.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-200 ${
+              disabled={isTransitioning}
+              className={`transition-all duration-300 disabled:cursor-not-allowed ${
                 index === currentIndex 
-                  ? 'bg-blue-600 scale-125' 
-                  : 'bg-gray-300 hover:bg-gray-400'
+                  ? 'w-8 h-3 bg-blue-600 rounded-full' 
+                  : 'w-3 h-3 bg-gray-300 rounded-full hover:bg-gray-400'
               }`}
             />
           ))}
         </div>
 
         {/* CTA Section */}
-         <div className="text-center mt-16">
+        <div className="text-center mt-16">
           <div className="bg-primary rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">
               Not sure which destination is right for you?

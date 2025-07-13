@@ -315,7 +315,7 @@ const CountryCards = () => {
           <button
             onClick={prevSlide}
             disabled={isTransitioning}
-            className="absolute -left-5 z-10 top-1/2 transform -translate-y-1/2 bg-white hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
+            className="absolute -left-5 z-10 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>

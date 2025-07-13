@@ -1,8 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
 import CounsellingBookingForm from '@/components/forms/CounsellingBookingForm';
 
 const CounsellingPopup = () => {
@@ -35,7 +33,6 @@ const CounsellingPopup = () => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
         <DialogHeader className="relative">
-  
           <DialogTitle className="text-center text-2xl font-bold text-primary pr-8">
             Don't Miss Out!
           </DialogTitle>

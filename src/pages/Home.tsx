@@ -1,4 +1,3 @@
-import React from "react";
 import Hero from "@/components/common/Hero";
 import CountryCards from "@/components/common/CountryCards";
 import WhyChooseUs from "@/components/common/WhyChooseUs";

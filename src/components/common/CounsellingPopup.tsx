@@ -29,22 +29,13 @@ const CounsellingPopup = () => {
     setIsOpen(false);
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
         <DialogHeader className="relative">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-0 top-0 h-6 w-6 p-0"
-            onClick={handleClose}
-          >
-            <X className="h-4 w-4" />
-          </Button>
+  
           <DialogTitle className="text-center text-2xl font-bold text-primary pr-8">
             Don't Miss Out!
           </DialogTitle>

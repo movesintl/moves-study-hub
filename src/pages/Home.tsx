@@ -19,7 +19,7 @@ const Home = () => {
       <Services />
 
       {/* Updated layout with better spacing and visual hierarchy */}
-      <div className ="bg-gradient-to-b from-gray-50 to-white">
+      <div className="bg-gradient-to-b from-gray-50 to-white">
         <LeadEnquiryForm />
       </div>
 
@@ -35,10 +35,9 @@ const Home = () => {
         <CountryCards />
       </div>
 
-     
-      <div className="bg-white">
-        <ServicesOverview />
-      </div>
+
+     {/* Removed Services Overview */}
+      {/* Removed CHoose us */}
 
       {/* Featured Universities Section */}
       <FeaturedUniversities />

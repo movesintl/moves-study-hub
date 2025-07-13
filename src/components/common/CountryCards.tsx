@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight, MapPin, DollarSign, Clock, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { Button } from '../ui/button';
+import { supabase } from '@/integrations/supabase/client';
 
-const SUPABASE_URL = "https://coadhiipbnnqlmslpzeu.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNvYWRoaWlwYm5ucWxtc2xwemV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyODczNDgsImV4cCI6MjA2NTg2MzM0OH0.P37hdEGhEbZ_AWU1IAdFihnw2yhWEkWfClidFVjDqI4";
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 const CountryCards = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -1,6 +1,5 @@
 import Hero from "@/components/common/Hero";
 import CountryCards from "@/components/common/CountryCards";
-import WhyChooseUs from "@/components/common/WhyChooseUs";
 import LeadEnquiryForm from "@/components/common/LeadEnquiryForm";
 import ServicesOverview from "@/components/common/ServicesOverview";
 import PopularCourses from "@/components/common/PopularCourses";
@@ -36,10 +35,7 @@ const Home = () => {
         <CountryCards />
       </div>
 
-      <div className="bg-gradient-to-br from-primary/5 via-gray-50 to-accent/5">
-        <WhyChooseUs />
-      </div>
-
+     
       <div className="bg-white">
         <ServicesOverview />
       </div>

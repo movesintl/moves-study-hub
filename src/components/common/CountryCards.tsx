@@ -212,16 +212,15 @@ const CountryCards = () => {
                 return (
                   <div
                     key={`${destination.id}-${index}`}
-                    className={`transition-all duration-500 ease-out transform ${
+                    className={`transition-all duration-500 ease-out transform mx-auto ${
                       isCenter 
                         ? 'scale-100 opacity-100 z-20' 
                         : 'scale-85 opacity-60 z-10'
-                    } ${
-                      position === -1 
-                        ? '-translate-x-4' 
-                        : position === 1 
-                        ? 'translate-x-4'
-                        : 'translate-x-0'
+                    } ${position === -1 
+                      ? '-translate-x-4' 
+                      : position === 1 
+                      ? 'translate-x-4'
+                      : 'translate-x-0'
                     } hover:scale-105 cursor-pointer`}
                     style={{
                       flex: '0 0 360px',
@@ -229,7 +228,7 @@ const CountryCards = () => {
                     }}
                     onClick={() => !isCenter && goToSlide(destinations.findIndex(d => d.id === destination.id))}
                   >
-                    <div className={`bg-white rounded-2xl shadow-lg overflow-hidden h-[400px] transition-all duration-500 ease-out ${
+                    <div className={`bg-white rounded-2xl shadow-lg overflow-hidden h-[400px] transition-all duration-500 ease-out mx-4 ${
                       isCenter 
                         ? 'shadow-2xl ring-2 ring-blue-100' 
                         : 'shadow-md hover:shadow-xl'
@@ -316,7 +315,7 @@ const CountryCards = () => {
           <button
             onClick={prevSlide}
             disabled={isTransitioning}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
+            className="absolute -left-5 z-10 top-1/2 transform -translate-y-1/2 bg-white hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -324,7 +323,7 @@ const CountryCards = () => {
           <button
             onClick={nextSlide}
             disabled={isTransitioning}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
+            className="absolute -right-5 z-10 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
           >
             <ChevronRight className="w-6 h-6" />
           </button>

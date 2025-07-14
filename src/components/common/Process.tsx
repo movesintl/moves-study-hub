@@ -1,9 +1,8 @@
-import bg from "@/../public/bg.svg";
 export default function Process() {
   return (
     <section
       style={{
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `url(https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/bg.svg)`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",

@@ -29,6 +29,7 @@ import Auth from '@/pages/Auth';
 import NotFound from '@/pages/NotFound';
 import Contact from '@/pages/Contact';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import Sitemap from '@/pages/Sitemap';
 import ContactSubmissions from '@/pages/admin/contact/ContactSubmissions';
 import PageView from '@/pages/PageView';
 
@@ -99,6 +100,7 @@ function App() {
                 <Route path="course-comparison" element={<CourseComparison />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="sitemap" element={<Sitemap />} />
                 <Route path="pages/:slug" element={<PageView />} />
               </Route>
               <Route path="/student-dashboard" element={<StudentDashboard />}>

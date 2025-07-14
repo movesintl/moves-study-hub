@@ -9,6 +9,15 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import StudentApplicationForm from '@/components/applications/StudentApplicationForm';
 
+interface Document {
+  id?: string;
+  name: string;
+  size: number;
+  type: string;
+  category: 'passport' | 'academic' | 'english' | 'other';
+  label?: string;
+}
+
 interface Application {
   id: string;
   student_name: string;
@@ -25,7 +34,7 @@ interface Application {
   courses?: { title: string; university: string };
   universities?: { name: string };
   destinations?: { name: string };
-  documents?: { name: string; size: number; type: string }[];
+  documents?: Document[];
 }
 
 const Applications = () => {
@@ -66,7 +75,10 @@ const Applications = () => {
       // Transform the data to match our Application interface
       return (data || []).map(app => ({
         ...app,
-        documents: (app.documents as unknown as { name: string; size: number; type: string }[]) || []
+        documents: ((app.documents as unknown as Document[]) || []).map(doc => ({
+          ...doc,
+          category: doc.category || 'other'
+        }))
       })) as Application[];
     },
     enabled: !!user?.id

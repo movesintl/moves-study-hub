@@ -6,6 +6,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Combobox } from '@/components/ui/combobox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { X, Upload, FileText } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -26,6 +29,16 @@ interface Destination {
   name: string;
 }
 
+interface Document {
+  id?: string;
+  name: string;
+  size: number;
+  type: string;
+  category: 'passport' | 'academic' | 'english' | 'other';
+  label?: string;
+  file?: File;
+}
+
 interface Application {
   id: string;
   student_name: string;
@@ -37,7 +50,7 @@ interface Application {
   course_id?: string;
   university_id?: string;
   destination_id?: string;
-  documents?: { name: string; size: number; type: string }[];
+  documents?: Document[];
 }
 
 interface StudentApplicationFormProps {
@@ -71,9 +84,11 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
   const [courses, setCourses] = useState<Course[]>([]);
   const [universities, setUniversities] = useState<University[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);
-  const [documents, setDocuments] = useState<{ name: string; size: number; type: string }[]>([]);
+  const [documents, setDocuments] = useState<Document[]>([]);
   const [loading, setLoading] = useState(false);
   const [courseSearchTerm, setCourseSearchTerm] = useState('');
+  const [currentCategory, setCurrentCategory] = useState<'passport' | 'academic' | 'english' | 'other'>('passport');
+  const [customLabel, setCustomLabel] = useState('');
 
   useEffect(() => {
     fetchCourses();
@@ -160,11 +175,38 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     const newDocuments = files.map(file => ({
+      id: Math.random().toString(36).substr(2, 9),
       name: file.name,
       size: file.size,
-      type: file.type
+      type: file.type,
+      category: currentCategory,
+      label: currentCategory === 'other' ? customLabel : getCategoryLabel(currentCategory),
+      file
     }));
     setDocuments(prev => [...prev, ...newDocuments]);
+    setCustomLabel('');
+    // Reset the file input
+    event.target.value = '';
+  };
+
+  const getCategoryLabel = (category: string) => {
+    switch (category) {
+      case 'passport': return 'Passport';
+      case 'academic': return 'Academic Document';
+      case 'english': return 'English Test (IELTS/PTE)';
+      case 'other': return 'Other Document';
+      default: return 'Document';
+    }
+  };
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'passport': return 'bg-blue-100 text-blue-800';
+      case 'academic': return 'bg-green-100 text-green-800';
+      case 'english': return 'bg-purple-100 text-purple-800';
+      case 'other': return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
   };
 
   const removeDocument = (index: number) => {
@@ -176,9 +218,19 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
     setLoading(true);
 
     try {
+      // Convert documents to JSON format for database storage
+      const documentsForDb = documents.map(doc => ({
+        id: doc.id,
+        name: doc.name,
+        size: doc.size,
+        type: doc.type,
+        category: doc.category,
+        label: doc.label
+      }));
+
       const applicationData = {
         ...formData,
-        documents: documents,
+        documents: documentsForDb,
       };
 
       if (editingApplication) {
@@ -345,31 +397,97 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
             </div>
           </div>
 
-          <div>
-            <Label htmlFor="documents">Upload Documents</Label>
-            <Input
-              id="documents"
-              type="file"
-              multiple
-              onChange={handleFileUpload}
-              className="mb-2"
-            />
-            {documents.length > 0 && (
-              <div className="space-y-2">
-                <p className="text-sm text-gray-600">Uploaded documents:</p>
-                {documents.map((doc, index) => (
-                  <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
-                    <span className="text-sm">{doc.name}</span>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => removeDocument(index)}
-                    >
-                      Remove
-                    </Button>
+          <div className="space-y-4">
+            <Label>Upload Documents</Label>
+            
+            {/* Document Upload Controls */}
+            <div className="border rounded-lg p-4 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="document_category">Document Category</Label>
+                  <Select value={currentCategory} onValueChange={(value: any) => setCurrentCategory(value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select document type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="passport">Passport</SelectItem>
+                      <SelectItem value="academic">Academic Documents</SelectItem>
+                      <SelectItem value="english">English Test (IELTS/PTE)</SelectItem>
+                      <SelectItem value="other">Other Documents</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {currentCategory === 'other' && (
+                  <div>
+                    <Label htmlFor="custom_label">Document Label</Label>
+                    <Input
+                      id="custom_label"
+                      value={customLabel}
+                      onChange={(e) => setCustomLabel(e.target.value)}
+                      placeholder="Enter document description"
+                    />
                   </div>
-                ))}
+                )}
+              </div>
+              
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                <Upload className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                <Label htmlFor="documents" className="cursor-pointer">
+                  <span className="text-sm text-gray-600">
+                    Click to upload {getCategoryLabel(currentCategory).toLowerCase()}
+                  </span>
+                  <Input
+                    id="documents"
+                    type="file"
+                    multiple={currentCategory === 'academic' || currentCategory === 'other'}
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    accept={currentCategory === 'passport' ? 'image/*,.pdf' : '*/*'}
+                  />
+                </Label>
+                <p className="text-xs text-gray-500 mt-1">
+                  {currentCategory === 'passport' && 'Upload passport photo or scan'}
+                  {currentCategory === 'academic' && 'Upload transcripts, certificates, etc. (multiple files allowed)'}
+                  {currentCategory === 'english' && 'Upload IELTS/PTE score report'}
+                  {currentCategory === 'other' && 'Upload any additional documents'}
+                </p>
+              </div>
+            </div>
+
+            {/* Uploaded Documents Display */}
+            {documents.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="font-medium text-sm">Uploaded Documents ({documents.length})</h4>
+                <div className="grid gap-3">
+                  {documents.map((doc, index) => (
+                    <div key={doc.id || index} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg border">
+                      <div className="flex items-center gap-3">
+                        <FileText className="h-4 w-4 text-gray-500" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium truncate">{doc.name}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Badge className={getCategoryColor(doc.category)}>
+                              {doc.label}
+                            </Badge>
+                            <span className="text-xs text-gray-500">
+                              {(doc.size / 1024 / 1024).toFixed(2)} MB
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeDocument(index)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>

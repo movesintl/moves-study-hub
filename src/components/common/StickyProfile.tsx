@@ -20,7 +20,7 @@ export default function StickyProfileComponent() {
             
             {/* Name and supporting text */}
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">E. Morsi</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Upendra Sir</h2>
               <p className="text-sm text-gray-500">Counselor</p>
             </div>
           </div>

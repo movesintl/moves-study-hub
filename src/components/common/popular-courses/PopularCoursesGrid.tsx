@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Heart, MapPin, Clock, DollarSign, Calendar, GraduationCap, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -37,16 +36,6 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
   savedCourseIds = new Set(),
   onSaveToggle 
 }) => {
-  const formatTuitionFee = (min?: number, max?: number, currency: string = 'AUD') => {
-    const formatNumber = (num: number) => new Intl.NumberFormat().format(num);
-    if (!min && !max) return 'Fee information not available';
-    if (min && max && min !== max) {
-      return `${currency} ${formatNumber(min)} - ${formatNumber(max)}`;
-    }
-    const fee = min || max;
-    return `${currency} ${fee ? formatNumber(fee) : 'N/A'}`;
-  };
-
   const formatDuration = (months: number) => {
     if (months === 12) return '1 year';
     if (months % 12 === 0) return `${months / 12} years`;
@@ -54,95 +43,131 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
   };
 
   const handleApplyNow = (courseId: string) => {
-    // For now, just redirect to course details
     onViewDetails(courseId);
   };
 
   return (
-    <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {courses.map((course) => (
-        <Card key={course.id} className="group hover:shadow-2xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-2 relative overflow-hidden bg-white/80 backdrop-blur-sm">
-          {/* Featured Badge */}
-          {course.featured && (
-            <div className="absolute top-4 right-4 z-10">
-              <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold shadow-lg">
-                ✨ Featured
-              </Badge>
-            </div>
-          )}
-          
-          {/* Save Button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className={`absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm hover:bg-white shadow-md rounded-full h-10 w-10 p-0 ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
-            onClick={() => onSaveToggle?.(course.id)}
-          >
-            <Heart className={`h-5 w-5 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
-          </Button>
-
-          {/* Course Image */}
-          <div className="h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5 flex items-center justify-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100"></div>
-            <GraduationCap className="h-16 w-16 text-primary/60 relative z-10" />
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent/20 to-transparent rounded-full transform translate-x-16 -translate-y-16"></div>
-          </div>
-          
-          <CardHeader className="pb-4">
-            <CardTitle className="text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">
-              {course.title}
-            </CardTitle>
-            <div className="flex items-center text-gray-600 mt-2">
-              <MapPin className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
-              <span className="font-medium truncate">{course.university}</span>
-              <span className="mx-2 text-gray-400">•</span>
-              <span className="text-gray-500">{course.country}</span>
-            </div>
-          </CardHeader>
-          
-          <CardContent className="space-y-5">
-            {course.description && (
-              <p className="text-gray-600 line-clamp-2 leading-relaxed">{course.description}</p>
+        <Card key={course.id} className="group relative overflow-hidden bg-white border-0 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 rounded-3xl">
+          {/* Image Section */}
+          <div className="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
+            {course.image_url || course.thumbnail_url ? (
+              <img 
+                src={course.image_url || course.thumbnail_url} 
+                alt={course.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 flex items-center justify-center">
+                <GraduationCap className="h-16 w-16 text-slate-400" />
+              </div>
             )}
             
+            {/* Overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            {/* Featured Badge */}
+            {course.featured && (
+              <div className="absolute top-3 left-3 z-20">
+                <Badge className="bg-gradient-to-r from-amber-400 to-orange-500 text-white font-semibold shadow-lg px-3 py-1.5 rounded-full text-xs">
+                  ✨ Featured
+                </Badge>
+              </div>
+            )}
+            
+            {/* Save Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`absolute top-3 right-3 z-20 bg-white/90 backdrop-blur-sm hover:bg-white shadow-md rounded-full h-9 w-9 p-0 border-0 transition-all duration-300 hover:scale-110 ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
+              onClick={() => onSaveToggle?.(course.id)}
+            >
+              <Heart className={`h-4 w-4 transition-all duration-300 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
+            </Button>
+
+            {/* Country Badge */}
+            <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
+              <span className="text-gray-700 text-xs font-medium">{course.country}</span>
+            </div>
+          </div>
+          
+          {/* Content Section */}
+          <div className="p-5 space-y-4">
+            {/* Title and University */}
+            <div className="space-y-2">
+              <h3 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight group-hover:text-primary transition-colors duration-300">
+                {course.title}
+              </h3>
+              <div className="flex items-center text-gray-600">
+                <MapPin className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                <span className="text-sm font-medium truncate">{course.university}</span>
+              </div>
+            </div>
+            
+            {/* Description */}
+            {course.description && (
+              <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+                {course.description}
+              </p>
+            )}
+            
+            {/* Badges */}
             <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="font-medium bg-primary/5 text-primary border-primary/20">
+              <Badge variant="outline" className="text-xs font-medium bg-blue-50 text-blue-700 border-blue-200 px-2.5 py-0.5">
                 {course.level}
               </Badge>
-              <Badge variant="outline" className="font-medium bg-accent/5 text-accent border-accent/20">
+              <Badge variant="outline" className="text-xs font-medium bg-purple-50 text-orange-700 border-purple-200 px-2.5 py-0.5">
                 {course.study_area}
               </Badge>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-              <div className="flex items-center p-2 bg-gray-50 rounded-lg">
-                <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                <span className="font-medium">{formatDuration(course.duration_months)}</span>
+            {/* Course Details */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center">
+                  <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                  <span className="text-sm font-medium text-gray-700">Duration</span>
+                </div>
+                <span className="text-sm font-semibold text-gray-900">{formatDuration(course.duration_months)}</span>
               </div>
+              
               {course.intake_dates && course.intake_dates.length > 0 && (
-                <div className="flex items-center p-2 bg-gray-50 rounded-lg">
-                  <Calendar className="h-4 w-4 mr-2 text-gray-500" />
-                  <span className="truncate">Intakes: {course.intake_dates.join(', ')}</span>
+                <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center">
+                    <Calendar className="h-4 w-4 mr-2 text-gray-500" />
+                    <span className="text-sm font-medium text-gray-700">Intakes</span>
+                  </div>
+                  <span className="text-sm font-semibold text-gray-900 truncate ml-2">
+                    {course.intake_dates.join(', ')}
+                  </span>
                 </div>
               )}
             </div>
 
-            <div className="bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 p-4 rounded-xl border border-primary/10">
+            {/* Tuition Fee */}
+            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-xl border border-indigo-100">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm text-gray-600 font-medium">Tuition Fee</div>
+                  <div className="text-xs text-gray-600 font-medium mb-1">Tuition Fee</div>
                   <div className="font-bold text-lg text-primary">
-                    {course.tuition_fee && course.currency && `${course.currency} ${course.tuition_fee.toLocaleString()}`}
+                    {course.tuition_fee && course.currency 
+                      ? `${course.currency} ${course.tuition_fee.toLocaleString()}` 
+                      : 'Contact for fee'
+                    }
                   </div>
                 </div>
-                <DollarSign className="h-8 w-8 text-primary/40" />
+                <div className="bg-indigo-100 p-2.5 rounded-full">
+                  <DollarSign className="h-5 w-5 text-primary" />
+                </div>
               </div>
             </div>
 
+            {/* Action Buttons */}
             <div className="flex gap-3 pt-2">
               <Button 
                 variant="outline" 
-                className="flex-1 h-11 font-semibold border-2 hover:bg-orange-500 hover:border-0 border-primary text-primary  hover:text-white transition-all duration-100"
+                className="flex-1 h-11 font-semibold border-2 hover:bg-orange-500 hover:border-0 border-primary text-primary hover:text-white transition-all duration-100"
                 onClick={() => onViewDetails(course.id)}
               >
                 <Eye className="h-4 w-4 mr-2" />
@@ -150,12 +175,12 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
               </Button>
               <Button 
                 onClick={() => handleApplyNow(course.id)}
-                className="flex-1  from-primary hover:bg-orange-500  text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
+                className="flex-1 from-primary hover:bg-orange-500 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Apply Now
               </Button>
             </div>
-          </CardContent>
+          </div>
         </Card>
       ))}
     </div>

@@ -8,6 +8,7 @@ import Testimonials from "@/components/common/Testimonials";
 import CounsellingPopup from "@/components/common/CounsellingPopup";
 import Services from "@/components/common/Services";
 import Process from "@/components/common/Process";
+import Webstories from "@/components/common/Webstories";
 
 const Home = () => {
   return (
@@ -35,6 +36,10 @@ const Home = () => {
         <CountryCards />
       </div>
 
+      {/* Web stories */}
+      <div className="bg-white">
+        <Webstories />
+      </div>
 
      {/* Removed Services Overview */}
       {/* Removed CHoose us */}

@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Users, Award, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useCounsellingBookingForm } from "@/hooks/useCounsellingBookingForm";
 import { PersonalInfoSection } from "@/components/forms/counselling/PersonalInfoSection";
 import { StudyPreferencesSection } from "@/components/forms/counselling/StudyPreferencesSection";
 import { SchedulingSection } from "@/components/forms/counselling/SchedulingSection";
+import { supabase } from "@/integrations/supabase/client";
 
 const LeadEnquiryForm = () => {
   const {
@@ -16,6 +18,32 @@ const LeadEnquiryForm = () => {
     handleInputChange,
     handleSubmit,
   } = useCounsellingBookingForm();
+
+  const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('services')
+          .select('id, title, icon_url')
+          .limit(5);
+
+        if (error) {
+          console.error('Error fetching services:', error);
+        } else {
+          setServices(data || []);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   return (
     <section className="bg-gradient-to-br from-gray-50 to-white py-20 min-h-screen">
@@ -147,22 +175,39 @@ const LeadEnquiryForm = () => {
 
         {/* Right Column */}
         <div className="flex flex-col space-y-6">
-          {[...Array(5)].map((_, idx) => (
-            <div
-              key={idx}
-              className="shadow-[0_1.5px_3px_rgba(0,0,0,0.1)] rounded-md overflow-hidden"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&h=600"
-                alt="Student consulting"
-                className="rounded-t-xl shadow-xl w-full object-cover"
-              />
-              <div className="flex items-center font-bold justify-between p-5 bg-white">
-                <p>Professional Year Admission</p>
-                <ChevronRight />
+          {isLoading ? (
+            // Loading skeleton
+            [...Array(5)].map((_, idx) => (
+              <div
+                key={idx}
+                className="shadow-[0_1.5px_3px_rgba(0,0,0,0.1)] rounded-md overflow-hidden animate-pulse"
+              >
+                <div className="w-full h-48 bg-gray-300 rounded-t-xl"></div>
+                <div className="flex items-center justify-between p-5 bg-white">
+                  <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                  <ChevronRight className="text-gray-300" />
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            // Actual services data
+            services.map((service) => (
+              <div
+                key={service.id}
+                className="shadow-[0_1.5px_3px_rgba(0,0,0,0.1)] rounded-md overflow-hidden"
+              >
+                <img
+                  src={service.icon_url}
+                  alt={service.title}
+                  className="rounded-t-xl shadow-xl w-full h-48 object-cover"
+                />
+                <div className="flex items-center font-bold justify-between p-5 bg-white">
+                  <p>{service.title}</p>
+                  <ChevronRight />
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </section>

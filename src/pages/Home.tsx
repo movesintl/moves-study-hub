@@ -8,6 +8,10 @@ import Testimonials from "@/components/common/Testimonials";
 import CounsellingPopup from "@/components/common/CounsellingPopup";
 import Services from "@/components/common/Services";
 import Process from "@/components/common/Process";
+import Webstories from "@/components/common/Webstories";
+import BlogsHomePage from "@/components/common/BlogsHomePage";
+import HighQuality from "@/components/common/HighQuality";
+import StickyProfileComponent from "@/components/common/StickyProfile";
 
 const Home = () => {
   return (
@@ -35,6 +39,10 @@ const Home = () => {
         <CountryCards />
       </div>
 
+      {/* Web stories */}
+      <div className="bg-white">
+        <Webstories />
+      </div>
 
      {/* Removed Services Overview */}
       {/* Removed CHoose us */}
@@ -42,9 +50,16 @@ const Home = () => {
       {/* Featured Universities Section */}
       <FeaturedUniversities />
 
+      {/* Services Overview Section */}
+      <StickyProfileComponent/>
+        <HighQuality />
+
       <div className="bg-gradient-to-b from-gray-50 to-primary/5">
         <Testimonials />
       </div>
+
+      {/* Blogs */}
+      <BlogsHomePage/>
 
       {/* Counselling Popup */}
       <CounsellingPopup />

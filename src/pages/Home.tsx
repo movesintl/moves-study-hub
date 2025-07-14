@@ -9,6 +9,7 @@ import CounsellingPopup from "@/components/common/CounsellingPopup";
 import Services from "@/components/common/Services";
 import Process from "@/components/common/Process";
 import Webstories from "@/components/common/Webstories";
+import BlogsHomePage from "@/components/common/BlogsHomePage";
 
 const Home = () => {
   return (
@@ -50,6 +51,9 @@ const Home = () => {
       <div className="bg-gradient-to-b from-gray-50 to-primary/5">
         <Testimonials />
       </div>
+
+      {/* Blogs */}
+      <BlogsHomePage/>
 
       {/* Counselling Popup */}
       <CounsellingPopup />

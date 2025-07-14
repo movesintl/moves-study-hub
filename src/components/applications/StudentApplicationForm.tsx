@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { X, Upload, FileText } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import type { Application, Document } from '@/types/applications';
 
 interface Course {
   id: string;
@@ -27,30 +28,6 @@ interface University {
 interface Destination {
   id: string;
   name: string;
-}
-
-interface Document {
-  id?: string;
-  name: string;
-  size: number;
-  type: string;
-  category: 'passport' | 'academic' | 'english' | 'other';
-  label?: string;
-  file?: File;
-}
-
-interface Application {
-  id: string;
-  student_name: string;
-  student_email: string;
-  student_phone: string;
-  date_of_birth?: string;
-  nationality?: string;
-  address?: string;
-  course_id?: string;
-  university_id?: string;
-  destination_id?: string;
-  documents?: Document[];
 }
 
 interface StudentApplicationFormProps {

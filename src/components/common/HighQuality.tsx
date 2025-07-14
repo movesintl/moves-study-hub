@@ -44,62 +44,66 @@ const HighQuality = () => {
 
   return (
     <div className="relative bg-white overflow-hidden">
-      {/* Left rotated rectangle */}
-      <div 
-        className="absolute hidden lg:block w-[186px] h-[55px] left-[-22px] top-[88px]"
-        style={{
-          background: 'linear-gradient(90.02deg, #E57039 3.15%, #F8D7C7 105.66%)',
-          transform: 'rotate(-18.78deg)'
-        }}
-      />
-      
-      {/* Right rotated rectangle */}
-      <div 
-        className="absolute hidden lg:block w-[186px] h-[55px] right-[100px] top-[114px]"
-        style={{
-          background: 'linear-gradient(90.02deg, #E57039 3.15%, #F8D7C7 105.66%)',
-          transform: 'rotate(157.57deg)'
-        }}
-      />
+      {/* Enhanced gradient background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute w-full h-full" style={{
+          backgroundImage: `
+            radial-gradient(ellipse at 20% 30%, rgba(255, 152, 0, 0.15) 0%, transparent 60%),
+            radial-gradient(ellipse at 80% 70%, rgba(255, 152, 0, 0.15) 0%, transparent 60%)
+          `,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '600px 600px',
+          opacity: 0.8
+        }} />
+      </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Title and description */}
-          <div className="space-y-6">
-            <div className="text-sm text-black ml-4 font-medium bg-gray-200 rounded-full px-4 py-1 inline-block mb-4">
+          <div className="space-y-6 relative">
+            {/* Small decorative element near the title */}
+            <div className="absolute -left-4 top-0 w-16 h-16 opacity-10" style={{
+              background: 'radial-gradient(circle, rgba(255,152,0,1) 0%, rgba(255,152,0,0) 70%)'
+            }} />
+            
+            <div className="text-sm text-black ml-4 font-medium bg-gray-200 rounded-full px-4 py-1 inline-block mb-4 relative z-10">
               Rated 4.9 Stars
             </div>
             
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight relative z-10">
               High Quality &<br />
               Prestigious Brands
             </h2>
             
-            <p className="text-gray-600 text-lg leading-relaxed max-w-md">
+            <p className="text-gray-600 text-lg leading-relaxed max-w-md relative z-10">
               Acclaimed services combined with a large 
               experience and fast performance.
             </p>
             
-            <button className="text-blue-600 hover:text-blue-800 font-medium underline underline-offset-4">
+            <button className="text-blue-600 hover:text-blue-800 font-medium underline underline-offset-4 relative z-10">
               View all reviews
             </button>
           </div>
           
           {/* Right side - Testimonials 2x2 layout */}
-          <div className="space-y-6">
+          <div className="space-y-6 relative">
+            {/* Decorative dot pattern for testimonials */}
+            <div className="absolute -right-4 -bottom-4 w-32 h-32 opacity-5" style={{
+              backgroundImage: 'radial-gradient(circle, rgba(255,152,0,0.8) 1px, transparent 1px)',
+              backgroundSize: '10px 10px'
+            }} />
+            
             {/* Top row - 2 testimonials */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
               {testimonials.slice(0, 2).map((testimonial, index) => (
                 <div 
                   key={index}
                   className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
                 >
                   <StarRating rating={testimonial.rating} />
-                  
                   <p className="text-gray-700 text-sm mb-4 leading-relaxed">
                     {testimonial.text}
                   </p>
-                  
                   <div className="border-t pt-4">
                     <h4 className="font-semibold text-gray-900 text-sm">
                       {testimonial.name}
@@ -113,18 +117,16 @@ const HighQuality = () => {
             </div>
             
             {/* Bottom row - 2 testimonials */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
               {testimonials.slice(2, 4).map((testimonial, index) => (
                 <div 
                   key={index + 2}
                   className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
                 >
                   <StarRating rating={testimonial.rating} />
-                  
                   <p className="text-gray-700 text-sm mb-4 leading-relaxed">
                     {testimonial.text}
                   </p>
-                  
                   <div className="border-t pt-4">
                     <h4 className="font-semibold text-gray-900 text-sm">
                       {testimonial.name}
@@ -140,8 +142,8 @@ const HighQuality = () => {
         </div>
         
         {/* View All button */}
-        <div className="flex justify-center mt-12">
-          <button className="bg-gray-900 text-white px-8 py-3 rounded-md hover:bg-gray-800 transition-colors font-medium">
+        <div className="flex justify-center mt-12 relative z-10">
+          <button className="bg-primary text-white px-8 py-3 rounded-md hover:bg-orange-500 transition-colors font-medium">
             View All
           </button>
         </div>

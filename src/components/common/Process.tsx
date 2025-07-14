@@ -9,7 +9,7 @@ export default function Process() {
       }}
       className=" py-16 px-4 md:px-6 lg:px-8 relative overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 mb-12">
         {/* Header */}
         <div className="text-center mb-8 pt-0 lg:pt-24">
           <p className="text-gray-500 text-sm font-medium uppercase tracking-wide mb-2">

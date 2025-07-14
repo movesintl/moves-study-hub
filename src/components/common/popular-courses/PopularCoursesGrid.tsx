@@ -142,7 +142,7 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
             <div className="flex gap-3 pt-2">
               <Button 
                 variant="outline" 
-                className="flex-1 h-11 font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                className="flex-1 h-11 font-semibold border-2 hover:bg-orange-500 hover:border-0 border-primary text-primary  hover:text-white transition-all duration-100"
                 onClick={() => onViewDetails(course.id)}
               >
                 <Eye className="h-4 w-4 mr-2" />
@@ -150,7 +150,7 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
               </Button>
               <Button 
                 onClick={() => handleApplyNow(course.id)}
-                className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
+                className="flex-1  from-primary hover:bg-orange-500  text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Apply Now
               </Button>

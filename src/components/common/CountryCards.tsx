@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, MapPin, DollarSign, Clock, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
 import { Button } from '../ui/button';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -130,7 +129,7 @@ const CountryCards = () => {
 
   if (isLoading) {
     return (
-      <div className="py-20" style={{ backgroundColor: '#f5f6f6' }}>
+      <div className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -150,7 +149,7 @@ const CountryCards = () => {
 
   if (!destinations || destinations.length === 0) {
     return (
-      <div className="py-20" style={{ backgroundColor: '#f5f6f6' }}>
+      <div className="py-20" >
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -166,7 +165,7 @@ const CountryCards = () => {
   }
 
   return (
-    <div className="py-20" style={{ backgroundColor: '#f5f6f6' }}>
+    <div className="py-20">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">

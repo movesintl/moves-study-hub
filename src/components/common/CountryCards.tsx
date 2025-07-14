@@ -4,13 +4,12 @@ import { createClient } from '@supabase/supabase-js';
 import { Button } from '../ui/button';
 import { supabase } from '@/integrations/supabase/client';
 
-
-
 const CountryCards = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [destinations, setDestinations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isHovering, setIsHovering] = useState(false);
 
   // Fetch destinations from Supabase
   useEffect(() => {
@@ -99,49 +98,34 @@ const CountryCards = () => {
 
   const nextSlide = () => {
     if (isTransitioning || destinations.length === 0) return;
-    setIsTransitioning(true);
     setCurrentIndex((prev) => (prev + 1) % destinations.length);
-    setTimeout(() => setIsTransitioning(false), 600);
   };
 
   const prevSlide = () => {
     if (isTransitioning || destinations.length === 0) return;
-    setIsTransitioning(true);
     setCurrentIndex((prev) => (prev - 1 + destinations.length) % destinations.length);
-    setTimeout(() => setIsTransitioning(false), 600);
   };
 
   const goToSlide = (index) => {
     if (isTransitioning || index === currentIndex || destinations.length === 0) return;
-    setIsTransitioning(true);
     setCurrentIndex(index);
-    setTimeout(() => setIsTransitioning(false), 600);
   };
 
-  // Auto-play functionality
+  // Auto-play functionality (similar to Projects component)
   useEffect(() => {
-    if (destinations.length === 0) return;
-    const interval = setInterval(nextSlide, 6000);
+    if (destinations.length === 0 || isHovering) return;
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % destinations.length);
+    }, 4000);
     return () => clearInterval(interval);
-  }, [destinations.length, isTransitioning]);
+  }, [destinations.length, isHovering]);
 
-  const getVisibleItems = () => {
-    if (destinations.length === 0) return [];
-    
-    const items = [];
-    const totalItems = destinations.length;
-    
-    // Show 3 items: previous, current, next
-    for (let i = -1; i <= 1; i++) {
-      const index = (currentIndex + i + totalItems) % totalItems;
-      items.push({
-        ...destinations[index],
-        position: i,
-        isCenter: i === 0
-      });
-    }
-    
-    return items;
+  // Animation class function similar to Projects component
+  const getCardAnimationClass = (index) => {
+    if (index === currentIndex) return "scale-100 opacity-100 z-20";
+    if (index === (currentIndex + 1) % destinations.length) return "translate-x-[40%] scale-95 opacity-60 z-10";
+    if (index === (currentIndex - 1 + destinations.length) % destinations.length) return "translate-x-[-40%] scale-95 opacity-60 z-10";
+    return "scale-90 opacity-0";
   };
 
   if (isLoading) {
@@ -195,14 +179,16 @@ const CountryCards = () => {
           </p>
         </div>
 
-        {/* Carousel Container */}
+        {/* Carousel Container - Similar to Projects component */}
         <div className="relative max-w-6xl mx-auto">
-          <div className="overflow-hidden">
-            <div className="flex items-center justify-center gap-6 py-8 relative">
-              {getVisibleItems().map((destination, index) => {
+          <div 
+            className="relative h-[450px] overflow-hidden" 
+            onMouseEnter={() => setIsHovering(true)} 
+            onMouseLeave={() => setIsHovering(false)}
+          >
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              {destinations.map((destination, index) => {
                 const config = countryConfig[destination.name] || getDefaultConfig(destination.name);
-                const isCenter = destination.isCenter;
-                const position = destination.position;
                 
                 // Get features from database or fallback to config
                 const features = destination.why_study_points && Array.isArray(destination.why_study_points) 
@@ -210,29 +196,12 @@ const CountryCards = () => {
                   : config.features;
                 
                 return (
-                  <div
-                    key={`${destination.id}-${index}`}
-                    className={`transition-all duration-500 ease-out transform mx-auto ${
-                      isCenter 
-                        ? 'scale-100 opacity-100 z-20' 
-                        : 'scale-85 opacity-60 z-10'
-                    } ${position === -1 
-                      ? '-translate-x-4' 
-                      : position === 1 
-                      ? 'translate-x-4'
-                      : 'translate-x-0'
-                    } hover:scale-105 cursor-pointer`}
-                    style={{
-                      flex: '0 0 360px',
-                      filter: isCenter ? 'none' : 'brightness(0.9)',
-                    }}
-                    onClick={() => !isCenter && goToSlide(destinations.findIndex(d => d.id === destination.id))}
+                  <div 
+                    key={destination.id} 
+                    className={`absolute top-0 w-full max-w-md transform transition-all duration-500 ${getCardAnimationClass(index)}`} 
+                    style={{ transitionDelay: `${index * 50}ms` }}
                   >
-                    <div className={`bg-white rounded-2xl shadow-lg overflow-hidden h-[400px] transition-all duration-500 ease-out mx-4 ${
-                      isCenter 
-                        ? 'shadow-2xl ring-2 ring-blue-100' 
-                        : 'shadow-md hover:shadow-xl'
-                    }`}>
+                    <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-[400px] w-[400px] mx-auto border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                       {/* Header with gradient */}
                       <div className={`bg-gradient-to-r ${config.gradient} p-6 text-white relative overflow-hidden`}>
                         <div className="absolute inset-0 bg-black/10"></div>
@@ -261,9 +230,9 @@ const CountryCards = () => {
                       </div>
 
                       {/* Content */}
-                      <div className="p-6">
+                      <div className="p-6 flex flex-col flex-grow">
                         {/* Key Features */}
-                        <div className="mb-6">
+                        <div className="mb-4">
                           <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                             <GraduationCap className="w-4 h-4 text-blue-600" />
                             Key Benefits
@@ -295,54 +264,48 @@ const CountryCards = () => {
                         </div>
 
                         {/* CTA Button */}
-                        <button className={`w-full py-2.5 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium ${
-                          isCenter 
-                            ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5' 
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}>
-                          {isCenter ? 'Explore' : 'View'} {destination.name}
-                          <ArrowRight className="w-4 h-4" />
-                        </button>
+                        <div className="mt-auto">
+                          <button className="w-full bg-blue-600 text-white py-2.5 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium hover:bg-blue-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 group">
+                            <span>Explore {destination.name}</span>
+                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 );
               })}
             </div>
-          </div>
-
-          {/* Navigation Buttons */}
-          <button
-            onClick={prevSlide}
-            disabled={isTransitioning}
-            className="absolute -left-5 z-10 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          
-          <button
-            onClick={nextSlide}
-            disabled={isTransitioning}
-            className="absolute -right-5 z-10 top-1/2 transform -translate-y-1/2 bg-white/95 hover:bg-white text-gray-700 p-3 rounded-full shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-        </div>
-
-        {/* Dots Indicator */}
-        <div className="flex justify-center mt-8 space-x-3">
-          {destinations.map((_, index) => (
+            
+            {/* Navigation Buttons - Similar to Projects component */}
             <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              disabled={isTransitioning}
-              className={`transition-all duration-300 disabled:cursor-not-allowed ${
-                index === currentIndex 
-                  ? 'w-8 h-3 bg-blue-600 rounded-full' 
-                  : 'w-3 h-3 bg-gray-300 rounded-full hover:bg-gray-400'
-              }`}
-            />
-          ))}
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all duration-300 hover:scale-110"
+              aria-label="Previous destination"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all duration-300 hover:scale-110"
+              aria-label="Next destination"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+            
+            {/* Dots Indicator */}
+            <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
+              {destinations.map((_, idx) => (
+                <button 
+                  key={idx} 
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-gray-500 w-5' : 'bg-gray-200 hover:bg-gray-300'}`} 
+                  onClick={() => goToSlide(idx)}
+                  aria-label={`Go to destination ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* CTA Section */}

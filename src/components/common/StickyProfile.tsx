@@ -8,7 +8,7 @@ export default function StickyProfileComponent() {
       <div className="sticky top-16 z-40 bg-white max-w-7xl  mx-auto border-b-1 h-20 rounded-lg shadow-md  border-gray-200 px-4 py-3">
         <div className="flex items-center justify-between mx-12 ">
           {/* Left side - Profile info */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 ">
             {/* Profile Image */}
             <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300">
               <img 
@@ -20,13 +20,13 @@ export default function StickyProfileComponent() {
             
             {/* Name and supporting text */}
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">Upendra Sir</h2>
+              <h2 className="text-sm md:text-lg font-semibold text-gray-900">Upendra Sir</h2>
               <p className="text-sm text-gray-500">Counselor</p>
             </div>
           </div>
 
           {/* Right side - Phone button */}
-          <button className="flex items-center space-x-2 bg-orange-100 hover:bg-orange-200 text-orange-600 px-4 py-2 rounded-lg transition-colors">
+          <button className="flex items-center space-x-1 md:space-x-2 bg-orange-100 hover:bg-orange-200 text-orange-600 px-4 py-2 rounded-lg transition-colors">
             <Phone size={18} />
             <span className="font-medium">+61 402 830 739</span>
           </button>

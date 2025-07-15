@@ -83,8 +83,9 @@ export const CourseResults = ({
         courses={courses}
         viewMode={viewMode}
         savedCourseIds={savedCourseIds}
-        onSaveToggle={onSaveToggle}
-      />
+        onSaveToggle={onSaveToggle} onViewDetails={function (courseId: string): void {
+          throw new Error('Function not implemented.');
+        } }      />
 
       {/* Pagination */}
       <CoursePagination 

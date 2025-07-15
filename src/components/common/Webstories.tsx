@@ -76,7 +76,7 @@ const Webstories = () => {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setItemsPerView(1);
+        setItemsPerView(2);
       } else if (width < 768) {
         setItemsPerView(2);
       } else if (width < 1024) {
@@ -115,7 +115,7 @@ const Webstories = () => {
   const cardWidth = `${100 / itemsPerView}%`;
 
   return (
-    <div className="w-full mx-auto px-4 py-8 max-w-7xl">
+    <div className="w-full mx-auto px-4 py-8 max-w-12xl">
       <div className="text-center mb-6">
         <h2 className="text-4xl font-bold text-gray-800">Web Stories</h2>
         <p className="text-gray-600 mt-2">Explore Visual Stories</p>

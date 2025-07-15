@@ -54,6 +54,7 @@ const LeadEnquiryForm = () => {
           <div>
             <h2 className="text-3xl font-bold text-gray-900">
               Moves International can help you
+              
             </h2>
             <p className="text-gray-600 mt-2">
               Enter your details and one of our expert counsellors will reach

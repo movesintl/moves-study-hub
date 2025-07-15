@@ -28,6 +28,8 @@ interface Course {
   eligibility?: string;
   requirements?: string;
   image_url?: string;
+  slug?: string;
+  university_logo_url?: string;
 }
 
 const PopularCourses = () => {
@@ -69,13 +71,25 @@ const PopularCourses = () => {
     try {
       const { data, error } = await supabase
         .from('courses')
-        .select('*')
+        .select(`
+          *,
+          universities:university_id (
+            logo_url
+          )
+        `)
         .eq('featured', true)
         .limit(6)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setCourses(data || []);
+      
+      // Transform data to include university logo
+      const coursesWithLogos = data?.map(course => ({
+        ...course,
+        university_logo_url: course.universities?.logo_url
+      })) || [];
+      
+      setCourses(coursesWithLogos);
     } catch (error) {
       console.error('Error fetching popular courses:', error);
       toast({
@@ -88,8 +102,12 @@ const PopularCourses = () => {
     }
   };
 
-  const handleViewDetails = (courseId: string) => {
-    navigate(`/courses/${courseId}`);
+  const handleViewDetails = (courseSlug: string) => {
+    navigate(`/courses/${courseSlug}`);
+  };
+
+  const handleApplyNow = () => {
+    navigate('/student-dashboard/applications');
   };
 
   const handleViewAllCourses = () => {
@@ -171,6 +189,7 @@ const PopularCourses = () => {
           <PopularCoursesGrid 
             courses={courses} 
             onViewDetails={handleViewDetails}
+            onApplyNow={handleApplyNow}
             savedCourseIds={savedCourseIds}
             onSaveToggle={handleSaveToggle}
           />

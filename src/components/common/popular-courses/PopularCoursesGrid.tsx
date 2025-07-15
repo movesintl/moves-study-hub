@@ -1,5 +1,5 @@
-import React from 'react';
-import { Heart, MapPin, Clock, DollarSign, Calendar, GraduationCap, Eye } from 'lucide-react';
+import React, { useState } from 'react';
+import { Heart, MapPin, Clock, DollarSign, Calendar, GraduationCap, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -21,11 +21,14 @@ interface Course {
   eligibility?: string;
   requirements?: string;
   image_url?: string;
+  slug?: string;
+  university_logo_url?: string;
 }
 
 interface PopularCoursesGridProps {
   courses: Course[];
-  onViewDetails: (courseId: string) => void;
+  onViewDetails: (courseSlug: string) => void;
+  onApplyNow: () => void;
   savedCourseIds?: Set<string>;
   onSaveToggle?: (courseId: string) => void;
 }
@@ -33,17 +36,27 @@ interface PopularCoursesGridProps {
 const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
   courses,
   onViewDetails,
+  onApplyNow,
   savedCourseIds = new Set(),
   onSaveToggle
 }) => {
+  const [expandedFees, setExpandedFees] = useState<Set<string>>(new Set());
   const formatDuration = (months: number) => {
     if (months === 12) return '1 year';
     if (months % 12 === 0) return `${months / 12} years`;
     return `${months} months`;
   };
 
-  const handleApplyNow = (courseId: string) => {
-    onViewDetails(courseId);
+  const toggleFeeExpansion = (courseId: string) => {
+    setExpandedFees(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(courseId)) {
+        newSet.delete(courseId);
+      } else {
+        newSet.add(courseId);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -73,8 +86,17 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
 
             {/* Badge */}
             <div className="absolute flex items-center gap-4 drop-shadow-sm top-3 mt-5 left-0  bg-white/95 rounded-lg pl-4 pr-20 py-2 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="alt university" 
-              className='w-8 h-8 rounded-full' />
+              {course.university_logo_url ? (
+                <img 
+                  src={course.university_logo_url} 
+                  alt={`${course.university} logo`}
+                  className='w-8 h-8 rounded-full object-cover' 
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                  <GraduationCap className="h-4 w-4 text-gray-500" />
+                </div>
+              )}
               <span className="text-gray-700 text-xs font-medium">{course.country}</span>
             </div>
 
@@ -145,14 +167,35 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
             {/* Tuition Fee */}
             <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-xl border border-indigo-100">
               <div className="flex items-center justify-between">
-                <div>
+                <div className="flex-1">
                   <div className="text-xs text-gray-600 font-medium mb-1">Tuition Fee</div>
-                  <div className="font-bold text-lg text-primary">
-                    {course.tuition_fee && course.currency
-                      ? `${course.currency} ${course.tuition_fee.toLocaleString()}`
-                      : 'Contact for fee'
-                    }
-                  </div>
+                  {!expandedFees.has(course.id) ? (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-auto p-0 font-bold text-lg text-primary hover:bg-transparent"
+                      onClick={() => toggleFeeExpansion(course.id)}
+                    >
+                      View More <ChevronDown className="h-4 w-4 ml-1" />
+                    </Button>
+                  ) : (
+                    <div className="space-y-2">
+                      <div className="font-bold text-lg text-primary">
+                        {course.tuition_fee && course.currency
+                          ? `${course.currency} ${course.tuition_fee.toLocaleString()}`
+                          : 'Contact for fee'
+                        }
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-auto p-0 text-xs text-gray-500 hover:bg-transparent"
+                        onClick={() => toggleFeeExpansion(course.id)}
+                      >
+                        Show Less <ChevronUp className="h-4 w-4 ml-1" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
                 <div className="bg-indigo-100 p-2.5 rounded-full">
                   <DollarSign className="h-5 w-5 text-primary" />
@@ -165,13 +208,13 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
               <Button
                 variant="outline"
                 className="flex-1 h-11 font-semibold border-2 hover:bg-orange-500 hover:border-0 border-primary text-primary hover:text-white transition-all duration-100"
-                onClick={() => onViewDetails(course.id)}
+                onClick={() => onViewDetails(course.slug || course.id)}
               >
                 <Eye className="h-4 w-4 mr-2" />
                 View Details
               </Button>
               <Button
-                onClick={() => handleApplyNow(course.id)}
+                onClick={onApplyNow}
                 className="flex-1 from-primary hover:bg-orange-500 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Apply Now

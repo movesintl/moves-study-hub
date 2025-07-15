@@ -66,6 +66,7 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
   const [courseSearchTerm, setCourseSearchTerm] = useState('');
   const [currentCategory, setCurrentCategory] = useState<'passport' | 'academic' | 'english' | 'other'>('passport');
   const [customLabel, setCustomLabel] = useState('');
+  const [academicLabel, setAcademicLabel] = useState('');
 
   useEffect(() => {
     fetchCourses();
@@ -151,17 +152,41 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
+    
+    // Check if academic category has a label
+    if (currentCategory === 'academic' && !academicLabel.trim()) {
+      toast({
+        title: "Academic Document Label Required",
+        description: "Please provide a label for the academic document.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Check if other category has a label
+    if (currentCategory === 'other' && !customLabel.trim()) {
+      toast({
+        title: "Document Label Required",
+        description: "Please provide a label for the document.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const newDocuments = files.map(file => ({
       id: Math.random().toString(36).substr(2, 9),
       name: file.name,
       size: file.size,
       type: file.type,
       category: currentCategory,
-      label: currentCategory === 'other' ? customLabel : getCategoryLabel(currentCategory),
+      label: currentCategory === 'academic' ? academicLabel : 
+             currentCategory === 'other' ? customLabel : 
+             getCategoryLabel(currentCategory),
       file
     }));
     setDocuments(prev => [...prev, ...newDocuments]);
     setCustomLabel('');
+    setAcademicLabel('');
     // Reset the file input
     event.target.value = '';
   };
@@ -205,8 +230,19 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
         label: doc.label
       }));
 
-      const applicationData = {
+      // Clean up form data - convert empty strings to null for UUID fields
+      const cleanFormData = {
         ...formData,
+        course_id: formData.course_id || null,
+        university_id: formData.university_id || null,
+        destination_id: formData.destination_id || null,
+        date_of_birth: formData.date_of_birth || null,
+        nationality: formData.nationality || null,
+        address: formData.address || null,
+      };
+
+      const applicationData = {
+        ...cleanFormData,
         documents: documentsForDb,
       };
 
@@ -395,14 +431,28 @@ const StudentApplicationForm: React.FC<StudentApplicationFormProps> = ({
                   </Select>
                 </div>
                 
+                {currentCategory === 'academic' && (
+                  <div>
+                    <Label htmlFor="academic_label">Academic Document Label *</Label>
+                    <Input
+                      id="academic_label"
+                      value={academicLabel}
+                      onChange={(e) => setAcademicLabel(e.target.value)}
+                      placeholder="e.g., Degree Certificate, Transcript, etc."
+                      required
+                    />
+                  </div>
+                )}
+                
                 {currentCategory === 'other' && (
                   <div>
-                    <Label htmlFor="custom_label">Document Label</Label>
+                    <Label htmlFor="custom_label">Document Label *</Label>
                     <Input
                       id="custom_label"
                       value={customLabel}
                       onChange={(e) => setCustomLabel(e.target.value)}
                       placeholder="Enter document description"
+                      required
                     />
                   </div>
                 )}

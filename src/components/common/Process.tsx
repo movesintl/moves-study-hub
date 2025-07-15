@@ -1,5 +1,8 @@
 export default function Process() {
   return (
+    <>
+
+
     <section
       style={{
         backgroundImage: `url(https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/bg.svg)`,
@@ -7,9 +10,9 @@ export default function Process() {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
-      className=" py-16 px-4 md:px-6 lg:px-8 relative overflow-hidden"
+      className="py-40 px-4 md:px-6 lg:px-8 relative"
     >
-      <div className="max-w-6xl mx-auto relative z-10 mb-12">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-8 pt-0 lg:pt-24">
           <p className="text-gray-500 text-sm font-medium uppercase tracking-wide mb-2">
@@ -141,5 +144,7 @@ export default function Process() {
         </div>
       </div>
     </section>
+
+        </>
   );
 }

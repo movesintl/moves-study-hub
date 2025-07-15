@@ -52,10 +52,22 @@ const Webstories = () => {
       title: "Success Stories",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
       category: "Success"
-    }
+    },
+    {
+      id: 9,
+      title: "Success Stories",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
+      category: "Success"
+    },
+    {
+      id: 10,
+      title: "Success Stories",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
+      category: "Success"
+    },
   ];
 
-  const itemsPerView = 4;
+  const itemsPerView = 8;
   const maxIndex = stories.length - itemsPerView;
 
   useEffect(() => {
@@ -70,44 +82,16 @@ const Webstories = () => {
     return () => clearInterval(interval);
   }, [maxIndex]);
 
-  const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex <= 0) {
-        return maxIndex;
-      }
-      return prevIndex - 1;
-    });
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex >= maxIndex) {
-        return 0;
-      }
-      return prevIndex + 1;
-    });
-  };
+  
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-8">
+    <div className="w-full mx-auto px-4 py-8">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">Web Stories</h2>
         <p className="text-gray-600 mt-2">Explore Visual Stories</p>
       </div>
 
       <div className="relative overflow-hidden">
-        <button
-          onClick={handlePrevious}
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors z-10"
-        >
-          <ChevronLeft className="w-5 h-5 text-gray-600" />
-        </button>
-        <button
-          onClick={handleNext}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors z-10"
-        >
-          <ChevronRight className="w-5 h-5 text-gray-600" />
-        </button>
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{

@@ -4,7 +4,6 @@ import LeadEnquiryForm from "@/components/common/LeadEnquiryForm";
 import ServicesOverview from "@/components/common/ServicesOverview";
 import PopularCourses from "@/components/common/PopularCourses";
 import FeaturedUniversities from "@/components/common/FeaturedUniversities";
-import Testimonials from "@/components/common/Testimonials";
 import CounsellingPopup from "@/components/common/CounsellingPopup";
 import Services from "@/components/common/Services";
 import Process from "@/components/common/Process";
@@ -12,6 +11,7 @@ import Webstories from "@/components/common/Webstories";
 import BlogsHomePage from "@/components/common/BlogsHomePage";
 import HighQuality from "@/components/common/HighQuality";
 import StickyProfileComponent from "@/components/common/StickyProfile";
+import ThreeCardLayout from "@/components/common/ThreeCardLayout";
 
 const Home = () => {
   return (
@@ -34,6 +34,7 @@ const Home = () => {
 
       {/* Process */}
       <Process />
+      {/* <ThreeCardLayout/> */}
 
       <div className="bg-white">
         <CountryCards />
@@ -51,15 +52,14 @@ const Home = () => {
       <FeaturedUniversities />
 
       {/* Services Overview Section */}
+
       <StickyProfileComponent/>
         <HighQuality />
-
-      <div className="bg-gradient-to-b from-gray-50 to-primary/5">
-        <Testimonials />
-      </div>
+        {/* <Testimonials /> */}
 
       {/* Blogs */}
       <BlogsHomePage/>
+
 
       {/* Counselling Popup */}
       <CounsellingPopup />

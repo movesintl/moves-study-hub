@@ -5,7 +5,7 @@ export default function StickyProfileComponent() {
   return (
     <>
       {/* Sticky Profile Component */}
-      <div className="sticky top-16 z-40 bg-white mx-16 border-b-1 h-20 rounded-lg shadow-md  border-gray-200 px-4 py-3">
+      <div className="sticky top-16 z-40 bg-white max-w-7xl  mx-auto border-b-1 h-20 rounded-lg shadow-md  border-gray-200 px-4 py-3">
         <div className="flex items-center justify-between mx-12 ">
           {/* Left side - Profile info */}
           <div className="flex items-center space-x-3">

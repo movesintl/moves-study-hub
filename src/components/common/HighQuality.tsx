@@ -44,18 +44,7 @@ const HighQuality = () => {
 
   return (
     <div className="relative bg-white overflow-hidden">
-      {/* Enhanced gradient background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-full h-full" style={{
-          backgroundImage: `
-            radial-gradient(ellipse at 20% 30%, rgba(255, 152, 0, 0.15) 0%, transparent 60%),
-            radial-gradient(ellipse at 80% 70%, rgba(255, 152, 0, 0.15) 0%, transparent 60%)
-          `,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '600px 600px',
-          opacity: 0.8
-        }} />
-      </div>
+    
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

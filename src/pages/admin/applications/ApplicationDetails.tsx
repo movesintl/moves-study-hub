@@ -202,19 +202,56 @@ const ApplicationDetails = ({ applicationId, onBack, onStatusUpdate }: Applicati
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <FileText className="h-5 w-5 mr-2" />
-                  Uploaded Documents
+                  Uploaded Documents ({application.documents.length})
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {application.documents.map((doc: any, index: number) => (
-                    <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
-                      <FileText className="h-5 w-5 mr-3 text-gray-500" />
-                      <div>
-                        <p className="font-medium">{doc.name}</p>
-                        <p className="text-sm text-gray-500">
-                          {doc.type} • {Math.round(doc.size / 1024)} KB
-                        </p>
+                    <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border">
+                      <div className="flex items-center">
+                        <FileText className="h-5 w-5 mr-3 text-gray-500" />
+                        <div>
+                          <p className="font-medium">{doc.name}</p>
+                          <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <span>{doc.category?.toUpperCase()}</span>
+                            {doc.label && (
+                              <>
+                                <span>•</span>
+                                <span className="font-medium text-gray-700">{doc.label}</span>
+                              </>
+                            )}
+                            <span>•</span>
+                            <span>{doc.type}</span>
+                            <span>•</span>
+                            <span>{Math.round(doc.size / 1024)} KB</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        {doc.type?.startsWith('image/') && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => window.open(doc.url || '#', '_blank')}
+                          >
+                            Preview
+                          </Button>
+                        )}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = doc.url || '#';
+                            link.download = doc.name;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                          }}
+                        >
+                          Download
+                        </Button>
                       </div>
                     </div>
                   ))}

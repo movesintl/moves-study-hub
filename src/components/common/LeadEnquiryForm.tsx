@@ -47,7 +47,7 @@ const LeadEnquiryForm = () => {
 
   return (
     <section className="bg-gradient-to-br from-gray-50 to-white py-20 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[60%_40%] gap-12 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-12 relative">
         {/* Left Column */}
         <div className="space-y-6 lg:sticky lg:top-[-35px] lg:self-start">
           {/* Header Text */}

@@ -1,28 +1,31 @@
 import React from 'react';
-import { Star } from 'lucide-react';
+import { ShieldCheck, Star } from 'lucide-react';
 
 const HighQuality = () => {
+
+  const cointainer = "ml-auto mr-auto w-full max-w-[1330px] px-5 sm:px-10 lg:px-20";
+
   const testimonials = [
     {
-      name: "Fatjon Rella",
+      name: "Faizan Rafiq",
       role: "Student",
-      text: "Great experience with the team and specially Disha that I am really thankful to the team for guida...",
+      text: "Great experience with the team and Specially Disha didi. I am really thankful to the team for guidin...",
       rating: 5
     },
     {
-      name: "Simran Gandhi",
-      role: "Student", 
+      name: "Simran Kamboj",
+      role: "Student",
       text: "I am so grateful that I went to study international for my TR. They were very active and helpful th...",
       rating: 5
     },
     {
-      name: "Encekshi Husma",
+      name: "Emdadul Hoque",
       role: "Student",
       text: "I can't say enough good things about AEC Student Consultancy! As a high school senior navigating the...",
       rating: 5
     },
     {
-      name: "Ali Ahmad Gandhi",
+      name: "Ali Ahmad Qureshi",
       role: "Student",
       text: "Had a very good counselling session with their agent which provided me with a detailed insight on th...",
       rating: 5
@@ -31,11 +34,11 @@ const HighQuality = () => {
 
   const StarRating = ({ rating }) => {
     return (
-      <div className="flex gap-1 mb-2">
+      <div className="flex items-center gap-2 bg-[#FFF6E8] px-2 py-2 rounded-md">
         {[...Array(5)].map((_, i) => (
           <Star
             key={i}
-            className={`w-4 h-4 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
+            className={`w-4 h-4 ${i < rating ? 'fill-orange-400 text-orange-400' : 'text-gray-300 '} `}
           />
         ))}
       </div>
@@ -43,101 +46,100 @@ const HighQuality = () => {
   };
 
   return (
-    <div className="relative bg-white overflow-hidden">
-    
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section
+      className="relative bg-no-repeat bg-[left_top_30%] bg-contain py-16"
+      style={{
+        backgroundImage: `url('https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/general/quality-bg-img-.png')`
+      }}
+    >
+
+      <div className={cointainer}>
+        <div className="grid lg:grid-cols-[400px_1fr] items-center gap-5 lg:gap-[40px]">
           {/* Left side - Title and description */}
-          <div className="space-y-6 relative">
-            {/* Small decorative element near the title */}
-            <div className="absolute -left-4 top-0 w-16 h-16 opacity-10" style={{
-              background: 'radial-gradient(circle, rgba(255,152,0,1) 0%, rgba(255,152,0,0) 70%)'
-            }} />
-            
-            <div className="text-sm text-black ml-4 font-medium bg-gray-200 rounded-full px-4 py-1 inline-block mb-4 relative z-10">
-              Rated 4.9 Stars
-            </div>
-            
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight relative z-10">
+          <div className="flex flex-col lg:gap-[20px] p-5 lg:p-[30px] bg-white">
+            <span className="bg-gray-50 self-start inline-block  px-4 py-[6px] rounded-full text-sm text-primary mb-0">
+              Rated 4.0 Stars
+            </span>
+
+
+
+            <h2 className="text-3xl ml-4 lg:text-4xl  font-bold text-gray-900 leading-tight">
               High Quality &<br />
               Prestigious Brands
             </h2>
-            
-            <p className="text-gray-600 text-lg leading-relaxed max-w-md relative z-10">
-              Acclaimed services combined with a large 
+
+            <p className="text-gray-700 ml-4 text-lg leading-relaxed max-w-md">
+              Advanced services combined with a large
               experience and fast performance.
             </p>
-            
-            <button className="text-blue-600 hover:text-blue-800 font-medium underline underline-offset-4 relative z-10">
+
+            <button className="text-primary ml-4 hover:text-orange-600 font-light text-sm flex items-center gap-1  group">
+              <span className="w-6 h-6 rounded-full flex items-center justify-center mr-0 ">
+                <ShieldCheck className="w-4 h-4 text-orange-500 mb-0.5 mr-0" />
+              </span>
               View all reviews
             </button>
           </div>
-          
+
           {/* Right side - Testimonials 2x2 layout */}
-          <div className="space-y-6 relative">
-            {/* Decorative dot pattern for testimonials */}
-            <div className="absolute -right-4 -bottom-4 w-32 h-32 opacity-5" style={{
-              backgroundImage: 'radial-gradient(circle, rgba(255,152,0,0.8) 1px, transparent 1px)',
-              backgroundSize: '10px 10px'
-            }} />
-            
+          <div className="space-y-4 ">
             {/* Top row - 2 testimonials */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {testimonials.slice(0, 2).map((testimonial, index) => (
-                <div 
+                <div
                   key={index}
-                  className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  className="flex flex-col gap-[15px]  items-center p-5 lg:p-9 shadow-[0_1px_5px_0_rgba(0,0,0,0.05)] rounded-md border border-[#F3F3F3] bg-white "
                 >
-                  <StarRating rating={testimonial.rating} />
                   <p className="text-gray-700 text-sm mb-4 leading-relaxed">
                     {testimonial.text}
                   </p>
-                  <div className="border-t pt-4">
-                    <h4 className="font-semibold text-gray-900 text-sm">
+                  <StarRating  rating={testimonial.rating} />
+                  <div className="border-t pt-3 flex flex-col items-center">
+                    <h4 className="font-semibold text-primary text-base">
                       {testimonial.name}
                     </h4>
-                    <p className="text-gray-500 text-xs">
+                    <p className="text-primary text-base">
                       {testimonial.role}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
-            
+
             {/* Bottom row - 2 testimonials */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {testimonials.slice(2, 4).map((testimonial, index) => (
-                <div 
+                <div
                   key={index + 2}
-                  className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  className="flex flex-col gap-[15px]  items-center p-5 lg:p-9 shadow-[0_1px_5px_0_rgba(0,0,0,0.05)] rounded-md border border-[#F3F3F3] bg-white "
                 >
-                  <StarRating rating={testimonial.rating} />
                   <p className="text-gray-700 text-sm mb-4 leading-relaxed">
                     {testimonial.text}
                   </p>
-                  <div className="border-t pt-4">
-                    <h4 className="font-semibold text-gray-900 text-sm">
+                  <StarRating  rating={testimonial.rating} />
+                  <div className="border-t pt-3 flex flex-col items-center">
+                    <h4 className="font-semibold text-primary text-base">
                       {testimonial.name}
                     </h4>
-                    <p className="text-gray-500 text-xs">
+                    <p className="text-primary text-base">
                       {testimonial.role}
                     </p>
                   </div>
                 </div>
               ))}
+            </div>
+            {/* View All button */}
+            <div className="flex justify-center mt-12 relative z-10">
+              <button className="bg-primary text-white px-8 py-3 rounded-md hover:bg-orange-500 transition-colors font-medium">
+                View All
+              </button>
             </div>
           </div>
         </div>
-        
-        {/* View All button */}
-        <div className="flex justify-center mt-12 relative z-10">
-          <button className="bg-primary text-white px-8 py-3 rounded-md hover:bg-orange-500 transition-colors font-medium">
-            View All
-          </button>
-        </div>
+
+
       </div>
-    </div>
+    </section>
   );
 };
 

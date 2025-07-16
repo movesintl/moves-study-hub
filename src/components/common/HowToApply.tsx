@@ -9,6 +9,10 @@ export default function HowToApply() {
       icon: Search,
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600",
+      button: {
+        label: "Browse Courses",
+        href: "/courses",
+      },
       illustration: (
         <div className="relative">
           <div className="w-12 h-8 bg-white rounded-md border-2 border-gray-200 relative">
@@ -27,6 +31,10 @@ export default function HowToApply() {
       icon: Filter,
       bgColor: "bg-green-50",
       iconColor: "text-green-600",
+        button: {
+    label: "Browse Courses",
+    href: "/courses",
+  },
       illustration: (
         <div className="relative">
           <div className="space-y-1">
@@ -45,6 +53,10 @@ export default function HowToApply() {
       icon: Heart,
       bgColor: "bg-pink-50",
       iconColor: "text-pink-600",
+        button: {
+    label: "Browse Courses",
+    href: "/courses",
+  },
       illustration: (
         <div className="relative">
           <div className="flex space-x-1">
@@ -62,6 +74,10 @@ export default function HowToApply() {
       icon: MessageCircle,
       bgColor: "bg-orange-50",
       iconColor: "text-orange-600",
+        button: {
+    label: "Book Consultation",
+    href: "/services/consultation",
+  },
       illustration: (
         <div className="relative">
           <div className="w-10 h-6 bg-orange-200 rounded-full relative">
@@ -120,9 +136,18 @@ export default function HowToApply() {
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
                   {step.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   {step.description}
                 </p>
+
+                {step.button && (
+                  <a
+                    href={step.button.href}
+                    className={`inline-block border ${step.iconColor} ${step.iconColor} text-sm px-4 py-2 rounded-md hover:bg-opacity-10 transition-colors`}
+                  >
+                    {step.button.label}
+                  </a>
+                )}
 
                 {/* Decorative Elements */}
                 <div className="absolute top-2 left-2 w-1 h-1 bg-white/30 rounded-full"></div>
@@ -131,25 +156,6 @@ export default function HowToApply() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">Ready to start your journey?</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="/courses"
-              className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-            >
-              Browse Courses
-            </a>
-            <a
-              href="/student-dashboard/counselling"
-              className="text-primary border border-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors"
-            >
-              Book Counselling
-            </a>
-          </div>
         </div>
       </div>
     </section>

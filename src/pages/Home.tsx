@@ -7,6 +7,7 @@ import FeaturedUniversities from "@/components/common/FeaturedUniversities";
 import CounsellingPopup from "@/components/common/CounsellingPopup";
 import Services from "@/components/common/Services";
 import Process from "@/components/common/Process";
+import HowToApply from "@/components/common/HowToApply";
 import Webstories from "@/components/common/Webstories";
 import BlogsHomePage from "@/components/common/BlogsHomePage";
 import HighQuality from "@/components/common/HighQuality";
@@ -31,6 +32,9 @@ const Home = () => {
       <div className="bg-gradient-to-b from-white to-gray-50">
         <PopularCourses />
       </div>
+
+      {/* How to Apply - New 4-step section */}
+      <HowToApply />
 
       {/* Process */}
       <Process />

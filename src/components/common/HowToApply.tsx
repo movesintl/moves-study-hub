@@ -1,99 +1,157 @@
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { FileText, User, MessageCircle, ArrowRight } from 'lucide-react';
+import { Search, Filter, Heart, MessageCircle } from "lucide-react";
 
-const HowToApply = () => {
+export default function HowToApply() {
   const steps = [
     {
-      number: 1,
-      icon: <FileText className="h-8 w-8" />,
-      title: "Compare & Shortlist Your Desired Course",
-      description: "Browse through our extensive course catalog and compare different programs to find the perfect match for your academic goals."
+      id: 1,
+      title: "Browse Courses",
+      description: "Explore hundreds of courses and top universities across Australia.",
+      icon: Search,
+      bgColor: "bg-blue-50",
+      iconColor: "text-blue-600",
+      illustration: (
+        <div className="relative">
+          <div className="w-12 h-8 bg-white rounded-md border-2 border-gray-200 relative">
+            <div className="w-full h-4 bg-gradient-to-r from-blue-100 to-blue-200 rounded-t-sm"></div>
+            <div className="absolute top-5 left-2 w-8 h-1 bg-gray-300 rounded"></div>
+            <div className="absolute top-6 left-2 w-6 h-1 bg-gray-200 rounded"></div>
+          </div>
+          <Search className="absolute -top-1 -right-1 w-4 h-4 text-blue-600" />
+        </div>
+      )
     },
     {
-      number: 2, 
-      icon: <User className="h-8 w-8" />,
-      title: "Create Profile, Upload Documents & Apply",
-      description: "Set up your profile, upload required documents, and submit your application with our streamlined application process."
+      id: 2,
+      title: "Use Smart Filters",
+      description: "Apply filters to narrow down the perfect course that fits your goals.",
+      icon: Filter,
+      bgColor: "bg-green-50",
+      iconColor: "text-green-600",
+      illustration: (
+        <div className="relative">
+          <div className="space-y-1">
+            <div className="w-10 h-2 bg-green-200 rounded"></div>
+            <div className="w-8 h-2 bg-green-300 rounded"></div>
+            <div className="w-6 h-2 bg-green-400 rounded"></div>
+          </div>
+          <Filter className="absolute -top-1 -right-2 w-4 h-4 text-green-600" />
+        </div>
+      )
     },
     {
-      number: 3,
-      icon: <MessageCircle className="h-8 w-8" />,
-      title: "Track Your Applications Status Easily",
-      description: "Monitor your application progress in real-time and stay updated with notifications throughout the process."
+      id: 3,
+      title: "Save & Compare",
+      description: "Shortlist your favorite courses and compare them side by side.",
+      icon: Heart,
+      bgColor: "bg-pink-50",
+      iconColor: "text-pink-600",
+      illustration: (
+        <div className="relative">
+          <div className="flex space-x-1">
+            <div className="w-4 h-6 bg-pink-200 rounded"></div>
+            <div className="w-4 h-6 bg-pink-300 rounded"></div>
+          </div>
+          <Heart className="absolute -top-1 -right-1 w-4 h-4 text-pink-600 fill-current" />
+        </div>
+      )
+    },
+    {
+      id: 4,
+      title: "Apply or Get Counselling",
+      description: "Apply directly or book a free session with our expert education counsellors.",
+      icon: MessageCircle,
+      bgColor: "bg-orange-50",
+      iconColor: "text-orange-600",
+      illustration: (
+        <div className="relative">
+          <div className="w-10 h-6 bg-orange-200 rounded-full relative">
+            <div className="absolute top-1 left-2 w-6 h-4 bg-white rounded-full"></div>
+            <div className="absolute top-2 left-3 w-4 h-2 bg-orange-400 rounded"></div>
+          </div>
+          <MessageCircle className="absolute -top-1 -right-1 w-4 h-4 text-orange-600" />
+        </div>
+      )
     }
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-600 to-amber-700 rounded-2xl mb-6">
-            <FileText className="h-8 w-8 text-white" />
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            How <span className="text-accent">To</span> Apply
+    <section className="py-16 px-4 md:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <p className="text-gray-500 text-sm font-medium uppercase tracking-wide mb-2">
+            GET STARTED
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            How It Works
           </h2>
-          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Applying to your dream university is easy. Follow the below steps and get in touch with one of our counsellors to assist you in processing your application.
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Find your perfect course in just 4 simple steps
           </p>
         </div>
 
-        {/* Steps Container */}
-        <div className="relative max-w-6xl mx-auto">
-          {/* Progress Line */}
-          <div className="hidden md:block absolute top-20 left-0 right-0 h-0.5 bg-gray-200">
-            <div className="h-full w-2/3 bg-gradient-to-r from-accent to-amber-600"></div>
-          </div>
+        {/* Steps Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step, index) => (
+            <div
+              key={step.id}
+              className="relative group"
+            >
+              {/* Connection Line - Hidden on mobile */}
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-20 left-full w-6 h-px bg-gray-200 z-0"></div>
+              )}
+              
+              {/* Card */}
+              <div className={`${step.bgColor} rounded-2xl p-6 text-center relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 z-10`}>
+                {/* Step Number */}
+                <div className="absolute top-4 right-4 w-6 h-6 bg-white rounded-full flex items-center justify-center text-xs font-bold text-gray-600 shadow-sm">
+                  {step.id}
+                </div>
 
-          {/* Steps Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {steps.map((step, index) => (
-              <div key={index} className="relative">
-                {/* Step Number Circle */}
-                <div className="flex justify-center mb-8">
-                  <div className="relative z-10 flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full text-white font-bold text-xl shadow-lg">
-                    {step.number}
+                {/* Illustration */}
+                <div className="mb-6 flex justify-center">
+                  <div className="w-20 h-20 rounded-full bg-white/50 flex items-center justify-center relative">
+                    {step.illustration}
                   </div>
                 </div>
 
-                {/* Step Card */}
-                <Card className="bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-8 text-center">
-                    {/* Icon */}
-                    <div className="flex justify-center mb-6">
-                      <div className="flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full">
-                        <div className="text-gray-600">
-                          {step.icon}
-                        </div>
-                      </div>
-                    </div>
+                {/* Content */}
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {step.description}
+                </p>
 
-                    {/* Arrow indicator between cards */}
-                    {index < steps.length - 1 && (
-                      <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-20">
-                        <ArrowRight className="h-6 w-6 text-accent" />
-                      </div>
-                    )}
-                    
-                    {/* Content */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 leading-tight">
-                      {step.title}
-                    </h3>
-                    
-                    <p className="text-gray-600 leading-relaxed">
-                      {step.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                {/* Decorative Elements */}
+                <div className="absolute top-2 left-2 w-1 h-1 bg-white/30 rounded-full"></div>
+                <div className="absolute bottom-3 left-3 w-2 h-2 bg-white/20 rounded-full"></div>
+                <div className="absolute top-8 right-8 w-1.5 h-1.5 bg-white/25 rounded-full"></div>
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-12">
+          <p className="text-gray-600 mb-4">Ready to start your journey?</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="/courses"
+              className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            >
+              Browse Courses
+            </a>
+            <a
+              href="/student-dashboard/counselling"
+              className="text-primary border border-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+            >
+              Book Counselling
+            </a>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default HowToApply;
+}

@@ -66,17 +66,12 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
         <Card key={course.id} className="group relative overflow-hidden bg-white border-0 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 rounded-3xl">
           {/* Image Section */}
           <div className="relative h-12 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
-            {course.image_url || course.thumbnail_url ? (
               <img
-                src={course.image_url || course.thumbnail_url}
+                src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/placeholder_image.svg"
                 alt={course.title}
-                className="w-full h-1 object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-16 object-cover transition-transform duration-700 group-hover:scale-105"
               />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 flex items-center justify-center">
-                <GraduationCap className="h-16 w-16 text-slate-400" />
-              </div>
-            )}
+        
 
             {/* Overlay gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -86,7 +81,7 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
           <div className="p-5 space-y-4">
 
             {/* Badge */}
-            <div className="absolute flex items-center gap-4 drop-shadow-sm top-3 mt-5 left-0  bg-white/95 rounded-lg p-6 py-2 shadow-sm">
+            <div className="absolute flex items-center gap-4 drop-shadow-sm top-3 mt-5 left-0  bg-white rounded-lg p-6 py-2 shadow-sm">
               {course.university_logo_url ? (
                 <img
                   src={course.university_logo_url}
@@ -171,7 +166,7 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-auto p-0 font-bold text-lg text-orange-600 hover:text-orange-600 hover:bg-transparent"
+                className="h-auto p-0 font-medium text-sm text-orange-600 hover:text-orange-600 hover:bg-transparent"
                 onClick={() => toggleFeeExpansion(course.id)}
               >
                 View More <ChevronDown className="h-4 w-4 ml-1" />
@@ -209,7 +204,7 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
             <div className="flex gap-3 pt-2">
               <Button
                 variant="outline"
-                className="flex-1 h-11 font-semibold border-2 hover:bg-orange-500 hover:border-0 border-primary text-primary hover:text-white transition-all duration-100"
+                className="flex-1 h-11 font-semibold border-2 hover:bg-orange-500 hover:border-2 border-orange-500 text-orange-500 hover:text-white transition-all duration-100"
                 onClick={() => onViewDetails(course.slug || '')}
               >
                 View Details

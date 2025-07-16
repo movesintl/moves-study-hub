@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, MapPin, Clock, DollarSign, Calendar, GraduationCap, Eye, ChevronDown, ChevronUp } from 'lucide-react';
+import { Heart, MapPin, Clock, DollarSign, Calendar, GraduationCap, Eye, ChevronDown, ChevronUp, CircleDot, University } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -86,19 +86,19 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
           <div className="p-5 space-y-4">
 
             {/* Badge */}
-            <div className="absolute flex items-center gap-4 drop-shadow-sm top-3 mt-5 left-0  bg-white/95 rounded-lg pl-4 pr-20 py-2 shadow-sm">
+            <div className="absolute flex items-center gap-4 drop-shadow-sm top-3 mt-5 left-0  bg-white/95 rounded-lg p-6 py-2 shadow-sm">
               {course.university_logo_url ? (
                 <img
                   src={course.university_logo_url}
                   alt={`${course.university} logo`}
-                  className='w-8 h-8 rounded-full object-cover'
+                  className='w-full h-8 object-cover'
                 />
               ) : (
                 <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
                   <GraduationCap className="h-4 w-4 text-gray-500" />
                 </div>
               )}
-              <span className="text-gray-700 text-xs font-medium">{course.country}</span>
+              
             </div>
 
             {/* Save Button */}
@@ -117,8 +117,11 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
                 {course.title}
               </h3>
               <div className="flex items-center text-gray-600">
-                <MapPin className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                <University className="h-3.5 mb-1 w-3.5 mr-1.5 text-gray-400" />
                 <span className="text-sm font-medium truncate">{course.university}</span>
+                <span className='text-gray-500 mx-2'>|</span>
+                <MapPin className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                <span className="text-gray-700 text-sm font-medium">{course.country}</span>
               </div>
             </div>
 
@@ -131,10 +134,10 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
 
             {/* Badges */}
             <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="text-xs font-medium bg-blue-50 text-primary border-blue-200 px-2.5 py-0.5">
+              <Badge variant="outline" className="text-xs font-medium bg-blue-50 text-blue-500 border-blue-200 px-2.5 py-0.5">
                 {course.level}
               </Badge>
-              <Badge variant="outline" className="text-xs font-medium bg-purple-50 text-orange-600 border-purple-200 px-2.5 py-0.5">
+              <Badge variant="outline" className="text-xs font-medium bg-purple-50 text-orange-500 border-purple-200 px-2.5 py-0.5">
                 {course.study_area}
               </Badge>
             </div>

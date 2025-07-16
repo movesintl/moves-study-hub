@@ -52,7 +52,7 @@ const LeadEnquiryForm = () => {
         <div className="space-y-6 lg:sticky lg:top-[-35px] lg:self-start">
           {/* Header Text */}
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl lg:text-4xl font-bold text-primary">
               Moves International can help you
               
             </h2>
@@ -200,7 +200,7 @@ const LeadEnquiryForm = () => {
                 <img
                   src={service.icon_url}
                   alt={service.title}
-                  className="rounded-t-xl shadow-xl w-full h-48 object-cover"
+                  className="rounded-t-xl shadow-xl w-full object-cover"
                 />
                 <div className="flex items-center font-bold justify-between p-5 bg-white">
                   <p>{service.title}</p>

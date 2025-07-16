@@ -298,7 +298,7 @@ const CountryCards = () => {
               {destinations.map((_, idx) => (
                 <button 
                   key={idx} 
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-gray-500 w-5' : 'bg-gray-200 hover:bg-gray-300'}`} 
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-primary/90 w-5' : 'bg-gray-200 hover:bg-gray-300'}`} 
                   onClick={() => goToSlide(idx)}
                   aria-label={`Go to destination ${idx + 1}`}
                 />

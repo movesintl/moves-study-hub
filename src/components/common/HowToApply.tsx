@@ -7,7 +7,7 @@ export default function HowToApply() {
       title: "Browse Courses",
       description: "Explore hundreds of courses and top universities across Australia.",
       icon: Search,
-      bgColor: "bg-blue-50",
+      bgColor: "bg-blue-100",
       iconColor: "text-blue-600",
       button: {
         label: "Browse Courses",
@@ -15,12 +15,10 @@ export default function HowToApply() {
       },
       illustration: (
         <div className="relative">
-          <div className="w-12 h-8 bg-white rounded-md border-2 border-gray-200 relative">
-            <div className="w-full h-4 bg-gradient-to-r from-blue-100 to-blue-200 rounded-t-sm"></div>
-            <div className="absolute top-5 left-2 w-8 h-1 bg-gray-300 rounded"></div>
-            <div className="absolute top-6 left-2 w-6 h-1 bg-gray-200 rounded"></div>
-          </div>
-          <Search className="absolute -top-1 -right-1 w-4 h-4 text-blue-600" />
+          <img
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/search_draw.svg"
+             className="w-40 h-40 rounded-sm"
+          />
         </div>
       )
     },
@@ -29,20 +27,19 @@ export default function HowToApply() {
       title: "Use Smart Filters",
       description: "Apply filters to narrow down the perfect course that fits your goals.",
       icon: Filter,
-      bgColor: "bg-green-50",
+      bgColor: "bg-green-100",
       iconColor: "text-green-600",
-        button: {
-    label: "Browse Courses",
-    href: "/courses",
-  },
+      button: {
+        label: "Browse Courses",
+        href: "/courses",
+      },
       illustration: (
         <div className="relative">
-          <div className="space-y-1">
-            <div className="w-10 h-2 bg-green-200 rounded"></div>
-            <div className="w-8 h-2 bg-green-300 rounded"></div>
-            <div className="w-6 h-2 bg-green-400 rounded"></div>
-          </div>
-          <Filter className="absolute -top-1 -right-2 w-4 h-4 text-green-600" />
+
+          <img
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/filter_save.svg"
+            className="w-40 h-40 rounded-sm"
+          />
         </div>
       )
     },
@@ -51,19 +48,18 @@ export default function HowToApply() {
       title: "Save & Compare",
       description: "Shortlist your favorite courses and compare them side by side.",
       icon: Heart,
-      bgColor: "bg-pink-50",
+      bgColor: "bg-pink-100",
       iconColor: "text-pink-600",
-        button: {
-    label: "Browse Courses",
-    href: "/courses",
-  },
+      button: {
+        label: "Browse Courses",
+        href: "/courses",
+      },
       illustration: (
         <div className="relative">
-          <div className="flex space-x-1">
-            <div className="w-4 h-6 bg-pink-200 rounded"></div>
-            <div className="w-4 h-6 bg-pink-300 rounded"></div>
-          </div>
-          <Heart className="absolute -top-1 -right-1 w-4 h-4 text-pink-600 fill-current" />
+          <img
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/saves.svg"
+            className="w-40 h-40 rounded-sm"
+          />
         </div>
       )
     },
@@ -72,19 +68,18 @@ export default function HowToApply() {
       title: "Apply or Get Counselling",
       description: "Apply directly or book a free session with our expert education counsellors.",
       icon: MessageCircle,
-      bgColor: "bg-orange-50",
+      bgColor: "bg-orange-100",
       iconColor: "text-orange-600",
-        button: {
-    label: "Book Consultation",
-    href: "/services/consultation",
-  },
+      button: {
+        label: "Book Consultation",
+        href: "/services/consultation",
+      },
       illustration: (
         <div className="relative">
-          <div className="w-10 h-6 bg-orange-200 rounded-full relative">
-            <div className="absolute top-1 left-2 w-6 h-4 bg-white rounded-full"></div>
-            <div className="absolute top-2 left-3 w-4 h-2 bg-orange-400 rounded"></div>
-          </div>
-          <MessageCircle className="absolute -top-1 -right-1 w-4 h-4 text-orange-600" />
+          <img
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/counsels.svg"
+            className="w-40 h-40 rounded-sm"
+          />
         </div>
       )
     }
@@ -107,7 +102,7 @@ export default function HowToApply() {
         </div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
           {steps.map((step, index) => (
             <div
               key={step.id}
@@ -117,9 +112,9 @@ export default function HowToApply() {
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-20 left-full w-6 h-px bg-gray-200 z-0"></div>
               )}
-              
+
               {/* Card */}
-              <div className={`${step.bgColor} rounded-2xl p-6 text-center relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 z-10`}>
+              <div className={`${step.bgColor} h-full rounded-2xl p-6 text-center relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 z-10`}>
                 {/* Step Number */}
                 <div className="absolute top-4 right-4 w-6 h-6 bg-white rounded-full flex items-center justify-center text-xs font-bold text-gray-600 shadow-sm">
                   {step.id}
@@ -127,7 +122,7 @@ export default function HowToApply() {
 
                 {/* Illustration */}
                 <div className="mb-6 flex justify-center">
-                  <div className="w-20 h-20 rounded-full bg-white/50 flex items-center justify-center relative">
+                  <div className="rounded-3xl bg-white/50 flex items-center justify-center relative">
                     {step.illustration}
                   </div>
                 </div>

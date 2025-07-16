@@ -117,7 +117,7 @@ const Webstories = () => {
   return (
     <div className="w-full mx-auto px-4 py-8 max-w-12xl">
       <div className="text-center mb-6">
-        <h2 className="text-4xl font-bold text-gray-800">Web Stories</h2>
+        <h2 className="text-4xl font-bold text-primary">Web Stories</h2>
         <p className="text-gray-600 mt-2">Explore Visual Stories</p>
       </div>
 
@@ -167,8 +167,8 @@ const Webstories = () => {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIndex ? 'bg-blue-500' : 'bg-gray-300'
+              className={`w-2 h-2 rounded-full transition-all duration 300 ${
+                index === currentIndex ? 'bg-primary' : 'bg-gray-300'
               }`}
             />
           ))}

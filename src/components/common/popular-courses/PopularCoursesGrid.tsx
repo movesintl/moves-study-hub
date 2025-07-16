@@ -41,6 +41,7 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
   onSaveToggle
 }) => {
   const [expandedFees, setExpandedFees] = useState<Set<string>>(new Set());
+
   const formatDuration = (months: number) => {
     if (months === 12) return '1 year';
     if (months % 12 === 0) return `${months / 12} years`;
@@ -110,8 +111,6 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
               <Heart className={`transition-all duration-300 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
             </Button>
 
-
-
             {/* Title and University */}
             <div className="space-y-2">
               <h3 className="text-lg mt-8 font-bold text-gray-900 underline cursor-pointer line-clamp-2 leading-tight group-hover:text-primary transition-colors duration-300">
@@ -164,62 +163,62 @@ const PopularCoursesGrid: React.FC<PopularCoursesGridProps> = ({
               )}
             </div>
 
-            {/* Tuition Fee */}
-            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-xl border border-indigo-100">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="text-xs text-gray-600 font-medium mb-1">Tuition Fee</div>
-                  {!expandedFees.has(course.id) ? (
+            {/* Tuition Fee View More button - shown when collapsed */}
+            {!expandedFees.has(course.id) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-auto p-0 font-bold text-lg text-primary hover:bg-transparent"
+                onClick={() => toggleFeeExpansion(course.id)}
+              >
+                View More <ChevronDown className="h-4 w-4 ml-1" />
+              </Button>
+            )}
+
+            {/* Tuition Fee section - shown only when expanded */}
+            {expandedFees.has(course.id) && (
+              <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-xl border border-indigo-100">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="text-xs text-gray-600 font-medium mb-1">Tuition Fee</div>
+                    <div className="font-bold text-lg text-primary">
+                      {course.tuition_fee && course.currency
+                        ? `${course.currency} ${course.tuition_fee.toLocaleString()}`
+                        : 'Contact for fee'}
+                    </div>
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-auto p-0 font-bold text-lg text-primary hover:bg-transparent"
+                      className="h-auto p-0 text-xs text-gray-500 hover:bg-transparent"
                       onClick={() => toggleFeeExpansion(course.id)}
                     >
-                      View More <ChevronDown className="h-4 w-4 ml-1" />
+                      Show Less <ChevronUp className="h-4 w-4 ml-1" />
                     </Button>
-                  ) : (
-                    <div className="space-y-2">
-                      <div className="font-bold text-lg text-primary">
-                        {course.tuition_fee && course.currency
-                          ? `${course.currency} ${course.tuition_fee.toLocaleString()}`
-                          : 'Contact for fee'
-                        }
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-auto p-0 text-xs text-gray-500 hover:bg-transparent"
-                        onClick={() => toggleFeeExpansion(course.id)}
-                      >
-                        Show Less <ChevronUp className="h-4 w-4 ml-1" />
-                      </Button>
-                    </div>
-                  )}
-                </div>
-                <div className="bg-indigo-100 p-2.5 rounded-full">
-                  <DollarSign className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="bg-indigo-100 p-2.5 rounded-full">
+                    <DollarSign className="h-5 w-5 text-primary" />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Action Buttons */}
             <div className="flex gap-3 pt-2">
               <Button
                 variant="outline"
-                className="flex-1 h-11 font-semibold border-2 hover:bg-orange-500 hover:border-0 border-primary text-primary hover:text-white transition-all duration-100"
-                onClick={() => onViewDetails(course.slug || course.id)}
+                className="flex-1 h-11 font-semibold border-2 hover:bg-primary hover:text-white hover:border-primary"
+                onClick={() => onViewDetails(course.slug || '')}
               >
-                <Eye className="h-4 w-4 mr-2" />
                 View Details
               </Button>
               <Button
+                className="flex-1 h-11 font-semibold"
                 onClick={onApplyNow}
-                className="flex-1 from-primary hover:bg-orange-500 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Apply Now
               </Button>
             </div>
+
           </div>
         </Card>
       ))}

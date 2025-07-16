@@ -91,7 +91,7 @@ export default function HowToApply() {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-16 px-4 md:px-6 lg:px-8" style={{ backgroundColor: '#f5f5f5' }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

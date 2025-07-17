@@ -18,6 +18,9 @@ interface Course {
   requirements: string;
   image_url: string;
   featured: boolean;
+  universities:{
+    logo_url: string;
+  }
   slug: string;
 }
 
@@ -59,7 +62,12 @@ export const useCourseQueries = (filters: Filters, currentPage: number, getQuery
 
       let query = supabase
         .from('courses')
-        .select('*')
+        .select(`
+          *,
+          universities:university_id (
+            logo_url
+          )
+        `)
         .order('featured', { ascending: false })
         .order('created_at', { ascending: false })
         .range(from, to);

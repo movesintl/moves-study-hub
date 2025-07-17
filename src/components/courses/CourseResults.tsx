@@ -2,7 +2,7 @@ import React from 'react';
 import { BarChart3, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CourseGrid } from './CourseGrid';
 import { CoursePagination } from './CoursePagination';
 
@@ -54,6 +54,8 @@ export const CourseResults = ({
   onPageChange,
   resetFilters
 }: CourseResultsProps) => {
+const navigate = useNavigate();
+
   if (isLoading) {
     return (
       <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
@@ -75,7 +77,12 @@ export const CourseResults = ({
       </div>
     );
   }
-
+  const handleApplyNow = () => {
+    navigate('/student-dashboard/applications');
+  };
+  const handleViewDetails = (courseSlug: string) => {
+    navigate(`/courses/${courseSlug}`);
+  };
   return (
     <>
       {/* Course Grid */}
@@ -83,9 +90,9 @@ export const CourseResults = ({
         courses={courses}
         viewMode={viewMode}
         savedCourseIds={savedCourseIds}
-        onSaveToggle={onSaveToggle} onViewDetails={function (courseId: string): void {
-          throw new Error('Function not implemented.');
-        } }      />
+        onSaveToggle={onSaveToggle}
+        onApplyNow={handleApplyNow} 
+        onViewDetails={handleViewDetails}      />
 
       {/* Pagination */}
       <CoursePagination 

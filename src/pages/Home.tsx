@@ -37,6 +37,9 @@ const Home = () => {
         <CountryCards />
       </div>
 
+      {/* Featured Universities Section */}
+      <FeaturedUniversities />
+
       {/* Web stories */}
       <div className="bg-white">
         <Webstories />
@@ -45,8 +48,7 @@ const Home = () => {
      {/* Removed Services Overview */}
       {/* Removed CHoose us */}
 
-      {/* Featured Universities Section */}
-      <FeaturedUniversities />
+
 
       {/* Services Overview Section */}
 

@@ -16,7 +16,7 @@ export default function HowToApply() {
       illustration: (
         <div className="relative">
           <img
-            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/search-illustration.svg"
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/undraw_searching.svg"
              className="w-40 h-40 rounded-sm"
           />
         </div>
@@ -122,7 +122,7 @@ export default function HowToApply() {
 
                 {/* Illustration */}
                 <div className="mb-6 flex justify-center">
-                  <div className="rounded-3xl bg-white/50 flex items-center justify-center relative">
+                  <div className="flex items-center justify-center relative">
                     {step.illustration}
                   </div>
                 </div>

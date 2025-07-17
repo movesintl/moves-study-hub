@@ -58,17 +58,14 @@ const FeaturedUniversities = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 relative overflow-hidden">
+    <section className="py-20 bg-white relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]" />
-      <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl" />
-      
+     
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg shadow-blue-500/10 mb-6 border border-white/20">
-            <div className="h-10 w-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+            <div className="h-10 w-10 bg-gradient-to-br from-primary to-primary rounded-xl flex items-center justify-center">
               <GraduationCap className="h-5 w-5 text-white" />
             </div>
             <span className="text-sm font-semibold text-slate-600 uppercase tracking-wider">
@@ -104,11 +101,11 @@ const FeaturedUniversities = () => {
                       animationDelay: `${index * 100}ms`,
                     }}
                   >
-                    <Card className="h-full bg-white/60 backdrop-blur-sm border-0 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 hover:scale-105 hover:-translate-y-2 group-hover:bg-white/80">
+                    <Card className="h-full bg-white/60 backdrop-blur-sm border-0 shadow-lg duration-500 hover:scale-105 hover:-translate-y-2 group-hover:bg-white/80">
                       <CardContent className="p-6 h-full flex flex-col items-center text-center justify-between min-h-[200px]">
                         {/* University Logo */}
                         <div className="flex items-center justify-center mb-4 relative">
-                          <div className="h-16 w-16 bg-gradient-to-br from-white to-slate-50 rounded-2xl shadow-lg shadow-slate-200/50 flex items-center justify-center p-2 group-hover:shadow-blue-500/20 transition-all duration-500">
+                          <div className="h-16 w-16 bg-white rounded-2xl shadow-lg shadow-slate-200/50 flex items-center justify-center p-2 duration-500">
                             {university.logo_url ? (
                               <img
                                 src={university.logo_url}
@@ -116,36 +113,35 @@ const FeaturedUniversities = () => {
                                 className="max-h-12 max-w-12 object-contain filter group-hover:scale-110 transition-transform duration-500"
                               />
                             ) : (
-                              <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                              <div className="h-12 w-12 bg-gradient-to-br from-primary to-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                                 <GraduationCap className="h-6 w-6 text-white" />
                               </div>
                             )}
                           </div>
                           
                           {/* Decorative ring */}
-                          <div className="absolute inset-0 h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+                          <div className="absolute inset-0 h-16 w-16 rounded-2xl border-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500 " />
                         </div>
 
                         {/* University Name */}
                         <div className="flex-grow flex flex-col justify-center">
-                          <h3 className="text-base font-semibold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2 leading-tight">
+                          <h3 className="text-base font-semibold text-slate-800 mb-2 duration-300 line-clamp-2 leading-tight">
                             {university.name}
                           </h3>
 
                           {/* Country */}
                           {university.country && (
-                            <div className="flex items-center justify-center gap-1.5 text-slate-500 group-hover:text-slate-600 transition-colors duration-300">
-                              <div className="h-1 w-1 bg-slate-400 rounded-full" />
+                            <div className="flex items-center justify-center gap-1.5 text-slate-500 duration-300">
+                              <div className="h-1 w-1 bg-primary rounded-full" />
                               <span className="text-sm font-medium tracking-wide">
                                 {university.country}
                               </span>
-                              <div className="h-1 w-1 bg-slate-400 rounded-full" />
+                              <div className="h-1 w-1 bg-primary rounded-full" />
                             </div>
                           )}
                         </div>
 
                         {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
                       </CardContent>
                     </Card>
                   </div>

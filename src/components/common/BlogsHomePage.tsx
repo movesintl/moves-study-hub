@@ -83,12 +83,9 @@ const BlogsHomePage = () => {
       <div key={blog.id} className="bg-white flex flex-col justify-between rounded-lg curor-pointer shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden h-full" >
         <div className="relative h-48">
           <img
-            src={blog.featured_image_url || '/api/placeholder/800/450'}
+            src={blog.featured_image_url }
             alt={blog.title}
             className="w-full h-full object-cover"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/api/placeholder/800/450';
-            }}
           />
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="absolute top-3 left-3">

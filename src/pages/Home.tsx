@@ -40,31 +40,22 @@ const Home = () => {
       {/* Featured Universities Section */}
       <FeaturedUniversities />
 
-      {/* Web stories */}
-      <div className="bg-white">
-        <Webstories />
-      </div>
-
-     {/* Removed Services Overview */}
-      {/* Removed CHoose us */}
-
-
-
+      {/* Removed Services Overview */}
+      {/* Removed CChoose us */}
       {/* Services Overview Section */}
+      
+      <StickyProfileComponent />
+      <HighQuality />
 
-      <StickyProfileComponent/>
-        <HighQuality />
-        
       {/* Web stories */}
       <div className="bg-white">
         <Webstories />
       </div>
-        {/* <Testimonials /> */}
 
+      {/* <Testimonials /> */}
       {/* Blogs */}
-      <BlogsHomePage/>
-
-
+      
+      <BlogsHomePage />
       {/* Counselling Popup */}
       <CounsellingPopup />
     </div>

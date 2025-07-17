@@ -1,5 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
 import React, { useState, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 const BlogsHomePage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -64,164 +65,66 @@ const BlogsHomePage = () => {
   const rightColumnBlogs = blogs.slice(3, 6); // Next 3 blogs for right column
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Our Blogs</h1>
-        <p className="text-gray-600">Latest updates and information for students</p>
-      </div>
-
-      {/* Two Column Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left Column */}
-        <div className="space-y-6">
-          {leftColumnBlogs.map((blog, index) => (
-            <div key={blog.id} className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 ${index === 0 ? 'mb-4' : ''}`}>
-              {/* Featured Blog (First in each column) */}
-              {index === 0 ? (
-                <>
-                  <div className="relative h-48 bg-gradient-to-br from-blue-200 to-orange-200">
-                    <img 
-                      src={blog.featured_image_url || '/api/placeholder/800/450'} 
-                      alt={blog.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/api/placeholder/800/450';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/25 to-orange-500/25"></div>
-                    <div className="absolute top-3 left-3">
-                      <div className="bg-white px-2 py-1 rounded-full text-xs font-medium text-gray-700 shadow-sm">
-                        {getCategoryName(blog.category_id)}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors">
-                      {blog.title}
-                    </h2>
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                      {blog.content}...
-                    </p>
-                    <div className="flex items-center text-xs text-gray-500">
-                      <span>By {blog.author}</span>
-                      <span className="mx-2">•</span>
-                      <span>{formatDate(blog.created_at)}</span>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                /* Smaller Blog Items - Using PopularCourses styling */
-                <div className="flex items-start h-32 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative w-32 h-full flex-shrink-0 bg-gradient-to-br from-blue-100 to-orange-100">
-                    <img 
-                      src={blog.featured_image_url || '/api/placeholder/300/225'} 
-                      alt={blog.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/api/placeholder/300/225';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/15 to-orange-400/15"></div>
-                  </div>
-                  <div className="p-3 flex-1 flex flex-col h-full">
-                    <div className="mb-1">
-                      <span className="text-xs font-medium text-blue-600">
-                        {getCategoryName(blog.category_id)}
-                      </span>
-                    </div>
-                    <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2 hover:text-blue-600 transition-colors">
-                      {blog.title}
-                    </h3>
-                    <div className="mt-auto">
-                      <div className="flex items-center text-xs text-gray-500">
-                        <span>{blog.author}</span>
-                        <span className="mx-1">•</span>
-                        <span>{formatDate(blog.created_at)}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-6">
-          {rightColumnBlogs.map((blog, index) => (
-            <div key={blog.id} className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 ${index === 0 ? 'mb-4' : ''}`}>
-              {/* Featured Blog (First in each column) */}
-              {index === 0 ? (
-                <>
-                  <div className="relative h-48 bg-gradient-to-br from-blue-200 to-orange-200">
-                    <img 
-                      src={blog.featured_image_url || '/api/placeholder/800/450'} 
-                      alt={blog.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/api/placeholder/800/450';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/25 to-orange-500/25"></div>
-                    <div className="absolute top-3 left-3">
-                      <div className="bg-white px-2 py-1 rounded-full text-xs font-medium text-gray-700 shadow-sm">
-                        {getCategoryName(blog.category_id)}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors">
-                      {blog.title}
-                    </h2>
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                      {blog.content}...
-                    </p>
-                    <div className="flex items-center text-xs text-gray-500">
-                      <span>By {blog.author}</span>
-                      <span className="mx-2">•</span>
-                      <span>{formatDate(blog.created_at)}</span>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                /* Smaller Blog Items - Using PopularCourses styling */
-                <div className="flex items-start h-32 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative w-32 h-full flex-shrink-0 bg-gradient-to-br from-blue-100 to-orange-100">
-                    <img 
-                      src={blog.featured_image_url || '/api/placeholder/300/225'} 
-                      alt={blog.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/api/placeholder/300/225';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/15 to-orange-400/15"></div>
-                  </div>
-                  <div className="p-3 flex-1 flex flex-col h-full">
-                    <div className="mb-1">
-                      <span className="text-xs font-medium text-blue-600">
-                        {getCategoryName(blog.category_id)}
-                      </span>
-                    </div>
-                    <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2 hover:text-blue-600 transition-colors">
-                      {blog.title}
-                    </h3>
-                    <div className="mt-auto">
-                      <div className="flex items-center text-xs text-gray-500">
-                        <span>{blog.author}</span>
-                        <span className="mx-1">•</span>
-                        <span>{formatDate(blog.created_at)}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+  {/* Header */}
+  <div className="flex justify-between items-center mb-10">
+    <div>
+      <h1 className="text-3xl font-bold text-primary mb-2">Latest Updates</h1>
+      <p className="text-primary/60">Explore our latest insights on smart textile technology, industry trends, and innovation.</p>
     </div>
+    <a href="/blogs" className="flex gap-2 border px-4 py-2 rounded-md text-sm font-medium hover:bg-primary hover:text-white transition">
+      View All Posts <span><ArrowRight className='w-4 h-4 mt-0.5'/></span>
+    </a>
+  </div>
+
+  {/* Grid Layout */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 h-full">
+    {blogs.map((blog) => (
+      <div key={blog.id} className="bg-white flex flex-col justify-between rounded-lg curor-pointer shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden h-full" >
+        <div className="relative h-48">
+          <img
+            src={blog.featured_image_url || '/api/placeholder/800/450'}
+            alt={blog.title}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/api/placeholder/800/450';
+            }}
+          />
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="absolute top-3 left-3">
+            <span className="bg-white text-xs font-medium text-gray-800 px-2 py-1 rounded-full shadow">
+              {getCategoryName(blog.category_id)}
+            </span>
+          </div>
+        </div>
+        <div className="p-5">
+          <p className="text-sm text-gray-500 mb-1">{formatDate(blog.created_at)}</p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors">
+            {blog.title}
+          </h2>
+          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+            {blog.content}
+          </p>
+          <a href={`/blogs/${blog.slug}`} className="text-sm font-medium text-primary hover:underline">
+           <button className="group relative w-auto cursor-pointer overflow-hidden rounded-full border bg-background p-2 px-6 text-center font-semibold">
+                 <div className="flex items-center gap-2">
+                   <div className="h-2 w-2 rounded-full bg-primary transition-all duration-300 group-hover:scale-[100.8]"></div>
+                   <span className="inline-block transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0">
+                     Read More
+                   </span>
+                 </div>
+                 <div className="absolute top-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 text-primary-foreground opacity-0 transition-all duration-300 group-hover:-translate-x-5 group-hover:opacity-100">
+                   <span>Read More</span>
+                   <ArrowRight />
+                 </div>
+               </button>
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
   );
 };
 

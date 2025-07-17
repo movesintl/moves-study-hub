@@ -16,8 +16,8 @@ export default function HowToApply() {
       illustration: (
         <div className="relative">
           <img
-            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/undraw_searching.svg"
-             className="w-40 h-40 rounded-sm"
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/blue_search.svg"
+            className="w-40 h-40 rounded-sm"
           />
         </div>
       )
@@ -37,7 +37,7 @@ export default function HowToApply() {
         <div className="relative">
 
           <img
-            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/filter_save.svg"
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/green_filter.svg"
             className="w-40 h-40 rounded-sm"
           />
         </div>
@@ -57,7 +57,7 @@ export default function HowToApply() {
       illustration: (
         <div className="relative">
           <img
-            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/saves.svg"
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/pink_saves.svg"
             className="w-40 h-40 rounded-sm"
           />
         </div>
@@ -77,7 +77,7 @@ export default function HowToApply() {
       illustration: (
         <div className="relative">
           <img
-            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/counsels.svg"
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/orange_counsels.svg"
             className="w-40 h-40 rounded-sm"
           />
         </div>

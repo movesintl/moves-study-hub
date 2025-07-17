@@ -40,10 +40,7 @@ const Home = () => {
       {/* Featured Universities Section */}
       <FeaturedUniversities />
 
-      {/* Web stories */}
-      <div className="bg-white">
-        <Webstories />
-      </div>
+
 
      {/* Removed Services Overview */}
       {/* Removed CHoose us */}

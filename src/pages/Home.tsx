@@ -37,10 +37,6 @@ const Home = () => {
         <CountryCards />
       </div>
 
-      {/* Web stories */}
-      <div className="bg-white">
-        <Webstories />
-      </div>
 
      {/* Removed Services Overview */}
       {/* Removed CHoose us */}
@@ -52,6 +48,11 @@ const Home = () => {
 
       <StickyProfileComponent/>
         <HighQuality />
+        
+      {/* Web stories */}
+      <div className="bg-white">
+        <Webstories />
+      </div>
         {/* <Testimonials /> */}
 
       {/* Blogs */}

@@ -16,7 +16,7 @@ export default function HowToApply() {
       illustration: (
         <div className="relative">
           <img
-            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/search_draw.svg"
+            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/steps/search-illustration.svg"
              className="w-40 h-40 rounded-sm"
           />
         </div>

@@ -73,7 +73,7 @@ const FeaturedUniversities = () => {
             </span>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary bg-clip-text  mb-4">
             World-Class Universities
           </h2>
           <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">

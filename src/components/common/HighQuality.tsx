@@ -63,9 +63,9 @@ const HighQuality = () => {
 
 
 
-            <h2 className="text-3xl ml-4 lg:text-4xl  font-bold text-gray-900 leading-tight">
-              High Quality &<br />
-              Prestigious Brands
+            <h2 className="text-3xl ml-4 lg:text-4xl  font-bold text-primary">
+             <span className="bg-gradient-to-r from-primary to-orange-600 bg-clip-text text-transparent">What Our Students</span><br />
+             <span className="bg-gradient-to-r from-primary to-orange-600 bg-clip-text text-transparent">Say About Us</span>
             </h2>
 
             <p className="text-gray-700 ml-4 text-lg leading-relaxed max-w-md">

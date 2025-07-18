@@ -27,7 +27,7 @@ const LeadEnquiryForm = () => {
       try {
         const { data, error } = await supabase
           .from('services')
-          .select('id, title, icon_url')
+          .select('id, title, icon_url,slug')
           .limit(5);
 
         if (error) {
@@ -204,7 +204,9 @@ const LeadEnquiryForm = () => {
                 />
                 <div className="flex items-center font-bold justify-between p-5 bg-white">
                   <p>{service.title}</p>
+                <a href={`/services/${service.slug}`} className="hover:cursor-pointer">
                   <ChevronRight />
+                </a>
                 </div>
               </div>
             ))

@@ -36,7 +36,7 @@ const Hero = () => {
       backgroundImage: `url("${backgroundPattern}")`
     }}></div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
@@ -122,7 +122,8 @@ const Hero = () => {
           {/* Right Content - Beautiful Image */}
           <div className="relative">
             <div className="relative">
-              <img src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/hero_image.png" alt="Students studying abroad" className="w-full object-cover" />
+              <img src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/hero_image.png" alt="Students studying abroad" 
+              className="w-full h-[700px] object-cover" />
               {/* <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div> */}
             </div>
           </div>

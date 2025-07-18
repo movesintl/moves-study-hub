@@ -10,7 +10,7 @@ export default function Services() {
             <img
               src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/get-better-about-us.png"
               alt="Professional consultant with glasses and blue shirt"
-              className="w-full h-full object-cover rounded-lg "
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
 
@@ -18,7 +18,7 @@ export default function Services() {
           <div className="flex flex-col justify-between h-full py-4">
             {/* Top Content */}
             <div className="space-y-6">
-              <p className="inline-flex items-center text-orange-600 bg-orange-100 w-fit px-4 py-2 font-medium rounded-full text-sm">
+              <p className="inline-flex items-center text-orange-500 bg-orange-100 w-fit px-4 py-2 font-medium rounded-full text-sm">
                 <Lightbulb className="w-4 h-4 mr-2" />
                 Get Better About Us
               </p>

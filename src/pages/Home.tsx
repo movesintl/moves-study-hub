@@ -7,7 +7,6 @@ import CounsellingPopup from "@/components/common/CounsellingPopup";
 import Services from "@/components/common/Services";
 import HowToApply from "@/components/common/HowToApply";
 import Webstories from "@/components/common/Webstories";
-import BlogsHomePage from "@/components/common/BlogsHomePage";
 import HighQuality from "@/components/common/HighQuality";
 import StickyProfileComponent from "@/components/common/StickyProfile";
 
@@ -57,11 +56,7 @@ const Home = () => {
         <Webstories />
       </div>
 
-      {/* <Testimonials /> */}
-      {/* Blogs */}
-      
-      <BlogsHomePage />
-      {/* Counselling Popup */}
+
       <CounsellingPopup />
     </div>
   );

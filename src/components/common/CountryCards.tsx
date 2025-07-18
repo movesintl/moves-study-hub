@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, MapPin, DollarSign, Clock, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, MapPin, DollarSign, Clock, GraduationCap, ChevronLeft, ChevronRight, Plane } from 'lucide-react';
 import { Button } from '../ui/button';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -18,7 +18,7 @@ const CountryCards = () => {
           .from('destinations')
           .select('id, name, slug, description, flag_icon_url, average_fee, why_study_points')
           .order('name');
-        
+
         if (error) {
           console.error('Error fetching destinations:', error);
         } else {
@@ -132,6 +132,10 @@ const CountryCards = () => {
       <div className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center">
+            <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Plane className="w-4 h-4 mr-2" />
+              Explore
+            </div>
             <h2 className="text-4xl font-bold text-primary mb-4">
               Choose Your Study Destination
             </h2>
@@ -152,6 +156,10 @@ const CountryCards = () => {
       <div className="py-20" >
         <div className="container mx-auto px-4">
           <div className="text-center">
+            <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Plane className="w-4 h-4 mr-2" />
+              Explore
+            </div>
             <h2 className="text-4xl font-bold text-primary mb-4">
               Choose Your Study Destination
             </h2>
@@ -169,35 +177,39 @@ const CountryCards = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
+          <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Plane className="w-4 h-4 mr-2" />
+              Explore
+            </div>
           <h2 className="text-4xl font-bold text-primary mb-4">
             Choose Your Study Destination
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore top study destinations with excellent education systems, 
+            Explore top study destinations with excellent education systems,
             work opportunities, and pathways to permanent residency.
           </p>
         </div>
 
         {/* Carousel Container - Similar to Projects component */}
         <div className="relative max-w-6xl mx-auto">
-          <div 
-            className="relative h-[450px] overflow-hidden" 
-            onMouseEnter={() => setIsHovering(true)} 
+          <div
+            className="relative h-[450px] overflow-hidden"
+            onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
             <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
               {destinations.map((destination, index) => {
                 const config = countryConfig[destination.name] || getDefaultConfig(destination.name);
-                
+
                 // Get features from database or fallback to config
-                const features = destination.why_study_points && Array.isArray(destination.why_study_points) 
-                  ? destination.why_study_points.slice(0, 3) 
+                const features = destination.why_study_points && Array.isArray(destination.why_study_points)
+                  ? destination.why_study_points.slice(0, 3)
                   : config.features;
-                
+
                 return (
-                  <div 
-                    key={destination.id} 
-                    className={`absolute top-0 w-full max-w-md transform transition-all duration-500 ${getCardAnimationClass(index)}`} 
+                  <div
+                    key={destination.id}
+                    className={`absolute top-0 w-full max-w-md transform transition-all duration-500 ${getCardAnimationClass(index)}`}
                     style={{ transitionDelay: `${index * 50}ms` }}
                   >
                     <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-[400px] w-[400px] mx-auto border border-gray-100 hover:shadow-xl transition-shadow duration-300">
@@ -209,8 +221,8 @@ const CountryCards = () => {
                           <div className="flex items-center gap-4 mb-3">
                             <div className="text-4xl transform transition-transform duration-300 hover:scale-110">
                               {destination.flag_icon_url ? (
-                                <img 
-                                  src={destination.flag_icon_url} 
+                                <img
+                                  src={destination.flag_icon_url}
                                   alt={`${destination.name} flag`}
                                   className="w-12 h-8 object-cover rounded shadow-md"
                                 />
@@ -275,7 +287,7 @@ const CountryCards = () => {
                 );
               })}
             </div>
-            
+
             {/* Navigation Buttons - Similar to Projects component */}
             <button
               onClick={prevSlide}
@@ -284,7 +296,7 @@ const CountryCards = () => {
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            
+
             <button
               onClick={nextSlide}
               className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all duration-300 hover:scale-110"
@@ -292,13 +304,13 @@ const CountryCards = () => {
             >
               <ChevronRight className="w-5 h-5" />
             </button>
-            
+
             {/* Dots Indicator */}
             <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
               {destinations.map((_, idx) => (
-                <button 
-                  key={idx} 
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-primary/90 w-5' : 'bg-gray-200 hover:bg-gray-300'}`} 
+                <button
+                  key={idx}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-primary/90 w-5' : 'bg-gray-200 hover:bg-gray-300'}`}
                   onClick={() => goToSlide(idx)}
                   aria-label={`Go to destination ${idx + 1}`}
                 />
@@ -314,7 +326,7 @@ const CountryCards = () => {
               Not sure which destination is right for you?
             </h3>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Our expert counselors will help you choose the best study destination based on 
+              Our expert counselors will help you choose the best study destination based on
               your academic background, career goals, and budget.
             </p>
             <Button size="lg" className="bg-accent hover:bg-accent/90 text-white">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { BookImage, } from 'lucide-react';
 
 const Webstories = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -117,6 +117,10 @@ const Webstories = () => {
   return (
     <div className="w-full mx-auto px-4 py-8 max-w-12xl">
       <div className="text-center mb-6">
+        <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <BookImage className="w-4 h-4 mr-2" />
+        Our Stories
+      </div>
         <h2 className="text-4xl font-bold text-primary">Web Stories</h2>
         <p className="text-gray-600 mt-2">Explore Visual Stories</p>
       </div>

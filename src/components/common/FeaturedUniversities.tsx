@@ -39,6 +39,7 @@ const FeaturedUniversities = () => {
 <section className="py-10 ">
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
+
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Featured Universities
             </h2>
@@ -64,14 +65,10 @@ const FeaturedUniversities = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg shadow-blue-500/10 mb-6 border border-white/20">
-            <div className="h-10 w-10 bg-gradient-to-br from-primary to-primary rounded-xl flex items-center justify-center">
-              <GraduationCap className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-sm font-semibold text-slate-600 uppercase tracking-wider">
+          <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <GraduationCap className="w-4 h-4 mr-2" />
               Our Partners
-            </span>
-          </div>
+            </div>
           
           <h2 className="text-3xl md:text-4xl font-bold text-primary bg-clip-text  mb-4">
             World-Class Universities
@@ -170,7 +167,7 @@ const FeaturedUniversities = () => {
           <Button 
             asChild 
             size="lg" 
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300 border-0 text-base"
+            className="bg-primary hover:bg-orange-500 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300 border-0 text-base"
           >
             <Link to="/universities" className="flex items-center gap-2">
               Explore All Universities

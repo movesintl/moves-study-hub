@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuery } from '@tanstack/react-query';
-import { Heart, MapPin, Clock, Calendar, GraduationCap, University } from 'lucide-react';
+import { Heart, MapPin, Clock, Calendar, GraduationCap, University, ChevronUp, DollarSign, ChevronDown } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -43,6 +43,7 @@ const PopularCourses = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useAuth();
+  const [expandedFees, setExpandedFees] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchPopularCourses();
@@ -184,6 +185,20 @@ const PopularCourses = () => {
     return <PopularCoursesLoading />;
   }
 
+  
+    const toggleFeeExpansion = (courseId: string) => {
+      setExpandedFees(prev => {
+        const newSet = new Set(prev);
+        if (newSet.has(courseId)) {
+          newSet.delete(courseId);
+        } else {
+          newSet.add(courseId);
+        }
+        return newSet;
+      });
+    };
+  
+
   return (
     <section className="py-20 bg-[#f5f5f5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -322,7 +337,7 @@ const PopularCourses = () => {
                                   <Button
                                     variant="ghost"
                                     size="sm"
-                                    className="h-auto p-0 text-xs text-primary hover:bg-transparent hover:text-primary"
+                                    className="h-auto p-0 text-xs text-primary hover:bg-transparent hover:cursor-pointer hover:text-primary"
                                     onClick={() => toggleFeeExpansion(course.id)}
                                   >
                                     Show Less <ChevronUp className="h-4 w-4 ml-1" />

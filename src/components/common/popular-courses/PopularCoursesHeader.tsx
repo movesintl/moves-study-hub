@@ -10,7 +10,7 @@ const PopularCoursesHeader = () => {
         Popular Courses
       </div>
       
-      <h2 className="text-4xl font-bold text-gray-900 mb-6">
+      <h2 className="text-4xl font-bold text-primary mb-6">
         Popular Courses
       </h2>
       

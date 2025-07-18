@@ -21,7 +21,7 @@ interface CourseCardProps {
 
 export const CourseCard = ({ course }: CourseCardProps) => {
   return (
-    <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 shadow-md">
+    <Card className="group transition-all duration-300 hover:-translate-y-2 rounded-lg">
       <CardContent className="p-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3 flex-wrap">

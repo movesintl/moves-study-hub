@@ -1,7 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight } from "lucide-react";
+
+interface BlogCategory {
+  id: string;
+  name: string;
+}
 
 interface Blog {
   id: string;
@@ -11,6 +17,9 @@ interface Blog {
   meta_description?: string;
   created_at: string;
   author?: string;
+  blog_category_assignments: {
+    blog_categories: BlogCategory;
+  }[];
 }
 
 const LatestUpdates = () => {
@@ -19,7 +28,21 @@ const LatestUpdates = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("blogs")
-        .select("id, title, slug, featured_image_url, meta_description, created_at, author")
+        .select(`
+          id, 
+          title, 
+          slug, 
+          featured_image_url, 
+          meta_description, 
+          created_at, 
+          author,
+          blog_category_assignments(
+            blog_categories(
+              id,
+              name
+            )
+          )
+        `)
         .eq("published", true)
         .order("created_at", { ascending: false })
         .limit(3);
@@ -69,67 +92,87 @@ const LatestUpdates = () => {
 
         {/* Blog Cards */}
         <div className="grid md:grid-cols-3 gap-8">
-          {blogs.map((blog, index) => (
-            <article
-              key={blog.id}
-              className="group bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-primary/20"
-            >
-              {/* Image */}
-              <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                {blog.featured_image_url ? (
-                  <img
-                    src={blog.featured_image_url}
-                    alt={blog.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary/10">
-                    <div className="text-6xl font-bold text-primary/20">
-                      {index + 1}
-                    </div>
-                  </div>
-                )}
-              </div>
+          {blogs.map((blog, index) => {
+            const categories = blog.blog_category_assignments?.map(
+              (assignment) => assignment.blog_categories
+            ) || [];
 
-              {/* Content */}
-              <div className="p-8">
-                <div className="flex items-center gap-2 mb-4">
-                  <Calendar className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">
-                    {new Date(blog.created_at).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </span>
-                  {blog.author && (
-                    <>
-                      <span className="text-muted-foreground">•</span>
-                      <span className="text-sm text-muted-foreground">{blog.author}</span>
-                    </>
+            return (
+              <article
+                key={blog.id}
+                className="group bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 hover:border-primary/30"
+              >
+                {/* Image with Categories */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                  {blog.featured_image_url ? (
+                    <img
+                      src={blog.featured_image_url}
+                      alt={blog.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary/10">
+                      <div className="text-6xl font-bold text-primary/20">
+                        {index + 1}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Categories overlay */}
+                  {categories.length > 0 && (
+                    <div className="absolute top-4 left-4">
+                      <Badge 
+                        variant="secondary" 
+                        className="bg-white/90 text-primary border-0 text-xs font-medium shadow-sm"
+                      >
+                        {categories[0].name}
+                      </Badge>
+                    </div>
                   )}
                 </div>
 
-                <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                  {blog.title}
-                </h3>
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">
+                      {new Date(blog.created_at).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                    {blog.author && (
+                      <>
+                        <span className="text-muted-foreground">•</span>
+                        <span className="text-sm text-muted-foreground">{blog.author}</span>
+                      </>
+                    )}
+                  </div>
 
-                {blog.meta_description && (
-                  <p className="text-muted-foreground mb-6 line-clamp-3 leading-relaxed">
-                    {blog.meta_description}
-                  </p>
-                )}
+                  <h3 className="text-lg font-bold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                    {blog.title}
+                  </h3>
 
-                <a
-                  href={`/blogs/${blog.slug}`}
-                  className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all group/link"
-                >
-                  Read Article
-                  <ArrowRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </article>
-          ))}
+                  {blog.meta_description && (
+                    <p className="text-muted-foreground mb-6 line-clamp-2 text-sm leading-relaxed">
+                      {blog.meta_description}
+                    </p>
+                  )}
+
+                  <Button
+                    asChild
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                  >
+                    <a href={`/blogs/${blog.slug}`} className="inline-flex items-center justify-center gap-2">
+                      Read Article
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {/* View All Button */}

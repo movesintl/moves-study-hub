@@ -8,7 +8,7 @@ export default function Services() {
           {/* Left Container */}
           <div className="relative w-full h-full">
             <img
-              src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/general/1751512836043.png"
+              src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/get-better-about-us.png"
               alt="Professional consultant with glasses and blue shirt"
               className="w-full h-full object-cover rounded-lg "
             />

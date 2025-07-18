@@ -221,8 +221,7 @@ export const CourseGrid: React.FC<CourseGridProps> = ({
     </Card>
   );
 
-  // List View Card
-// List View Card
+
 // List View Card
   const renderListView = (course: Course) => (
     <Card key={course.id} className="group relative overflow-hidden bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 rounded-2xl mb-4">
@@ -288,6 +287,13 @@ export const CourseGrid: React.FC<CourseGridProps> = ({
               {course.study_area}
             </Badge>
 
+          </div>
+
+
+        <div className="mb-2 border-b-2 bg-black"></div>
+
+
+            <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center text-sm text-gray-600 ml-2">
               <Clock className="h-4 w-4 mr-1.5 text-gray-400" />
               <span>{formatDuration(course.duration_months)}</span>
@@ -299,8 +305,7 @@ export const CourseGrid: React.FC<CourseGridProps> = ({
                 <span>{course.intake_dates.join(', ')}</span>
               </div>
             )}
-          </div>
-
+            </div>
           {/* Tuition fee and actions */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-2 gap-3">
             <div className="flex items-center">

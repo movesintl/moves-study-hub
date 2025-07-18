@@ -53,12 +53,12 @@ const PopularCourses = () => {
     queryKey: ['saved-courses-ids', user?.id],
     queryFn: async () => {
       if (!user?.id) return [];
-      
+
       const { data, error } = await supabase
         .from('saved_courses')
         .select('course_id')
         .eq('user_id', user.id);
-      
+
       if (error) throw error;
       return data.map(item => item.course_id);
     },
@@ -86,13 +86,13 @@ const PopularCourses = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      
+
       // Transform data to include university logo
       const coursesWithLogos = data?.map(course => ({
         ...course,
         university_logo_url: course.universities?.logo_url
       })) || [];
-      
+
       setCourses(coursesWithLogos);
     } catch (error) {
       console.error('Error fetching popular courses:', error);
@@ -129,14 +129,14 @@ const PopularCourses = () => {
     }
 
     const isSaved = savedCourseIds.has(courseId);
-    
+
     if (isSaved) {
       const { error } = await supabase
         .from('saved_courses')
         .delete()
         .eq('course_id', courseId)
         .eq('user_id', user.id);
-      
+
       if (error) {
         toast({
           title: "Error",
@@ -158,11 +158,11 @@ const PopularCourses = () => {
     } else {
       const { error } = await supabase
         .from('saved_courses')
-        .insert({ 
-          course_id: courseId, 
-          user_id: user.id 
+        .insert({
+          course_id: courseId,
+          user_id: user.id
         });
-      
+
       if (error) {
         toast({
           title: "Error",
@@ -196,12 +196,12 @@ const PopularCourses = () => {
                 align: "start",
                 loop: true,
               }}
-              className="w-full"
+              className="w-full  "
             >
-              <CarouselContent className="-ml-4">
+              <CarouselContent className="-ml-4 py-4">
                 {courses.map((course) => (
                   <CarouselItem key={course.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <div className="h-full">
+                    <div className="h-full rounded-3xl">
                       <Card className="group relative overflow-hidden bg-white border-0 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 rounded-3xl h-full">
                         {/* Image Section */}
                         <div className="relative h-12 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
@@ -295,6 +295,45 @@ const PopularCourses = () => {
                               </div>
                             )}
                           </div>
+                          {/* Tuition Fee View More button - shown when collapsed */}
+                          {!expandedFees.has(course.id) && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-auto p-0 font-medium text-sm text-orange-600 hover:text-orange-600 hover:bg-transparent"
+                              onClick={() => toggleFeeExpansion(course.id)}
+                            >
+                              View More <ChevronDown className="h-4 w-4 ml-1" />
+                            </Button>
+                          )}
+
+
+                          {/* Tuition Fee section - shown only when expanded */}
+                          {expandedFees.has(course.id) && (
+                            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-xl border border-indigo-100">
+                              <div className="flex items-center justify-between">
+                                <div className="flex-1">
+                                  <div className="text-xs text-gray-600 font-medium mb-1">Tuition Fee</div>
+                                  <div className="font-bold text-lg text-primary">
+                                    {course.tuition_fee && course.currency
+                                      ? `${course.currency} ${course.tuition_fee.toLocaleString()}`
+                                      : 'Contact for fee'}
+                                  </div>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-auto p-0 text-xs text-primary hover:bg-transparent hover:text-primary"
+                                    onClick={() => toggleFeeExpansion(course.id)}
+                                  >
+                                    Show Less <ChevronUp className="h-4 w-4 ml-1" />
+                                  </Button>
+                                </div>
+                                <div className="bg-indigo-100 p-2.5 rounded-full">
+                                  <DollarSign className="h-5 w-5 text-primary" />
+                                </div>
+                              </div>
+                            </div>
+                          )}
 
                           {/* Action Buttons */}
                           <div className="flex gap-3 pt-2">
@@ -306,7 +345,7 @@ const PopularCourses = () => {
                               View Details
                             </Button>
                             <Button
-                              className="flex-1 from-primary hover:bg-orange-500 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300" 
+                              className="flex-1 from-primary hover:bg-orange-500 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
                               onClick={handleApplyNow}
                             >
                               Apply Now

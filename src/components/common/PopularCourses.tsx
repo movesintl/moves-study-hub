@@ -10,6 +10,7 @@ import PopularCoursesHeader from './popular-courses/PopularCoursesHeader';
 import PopularCoursesGrid from './popular-courses/PopularCoursesGrid';
 import PopularCoursesEmpty from './popular-courses/PopularCoursesEmpty';
 import PopularCoursesAction from './popular-courses/PopularCoursesAction';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 interface Course {
   id: string;
@@ -186,13 +187,31 @@ const PopularCourses = () => {
         <PopularCoursesHeader />
 
         {courses.length > 0 ? (
-          <PopularCoursesGrid 
-            courses={courses} 
-            onViewDetails={handleViewDetails}
-            onApplyNow={handleApplyNow}
-            savedCourseIds={savedCourseIds}
-            onSaveToggle={handleSaveToggle}
-          />
+          <div className="relative">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {courses.map((course) => (
+                  <CarouselItem key={course.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <PopularCoursesGrid 
+                      courses={[course]} 
+                      onViewDetails={handleViewDetails}
+                      onApplyNow={handleApplyNow}
+                      savedCourseIds={savedCourseIds}
+                      onSaveToggle={handleSaveToggle}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          </div>
         ) : (
           <PopularCoursesEmpty />
         )}

@@ -122,41 +122,8 @@ const Hero = () => {
           {/* Right Content - Beautiful Image */}
           <div className="relative">
             <div className="relative">
-              <img src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/general/1751512836043.png" alt="Students studying abroad" className="w-full h-[700px] object-cover" />
+              <img src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/hero_image.png" alt="Students studying abroad" className="w-full object-cover" />
               {/* <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div> */}
-
-              {/* Floating Achievement Cards */}
-              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                    <GraduationCap className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">
-                      Visa Approved
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      Australia Student Visa
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                    <Users className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">
-                      Application Success
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      University of Melbourne
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

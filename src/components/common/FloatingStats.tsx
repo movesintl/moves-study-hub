@@ -9,22 +9,22 @@ const FloatingStats = () => {
 
   const stats = [
     {
-      number: `${studentsCount.toLocaleString()}+`,
+      number: `10,000+`,
       label: "Students Placed",
       icon: Users,
     },
     {
-      number: `${universitiesCount}+`,
+      number: `500+`,
       label: "Partner Universities",
       icon: GraduationCap,
     },
     {
-      number: `${countriesCount}+`,
+      number: `15+`,
       label: "Countries",
       icon: Globe,
     },
     {
-      number: `${experienceCount}+`,
+      number: `10+`,
       label: "Years Consulting Experience",
       icon: Calendar,
     },

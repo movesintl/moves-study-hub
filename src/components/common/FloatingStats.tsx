@@ -2,7 +2,7 @@ import { useCountingAnimation } from "@/hooks/useCountingAnimation";
 import { Users, GraduationCap, Globe, Calendar } from "lucide-react";
 
 const FloatingStats = () => {
-  const { count: studentsCount } = useCountingAnimation({ end: 10000, duration: 2000 });
+  const { count: studentsCount, ref } = useCountingAnimation({ end: 10000, duration: 2000 });
   const { count: universitiesCount } = useCountingAnimation({ end: 500, duration: 2000 });
   const { count: countriesCount } = useCountingAnimation({ end: 15, duration: 2000 });
   const { count: experienceCount } = useCountingAnimation({ end: 10, duration: 2000 });
@@ -31,7 +31,7 @@ const FloatingStats = () => {
   ];
 
   return (
-    <div className="relative z-10 -mt-16 mb-16">
+    <div className="relative z-10 -mt-16 mb-16" ref={ref}>
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="bg-[#FA8500] rounded-2xl shadow-xl p-6 md:p-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">

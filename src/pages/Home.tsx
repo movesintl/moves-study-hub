@@ -10,12 +10,16 @@ import Webstories from "@/components/common/Webstories";
 import LatestUpdates from "@/components/common/LatestUpdates";
 import HighQuality from "@/components/common/HighQuality";
 import StickyProfileComponent from "@/components/common/StickyProfile";
+import FloatingStats from "@/components/common/FloatingStats";
 
 const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero section remains unchanged */}
       <Hero />
+
+      {/* Floating Stats Card */}
+      <FloatingStats />
 
       {/* Services */}
       <Services />

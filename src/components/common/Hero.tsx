@@ -1,21 +1,16 @@
 import React, { useState } from "react";
-import { Search, ArrowRight, Globe, GraduationCap, Users } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { useCountingAnimation } from "@/hooks/useCountingAnimation";
 
 const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { user } = useAuth();
   
-  // Counting animations for stats
-  const studentsCount = useCountingAnimation({ end: 10000, duration: 2500 });
-  const universitiesCount = useCountingAnimation({ end: 500, duration: 2000 });
-  const countriesCount = useCountingAnimation({ end: 15, duration: 1500 });
-
+  
   const backgroundPattern = "data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F5F5F5' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E";
 
   const handleSearch = () => {
@@ -113,39 +108,6 @@ const Hero = () => {
                 Browse Courses
               </Button>
               {!user && null}
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/20">
-              <div className="text-center" ref={studentsCount.ref}>
-                <div className="flex justify-center mb-2">
-                  <Users className="h-8 w-8 text-accent" />
-                </div>
-                <div className="text-2xl font-bold">
-                  {studentsCount.count.toLocaleString()}K+
-                </div>
-                <div className="text-sm text-gray-300">Students Placed</div>
-              </div>
-              <div className="text-center" ref={universitiesCount.ref}>
-                <div className="flex justify-center mb-2">
-                  <GraduationCap className="h-8 w-8 text-accent" />
-                </div>
-                <div className="text-2xl font-bold">
-                  {universitiesCount.count}+
-                </div>
-                <div className="text-sm text-gray-300">
-                  Partner Universities
-                </div>
-              </div>
-              <div className="text-center" ref={countriesCount.ref}>
-                <div className="flex justify-center mb-2">
-                  <Globe className="h-8 w-8 text-accent" />
-                </div>
-                <div className="text-2xl font-bold">
-                  {countriesCount.count}+
-                </div>
-                <div className="text-sm text-gray-300">Countries</div>
-              </div>
             </div>
           </div>
 

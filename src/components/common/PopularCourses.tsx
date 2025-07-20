@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -44,6 +43,10 @@ const PopularCourses = () => {
   const { toast } = useToast();
   const { user } = useAuth();
   const [expandedFees, setExpandedFees] = useState<Set<string>>(new Set());
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // Add carousel API state to track current slide
+  const [carouselApi, setCarouselApi] = useState<any>(null);
 
   useEffect(() => {
     fetchPopularCourses();
@@ -71,6 +74,24 @@ const PopularCourses = () => {
       setSavedCourseIds(new Set(savedCourses));
     }
   }, [savedCourses]);
+
+  // Effect to track carousel API changes and update currentIndex
+  useEffect(() => {
+    if (!carouselApi) {
+      return;
+    }
+
+    const updateCurrentIndex = () => {
+      setCurrentIndex(carouselApi.selectedScrollSnap());
+    };
+
+    carouselApi.on("select", updateCurrentIndex);
+    updateCurrentIndex();
+
+    return () => {
+      carouselApi.off("select", updateCurrentIndex);
+    };
+  }, [carouselApi]);
 
   const fetchPopularCourses = async () => {
     try {
@@ -185,33 +206,52 @@ const PopularCourses = () => {
     return <PopularCoursesLoading />;
   }
 
-  
-    const toggleFeeExpansion = (courseId: string) => {
-      setExpandedFees(prev => {
-        const newSet = new Set(prev);
-        if (newSet.has(courseId)) {
-          newSet.delete(courseId);
-        } else {
-          newSet.add(courseId);
-        }
-        return newSet;
-      });
-    };
-  
+  const toggleFeeExpansion = (courseId: string) => {
+    setExpandedFees(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(courseId)) {
+        newSet.delete(courseId);
+      } else {
+        newSet.add(courseId);
+      }
+      return newSet;
+    });
+  };
+
+  // Function to go to specific slide (same as CountryCards)
+  const goToSlide = (index: number) => {
+    if (carouselApi && index !== currentIndex) {
+      carouselApi.scrollTo(index);
+    }
+  };
+
+  // Calculate total number of slides based on items per view
+  const getItemsPerView = () => {
+    if (typeof window === 'undefined') return 3;
+    if (window.innerWidth < 768) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  };
+
+  const itemsPerView = getItemsPerView();
+  const totalSlides = Math.ceil(courses.length / itemsPerView);
 
   return (
+    <>
     <section className="py-20 bg-[#f5f5f5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <PopularCoursesHeader />
 
         {courses.length > 0 ? (
+          <>
           <div className="relative">
             <Carousel
               opts={{
                 align: "start",
                 loop: true,
               }}
-              className="w-full  "
+              className="w-full"
+              setApi={setCarouselApi}
             >
               <CarouselContent className="-ml-4 py-4">
                 {courses.map((course) => (
@@ -322,7 +362,6 @@ const PopularCourses = () => {
                             </Button>
                           )}
 
-
                           {/* Tuition Fee section - shown only when expanded */}
                           {expandedFees.has(course.id) && (
                             <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-xl border border-indigo-100">
@@ -339,7 +378,7 @@ const PopularCourses = () => {
                                     size="sm"
                                     className="h-auto p-0 text-xs text-primary hover:bg-transparent hover:cursor-pointer hover:text-primary"
                                     onClick={() => toggleFeeExpansion(course.id)}
-                                  >
+                                    >
                                     Show Less <ChevronUp className="h-4 w-4 ml-1" />
                                   </Button>
                                 </div>
@@ -374,8 +413,21 @@ const PopularCourses = () => {
               </CarouselContent>
               <CarouselPrevious className="hidden md:flex" />
               <CarouselNext className="hidden md:flex" />
+              
             </Carousel>
+              <div className="mt-4 mb-0 flex justify-center items-center space-x-3 z-30">
+                {Array.from({ length: totalSlides }, (_, idx) => (
+                  <button
+                  key={idx}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-primary/90 w-5' : 'bg-gray-200 hover:bg-gray-300'}`}
+                    onClick={() => goToSlide(idx)}
+                    aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+              </div>
           </div>
+              
+                  </>
         ) : (
           <PopularCoursesEmpty />
         )}
@@ -383,6 +435,7 @@ const PopularCourses = () => {
         <PopularCoursesAction onViewAllCourses={handleViewAllCourses} />
       </div>
     </section>
+    </>
   );
 };
 

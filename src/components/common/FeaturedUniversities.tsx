@@ -56,6 +56,7 @@ const FeaturedUniversities = () => {
   if (universities.length === 0) {
     return null; // Don't show section if no featured universities
   }
+  
 
   return (
     <section className="py-20 bg-white relative overflow-hidden">
@@ -148,15 +149,20 @@ const FeaturedUniversities = () => {
               ))}
             </CarouselContent>
 
-            {/* Navigation Buttons - Overlay style like CountryCards */}
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all duration-300 hover:scale-110">
-              <ChevronLeft className="w-5 h-5" />
-            </CarouselPrevious>
-
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all duration-300 hover:scale-110">
-              <ChevronRight className="w-5 h-5" />
-            </CarouselNext>
           </Carousel>
+            {/* Dots Indicator */}
+            {universities.length > 6 && (
+              
+            <div className="mt-4 bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
+              {universities.map((_, idx) => (
+                <button
+                  key={idx}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-primary/90 w-5' : 'bg-gray-200 hover:bg-gray-300'}`}
+                  aria-label={`Go to university ${idx + 1}`}
+                />
+              ))}
+            </div>
+            )}
         </div>
 
         {/* Enhanced Call to Action */}

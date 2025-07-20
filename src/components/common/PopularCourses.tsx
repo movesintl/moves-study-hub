@@ -77,21 +77,24 @@ const PopularCourses = () => {
 
   // Effect to track carousel API changes and update currentIndex
   useEffect(() => {
-    if (!carouselApi) {
-      return;
-    }
+  if (!carouselApi) return;
 
-    const updateCurrentIndex = () => {
-      setCurrentIndex(carouselApi.selectedScrollSnap());
-    };
+  const onSelect = () => {
+    setCurrentIndex(carouselApi.selectedScrollSnap());
+  };
 
-    carouselApi.on("select", updateCurrentIndex);
-    updateCurrentIndex();
+  // Listen to select and scroll end
+  carouselApi.on("select", onSelect);
+  carouselApi.on("settle", onSelect); // settle = when animation finishes
 
-    return () => {
-      carouselApi.off("select", updateCurrentIndex);
-    };
-  }, [carouselApi]);
+  onSelect(); // Initial update
+
+  return () => {
+    carouselApi.off("select", onSelect);
+    carouselApi.off("settle", onSelect);
+  };
+}, [carouselApi]);
+
 
   const fetchPopularCourses = async () => {
     try {

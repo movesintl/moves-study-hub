@@ -172,7 +172,7 @@ const Webstories = () => {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-2 h-2 rounded-full transition-all duration 300 ${
-                index === currentIndex ? 'bg-primary' : 'bg-gray-300'
+                index === currentIndex ? 'bg-primary/90 w-5' : 'bg-gray-300'
               }`}
             />
           ))}

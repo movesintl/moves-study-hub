@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon, DotIcon, Dot } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
@@ -16,6 +16,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import KeepReading from '@/components/services/KeepReading';
+import ReadyToBeginSection from '@/components/services/ReadyToBegin';
 
 const ServiceDetails = () => {
   const { id: slug } = useParams();
@@ -54,41 +56,38 @@ const ServiceDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
+    <div className="min-h-screen bg-white">
       {/* Hero Section - University Style Layout */}
-      <section className="relative bg-gradient-to-r from-slate-800 via-slate-700 to-slate-600 overflow-hidden min-h-[500px]">
+      <section className="relative bg-primary overflow-hidden min-h-[500px]">
         {/* Background overlay for better text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 to-slate-800/60" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-
-
           {/* Main Hero Content */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px] py-8">
             {/* Left Column - Text Content */}
-           
-              {/* Breadcrumb-style navigation */}
-               <div className="space-y-6 lg:space-y-8">
-              <Breadcrumb className='text-orange-400'>
+
+            {/* Breadcrumb-style navigation */}
+            <div className="space-y-6 lg:space-y-8">
+              <Breadcrumb className=''>
                 <BreadcrumbList>
                   <BreadcrumbItem>
                     <BreadcrumbLink asChild>
-                      <a href="/" className='text-orange-400 hover:text-orange-500'>Home</a>
+                      <a href="/" className='text-orange-500 hover:text-orange-100'>Home</a>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator>
-                    <SlashIcon />
+                    •
                   </BreadcrumbSeparator>
                   <BreadcrumbItem>
                     <BreadcrumbLink asChild>
-                      <a href="/services" className='text-orange-400 hover:text-orange-500'>Services</a>
+                      <a href="/services" className='text-orange-500 hover:text-orange-100'>Services</a>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator>
-                    <SlashIcon />
+                    •
                   </BreadcrumbSeparator>
                   <BreadcrumbItem>
-                    <BreadcrumbPage className='text-orange-500'>{service.title}</BreadcrumbPage>
+                    <BreadcrumbPage className='text-white'>{service.title}</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
@@ -107,7 +106,7 @@ const ServiceDetails = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white text-lg px-8 py-6 rounded-lg">
+                <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
                   <Link to="/contact" className="flex items-center">
                     Get Started Today
                   </Link>
@@ -127,15 +126,15 @@ const ServiceDetails = () => {
               {/* Trust Indicators */}
               <div className="flex flex-wrap items-center gap-6 text-white/80 pt-4">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-orange-400" />
+                  <CheckCircle className="h-5 w-5 text-accent" />
                   <span>Expert guidance</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-orange-400" />
+                  <Clock className="h-5 w-5 text-accent" />
                   <span>Quick process</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Award className="h-5 w-5 text-orange-400" />
+                  <Award className="h-5 w-5 text-accent" />
                   <span>Proven results</span>
                 </div>
               </div>
@@ -183,124 +182,31 @@ const ServiceDetails = () => {
       </section>
 
       {/* Service Details Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-2xl text-foreground">Service Overview</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {service.full_details && (
-                  <div
-                    className="prose prose-lg max-w-none text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: service.full_details }}
-                  />
-                )}
-              </CardContent>
-            </Card>
+      <div className="container mx-auto my-12 px-4 py-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="space-y-4">
+            <div className="inline-flex items-center ml-4 w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-base font-medium">
+              {service.title}
+            </div>
 
-            {/* Key Benefits */}
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-2xl text-foreground">Why Choose This Service?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2">Expert Guidance</h4>
-                      <p className="text-muted-foreground text-sm">
-                        Professional support from experienced consultants
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <Clock className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2">Quick Process</h4>
-                      <p className="text-muted-foreground text-sm">
-                        Streamlined approach to save your time
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <Award className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2">Proven Results</h4>
-                      <p className="text-muted-foreground text-sm">
-                        Track record of successful outcomes
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <Users className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2">Personalized Support</h4>
-                      <p className="text-muted-foreground text-sm">
-                        Tailored solutions for your specific needs
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8 space-y-6">
-              {/* CTA Card */}
-              <Card className="shadow-lg border-primary/20">
-                <CardContent className="p-6">
-                  <div className="text-center space-y-4">
-                    <h3 className="text-xl font-bold text-foreground">
-                      Ready to Get Started?
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Contact our experts today for personalized assistance with this service.
-                    </p>
-                    <div className="space-y-3">
-                      <Button className="w-full" size="lg" asChild>
-                        <Link to="/contact">
-                          Get This Service
-                        </Link>
-                      </Button>
-                      <Button variant="outline" className="w-full" asChild>
-                        <Link to="/contact">
-                          Schedule Consultation
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Contact Info */}
-              <Card className="shadow-lg">
-                <CardContent className="p-6">
-                  <h4 className="font-semibold text-foreground mb-4">Need Help?</h4>
-                  <div className="space-y-3 text-sm">
-                    <p className="text-muted-foreground">
-                      Have questions about this service? Our team is here to help.
-                    </p>
-                    <div className="pt-2">
-                      <Button variant="ghost" className="w-full justify-start p-0 h-auto" asChild>
-                        <Link to="/contact">
-                          Contact Support →
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            <div>
+              {service.full_details && (
+                <div
+                  className="prose prose-lg max-w-none text-gray-600 "
+                  dangerouslySetInnerHTML={{ __html: service.full_details }}
+                />
+              )}
             </div>
           </div>
         </div>
       </div>
 
+      {/* Keep Reading */}
+      {service.title === "Application Assistant" && (
+        <div className="my-4">
+          <KeepReading />
+        </div>
+      )}
       {/* How It Works Section */}
       <HowItWorksDisplay
         title={service.how_it_works_title}
@@ -309,6 +215,7 @@ const ServiceDetails = () => {
         blurbs={service.how_it_works_blurbs as Array<{ icon: string; title: string; description: string }>}
       />
 
+      <ReadyToBeginSection />
       {/* FAQ Section */}
       {service.faqs && Array.isArray(service.faqs) && service.faqs.length > 0 && (
         <PageViewFAQ faqs={service.faqs as Array<{ question: string; answer: string }>} />

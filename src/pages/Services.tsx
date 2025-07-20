@@ -19,63 +19,6 @@ import {
 } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client'; // Assuming supabase client is configured
 
-// Mock data (commented out - for reference)
-// const services = [
-//   {
-//     id: 'consultation',
-//     icon: MessageCircle,
-//     title: 'Free Consultation',
-//     description: 'Get personalized guidance from certified education consultants',
-//     features: ['Career counseling', 'Course selection', 'University matching', 'Study plan development'],
-//     color: 'bg-blue-500',
-//     link: '/services/consultation'
-//   },
-//   {
-//     id: 'application-assistance',
-//     icon: FileCheck,
-//     title: 'Application Assistance',
-//     description: 'Complete support for university and college applications',
-//     features: ['Document preparation', 'Application review', 'Submission tracking', 'Follow-up support'],
-//     color: 'bg-green-500',
-//     link: '/services/application-assistance'
-//   },
-//   {
-//     id: 'visa-migration',
-//     icon: Plane,
-//     title: 'Visa & Migration',
-//     description: 'Expert visa guidance and migration services',
-//     features: ['Visa application', 'Interview preparation', 'Post-study options', 'Legal compliance'],
-//     color: 'bg-purple-500',
-//     link: '/services/visa-migration'
-//   },
-//   {
-//     id: 'english-test-prep',
-//     icon: BookOpen,
-//     title: 'English Test Preparation',
-//     description: 'Comprehensive IELTS and PTE training and test booking',
-//     features: ['IELTS & PTE classes', 'Practice tests', 'Score guarantee', 'Flexible scheduling'],
-//     color: 'bg-orange-500',
-//     link: '/services/english-test-prep'
-//   },
-//   {
-//     id: 'scholarship-guidance',
-//     icon: Award,
-//     title: 'Scholarship Guidance',
-//     description: 'Find and apply for scholarships and financial aid',
-//     features: ['Scholarship search', 'Application help', 'Merit assessment', 'Funding strategies'],
-//     color: 'bg-red-500',
-//     link: '/services/scholarship-guidance'
-//   },
-//   {
-//     id: 'pre-departure-support',
-//     icon: Users,
-//     title: 'Pre-Departure Support',
-//     description: 'Complete preparation for your journey abroad',
-//     features: ['Accommodation help', 'Travel guidance', 'Orientation sessions', 'Cultural preparation'],
-//     color: 'bg-teal-500',
-//     link: '/services/pre-departure-support'
-//   }
-// ];
 
 const Services = () => {
   const [services, setServices] = useState([]);

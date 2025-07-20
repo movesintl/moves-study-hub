@@ -1,15 +1,21 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, Users, Clock, Award } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 import PageViewFAQ from '@/pages/components/PageViewFAQ';
 import HowItWorksDisplay from '@/components/services/HowItWorksDisplay';
+import {
+  Breadcrumb, BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 
 const ServiceDetails = () => {
   const { id: slug } = useParams();
@@ -22,7 +28,7 @@ const ServiceDetails = () => {
         .select('*')
         .eq('slug', slug)
         .single();
-      
+
       if (error) throw error;
       return data;
     }
@@ -49,89 +55,128 @@ const ServiceDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary-glow to-accent overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-transparent" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-          <Button variant="ghost" asChild className="mb-6 text-white hover:bg-white/20">
-            <Link to="/services">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Services
-            </Link>
-          </Button>
-          
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Content */}
-            <div className="space-y-8">
-              <div className="flex items-center gap-4 mb-6">
-                {service.icon_url && (
-                  <div className="flex-shrink-0 bg-white/20 p-4 rounded-2xl backdrop-blur-sm">
-                    <img 
-                      src={service.icon_url} 
-                      alt={service.title}
-                      className="h-16 w-16 object-contain"
-                    />
-                  </div>
-                )}
-                <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <Award className="h-8 w-8 text-white" />
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
+      {/* Hero Section - University Style Layout */}
+      <section className="relative bg-gradient-to-r from-slate-800 via-slate-700 to-slate-600 overflow-hidden min-h-[500px]">
+        {/* Background overlay for better text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 to-slate-800/60" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+
+
+          {/* Main Hero Content */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px] py-8">
+            {/* Left Column - Text Content */}
+           
+              {/* Breadcrumb-style navigation */}
+               <div className="space-y-6 lg:space-y-8">
+              <Breadcrumb className='text-orange-400'>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <a href="/" className='text-orange-400 hover:text-orange-500'>Home</a>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator>
+                    <SlashIcon />
+                  </BreadcrumbSeparator>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <a href="/services" className='text-orange-400 hover:text-orange-500'>Services</a>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator>
+                    <SlashIcon />
+                  </BreadcrumbSeparator>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className='text-orange-500'>{service.title}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+
+              {/* Main Title */}
+              <div className="space-y-4">
+                <h1 className="text-4xl flex lg:text-6xl font-bold text-white leading-tight">
                   {service.title}
                 </h1>
                 {service.short_description && (
-                  <p className="text-xl text-white/90 leading-relaxed">
+                  <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
                     {service.short_description}
                   </p>
                 )}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6">
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white text-lg px-8 py-6 rounded-lg">
                   <Link to="/contact" className="flex items-center">
                     Get Started Today
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6">
-                  <Link to="/contact" className="flex items-center">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-white hover:bg-white/90 bg-white text-primary hover:text-primary text-lg px-8 py-6 rounded-lg transition-all duration-300"
+                >
+                  <Link to="/contact" className="flex items-center ">
                     <Users className="h-5 w-5 mr-2" />
                     Speak to Expert
                   </Link>
                 </Button>
               </div>
 
-              <div className="flex items-center gap-8 text-white/80">
+              {/* Trust Indicators */}
+              <div className="flex flex-wrap items-center gap-6 text-white/80 pt-4">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5" />
+                  <CheckCircle className="h-5 w-5 text-orange-400" />
                   <span>Expert guidance</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5" />
+                  <Clock className="h-5 w-5 text-orange-400" />
                   <span>Quick process</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Award className="h-5 w-5" />
+                  <Award className="h-5 w-5 text-orange-400" />
                   <span>Proven results</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column - Feature Image */}
-            <div className="lg:text-center">
+            {/* Right Column - Hero Image */}
+            <div className="relative lg:ml-8">
               {service.feature_image_url ? (
-                <img 
-                  src={service.feature_image_url} 
-                  alt={service.feature_image_alt || service.title}
-                  className="w-full h-64 lg:h-80 object-cover"
-                />
+                <div className="relative">
+                  <img
+                    src={service.icon_url}
+                    alt={service.feature_image_alt || service.title}
+                    className="w-full h-[300px] lg:h-[400px] object-cover rounded-2xl shadow-2xl"
+                  />
+                  {/* Optional overlay for better image integration */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent rounded-2xl"></div>
+                </div>
               ) : (
-                <div className="w-full h-64 lg:h-80 bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
-                  <Award className="h-24 w-24 text-white/60" />
+                <div className="w-full h-[300px] lg:h-[400px] bg-gradient-to-br from-orange-500/20 to-slate-600/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/10">
+                  {service.icon_url ? (
+                    <img
+                      src={service.feature_image_url}
+                      alt={service.title}
+                      className="h-24 w-24 object-contain opacity-80"
+                    />
+                  ) : (
+                    <Award className="h-24 w-24 text-white/60" />
+                  )}
                 </div>
               )}
+
+              {/* Floating icon badge */}
+              {/* {service.icon_url && (
+                <div className="absolute -top-4 -left-4 bg-orange-500 p-4 rounded-2xl shadow-lg">
+                  <img 
+                    src={service.icon_url} 
+                    alt={service.title}
+                    className="h-8 w-8 object-contain"
+                  />
+                </div>
+              )} */}
             </div>
           </div>
         </div>
@@ -148,7 +193,7 @@ const ServiceDetails = () => {
               </CardHeader>
               <CardContent>
                 {service.full_details && (
-                  <div 
+                  <div
                     className="prose prose-lg max-w-none text-muted-foreground"
                     dangerouslySetInnerHTML={{ __html: service.full_details }}
                   />

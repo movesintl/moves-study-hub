@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import KeepReading from '@/components/services/KeepReading';
 import ReadyToBeginSection from '@/components/services/ReadyToBegin';
+import OtherServicesSection from '@/components/services/OtherServices';
 
 const ServiceDetails = () => {
   const { id: slug } = useParams();
@@ -223,6 +224,8 @@ const ServiceDetails = () => {
 
       {/* Lead Enquiry Form */}
       <LeadEnquiryForm />
+
+      <OtherServicesSection/>
     </div>
   );
 };

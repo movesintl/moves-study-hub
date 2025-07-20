@@ -11,7 +11,7 @@ export default function KeepReading() {
       </div>
       
       <div className="ml-8 flex-shrink-0">
-        <a href="/services" className="bg-white text-orange-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-200 shadow-md">
+        <a href="/services" className="bg-white text-accent px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-200 shadow-md">
           Keep Reading
         </a>
       </div>

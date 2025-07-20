@@ -61,9 +61,10 @@ export default function OtherServicesSection() {
     <div className="max-w-7xl mx-auto px-4 py-16">
       <h2 className="text-4xl font-bold text-center text-slate-800 mb-12">Other Services</h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((service, index) => (
           <div
+          onClick={() => window.location.href = `/services/${service.slug}`}
             key={service.id}
             className="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-all duration-300 hover:scale-105"
           >
@@ -93,7 +94,7 @@ export default function OtherServicesSection() {
                   {service.title}
                 </h3>
                 
-                <button className="flex items-center text-white font-medium group-hover:text-orange-100 transition-colors duration-200">
+                <button onClick={() => window.location.href = `/services/${service.slug}`} className="flex items-center text-white font-medium group-hover:text-orange-100 transition-colors duration-200">
                   Read More
                   <svg 
                     className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" 

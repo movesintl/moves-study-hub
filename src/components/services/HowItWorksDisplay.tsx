@@ -25,63 +25,66 @@ const HowItWorksDisplay: React.FC<HowItWorksDisplayProps> = ({
   }
 
   return (
-    <section className="py-16 bg-gradient-to-br from-background via-accent/5 to-primary/5">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
+    <section className="py-20 min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-12 relative">
+        {/* Left Column - Full height image */}
+        <div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:items-center">
+          {featureImageUrl && (
+            <img
+              src={featureImageUrl}
+              alt={title || "How it works"}
+              className="w-full h-full max-h-[80vh] object-cover rounded-xl shadow-lg"
+            />
+          )}
+        </div>
+
+        {/* Right Column - Content */}
+        <div className="flex flex-col space-y-12">
+          {/* Title and Description (not in card) */}
+          <div className="space-y-6">
             {title && (
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
                 {title}
               </h2>
             )}
             {description && (
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg text-muted-foreground leading-relaxed">
                 {description}
               </p>
             )}
-            {featureImageUrl && (
-              <div className="mt-8">
-                <img 
-                  src={featureImageUrl} 
-                  alt={title || "How it works"}
-                  className="w-full max-w-2xl mx-auto h-64 object-cover rounded-2xl shadow-lg"
-                />
-              </div>
-            )}
           </div>
 
-          {/* Process Steps */}
+          {/* Blurbs in cards */}
           {blurbs.length > 0 && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="space-y-8">
               {blurbs.map((blurb, index) => (
-                <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 bg-white/60 backdrop-blur-sm">
-                  <CardContent className="p-8 text-center">
-                    <div className="mb-6">
-                      {blurb.icon ? (
-                        <div className="mx-auto w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                          <img 
-                            src={blurb.icon} 
+                <Card
+                  key={index}
+                  className="bg-[#fcfcfc] hover:shadow-md transition-shadow"
+                >
+                  <CardContent className="p-6">
+                    <div className="flex flex-col gap-4">
+                      {/* Image/Icon at top left */}
+                      {blurb.icon && (
+                        <div className="w-16 h-16">
+                          <img
+                            src={blurb.icon}
                             alt={blurb.title}
-                            className="w-10 h-10 object-contain"
+                            className="w-full h-full object-contain"
                           />
                         </div>
-                      ) : (
-                        <div className="mx-auto w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                          <span className="text-2xl font-bold text-primary">
-                            {index + 1}
-                          </span>
-                        </div>
                       )}
+                      
+                      {/* Title */}
+                      <h3 className="text-xl font-semibold text-foreground">
+                        {blurb.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className="text-muted-foreground leading-relaxed">
+                        {blurb.description}
+                      </p>
                     </div>
-                    
-                    <h3 className="text-xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors">
-                      {blurb.title}
-                    </h3>
-                    
-                    <p className="text-muted-foreground leading-relaxed">
-                      {blurb.description}
-                    </p>
                   </CardContent>
                 </Card>
               ))}

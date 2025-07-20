@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { MapPin, GraduationCap, ExternalLink } from 'lucide-react';
+import { MapPin, GraduationCap, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface University {
@@ -148,19 +148,14 @@ const FeaturedUniversities = () => {
               ))}
             </CarouselContent>
 
-            {/* Custom Navigation - unchanged */}
-            <div className="flex items-center justify-center gap-4 mt-8 w-full">
-              <CarouselPrevious className="relative inset-auto translate-y-0 h-12 w-12 bg-white/80 backdrop-blur-sm border-0 shadow-lg shadow-slate-200/50 hover:shadow-blue-500/20 hover:bg-white transition-all duration-300 hover:scale-110" />
-              <div className="flex gap-2">
-                {Array.from({ length: Math.ceil(universities.length / 5) }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-2 w-8 bg-slate-200 rounded-full hover:bg-blue-400 transition-colors duration-300 cursor-pointer"
-                  />
-                ))}
-              </div>
-              <CarouselNext className="relative inset-auto translate-y-0 h-12 w-12 bg-white/80 backdrop-blur-sm border-0 shadow-lg shadow-slate-200/50 hover:shadow-blue-500/20 hover:bg-white transition-all duration-300 hover:scale-110" />
-            </div>
+            {/* Navigation Buttons - Overlay style like CountryCards */}
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all duration-300 hover:scale-110">
+              <ChevronLeft className="w-5 h-5" />
+            </CarouselPrevious>
+
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all duration-300 hover:scale-110">
+              <ChevronRight className="w-5 h-5" />
+            </CarouselNext>
           </Carousel>
         </div>
 

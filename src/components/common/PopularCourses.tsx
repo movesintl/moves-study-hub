@@ -411,8 +411,8 @@ const PopularCourses = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="hidden md:flex" />
-              <CarouselNext className="hidden md:flex" />
+              <CarouselPrevious className=" hidden md:flex -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full  items-center justify-center text-gray-500 hover:bg-white hover:text-gray-500 z-30 shadow-md transition-all duration-300 hover:scale-110" />
+              <CarouselNext className="hidden md:flex w-10 h-10 -translate-y-1/2 bg-white/80 rounded-full  items-center justify-center text-gray-500 hover:bg-white z-30  hover:text-gray-500 shadow-md transition-all duration-300 hover:scale-110" />
               
             </Carousel>
               <div className="mt-4 mb-0 flex justify-center items-center space-x-3 z-30">

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -14,6 +13,7 @@ import {
   CheckCircle,
   ArrowRight
 } from 'lucide-react';
+import StoryWithStatsSection from '@/components/common/StoryStats';
 
 const About = () => {
   const values = [
@@ -53,64 +53,80 @@ const About = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-primary to-accent text-white py-20">
+      <div className="relative bg-primary text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              About Moves International
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8">
-              Your trusted partner in international education, helping students achieve their dreams of studying abroad for over 15 years.
-            </p>
-            <Button size="lg" variant="secondary" asChild>
-              <Link to="/contact">
-                Get Started Today
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Our Story Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
-            <div className="space-y-4 text-gray-600">
-              <p>
-                Founded in 2008, Moves International began with a simple mission: to make quality international 
-                education accessible to students from Nepal, Bangladesh, and across South Asia. What started as 
-                a small counseling service has grown into a comprehensive educational consultancy with offices 
-                across multiple countries.
-              </p>
-              <p>
-                Over the years, we've helped more than 10,000 students realize their dreams of studying abroad. 
-                Our success is built on trust, transparency, and an unwavering commitment to student success. 
-                We understand that studying abroad is not just about education—it's about transformation, 
-                growth, and building a brighter future.
-              </p>
-              <p>
-                Today, we continue to expand our services and partnerships, ensuring that every student who 
-                walks through our doors receives the personalized attention and expert guidance they deserve.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Text Content */}
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                Best Migration Agents & <span className="text-orange-400">EDUCATION</span> Consultants
+              </h1>
+              <div className="space-y-2 text-lg text-gray-300">
+                <p>We are registered migration agents & education consultants in Australia.</p>
+                <p>We have 5k+ Satisfied Clients.</p>
+              </div>
+              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
+                <Link to="/contact">
+                  Get Started Today
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
             </div>
-          </div>
-          <div className="relative">
-            <img 
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop" 
-              alt="Students collaborating" 
-              className="rounded-lg shadow-xl"
-            />
-            <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-lg shadow-lg">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">15+</div>
-                <div className="text-sm text-gray-600">Years of Excellence</div>
+            
+            {/* Right Side - Team Images */}
+            <div className="relative">
+              <div className="grid grid-cols-2 gap-4">
+                {/* Top row - 2 images */}
+                <div className="space-y-4">
+                  <div className="bg-white rounded-lg p-2 shadow-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" 
+                      alt="Team member 1" 
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="bg-white rounded-lg p-2 shadow-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1494790108755-2616c64c8c86?w=200&h=200&fit=crop&crop=face" 
+                      alt="Team member 2" 
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
+                  </div>
+                </div>
+                
+                <div className="space-y-4 mt-8">
+                  <div className="bg-white rounded-lg p-2 shadow-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face" 
+                      alt="Team member 3" 
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="bg-white rounded-lg p-2 shadow-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" 
+                      alt="Team member 4" 
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Larger bottom image */}
+              <div className="mt-4 bg-white rounded-lg p-2 shadow-lg max-w-xs mx-auto">
+                <img 
+                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=200&fit=crop&crop=face" 
+                  alt="Team member 5" 
+                  className="w-full h-40 object-cover rounded-lg"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Our Story Section */}
+      <StoryWithStatsSection/>
 
       {/* Achievements Section */}
       <div className="bg-white py-16">

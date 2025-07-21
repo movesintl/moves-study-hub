@@ -14,11 +14,6 @@ import StudentDashboard from '@/pages/StudentDashboard';
 import Services from '@/pages/Services';
 import ServiceDetails from '@/pages/ServiceDetails';
 import Consultation from '@/pages/services/Consultation';
-import VisaMigration from '@/pages/services/VisaMigration';
-import EnglishTestPrep from '@/pages/services/EnglishTestPrep';
-import ApplicationAssistance from '@/pages/services/ApplicationAssistance';
-import ScholarshipGuidance from '@/pages/services/ScholarshipGuidance';
-import PreDepartureSupport from '@/pages/services/PreDepartureSupport';
 import UniversityDetails from '@/pages/UniversityDetails';
 import Universities from '@/pages/Universities';
 import Destinations from '@/pages/Destinations';
@@ -87,11 +82,6 @@ function App() {
                 <Route path="services" element={<Services />} />
                 <Route path="services/:id" element={<ServiceDetails />} />
                 <Route path="services/consultation" element={<Consultation />} />
-                <Route path="services/visa-migration" element={<VisaMigration />} />
-                <Route path="services/english-test-prep" element={<EnglishTestPrep />} />
-                <Route path="services/application-assistance" element={<ApplicationAssistance />} />
-                <Route path="services/scholarship-guidance" element={<ScholarshipGuidance />} />
-                <Route path="services/pre-departure-support" element={<PreDepartureSupport />} />
                 <Route path="universities" element={<Universities />} />
                 <Route path="universities/:slug" element={<UniversityDetails />} />
                 <Route path="destinations" element={<Destinations />} />

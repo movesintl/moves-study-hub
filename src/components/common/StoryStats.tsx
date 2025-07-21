@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCountingAnimation } from "@/hooks/useCountingAnimation";
-import { Users, GraduationCap, Globe, Calendar, BookOpen } from "lucide-react";
+import { Users, GraduationCap, Globe, Calendar, BookOpen, Flag } from "lucide-react";
 
 const StoryWithStatsSection = () => {
   const { count: studentsCount, ref: studentsRef } = useCountingAnimation({ end: 10000, duration: 2000 });
@@ -43,12 +43,16 @@ const StoryWithStatsSection = () => {
           <div className="flex col-span-8 flex-col gap-[22px] self-start lg:sticky top-[100px]">
             <div className="px-[20px] py-[32px] bg-gray-100 rounded-2xl">
               <div className="flex items-center gap-3 mb-6">
-                <BookOpen className="h-8 w-8 text-[#FA8500]" />
-                <h2 className="text-3xl font-bold text-gray-900">Our Story</h2>
+                <Flag className="h-6 w-6 text-green-400 " />
+                <h2 className="text-2xl leading-tight tracking-tight font-medium text-primary">Our Story</h2>
               </div>
               <div className="space-y-4 text-gray-600 text-left">
-                <p className="text-2xl font-medium text-gray-800">
-                  Founded in 2008, Moves International began with a simple mission
+                <p className="text-4xl font-bold text-primary">
+                  Founded in 2008,<br></br>
+                    <span className="text-orange-500 mr-1 ">
+                      Moves International   
+                      </span> 
+                      began with a simple mission
                 </p>
                 <p>
                  To make quality international 

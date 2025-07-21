@@ -14,6 +14,14 @@ import {
   ArrowRight
 } from 'lucide-react';
 import StoryWithStatsSection from '@/components/common/StoryStats';
+import {
+  Breadcrumb, BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import ExpertiseAchievements, { ExpertiseAchievements2 } from '@/components/common/ExpertiseAchievements';
 
 const About = () => {
   const values = [
@@ -52,108 +60,132 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      {/* Hero Section */}
-      <div className="relative bg-primary text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Text Content */}
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                Best Migration Agents & <span className="text-orange-400">EDUCATION</span> Consultants
-              </h1>
-              <div className="space-y-2 text-lg text-gray-300">
-                <p>We are registered migration agents & education consultants in Australia.</p>
-                <p>We have 5k+ Satisfied Clients.</p>
-              </div>
-              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
-                <Link to="/contact">
-                  Get Started Today
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-            
-            {/* Right Side - Team Images */}
-            <div className="relative">
-              <div className="grid grid-cols-2 gap-4">
-                {/* Top row - 2 images */}
-                <div className="space-y-4">
-                  <div className="bg-white rounded-lg p-2 shadow-lg">
-                    <img 
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" 
-                      alt="Team member 1" 
-                      className="w-full h-32 object-cover rounded-lg"
-                    />
-                  </div>
-                  <div className="bg-white rounded-lg p-2 shadow-lg">
-                    <img 
-                      src="https://images.unsplash.com/photo-1494790108755-2616c64c8c86?w=200&h=200&fit=crop&crop=face" 
-                      alt="Team member 2" 
-                      className="w-full h-32 object-cover rounded-lg"
-                    />
-                  </div>
-                </div>
-                
-                <div className="space-y-4 mt-8">
-                  <div className="bg-white rounded-lg p-2 shadow-lg">
-                    <img 
-                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face" 
-                      alt="Team member 3" 
-                      className="w-full h-32 object-cover rounded-lg"
-                    />
-                  </div>
-                  <div className="bg-white rounded-lg p-2 shadow-lg">
-                    <img 
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" 
-                      alt="Team member 4" 
-                      className="w-full h-32 object-cover rounded-lg"
-                    />
-                  </div>
-                </div>
-              </div>
-              
-              {/* Larger bottom image */}
-              <div className="mt-4 bg-white rounded-lg p-2 shadow-lg max-w-xs mx-auto">
-                <img 
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=200&fit=crop&crop=face" 
-                  alt="Team member 5" 
-                  className="w-full h-40 object-cover rounded-lg"
-                />
-              </div>
-            </div>
+    {/* About Us Hero Section - University Style Layout */}
+<section className="relative py-16 bg-primary overflow-hidden min-h-[500px]">
+  {/* Background overlay for better text contrast */}
+  <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70 z-0"></div>
+  
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+    {/* Main Hero Content */}
+    <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px] py-8">
+      {/* Left Column - Text Content */}
+      <div className="space-y-6 lg:space-y-8">
+        {/* Breadcrumb-style navigation */}
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <a href="/" className='text-orange-500 hover:text-orange-100'>Home</a>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator>•</BreadcrumbSeparator>
+            <BreadcrumbItem>
+              <BreadcrumbPage className='text-white'>About Us</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        {/* Main Title */}
+        <div className="space-y-4">
+          <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
+            Best Migration Agents & <span className="text-accent">Education</span> Consultants
+          </h1>
+          <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
+            We are registered migration agents & education consultants in Australia with 5k+ satisfied clients.
+          </p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
+            <Link to="/contact" className="flex items-center">
+              Get Started Today
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-2 border-white hover:bg-white/90 bg-white text-primary hover:text-primary text-lg px-8 py-6 rounded-lg transition-all duration-300"
+          >
+            <Link to="/services" className="flex items-center">
+              <BookOpen className="h-5 w-5 mr-2" />
+              Our Services
+            </Link>
+          </Button>
+        </div>
+
+        {/* Trust Indicators */}
+        <div className="flex flex-wrap items-center gap-6 text-white/80 pt-4">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="h-5 w-5 text-accent" />
+            <span>Registered Professionals</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Users className="h-5 w-5 text-accent" />
+            <span>5,000+ Satisfied Clients</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Award className="h-5 w-5 text-accent" />
+            <span>Proven Results</span>
           </div>
         </div>
       </div>
+
+      {/* Right Column - Team Images */}
+      <div className="relative lg:ml-8">
+        <div className="grid grid-cols-2 gap-4 relative z-10">
+          {/* Top row - 2 images */}
+          <div className="space-y-4">
+            <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face" 
+                alt="Team member" 
+                className="w-full h-40 lg:h-48 object-cover rounded-lg"
+              />
+            </div>
+            <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1494790108755-2616c64c8c86?w=300&h=300&fit=crop&crop=face" 
+                alt="Team member" 
+                className="w-full h-40 lg:h-48 object-cover rounded-lg"
+              />
+            </div>
+          </div>
+          
+          {/* Bottom row - offset */}
+          <div className="space-y-4 mt-8">
+            <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face" 
+                alt="Team member" 
+                className="w-full h-40 lg:h-48 object-cover rounded-lg"
+              />
+            </div>
+            <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face" 
+                alt="Team member" 
+                className="w-full h-40 lg:h-48 object-cover rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0"></div>
+        <div className="absolute -top-8 -left-8 w-24 h-24 bg-white/10 rounded-full blur-lg z-0"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Our Story Section */}
       <StoryWithStatsSection/>
 
       {/* Achievements Section */}
-      <div className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Our Achievements
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Numbers that reflect our commitment to student success and educational excellence.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">
-                  {achievement.number}
-                </div>
-                <div className="text-gray-600 font-medium">
-                  {achievement.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+    <ExpertiseAchievements/>
+    <ExpertiseAchievements2/>
 
       {/* Our Values Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

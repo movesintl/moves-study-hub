@@ -264,7 +264,7 @@ const PopularCourses = () => {
                         {/* Image Section */}
                         <div className="relative h-12 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
                           <img
-                            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/placeholder_image.svg"
+                            src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/placeholder_image.jpg"
                             alt={course.title}
                             className="w-full h-16 object-cover transition-transform duration-700 group-hover:scale-105"
                           />

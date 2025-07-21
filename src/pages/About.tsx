@@ -22,6 +22,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import ExpertiseAchievements, { ExpertiseAchievements2 } from '@/components/common/ExpertiseAchievements';
+import CEOMsg from '@/components/common/CEOMsg';
 
 const About = () => {
   const values = [
@@ -186,7 +187,7 @@ const About = () => {
       {/* Achievements Section */}
     <ExpertiseAchievements/>
     <ExpertiseAchievements2/>
-
+    <CEOMsg/>
       {/* Our Values Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">

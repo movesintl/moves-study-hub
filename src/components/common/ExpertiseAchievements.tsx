@@ -52,7 +52,7 @@ const ExpertiseAchievements = () => {
           {/* Right Column - Video and Stats */}
           <div className="space-y-8">
             {/* Video Placeholder */}
-            <div className="relative aspect-video bg-gray-200 rounded-xl overflow-hidden shadow-lg">
+            <div className="relative aspect-video bg-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <div className="absolute inset-0 flex items-center justify-center">
                 <PlayCircle className="h-16 w-16 text-primary" />
               </div>
@@ -164,6 +164,7 @@ export const ExpertiseAchievements2 = () => {
               We maintain the highest ethical standards and foster strong partnerships with educational institutions, 
               ensuring accurate information and exceptional service.
             </span>
+            
           </li>
         </ul>
       </div>

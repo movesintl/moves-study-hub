@@ -139,9 +139,7 @@ const PopularCourses = () => {
     navigate('/student-dashboard/applications');
   };
 
-  const handleViewAllCourses = () => {
-    navigate('/courses');
-  };
+
 
   const handleSaveToggle = async (courseId: string) => {
     if (!user?.id) {
@@ -435,7 +433,6 @@ const PopularCourses = () => {
           <PopularCoursesEmpty />
         )}
 
-        <PopularCoursesAction onViewAllCourses={handleViewAllCourses} />
       </div>
     </section>
     </>

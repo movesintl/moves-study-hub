@@ -8,9 +8,6 @@ export default function OtherServicesSection() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-       
-        
-       
         const { data, error } = await supabase
           .from('services')
           .select('id, title, icon_url, slug')

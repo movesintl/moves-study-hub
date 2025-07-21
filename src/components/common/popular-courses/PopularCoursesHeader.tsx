@@ -1,11 +1,18 @@
 
 import React from 'react';
 import { TrendingUp } from 'lucide-react';
+import PopularCoursesAction from './PopularCoursesAction';
+import { useNavigate } from 'react-router-dom';
 
 const PopularCoursesHeader = () => {
+    const navigate = useNavigate();
+  
+    const handleViewAllCourses = () => {
+    navigate('/courses');
+  };
   return (
-    <div className="text-center mb-16">
-      <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+    <div className="text-start mb-16">
+      <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
         <TrendingUp className="w-4 h-4 mr-2" />
         Popular Courses
       </div>
@@ -13,10 +20,16 @@ const PopularCoursesHeader = () => {
       <h2 className="text-4xl font-bold text-primary mb-6">
         Popular Courses
       </h2>
+      <div className="flex justify-between">
+
+      <p className="text-lg text-gray-600 max-w-2xl text-start items-start">
       
-      <p className="text-lg text-gray-600 max-w-2xl mx-auto">
         Discover our most sought-after courses that are shaping the future of education
       </p>
+              <PopularCoursesAction onViewAllCourses={handleViewAllCourses} />
+      </div>
+
+
     </div>
   );
 };

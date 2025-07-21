@@ -42,8 +42,11 @@ const Home = () => {
       </div>
 
       {/* Featured Universities Section */}
-      <FeaturedUniversities />
+      
+<div className="bg-white">
 
+      <FeaturedUniversities />
+</div>
 
 
      {/* Removed Services Overview */}

@@ -59,7 +59,7 @@ const FeaturedUniversities = () => {
   
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       {/* Background decoration */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">

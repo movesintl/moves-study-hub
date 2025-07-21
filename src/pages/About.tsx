@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import ExpertiseAchievements, { ExpertiseAchievements2 } from '@/components/common/ExpertiseAchievements';
 import CEOMsg from '@/components/common/CEOMsg';
+import LeadershipTeam from '@/components/common/MovesTeam';
 
 const About = () => {
   const values = [
@@ -188,96 +189,42 @@ const About = () => {
     <ExpertiseAchievements/>
     <ExpertiseAchievements2/>
     <CEOMsg/>
-      {/* Our Values Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Our Core Values
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            The principles that guide everything we do and define who we are as an organization.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {values.map((value, index) => (
-            <Card key={index} className="border-t-4 border-primary hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto">
-                    <value.icon className="h-8 w-8 text-white" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-gray-600">
-                  {value.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* Why Choose Us Section */}
-      <div className="bg-gradient-to-br from-gray-50 to-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <img 
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop" 
-                alt="International students" 
-                className="rounded-lg shadow-xl"
-              />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Why Choose Moves International?
-              </h2>
-              <div className="space-y-4">
-                {whyChooseUs.map((reason, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-600">{reason}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8">
-                <Button size="lg" asChild>
-                  <Link to="/services">
-                    Explore Our Services
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <LeadershipTeam/>
+   
       {/* Our Staff Section */}
       <OurStaff />
 
       {/* Call to Action Section */}
-      <div className="bg-gradient-to-r from-primary to-accent text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Start Your Journey?
-          </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Join thousands of successful students who have achieved their dreams with our guidance.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
-              <Link to="/contact">Get Free Consultation</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-primary" asChild>
-              <Link to="/courses">Browse Courses</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
+     <section className="py-12 pt-8 pb-16">
+             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+               <div className="bg-primary rounded-2xl p-8 text-white">
+                 <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                   Ready to Start Your Journey?
+                 </h3>
+                 <p className="text-gray-300 mb-6 text-lg">
+                   Book a free consultation with our experts and take the first step
+                   towards your international education goals.
+                 </p>
+                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                   <Button
+                     size="lg"
+                     className="bg-accent hover:bg-accent/90 text-white"
+                     asChild
+                   >
+                     <Link to="/services/consultation">Get Free Consultation</Link>
+                   </Button>
+                   <Button
+                     size="lg"
+                     variant="outline"
+                     className="border-white text-primary hover:bg-white/10 hover:text-white"
+                     asChild
+                   >
+                     <Link to="/contact">Contact Us</Link>
+                   </Button>
+                 </div>
+               </div>
+             </div>
+           </section>
     </div>
   );
 };

@@ -32,12 +32,13 @@ import FeaturedUniversities from '@/components/common/FeaturedUniversities';
 import StickyProfileComponent from '@/components/common/StickyProfile';
 import HighQuality from '@/components/common/HighQuality';
 import Webstories from '@/components/common/Webstories';
+import ServicesWorksLayout from '@/components/services/ServicesWorksLayout';
 
 const Services = () => {
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
-  
+
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -45,7 +46,7 @@ const Services = () => {
           .from('services')
           .select('id, title, icon_url, slug')
           .limit(6);
-        
+
         if (error) {
           console.error('Error fetching services:', error);
         } else {
@@ -57,14 +58,14 @@ const Services = () => {
         setIsLoading(false);
       }
     };
-    
+
     fetchServices();
   }, []);
 
   // Animation effect for the masonry grid
   useEffect(() => {
     if (services.length === 0) return;
-    
+
     const interval = setInterval(() => {
       setCurrentLogoIndex(prev => (prev + 1) % services.length);
     }, 3000);
@@ -154,125 +155,43 @@ const Services = () => {
               </div>
             </div>
 
-           {/* Right Column - Image Grid */}
-<div className="relative hidden lg:block">
-  {services.length > 0 && (
-    <div className="grid grid-cols-3 gap-4 w-full h-[400px]">
-      {[...Array(6)].map((_, index) => {
-        const serviceIndex = (currentLogoIndex + index) % services.length;
-        const service = services[serviceIndex];
-        
-        return (
-          <div 
-            key={index}
-            className="relative rounded-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105"
-          >
-            {service.icon_url ? (
-              <img 
-                src={service.icon_url} 
-                alt={service.title} 
-                className="w-full h-full object-cover bg-white"
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-                <Award className="h-16 w-16 text-white" />
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  )}
-</div>
-          </div>
-        </div>
-      </section>
+            {/* Right Column - Image Grid */}
+            <div className="relative hidden lg:block">
+              {services.length > 0 && (
+                <div className="grid grid-cols-3 gap-4 w-full h-[400px]">
+                  {[...Array(6)].map((_, index) => {
+                    const serviceIndex = (currentLogoIndex + index) % services.length;
+                    const service = services[serviceIndex];
 
-      {/* Services Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Complete Support Every Step of the Way
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From initial consultation to post-arrival support, we provide
-              end-to-end services to make your international education journey
-              smooth and successful.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {isLoading ? (
-              <p className="col-span-full text-center">Loading services...</p>
-            ) : services.length === 0 ? (
-              <p className="col-span-full text-center">No services available at the moment.</p>
-            ) : (
-              services.map((service) => {
-                const Icon = getIconComponent(service.slug);
-                return (
-                  <Card
-                    key={service.id}
-                    className="group hover:shadow-xl rounded-2xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
-                  >
-                    <CardHeader>
-                      <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    return (
+                      <div
+                        key={index}
+                        className="relative rounded-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105"
+                      >
                         {service.icon_url ? (
-                          <img 
-                            src={service.icon_url} 
-                            alt={service.title} 
-                            className="w-8 h-8 object-contain"
+                          <img
+                            src={service.icon_url}
+                            alt={service.title}
+                            className="w-full h-full object-cover bg-white"
                           />
                         ) : (
-                          <Icon className="h-8 w-8 text-white" />
+                          <div className="w-full h-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
+                            <Award className="h-16 w-16 text-white" />
+                          </div>
                         )}
                       </div>
-                      <CardTitle className="text-xl font-bold text-gray-900">
-                        {service.title}
-                      </CardTitle>
-                      <CardDescription className="text-gray-600 leading-relaxed">
-                        {/* Add a default description or fetch it from your data */}
-                        Expert guidance for your {service.title.toLowerCase()} needs.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-col flex-grow">
-                      <ul className="space-y-2 mb-6">
-                        {/* Default features - you can customize these */}
-                        <li className="flex items-center text-sm text-gray-600">
-                          <div className="w-1.5 h-1.5 bg-accent rounded-full mr-3"></div>
-                          Personalized service
-                        </li>
-                        <li className="flex items-center text-sm text-gray-600">
-                          <div className="w-1.5 h-1.5 bg-accent rounded-full mr-3"></div>
-                          Expert guidance
-                        </li>
-                        <li className="flex items-center text-sm text-gray-600">
-                          <div className="w-1.5 h-1.5 bg-accent rounded-full mr-3"></div>
-                          Quick processing
-                        </li>
-                      </ul>
-                      <div className="mt-auto">
-                        <Button
-                          variant="outline"
-                          className="w-full group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-colors"
-                          asChild
-                        >
-                          <Link
-                            to={`/services/${service.slug}`}
-                            className="flex items-center justify-center"
-                          >
-                            Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                          </Link>
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })
-            )}
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
+
+     
+
+      <ServicesWorksLayout/>
 
       <div className="">
         <FeaturedUniversities />
@@ -280,7 +199,7 @@ const Services = () => {
       <StickyProfileComponent />
       <HighQuality />
       <Webstories />
-      
+
       <section className="py-12 pt-8 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl p-8 text-white">

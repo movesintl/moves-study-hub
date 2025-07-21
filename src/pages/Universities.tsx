@@ -10,6 +10,7 @@ import { useUniversityPagination } from '@/hooks/useUniversityPagination';
 // Components
 import { UniversityHeader } from '@/components/universities/UniversityHeader';
 import { UniversityGrid } from '@/components/universities/UniversityGrid';
+import { UniversityList } from '@/components/universities/UniversityList';
 import { UniversityPagination } from '@/components/universities/UniversityPagination';
 
 const Universities = () => {
@@ -19,6 +20,7 @@ const Universities = () => {
   
   // Local state
   const [showFilters, setShowFilters] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   // University queries with filtering and pagination
   const { data: universitiesData, isLoading, error } = useQuery({
@@ -97,6 +99,8 @@ const Universities = () => {
         hasActiveFilters={hasActiveFilters}
         showFilters={showFilters}
         setShowFilters={setShowFilters}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
       />
 
       {/* University Results */}
@@ -120,7 +124,11 @@ const Universities = () => {
           </div>
         ) : universities.length > 0 ? (
           <>
-            <UniversityGrid universities={universities} />
+            {viewMode === 'grid' ? (
+              <UniversityGrid universities={universities} />
+            ) : (
+              <UniversityList universities={universities} />
+            )}
             <UniversityPagination
               currentPage={currentPage}
               totalPages={totalPages}

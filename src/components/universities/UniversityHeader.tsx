@@ -3,6 +3,7 @@ import { Filter, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UniversitySearchBar } from './UniversitySearchBar';
 import { UniversityFilters } from './UniversityFilters';
+import { UniversityViewToggle } from './UniversityViewToggle';
 import { UniversityFilters as UniversityFiltersType } from '@/hooks/useUniversityFilters';
 
 interface UniversityHeaderProps {
@@ -15,6 +16,8 @@ interface UniversityHeaderProps {
   hasActiveFilters: boolean;
   showFilters: boolean;
   setShowFilters: (show: boolean) => void;
+  viewMode: 'grid' | 'list';
+  setViewMode: (mode: 'grid' | 'list') => void;
 }
 
 export const UniversityHeader = ({
@@ -27,6 +30,8 @@ export const UniversityHeader = ({
   hasActiveFilters,
   showFilters,
   setShowFilters,
+  viewMode,
+  setViewMode,
 }: UniversityHeaderProps) => {
   return (
     <div className="bg-white shadow-sm border-b sticky top-0 z-40">
@@ -49,6 +54,9 @@ export const UniversityHeader = ({
           <UniversitySearchBar filters={filters} setFilters={setFilters} />
 
           <div className="flex items-center gap-3">
+            {/* View Toggle */}
+            <UniversityViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
+
             {/* Filter Toggle */}
             <Button
               variant={showFilters ? 'default' : 'outline'}

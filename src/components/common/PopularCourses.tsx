@@ -260,7 +260,7 @@ const PopularCourses = () => {
                 {courses.map((course) => (
                   <CarouselItem key={course.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <div className="h-full rounded-3xl">
-                      <Card className="group relative overflow-hidden bg-white border-0 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 rounded-3xl h-full">
+                      <Card className="group relative overflow-hidden bg-white border-0 shadow-md transition-all duration-500 hover:-translate-y-1 rounded-3xl h-full">
                         {/* Image Section */}
                         <div className="relative h-12 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
                           <img

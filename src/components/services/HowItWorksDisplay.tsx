@@ -33,7 +33,7 @@ const HowItWorksDisplay: React.FC<HowItWorksDisplayProps> = ({
             <img
               src={featureImageUrl}
               alt={title || "How it works"}
-              className="w-full h-full max-h-[80vh] object-cover rounded-xl shadow-lg"
+              className="w-full h-full mt-0 max-h-[80vh] object-content rounded-2xl shadow-lg"
             />
           )}
         </div>
@@ -60,7 +60,7 @@ const HowItWorksDisplay: React.FC<HowItWorksDisplayProps> = ({
               {blurbs.map((blurb, index) => (
                 <Card
                   key={index}
-                  className="bg-[#fcfcfc] hover:shadow-md transition-shadow"
+                  className="bg-[#fcfcfc] hover:shadow-md transition-shadow rounded-2xl"
                 >
                   <CardContent className="p-6">
                     <div className="flex flex-col gap-4">

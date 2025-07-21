@@ -59,7 +59,7 @@ const ServiceDetails = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - University Style Layout */}
-      <section className="relative bg-primary overflow-hidden min-h-[500px]">
+      <section className="relative py-10 bg-primary overflow-hidden min-h-[500px]">
         {/* Background overlay for better text contrast */}
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">

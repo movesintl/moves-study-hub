@@ -5,7 +5,7 @@ export default function HowToApply() {
     {
       id: 1,
       title: "Browse Courses",
-      description: "Explore hundreds of courses and top universities across Australia.",
+      description: "Explore hundreds of courses and top universities across the World.",
       icon: Search,
       bgColor: "bg-blue-100",
       iconColor: "text-blue-600",
@@ -92,7 +92,7 @@ export default function HowToApply() {
         <div className="text-center mb-12">
       <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
           <Rocket className="w-4 h-4 mr-2" /> 
-          GET STARTED
+          Get Started
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             How It Works

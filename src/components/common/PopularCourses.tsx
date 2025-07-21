@@ -260,7 +260,7 @@ const PopularCourses = () => {
                 {courses.map((course) => (
                   <CarouselItem key={course.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                     <div className="h-full rounded-3xl">
-                      <Card className="group relative overflow-hidden bg-white border-0 shadow-md transition-all duration-500 hover:-translate-y-1 rounded-3xl h-full">
+                      <Card className="group relative overflow-hidden bg-white border-0 shadow-md transition-all duration-500 hover:-translate-y-1 rounded-2xl h-full">
                         {/* Image Section */}
                         <div className="relative h-12 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
                           <img
@@ -274,7 +274,7 @@ const PopularCourses = () => {
                         {/* Content Section */}
                         <div className="p-5 space-y-4">
                           {/* Badge */}
-                          <div className="absolute flex items-center gap-4 drop-shadow-sm top-3 mt-5 left-0 bg-white rounded-lg p-6 py-2 shadow-sm">
+                          <div className="absolute flex items-center gap-4 drop-shadow-sm top-3 mt-5 left-0 bg-white rounded-tr-lg rounded-br-lg rounded-tl-none rounded-bl-none p-6 py-2 shadow-sm">
                             {course.university_logo_url ? (
                               <img
                                 src={course.university_logo_url}
@@ -321,10 +321,10 @@ const PopularCourses = () => {
 
                           {/* Badges */}
                           <div className="flex flex-wrap gap-2">
-                            <Badge variant="outline" className="text-xs font-medium bg-blue-50 text-blue-500 border-blue-200 px-2.5 py-0.5">
+                            <Badge variant="outline" className="text-xs font-medium bg-green-50 text-green-500 border-green-200 px-2.5 py-0.5">
                               {course.level}
                             </Badge>
-                            <Badge variant="outline" className="text-xs font-medium bg-purple-50 text-orange-500 border-purple-200 px-2.5 py-0.5">
+                            <Badge variant="outline" className="text-xs font-medium bg-pink-50 text-pink-500 border-pink-200 px-2.5 py-0.5">
                               {course.study_area}
                             </Badge>
                           </div>

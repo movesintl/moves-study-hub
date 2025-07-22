@@ -193,7 +193,7 @@ const ServiceDetails = () => {
             <div>
               {service.full_details && (
                 <div
-                  className="prose prose-lg prose-h2:mb-0 max-w-none text-gray-600 "
+                  className="prose prose-lg prose-h2:mb-0 prose-p:text-base max-w-none text-gray-600 "
                   dangerouslySetInnerHTML={{ __html: service.full_details }}
                 />
               )}

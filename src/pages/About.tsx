@@ -139,45 +139,15 @@ const About = () => {
               </div>
             </div>
 
-            {/* Right Column - Team Images */}
+           {/* Right Column - Team Images */}
             <div className="relative lg:ml-8">
-              <div className="grid grid-cols-2 gap-4 relative z-10">
-                {/* Top row - 2 images */}
-                <div className="space-y-4">
-                  <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
-                      alt="Team member"
-                      className="w-full h-40 lg:h-48 object-cover rounded-lg"
-                    />
-                  </div>
-                  <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1494790108755-2616c64c8c86?w=300&h=300&fit=crop&crop=face"
-                      alt="Team member"
-                      className="w-full h-40 lg:h-48 object-cover rounded-lg"
-                    />
-                  </div>
-                </div>
-
-                {/* Bottom row - offset */}
-                <div className="space-y-4 mt-8">
-                  <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"
-                      alt="Team member"
-                      className="w-full h-40 lg:h-48 object-cover rounded-lg"
-                    />
-                  </div>
-                  <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
-                      alt="Team member"
-                      className="w-full h-40 lg:h-48 object-cover rounded-lg"
-                    />
-                  </div>
-                </div>
-              </div>
+             <div className="w-full h-[300px] lg:h-[400px] object-cover rounded-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=face"
+                alt="Team member"
+                className="w-full h-full object-cover rounded-2xl"
+              />
+            </div>
 
               {/* Decorative elements */}
               <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0"></div>

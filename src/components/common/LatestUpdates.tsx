@@ -63,7 +63,7 @@ const LatestUpdates = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
+            <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-3"></div>
             <div className="h-4 bg-gray-200 rounded w-96 mx-auto mb-12"></div>
             <div className="grid md:grid-cols-3 gap-8">
               {[1, 2, 3].map((i) => (
@@ -84,12 +84,12 @@ const LatestUpdates = () => {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-start mb-16">
-          <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <div className="text-start mb-6">
+          <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
             <Newspaper className="w-4 h-4 mr-2" />
             Latest Updates
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             Stay Informed
           </h2>
           <div className="flex justify-between">

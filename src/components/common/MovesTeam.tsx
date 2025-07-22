@@ -133,7 +133,7 @@ const LeadershipTeam = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             Our Leadership Team
           </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
         </div>
 
         {/* Leaders Section */}

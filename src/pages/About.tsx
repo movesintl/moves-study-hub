@@ -170,7 +170,7 @@ const About = () => {
           Moves International&apos;s Team
         </h2>
          <p className="text-base text-gray-600  text-center">
-Experts, Visionaries and ACHIEVERS
+          Experts, Visionaries and ACHIEVERS
       </p>
       </div>
       <LeadershipTeam />

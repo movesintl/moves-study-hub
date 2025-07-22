@@ -132,11 +132,11 @@ const Dashboard = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {stats.map((stat, index) => (
-          <Card key={stat.title} className="group hover:shadow-royal transition-all duration-500 bg-gradient-subtle border-0 shadow-elegant hover:scale-105 overflow-hidden relative">
+          <Card key={stat.title} className="group hover:shadow-brand transition-all duration-500 bg-gradient-subtle border-0 shadow-elegant hover:scale-105 overflow-hidden relative">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 relative z-10">
               <CardTitle className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{stat.title}</CardTitle>
-              <div className="p-3 rounded-xl bg-gradient-to-br from-primary to-accent group-hover:scale-110 transition-transform duration-300">
+              <div className="p-3 rounded-xl bg-gradient-brand group-hover:scale-110 transition-transform duration-300">
                 <stat.icon className="h-6 w-6 text-white" />
               </div>
             </CardHeader>
@@ -150,7 +150,7 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent Applications */}
-        <Card className="shadow-elegant border-0 bg-gradient-subtle hover:shadow-royal transition-all duration-300 overflow-hidden">
+        <Card className="shadow-elegant border-0 bg-gradient-subtle hover:shadow-brand transition-all duration-300 overflow-hidden">
           <CardHeader className="bg-gradient-to-r from-primary/5 to-accent/5 border-b border-border/50">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl font-bold text-primary flex items-center gap-2">
@@ -196,7 +196,7 @@ const Dashboard = () => {
         </Card>
 
         {/* Saved Courses */}
-        <Card className="shadow-elegant border-0 bg-gradient-subtle hover:shadow-royal transition-all duration-300 overflow-hidden">
+        <Card className="shadow-elegant border-0 bg-gradient-subtle hover:shadow-brand transition-all duration-300 overflow-hidden">
           <CardHeader className="bg-gradient-to-r from-accent/5 to-primary/5 border-b border-border/50">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl font-bold text-primary flex items-center gap-2">
@@ -243,7 +243,7 @@ const Dashboard = () => {
         </CardHeader>
         <CardContent className="p-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Button asChild className="h-auto p-8 flex flex-col items-center bg-gradient-royal hover:scale-105 shadow-elegant hover:shadow-royal transition-all duration-300 group">
+            <Button asChild className="h-auto p-8 flex flex-col items-center bg-gradient-brand hover:scale-105 shadow-elegant hover:shadow-brand transition-all duration-300 group">
               <Link to="/courses">
                 <div className="p-4 bg-white/20 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
                   <FileText className="h-10 w-10 text-white" />

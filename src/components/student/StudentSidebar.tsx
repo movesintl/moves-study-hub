@@ -50,7 +50,7 @@ export function StudentSidebar() {
   };
 
   return (
-    <Sidebar className={`${isCollapsed ? 'w-16' : 'w-72'} bg-gradient-royal border-r-0 shadow-royal`} collapsible="icon">
+    <Sidebar className={`${isCollapsed ? 'w-16' : 'w-72'} bg-gradient-primary border-r-0 shadow-brand`} collapsible="icon">
       <div className="h-full flex flex-col">
         {/* Logo Section */}
         <div className="p-6 border-b border-white/10">
@@ -62,7 +62,7 @@ export function StudentSidebar() {
                 className={`${isCollapsed ? 'w-10 h-10' : 'w-16 h-16'} object-contain transition-all duration-300 drop-shadow-lg`}
               />
               {!isCollapsed && (
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-gold rounded-full animate-pulse" />
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-accent rounded-full animate-pulse" />
               )}
             </div>
           </div>

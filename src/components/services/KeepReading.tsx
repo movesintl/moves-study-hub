@@ -15,10 +15,10 @@ export default function KeepReading() {
         {/* Right side with large left margin */}
         <div className="ml-[180px] flex-shrink-0">
           <a 
-            href="/services" 
+            href="/contact" 
             className="bg-white text-accent px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-200 shadow-md"
           >
-            Keep Reading
+            Contact Us
           </a>
         </div>
       </div>

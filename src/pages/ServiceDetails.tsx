@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon, DotIcon, Dot } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon, DotIcon, Dot, FileUser } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
@@ -183,17 +183,17 @@ const ServiceDetails = () => {
       </section>
 
       {/* Service Details Section */}
-      <div className="container mx-auto my-12 px-4 py-8 bg-white">
+      <div className="container mx-auto my-12 px-4 pt-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-4">
             <div className="inline-flex items-center ml-4 w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-base font-medium">
-              {service.title}
+            <FileUser className="w-4 h-4 mr-2" />  {service.title}
             </div>
 
             <div>
               {service.full_details && (
                 <div
-                  className="prose prose-lg max-w-none text-gray-600 "
+                  className="prose prose-lg prose-h2:mb-0 max-w-none text-gray-600 "
                   dangerouslySetInnerHTML={{ __html: service.full_details }}
                 />
               )}
@@ -204,7 +204,7 @@ const ServiceDetails = () => {
 
       {/* Keep Reading */}
       {service.title === "Application Assistant" && (
-        <div className="my-4">
+        <div className="mb-0">
           <KeepReading />
         </div>
       )}

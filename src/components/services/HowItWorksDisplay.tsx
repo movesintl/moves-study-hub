@@ -28,12 +28,12 @@ const HowItWorksDisplay: React.FC<HowItWorksDisplayProps> = ({
     <section className="py-20 min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-12 relative">
         {/* Left Column - Full height image */}
-        <div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:items-center">
+        <div className="lg:sticky lg:top-16 lg:h-screen lg:flex">
           {featureImageUrl && (
             <img
               src={featureImageUrl}
               alt={title || "How it works"}
-              className="w-full h-full mt-0 max-h-[80vh] object-content rounded-2xl shadow-lg"
+              className="w-full   max-h-[80vh] object-content rounded-2xl shadow-lg"
             />
           )}
         </div>

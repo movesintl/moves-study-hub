@@ -6,7 +6,7 @@ export default function ReadyToBeginSection() {
         <div className="order-2 lg:order-1">
           <div className="relative rounded-lg overflow-hidden shadow-lg">
             <img 
-              src="https://images.unsplash.com/photo-1494790108755-2616c27c8a8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+src="https://plus.unsplash.com/premium_photo-1664372145591-f7cc308ff5da?q=80&w=396&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&h=600"
               alt="Smiling student with phone and notebook" 
               className="w-full h-96 object-cover"
             />

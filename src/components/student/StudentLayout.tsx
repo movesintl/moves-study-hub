@@ -11,15 +11,22 @@ interface StudentLayoutProps {
 const StudentLayout: React.FC<StudentLayoutProps> = ({ children }) => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gray-50">
+      <div className="min-h-screen flex w-full bg-dashboard">
         <StudentSidebar />
         <div className="flex-1 flex flex-col">
-          <header className="h-16 border-b bg-white flex items-center px-6">
-            <SidebarTrigger />
-            <h1 className="ml-4 text-xl font-semibold text-gray-900">Student Dashboard</h1>
+          <header className="h-20 glass border-b border-white/10 flex items-center px-8 backdrop-blur-xl">
+            <SidebarTrigger className="text-primary hover:bg-white/10 rounded-lg p-2 transition-all duration-200" />
+            <div className="ml-6">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Student Portal
+              </h1>
+              <p className="text-sm text-muted-foreground">Manage your academic journey</p>
+            </div>
           </header>
-          <main className="flex-1 p-6">
-            {children || <Outlet />}
+          <main className="flex-1 p-8">
+            <div className="max-w-7xl mx-auto">
+              {children || <Outlet />}
+            </div>
           </main>
         </div>
       </div>

@@ -1,8 +1,5 @@
-
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 interface PopularCoursesActionProps {
   onViewAllCourses: () => void;
@@ -11,13 +8,12 @@ interface PopularCoursesActionProps {
 const PopularCoursesAction: React.FC<PopularCoursesActionProps> = ({ onViewAllCourses }) => {
   return (
     <div className="text-end">
-      <p
+      <button
         onClick={onViewAllCourses}
-        className="flex items-center justify-center cursor-pointer text-orange-500 underline"      >
-        <span className='transition-all duration-200 flex items-center'>
-          Learn All Courses <ArrowRight className=" h-4 w-4" />
-        </span>
-      </p>
+        className="flex items-center gap-2 px-4 py-2 border border-orange-500 bg-orange-100 text-orange-600 rounded-md font-medium hover:bg-orange-200 transition"
+      >
+        Learn All Courses <ArrowRight className="h-4 w-4" />
+      </button>
     </div>
   );
 };

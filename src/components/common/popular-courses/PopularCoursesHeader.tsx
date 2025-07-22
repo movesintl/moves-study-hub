@@ -11,14 +11,14 @@ const PopularCoursesHeader = () => {
     navigate('/courses');
   };
   return (
-    <div className="text-start mb-16">
-      <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+    <div className="text-start mb-6">
+      <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
         <TrendingUp className="w-4 h-4 mr-2" />
         Popular Courses
       </div>
       
-      <h2 className="text-4xl font-bold text-primary mb-6">
-        Popular Courses
+      <h2 className="text-4xl font-bold text-primary mb-3">
+        Explore Our Top-Rated Programs
       </h2>
       <div className="flex justify-between">
 

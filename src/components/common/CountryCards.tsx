@@ -134,7 +134,7 @@ const CountryCards = () => {
           <div className="text-center">
             <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Plane className="w-4 h-4 mr-2" />
-              Explore
+              Explore Countries
             </div>
             <h2 className="text-4xl font-bold text-primary mb-4">
               Choose Your Study Destination

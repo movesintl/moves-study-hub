@@ -47,13 +47,6 @@ const Home = () => {
 
       <FeaturedUniversities />
 </div>
-
-
-     {/* Removed Services Overview */}
-      {/* Removed CHoose us */}
-
-
-
       {/* Services Overview Section */}
       
       <StickyProfileComponent />

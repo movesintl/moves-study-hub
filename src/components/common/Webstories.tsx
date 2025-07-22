@@ -117,7 +117,7 @@ const Webstories = () => {
   return (
     <div className="w-full mx-auto px-4 py-8 max-w-12xl">
       <div className="text-center mb-6">
-        <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
         <BookImage className="w-4 h-4 mr-2" />
         Our Stories
       </div>

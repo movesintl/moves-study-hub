@@ -89,12 +89,12 @@ export default function HowToApply() {
     <section className="py-16 px-4 md:px-6 lg:px-8" style={{ backgroundColor: '#f5f5f5' }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-      <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <div className="text-center mb-6">
+      <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
           <Rocket className="w-4 h-4 mr-2" /> 
           Get Started
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-3">
             How It Works
           </h2>
       <p className="text-lg text-gray-600 max-w-2xl mx-auto">

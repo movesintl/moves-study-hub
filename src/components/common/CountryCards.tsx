@@ -132,14 +132,14 @@ const CountryCards = () => {
       <div className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
               <Plane className="w-4 h-4 mr-2" />
               Explore Countries
             </div>
-            <h2 className="text-4xl font-bold text-primary mb-4">
+            <h2 className="text-4xl font-bold text-primary mb-3">
               Choose Your Study Destination
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
               Loading destinations...
             </p>
             <div className="flex justify-center">
@@ -158,7 +158,7 @@ const CountryCards = () => {
           <div className="text-center">
             <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Plane className="w-4 h-4 mr-2" />
-              Explore
+              Explore Countries
             </div>
             <h2 className="text-4xl font-bold text-primary mb-4">
               Choose Your Study Destination
@@ -173,15 +173,15 @@ const CountryCards = () => {
   }
 
   return (
-    <div className="py-20">
+    <div className="pt-20 pb-10">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
               <Plane className="w-4 h-4 mr-2" />
-              Explore
+               Explore Countries
             </div>
-          <h2 className="text-4xl font-bold text-primary mb-4">
+          <h2 className="text-4xl font-bold text-primary mb-3">
             Choose Your Study Destination
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">

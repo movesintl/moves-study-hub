@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import Webstories from "@/components/common/Webstories";
+import HighQuality from "@/components/common/HighQuality";
+import StickyProfileComponent from "@/components/common/StickyProfile";
+import FloatingStats from "@/components/common/FloatingStats";
 import { Card, CardContent } from '@/components/ui/card';
+
 import {
   Globe,
   Users,
@@ -199,41 +204,15 @@ Experts, Visionaries and ACHIEVERS
       </p>
       </div>
       <LeadershipTeam />
+      <StickyProfileComponent />
+      <HighQuality />
 
+      {/* Web stories */}
+      <div className="bg-white">
+        <Webstories />
+      </div>
 
-
-      {/* Call to Action Section */}
-      {/* <section className="py-12 pt-8 pb-16">
-             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-               <div className="bg-primary rounded-2xl p-8 text-white">
-                 <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                   Ready to Start Your Journey?
-                 </h3>
-                 <p className="text-gray-300 mb-6 text-lg">
-                   Book a free consultation with our experts and take the first step
-                   towards your international education goals.
-                 </p>
-                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                   <Button
-                     size="lg"
-                     className="bg-accent hover:bg-accent/90 text-white"
-                     asChild
-                   >
-                     <Link to="/services/consultation">Get Free Consultation</Link>
-                   </Button>
-                   <Button
-                     size="lg"
-                     variant="outline"
-                     className="border-white text-primary hover:bg-white/10 hover:text-white"
-                     asChild
-                   >
-                     <Link to="/contact">Contact Us</Link>
-                   </Button>
-                 </div>
-               </div>
-             </div>
-           </section> */}
-
+      {/* Latest Updates */}
       <LatestUpdates />
     </div>
   );

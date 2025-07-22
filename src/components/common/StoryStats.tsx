@@ -1,6 +1,12 @@
 import React from 'react';
 import { useCountingAnimation } from "@/hooks/useCountingAnimation";
-import { Users, GraduationCap, Globe, Calendar, BookOpen, Flag } from "lucide-react";
+import {
+  Users,
+  GraduationCap,
+  Globe,
+  Calendar,
+  Flag,
+} from "lucide-react";
 
 const StoryWithStatsSection = () => {
   const { count: studentsCount, ref: studentsRef } = useCountingAnimation({ end: 10000, duration: 2000 });
@@ -36,66 +42,46 @@ const StoryWithStatsSection = () => {
   ];
 
   return (
-    <section className="py-20 min-h-screen bg-white">
-      <div className="mx-auto  md:px-48">
-        <div className="grid lg:grid-cols-12 gap-16 relative items-end">
-          {/* Left Column - Our Story (Sticky) */}
-          <div className="flex col-span-8 flex-col gap-[22px] self-start lg:sticky top-[100px]">
-            <div className="px-[20px] py-[32px] bg-gray-100 rounded-2xl">
-              <div className="flex items-center gap-3 mb-6">
-                <Flag className="h-6 w-6 text-green-400 " />
-                <h2 className="text-2xl leading-tight tracking-tight font-medium text-primary">Our Story</h2>
-              </div>
-              <div className="space-y-4 text-gray-600 text-left">
-                <p className="text-4xl font-bold text-primary">
-                  Founded in 2008,<br></br>
-                    <span className="text-orange-500 mr-1 ">
-                      Moves International   
-                      </span> 
-                      began with a simple mission
-                </p>
-                <p>
-                 To make quality international 
-                education accessible to students from Nepal, Bangladesh, and across South Asia. What started as 
-                a small counseling service has grown into a comprehensive educational consultancy with offices 
-                across multiple countries.
+    <section className="py-16 bg-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-[60%_40%] gap-12 items-start">
+          {/* Left Column - Our Story */}
+          <div className="sticky top-24 self-start flex flex-col gap-6 border border-dashed px-8 py-10 rounded-lg bg-gray-50">
+            <div className="flex items-center gap-3">
+              <Flag className="w-6 h-6 text-green-500" />
+              <span className="text-xl font-semibold text-primary">Our Story</span>
+            </div>
+            <h2 className="text-2xl lg:text-4xl font-bold text-primary leading-tight">
+              Founded in 2008,<br />
+              <span className="text-orange-500">Moves International</span> began with a simple mission
+            </h2>
+            <div className="space-y-4 text-gray-600 text-base leading-relaxed">
+              <p>
+                To make quality international education accessible to students from Nepal, Bangladesh, and across South Asia.
+                What started as a small counseling service has grown into a comprehensive educational consultancy.
               </p>
               <p>
-                Over the years, we've helped more than 10,000 students realize their dreams of studying abroad. 
-                Our success is built on trust, transparency, and an unwavering commitment to student success. 
-                We understand that studying abroad is not just about education—it's about transformation, 
-                growth, and building a brighter future.
+                We've helped more than 10,000 students realize their dreams of studying abroad, built on trust, transparency,
+                and an unwavering commitment to student success.
               </p>
               <p>
-                Today, we continue to expand our services and partnerships, ensuring that every student who 
-                walks through our doors receives the personalized attention and expert guidance they deserve.
+                Today, we continue to expand our services and partnerships to deliver expert guidance to every student.
               </p>
-              </div>
             </div>
           </div>
 
-          {/* Right Column - Animated Stats (Scrollable) */}
-          <div className="flex col-span-4 flex-col space-y-5">
-            {/* Individual Stat Cards - One per row */}
+          {/* Right Column - Stats Cards */}
+          <div className="grid grid-cols-1 gap-6">
             {stats.map((stat, index) => (
-              <div 
+              <div
                 key={index}
-                className="bg-[#f8f9fa] rounded-2xl  py-[44px] px-[27px]transform transition-all duration-300 hover:scale-[1.02]"
+                className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-all text-center flex flex-col items-center"
               >
-                <div className="flex flex-col items-center text-center">
-                  <div className="flex justify-center mb-3">
-                    <stat.icon className="h-8 w-8 text-orange-500" />
-                  </div>
-                  <div
-                    className="text-2xl font-bold text-orange-500 mb-2"
-                    ref={stat.ref}
-                  >
-                    {stat.number}
-                  </div>
-                  <div className="text-base text-primary font-medium leading-tight">
-                    {stat.label}
-                  </div>
+                <stat.icon className="h-8 w-8 text-orange-500 mb-3" />
+                <div className="text-3xl font-bold text-orange-500 mb-1" ref={stat.ref}>
+                  {stat.number}
                 </div>
+                <p className="text-sm text-primary font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -106,4 +92,3 @@ const StoryWithStatsSection = () => {
 };
 
 export default StoryWithStatsSection;
-

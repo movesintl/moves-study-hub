@@ -81,7 +81,7 @@ export function StudentSidebar() {
         <SidebarContent className="flex-1 py-6">
           {/* Main Navigation */}
           <SidebarGroup>
-            <SidebarGroupLabel className="text-white/60 text-xs uppercase tracking-wider px-4 mb-3">
+            <SidebarGroupLabel className="text-white text-xs uppercase tracking-wider px-4 mb-3">
               Navigation
             </SidebarGroupLabel>
             <SidebarGroupContent>
@@ -93,12 +93,11 @@ export function StudentSidebar() {
                         to={item.url} 
                         end 
                         className={({ isActive }) => 
-                          `${getNavCls({ isActive })} 
-                          flex items-center px-4 py-3 rounded-xl transition-all duration-300 
-                          hover:bg-sidebar-accent hover:shadow-elegant hover:scale-105
-                          ${isActive ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-elegant' : 'text-white/90'}
-                          group relative overflow-hidden`
-                        }
+                        `flex items-center px-4 py-3 rounded-xl transition-all duration-300 
+                        hover:bg-sidebar-accent hover:shadow-elegant hover:scale-105 
+                        ${isActive ? 'bg-sidebar-primary shadow-elegant' : ''} 
+                        text-white hover:text-orange-500 group relative overflow-hidden`
+                      }
                       >
                         <item.icon className={`${isCollapsed ? '' : 'mr-3'} h-5 w-5 transition-all duration-300 group-hover:scale-110`} />
                         {!isCollapsed && (
@@ -117,7 +116,7 @@ export function StudentSidebar() {
 
           {/* Account Menu */}
           <SidebarGroup className="mt-6">
-            <SidebarGroupLabel className="text-white/60 text-xs uppercase tracking-wider px-4 mb-3">
+            <SidebarGroupLabel className="text-white text-xs uppercase tracking-wider px-4 mb-3">
               Account
             </SidebarGroupLabel>
             <SidebarGroupContent>
@@ -129,11 +128,10 @@ export function StudentSidebar() {
                         to={item.url} 
                         end 
                         className={({ isActive }) => 
-                          `${getNavCls({ isActive })} 
-                          flex items-center px-4 py-3 rounded-xl transition-all duration-300 
-                          hover:bg-sidebar-accent hover:shadow-elegant hover:scale-105
-                          ${isActive ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-elegant' : 'text-white/90'}
-                          group relative overflow-hidden`
+                          `flex items-center px-4 py-3 rounded-xl transition-all duration-300 
+                        hover:bg-sidebar-accent hover:shadow-elegant hover:scale-105 
+                        ${isActive ? 'bg-sidebar-primary shadow-elegant' : ''} 
+                        text-white hover:text-orange-500 group relative overflow-hidden`
                         }
                       >
                         {item.title === 'Profile' ? (

@@ -157,7 +157,7 @@ const LeadershipTeam = () => {
             Meet the dedicated professionals guiding our students to success.
           </p>
           <button className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg transition-colors duration-300">
-            Contact Our Team
+            Contact Our Team 
           </button>
         </div>
       </div>

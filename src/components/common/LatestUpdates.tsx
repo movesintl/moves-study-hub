@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight, Newspaper } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface BlogCategory {
   id: string;
@@ -23,6 +24,11 @@ interface Blog {
 }
 
 const LatestUpdates = () => {
+
+  const navigate = useNavigate();
+  const handleViewAllBlogs = () => {
+    navigate("/blogs");
+  }
   const { data: blogs, isLoading } = useQuery({
     queryKey: ["latest-blogs"],
     queryFn: async () => {
@@ -78,17 +84,28 @@ const LatestUpdates = () => {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <div className="text-start mb-16">
+          <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Newspaper className="w-4 h-4 mr-2" />
             Latest Updates
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             Stay Informed
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <div className="flex justify-between">
+
+          <p className="text-xl text-muted-foreground items-start">
             Discover the latest insights, tips, and news in international education
           </p>
+          <div className="text-end">
+            <button
+              onClick={handleViewAllBlogs}
+              className="flex items-center -mt-5 gap-2 px-4 py-2 border border-orange-500 bg-orange-100 text-orange-600 rounded-md font-medium hover:bg-orange-200 transition"
+            >
+              View All Articles <ArrowRight className="h-4 w-4" />
+            </button>
+              </div>
+          </div>
         </div>
 
         {/* Blog Cards */}
@@ -177,17 +194,6 @@ const LatestUpdates = () => {
               </article>
             );
           })}
-        </div>
-
-        {/* View All Button */}
-        <div className="text-center mt-12">
-          <a
-            href="/blogs"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold hover:bg-orange-500 transition-all hover:scale-105 shadow-lg hover:shadow-xl"
-          >
-            View All Articles
-            <ArrowRight className="h-5 w-5" />
-          </a>
         </div>
       </div>
     </section>

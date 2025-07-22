@@ -4,8 +4,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { MapPin, GraduationCap, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { MapPin, GraduationCap, ExternalLink, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface University {
   id: string;
@@ -20,6 +20,10 @@ interface University {
 }
 
 const FeaturedUniversities = () => {
+  const navigate = useNavigate();
+  const handleViewAllUniversities = () => {
+    navigate('/universities');
+  };
   const { data: universities = [], isLoading } = useQuery({
     queryKey: ['featured-universities'],
     queryFn: async () => {
@@ -56,7 +60,7 @@ const FeaturedUniversities = () => {
   if (universities.length === 0) {
     return null; // Don't show section if no featured universities
   }
-  
+
 
   return (
     <section className="py-20 relative overflow-hidden">
@@ -64,7 +68,7 @@ const FeaturedUniversities = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-start mb-16">
           <div className="inline-flex items-center w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <GraduationCap className="w-4 h-4 mr-2" />
             Our Partners
@@ -73,9 +77,20 @@ const FeaturedUniversities = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-primary bg-clip-text  mb-4">
             World-Class Universities
           </h2>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Discover exceptional institutions that shape the future of education and innovation
-          </p>
+          <div className="flex justify-between">
+
+            <p className="text-lg text-slate-600 leading-relaxed items-start">
+              Discover exceptional institutions that shape the future of education and innovation
+            </p>
+            <div className="text-end">
+              <button
+                onClick={handleViewAllUniversities}
+                className="flex items-center -mt-5 gap-2 px-4 py-2 border border-orange-500 bg-orange-100 text-orange-600 rounded-md font-medium hover:bg-orange-200 transition"
+              >
+                Explore All Universities <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Universities Carousel */}
@@ -150,9 +165,9 @@ const FeaturedUniversities = () => {
             </CarouselContent>
 
           </Carousel>
-            {/* Dots Indicator */}
-            {universities.length > 6 && (
-              
+          {/* Dots Indicator */}
+          {universities.length > 6 && (
+
             <div className="mt-4 bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
               {universities.map((_, idx) => (
                 <button
@@ -162,24 +177,11 @@ const FeaturedUniversities = () => {
                 />
               ))}
             </div>
-            )}
+          )}
         </div>
 
         {/* Enhanced Call to Action */}
         <div className="text-center mt-16">
-          <Button
-            asChild
-
-            className="bg-primary hover:bg-orange-500 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300 border-0 text-base"
-          >
-            <Link to="/universities" className="flex items-center gap-2">
-              Explore All Universities
-              <div className="h-5 w-5 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-xs">→</span>
-              </div>
-            </Link>
-          </Button>
-
           <p className="text-slate-500 text-sm mt-4 font-medium">
             Discover {universities.length}+ partnered institutions worldwide
           </p>

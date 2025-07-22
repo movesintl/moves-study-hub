@@ -23,13 +23,10 @@ const PopularCoursesHeader = () => {
       <div className="flex justify-between">
 
       <p className="text-lg text-gray-600 max-w-2xl text-start items-start">
-      
         Discover our most sought-after courses that are shaping the future of education
       </p>
               <PopularCoursesAction onViewAllCourses={handleViewAllCourses} />
       </div>
-
-
     </div>
   );
 };

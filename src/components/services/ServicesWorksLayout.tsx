@@ -76,8 +76,8 @@ const ServicesWorksLayout = () => {
     <section className="py-20 min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8 relative">
         {/* Left Column - Title and Description */}
-        <div className="absolute left-0 top-0 w-full h-full flex flex-col p-5 max-w-[340px]">
-          <div className="p-4 lg:p-[30px] border border-dashed rounded-md self-start lg:sticky top-[140px] bg-white">
+        <div className="absolute left-0 top-0 w-full h-full flex flex-col pl-5 max-w-[340px]">
+          <div className="p-4 lg:p-[30px] border border-dashed rounded-md self-start lg:sticky top-[120px] bg-white">
             <div className="space-y-4">
               <h2 className="text-2xl lg:text-4xl font-bold text-primary  mb-[22px]">
                 Our Comprehensive Services

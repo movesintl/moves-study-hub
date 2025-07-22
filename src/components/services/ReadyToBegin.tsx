@@ -15,7 +15,7 @@ src="https://plus.unsplash.com/premium_photo-1664372145591-f7cc308ff5da?q=80&w=3
         
         {/* Content Section */}
         <div className="order-1 lg:order-2">
-          <h2 className="text-4xl font-bold text-slate-800 mb-6">
+          <h2 className="text-4xl font-bold text-slate-800 mb-6"> 
             Ready to Begin?
           </h2>
           

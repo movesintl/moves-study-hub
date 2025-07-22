@@ -1,14 +1,14 @@
-import { Flag, PlayCircle } from 'lucide-react'
+import { ArrowRight, ChevronRight, Flag, PlayCircle } from 'lucide-react'
 import React from 'react'
 
 const ExpertiseAchievements = () => {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - Text Content */}
-          <div className="flex flex-col gap-[22px] self-start border border-dashed lg:py-[35.5px] lg:px-[50px] rounded-lg from_texteditor_wrapper">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-[22px] border border-dashed lg:py-[35.5px] lg:px-[50px] rounded-lg from_texteditor_wrapper">
+            <div className="flex items-start gap-3">
               <Flag className="w-6 h-6 text-green-500" />
               <span className="text-xl font-semibold text-primary">Expertise</span>
             </div>
@@ -19,38 +19,53 @@ const ExpertiseAchievements = () => {
             </h2>
 
             <div className="">
-              <ul className="space-y-6 list-none pl-0">
-                <li className="text-base leading-relaxed list-disc">
-                  <span className="font-semibold text-gray-900">Tailored Education Counselling: </span>
-                  <span className="text-gray-600">
-                    We work closely with you to understand your individual needs, goals, and academic background.
-                    Our expert counselors provide unbiased advice and match you with the perfect study program
-                    at one of our 100+ partner universities.
-                  </span>
+              <ul className="space-y-6">
+                <li className="text-base leading-relaxed">
+                  <div className="flex gap-2 items-start">
+                    <ArrowRight className="w-4 h-4 text-primary mt-1 flex-shrink-0 mr-1" />
+                    <div>
+                      <span className="font-semibold text-gray-900">Tailored Education Counselling: </span>
+                      <span className="text-gray-600">
+                        We work closely with you to understand your individual needs, goals, and academic background.
+                        Our expert counselors provide unbiased advice and match you with the perfect study program
+                        at one of our 100+ partner universities.
+                      </span>
+                    </div>
+                  </div>
                 </li>
 
-                <li className="text-base leading-relaxed list-disc">
-                  <span className="font-semibold text-gray-900">Expert Immigration Services: </span>
-                  <span className="text-gray-600">
-                    Navigating the complexities of Australian immigration can be daunting. Our licensed migration
-                    agents are here to walk you through the process, ensuring a smooth and efficient visa
-                    application experience.
-                  </span>
+                <li className="text-base leading-relaxed">
+                  <div className="flex gap-2 items-start">
+                    <ArrowRight className="w-4 h-4 text-primary mt-1 flex-shrink-0 mr-1" />
+                    <div>
+                      <span className="font-semibold text-gray-900">Expert Immigration Services: </span>
+                      <span className="text-gray-600">
+                        Navigating the complexities of Australian immigration can be daunting. Our licensed migration
+                        agents are here to walk you through the process, ensuring a smooth and efficient visa
+                        application experience.
+                      </span>
+                    </div>
+                  </div>
                 </li>
 
-                <li className="text-base leading-relaxed list-disc">
-                  <span className="font-semibold text-gray-900">Career Advancement Opportunities: </span>
-                  <span className="text-gray-600">
-                    We go beyond education, connecting you with top employers and helping you build
-                    a successful career in Australia.
-                  </span>
+                <li className="text-base leading-relaxed">
+                  <div className="flex gap-2 items-start">
+                    <ArrowRight className="w-4 h-4 text-primary mt-1 flex-shrink-0 mr-1" />
+                    <div>
+                      <span className="font-semibold text-gray-900">Career Advancement Opportunities: </span>
+                      <span className="text-gray-600">
+                        We go beyond education, connecting you with top employers and helping you build
+                        a successful career in Australia.
+                      </span>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
           </div>
 
           {/* Right Column - Video and Stats */}
-          <div className="space-y-8">
+          <div className="flex flex-col h-full space-y-8">
             {/* Video Placeholder */}
             <div className="relative aspect-video bg-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <div className="absolute inset-0 flex items-center justify-center">
@@ -117,60 +132,74 @@ export default ExpertiseAchievements
 
 export const ExpertiseAchievements2 = () => {
   return (
-   <section className="py-16 bg-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
-      {/* Left Column - Full Image */}
-      <div className="relative h-full min-h-[400px] rounded-xl overflow-hidden shadow-lg">
-        <img
-          src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-          alt="Student success in Australia"
-          className="w-full h-full object-cover"
-        />
-      </div>
+    <section className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left Column - Full Image */}
+          <div className="relativ top-16 mt-8 rounded-2xl overflow-hidden  shadow-lg">
+            <img
+              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Student success in Australia"
+              className="w-full h-auto object-cover"
+            />
+          </div>
 
-      {/* Right Column - Text Content */}
-      <div className="flex flex-col gap-[22px] self-start lg:py-[35.5px] lg:px-[50px]">
-        <div className="flex items-center gap-3">
-        <Flag className='w-6 h-6 text-green-400' />
-          <span className="text-xl font-semibold text-primary">Our Commitment</span>
+          {/* Right Column - Text Content */}
+          <div className="flex flex-col gap-[22px] self-start lg:py-[35.5px] lg:px-[50px]">
+            <div className="flex items-center gap-3">
+              <Flag className='w-6 h-6 text-green-400' />
+              <span className="text-xl font-semibold text-primary">Our Commitment</span>
+            </div>
+
+            <h2 className="text-2xl lg:text-4xl font-bold text-primary leading-tight">
+              Paving Your Pathway to Success: <br />
+              <span className="text-orange-500">100% Growth, Student-Centric Support, and Unwavering Integrity</span>
+            </h2>
+
+            <ul className="space-y-6">
+              <li className="text-base leading-relaxed">
+                <div className="flex gap-2 items-start">
+                  <ArrowRight className='w-4 h-4 text-primary mt-1 flex-shrink-0 mr-1' />
+                  <div>
+                    <span className="font-semibold text-gray-900">Proven Track Record: </span>
+                    <span className="text-gray-600">
+                      We have a proud history of helping countless international students achieve their dreams in Australia.
+                      Our 100% growth rate in the past two years speaks volumes about our dedication and success.
+                    </span>
+                  </div>
+                </div>
+              </li>
+
+              <li className="text-base leading-relaxed">
+                <div className="flex gap-2 items-start">
+                  <ArrowRight className='w-4 h-4 text-primary mt-1 flex-shrink-0 mr-1' />
+                  <div>
+                    <span className="font-semibold text-gray-900">Student-Centric Approach: </span>
+                    <span className="text-gray-600">
+                      We believe in personalized service and prioritize your individual needs above all else.
+                      We are committed to providing unique solutions and exceeding your expectations.
+                    </span>
+                  </div>
+                </div>
+              </li>
+
+              <li className="text-base leading-relaxed">
+                <div className="flex gap-2 items-start">
+                  <ArrowRight className='w-4 h-4 text-primary mt-1 flex-shrink-0 mr-1' />
+                  <div>
+                    <span className="font-semibold text-gray-900">Professional Integrity: </span>
+                    <span className="text-gray-600">
+                      We maintain the highest ethical standards and foster strong partnerships with educational institutions,
+                      ensuring accurate information and exceptional service.
+                    </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-
-        <h2 className="text-2xl lg:text-4xl font-bold text-primary leading-tight">
-          Paving Your Pathway to Success: <br />
-          <span className="text-orange-500">100% Growth, Student-Centric Support, and Unwavering Integrity</span>
-        </h2>
-
-        <ul className="space-y-6 list-none pl-0">
-          <li className="text-base leading-relaxed list-disc">
-            <span className="font-semibold text-gray-900">Proven Track Record: </span>
-            <span className="text-gray-600">
-              We have a proud history of helping countless international students achieve their dreams in Australia. 
-              Our 100% growth rate in the past two years speaks volumes about our dedication and success.
-            </span>
-          </li>
-
-          <li className="text-base leading-relaxed list-disc">
-            <span className="font-semibold text-gray-900">Student-Centric Approach: </span>
-            <span className="text-gray-600">
-              We believe in personalized service and prioritize your individual needs above all else. 
-              We are committed to providing unique solutions and exceeding your expectations.
-            </span>
-          </li>
-
-          <li className="text-base leading-relaxed list-disc">
-            <span className="font-semibold text-gray-900">Professional Integrity: </span>
-            <span className="text-gray-600">
-              We maintain the highest ethical standards and foster strong partnerships with educational institutions, 
-              ensuring accurate information and exceptional service.
-            </span>
-            
-          </li>
-        </ul>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
   )
 }
 

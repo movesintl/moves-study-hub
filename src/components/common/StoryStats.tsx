@@ -80,19 +80,19 @@ const StoryWithStatsSection = () => {
             {stats.map((stat, index) => (
               <div 
                 key={index}
-                className="bg-[#FA8500] rounded-2xl shadow-xl py-[44px] px-[27px]transform transition-all duration-300 hover:scale-[1.02]"
+                className="bg-[#f8f9fa] rounded-2xl  py-[44px] px-[27px]transform transition-all duration-300 hover:scale-[1.02]"
               >
                 <div className="flex flex-col items-center text-center">
                   <div className="flex justify-center mb-3">
-                    <stat.icon className="h-8 w-8 text-white" />
+                    <stat.icon className="h-8 w-8 text-orange-500" />
                   </div>
                   <div
-                    className="text-2xl font-bold text-white mb-2"
+                    className="text-2xl font-bold text-orange-500 mb-2"
                     ref={stat.ref}
                   >
                     {stat.number}
                   </div>
-                  <div className="text-sm text-white/90 font-medium leading-tight">
+                  <div className="text-base text-primary font-medium leading-tight">
                     {stat.label}
                   </div>
                 </div>

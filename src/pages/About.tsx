@@ -2,13 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import OurStaff from '@/components/common/OurStaff';
-import { 
-  Globe, 
-  Users, 
-  Award, 
-  BookOpen, 
-  Heart, 
+import {
+  Globe,
+  Users,
+  Award,
+  BookOpen,
+  Heart,
   Target,
   CheckCircle,
   ArrowRight
@@ -24,6 +23,7 @@ import {
 import ExpertiseAchievements, { ExpertiseAchievements2 } from '@/components/common/ExpertiseAchievements';
 import CEOMsg from '@/components/common/CEOMsg';
 import LeadershipTeam from '@/components/common/MovesTeam';
+import LatestUpdates from '@/components/common/LatestUpdates';
 
 const About = () => {
   const values = [
@@ -61,141 +61,149 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-    {/* About Us Hero Section - University Style Layout */}
-<section className="relative py-16 bg-primary overflow-hidden min-h-[500px]">
-  {/* Background overlay for better text contrast */}
-  <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70 z-0"></div>
-  
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-    {/* Main Hero Content */}
-    <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px] py-8">
-      {/* Left Column - Text Content */}
-      <div className="space-y-6 lg:space-y-8">
-        {/* Breadcrumb-style navigation */}
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <a href="/" className='text-orange-500 hover:text-orange-100'>Home</a>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator>•</BreadcrumbSeparator>
-            <BreadcrumbItem>
-              <BreadcrumbPage className='text-white'>About Us</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+    <div className="min-h-screen ">
+      {/* About Us Hero Section - University Style Layout */}
+      <section className="relative py-16 bg-primary overflow-hidden min-h-[500px]">
+        {/* Background overlay for better text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70 z-0"></div>
 
-        {/* Main Title */}
-        <div className="space-y-4">
-          <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-            Best Migration Agents & <span className="text-accent">Education</span> Consultants
-          </h1>
-          <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
-            We are registered migration agents & education consultants in Australia with 5k+ satisfied clients.
-          </p>
-        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+          {/* Main Hero Content */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px] py-8">
+            {/* Left Column - Text Content */}
+            <div className="space-y-6 lg:space-y-8">
+              {/* Breadcrumb-style navigation */}
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <a href="/" className='text-orange-500 hover:text-orange-100'>Home</a>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator>•</BreadcrumbSeparator>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className='text-white'>About Us</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 pt-4">
-          <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
-            <Link to="/contact" className="flex items-center">
-              Get Started Today
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-2 border-white hover:bg-white/90 bg-white text-primary hover:text-primary text-lg px-8 py-6 rounded-lg transition-all duration-300"
-          >
-            <Link to="/services" className="flex items-center">
-              <BookOpen className="h-5 w-5 mr-2" />
-              Our Services
-            </Link>
-          </Button>
-        </div>
+              {/* Main Title */}
+              <div className="space-y-4">
+                <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
+                  Best Migration Agents & <span className="text-accent">Education</span> Consultants
+                </h1>
+                <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
+                  We are registered migration agents & education consultants in Australia with 5k+ satisfied clients.
+                </p>
+              </div>
 
-        {/* Trust Indicators */}
-        <div className="flex flex-wrap items-center gap-6 text-white/80 pt-4">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-accent" />
-            <span>Registered Professionals</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-accent" />
-            <span>5,000+ Satisfied Clients</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Award className="h-5 w-5 text-accent" />
-            <span>Proven Results</span>
-          </div>
-        </div>
-      </div>
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
+                  <Link to="/contact" className="flex items-center">
+                    Get Started Today
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-white hover:bg-white/90 bg-white text-primary hover:text-primary text-lg px-8 py-6 rounded-lg transition-all duration-300"
+                >
+                  <Link to="/services" className="flex items-center">
+                    <BookOpen className="h-5 w-5 mr-2" />
+                    Our Services
+                  </Link>
+                </Button>
+              </div>
 
-      {/* Right Column - Team Images */}
-      <div className="relative lg:ml-8">
-        <div className="grid grid-cols-2 gap-4 relative z-10">
-          {/* Top row - 2 images */}
-          <div className="space-y-4">
-            <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face" 
-                alt="Team member" 
-                className="w-full h-40 lg:h-48 object-cover rounded-lg"
-              />
+              {/* Trust Indicators */}
+              <div className="flex flex-wrap items-center gap-6 text-white/80 pt-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-accent" />
+                  <span>Registered Professionals</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-accent" />
+                  <span>5,000+ Satisfied Clients</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Award className="h-5 w-5 text-accent" />
+                  <span>Proven Results</span>
+                </div>
+              </div>
             </div>
-            <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1494790108755-2616c64c8c86?w=300&h=300&fit=crop&crop=face" 
-                alt="Team member" 
-                className="w-full h-40 lg:h-48 object-cover rounded-lg"
-              />
-            </div>
-          </div>
-          
-          {/* Bottom row - offset */}
-          <div className="space-y-4 mt-8">
-            <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face" 
-                alt="Team member" 
-                className="w-full h-40 lg:h-48 object-cover rounded-lg"
-              />
-            </div>
-            <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face" 
-                alt="Team member" 
-                className="w-full h-40 lg:h-48 object-cover rounded-lg"
-              />
+
+            {/* Right Column - Team Images */}
+            <div className="relative lg:ml-8">
+              <div className="grid grid-cols-2 gap-4 relative z-10">
+                {/* Top row - 2 images */}
+                <div className="space-y-4">
+                  <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
+                      alt="Team member"
+                      className="w-full h-40 lg:h-48 object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1494790108755-2616c64c8c86?w=300&h=300&fit=crop&crop=face"
+                      alt="Team member"
+                      className="w-full h-40 lg:h-48 object-cover rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                {/* Bottom row - offset */}
+                <div className="space-y-4 mt-8">
+                  <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"
+                      alt="Team member"
+                      className="w-full h-40 lg:h-48 object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="bg-white rounded-xl p-2 shadow-xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
+                      alt="Team member"
+                      className="w-full h-40 lg:h-48 object-cover rounded-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Decorative elements */}
+              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0"></div>
+              <div className="absolute -top-8 -left-8 w-24 h-24 bg-white/10 rounded-full blur-lg z-0"></div>
             </div>
           </div>
         </div>
-        
-        {/* Decorative elements */}
-        <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0"></div>
-        <div className="absolute -top-8 -left-8 w-24 h-24 bg-white/10 rounded-full blur-lg z-0"></div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Our Story Section */}
-      <StoryWithStatsSection/>
+      <StoryWithStatsSection />
 
       {/* Achievements Section */}
-    <ExpertiseAchievements/>
-    <ExpertiseAchievements2/>
-    <CEOMsg/>
-    <LeadershipTeam/>
-   
-      {/* Our Staff Section */}
-      <OurStaff />
+      <ExpertiseAchievements />
+      <ExpertiseAchievements2 />
+      <CEOMsg />
+
+      <div className="text-center mb-6">
+        <h2 className="text-5xl font-bold text-primary mb-3">
+          Moves International&apos;s Team
+        </h2>
+         <p className="text-base text-gray-600  text-center">
+Experts, Visionaries and ACHIEVERS
+      </p>
+      </div>
+      <LeadershipTeam />
+
+
 
       {/* Call to Action Section */}
-     <section className="py-12 pt-8 pb-16">
+      {/* <section className="py-12 pt-8 pb-16">
              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                <div className="bg-primary rounded-2xl p-8 text-white">
                  <h3 className="text-2xl md:text-3xl font-bold mb-4">
@@ -224,7 +232,9 @@ const About = () => {
                  </div>
                </div>
              </div>
-           </section>
+           </section> */}
+
+      <LatestUpdates />
     </div>
   );
 };

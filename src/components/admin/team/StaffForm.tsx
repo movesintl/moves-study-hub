@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -47,6 +47,24 @@ const StaffForm = ({ isOpen, onClose, onSubmit, initialData, isLoading }: StaffF
       display_order: initialData?.display_order || 0,
     },
   });
+
+  // Reset form when initialData changes
+  useEffect(() => {
+    if (initialData) {
+      form.reset({
+        name: initialData.name || '',
+        designation: initialData.designation || '',
+        description: initialData.description || '',
+        email: initialData.email || '',
+        phone: initialData.phone || '',
+        profile_image_url: initialData.profile_image_url || '',
+        linkedin: initialData.linkedin || '',
+        twitter: initialData.twitter || '',
+        facebook: initialData.facebook || '',
+        display_order: initialData.display_order || 0,
+      });
+    }
+  }, [initialData, form]);
 
   const handleSubmit = (data: StaffFormData) => {
     onSubmit(data);

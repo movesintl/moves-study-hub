@@ -39,10 +39,10 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
           return;
         }
 
-        const adminStatus = userProfile?.role === 'admin';
-        setIsAdmin(adminStatus);
+        const hasAdminAccess = userProfile?.role === 'admin' || userProfile?.role === 'editor';
+        setIsAdmin(hasAdminAccess);
 
-        if (!adminStatus) {
+        if (!hasAdminAccess) {
           navigate('/admin/auth');
         }
       } catch (error) {

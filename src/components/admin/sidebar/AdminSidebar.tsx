@@ -1,16 +1,45 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Settings, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { menuItems, MenuItem } from '../config/menuItems';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 
 const AdminSidebar = () => {
+  const { user } = useAuth();
   const location = useLocation();
   const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getUserRole = async () => {
+      if (!user) return;
+
+      try {
+        const { data: userProfile } = await supabase
+          .from('user_profiles')
+          .select('role')
+          .eq('user_id', user.id)
+          .single();
+
+        setUserRole(userProfile?.role || null);
+      } catch (error) {
+        console.error('Error fetching user role:', error);
+      }
+    };
+
+    getUserRole();
+  }, [user]);
 
   const toggleSubMenu = (name: string) => {
     setOpenSubMenu(openSubMenu === name ? null : name);
+  };
+
+  const hasAccess = (item: MenuItem) => {
+    if (!item.requiredRoles) return true;
+    return userRole && item.requiredRoles.includes(userRole);
   };
 
   return (
@@ -30,7 +59,7 @@ const AdminSidebar = () => {
 
       {/* Navigation */}
       <nav className="p-4 space-y-1 overflow-y-auto max-h-[calc(100vh-5rem)]">
-        {menuItems.map((item) => (
+        {menuItems.filter(hasAccess).map((item) => (
           <div key={item.name}>
             {item.subItems ? (
               <div>

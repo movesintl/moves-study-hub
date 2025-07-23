@@ -19,6 +19,7 @@ export interface MenuItem {
   name: string;
   href: string;
   icon: any;
+  requiredRoles?: string[];
   subItems?: {
     name: string;
     href: string;
@@ -54,6 +55,6 @@ export const menuItems: MenuItem[] = [
   { name: 'Pages', href: '/admin/pages', icon: Layout },
   { name: 'Media Library', href: '/admin/media', icon: Image },
   { name: 'Marketing', href: '/admin/marketing', icon: Target },
-  { name: 'Team', href: '/admin/team', icon: Users },
+  { name: 'Team', href: '/admin/team', icon: Users, requiredRoles: ['admin'] },
   { name: 'Contact', href: '/admin/contact', icon: Mail }
 ];

@@ -56,6 +56,7 @@ import PagesList from '@/pages/admin/pages/PagesList';
 import PageForm from '@/pages/admin/pages/PageForm';
 import MediaLibrary from '@/pages/admin/media/MediaLibrary';
 import AdminAuth from '@/pages/admin/AdminAuth';
+import RoleGuard from '@/components/admin/RoleGuard';
 import StudyAreasManager from '@/pages/admin/courses/StudyAreasManager';
 import StudyLevelsManager from '@/pages/admin/courses/StudyLevelsManager';
 import BlogCategoriesManager from '@/pages/admin/blogs/BlogCategoriesManager';
@@ -107,7 +108,11 @@ function App() {
                 <Route index element={<AdminDashboard />} />
                 <Route path="profile" element={<AdminProfile />} />
                 <Route path="settings" element={<AdminSettings />} />
-                <Route path="team" element={<TeamManagement />} />
+                <Route path="team" element={
+                  <RoleGuard allowedRoles={['admin']}>
+                    <TeamManagement />
+                  </RoleGuard>
+                } />
                 <Route path="courses" element={<CoursesList />} />
                 <Route path="courses/new" element={<CourseForm />} />
                 <Route path="courses/:id/edit" element={<CourseForm />} />

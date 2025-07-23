@@ -1,123 +1,67 @@
-
 import React from 'react';
-import { DollarSign } from 'lucide-react';
+import { DollarSign, Home, Utensils, Bus, Zap, Film } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+
+interface CostItem {
+  category: string;
+  amount: string;
+}
 
 interface CostOfLivingSectionProps {
   destinationName: string;
-  costOfLivingContent?: string;
+  costOfLivingContent?: string; // JSON string like: [{ category: 'Accommodation', amount: 'AUD $150-400/week' }]
 }
 
+const iconMap: Record<string, JSX.Element> = {
+  accommodation: <Home className="h-6 w-6 text-[#023047]" />,
+  food: <Utensils className="h-6 w-6 text-[#023047]" />,
+  transport: <Bus className="h-6 w-6 text-[#023047]" />,
+  utilities: <Zap className="h-6 w-6 text-[#023047]" />,
+  entertainment: <Film className="h-6 w-6 text-[#023047]" />,
+};
+
 const CostOfLivingSection = ({ destinationName, costOfLivingContent }: CostOfLivingSectionProps) => {
-  const getCountrySpecificData = (countryName: string) => {
-    const countryData: {
-      [key: string]: {
-        costOfLiving: {
-          [key: string]: string;
-        };
-      };
-    } = {
-      'Australia': {
-        costOfLiving: {
-          accommodation: 'AUD $150-400 per week',
-          food: 'AUD $80-120 per week',
-          transport: 'AUD $30-60 per week',
-          utilities: 'AUD $20-50 per week',
-          entertainment: 'AUD $50-100 per week'
-        }
-      },
-      'Canada': {
-        costOfLiving: {
-          accommodation: 'CAD $400-800 per month',
-          food: 'CAD $200-400 per month',
-          transport: 'CAD $80-120 per month',
-          utilities: 'CAD $100-150 per month',
-          entertainment: 'CAD $100-200 per month'
-        }
-      },
-      'United Kingdom': {
-        costOfLiving: {
-          accommodation: '£400-800 per month',
-          food: '£150-250 per month',
-          transport: '£50-150 per month',
-          utilities: '£80-120 per month',
-          entertainment: '£100-200 per month'
-        }
-      },
-      'New Zealand': {
-        costOfLiving: {
-          accommodation: 'NZD $150-350 per week',
-          food: 'NZD $80-120 per week',
-          transport: 'NZD $25-50 per week',
-          utilities: 'NZD $30-60 per week',
-          entertainment: 'NZD $50-100 per week'
-        }
-      }
-    };
-    return countryData[countryName] || countryData['Australia'];
-  };
+  let costItems: CostItem[] = [];
 
-  const countryData = getCountrySpecificData(destinationName);
-
-  // If custom structured content is provided, use it; otherwise, use the template
-  if (costOfLivingContent) {
-    try {
-      const costData = JSON.parse(costOfLivingContent);
-      if (Array.isArray(costData) && costData.length > 0) {
-        return (
-          <section>
-            <div className="text-center mb-12">
-              <DollarSign className="h-12 w-12 text-green-500 mx-auto mb-4" />
-              <h2 className="text-3xl font-bold mb-4">Cost of Living</h2>
-              <p className="text-gray-600">Estimated expenses for international students in {destinationName}</p>
-            </div>
-
-            <Card className="max-w-4xl mx-auto">
-              <CardContent className="p-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-                  {costData.map((item: { category: string; amount: string }, index: number) => (
-                    <div key={index} className="text-center">
-                      <div className="bg-primary/10 rounded-full p-4 w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                        <DollarSign className="h-6 w-6 text-primary" />
-                      </div>
-                      <h3 className="font-semibold capitalize mb-2">{item.category}</h3>
-                      <p className="text-sm text-gray-600">{item.amount}</p>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-        );
-      }
-    } catch {
-      // If parsing fails, fall through to default template
+  try {
+    const parsed = JSON.parse(costOfLivingContent || '[]');
+    if (Array.isArray(parsed)) {
+      costItems = parsed;
     }
+  } catch {
+    // fallback: no render
   }
 
+  if (costItems.length === 0) return null;
+
   return (
-    <section>
-      <div className="text-center mb-12">
-        <DollarSign className="h-12 w-12 text-green-500 mx-auto mb-4" />
-        <h2 className="text-3xl font-bold mb-4">Cost of Living</h2>
-        <p className="text-gray-600">Estimated weekly/monthly expenses for international students</p>
+    <section className="py-16 px-4">
+      <div className="text-center mb-12 max-w-2xl mx-auto">
+        <DollarSign className="h-12 w-12 text-[#fa8500] mx-auto mb-4" />
+        <h2 className="text-4xl font-bold text-[#023047] mb-2">Cost of Living</h2>
+        <p className="text-lg text-gray-600">
+          Estimated living expenses for international students in{' '}
+          <span className="font-semibold text-[#023047]">{destinationName}</span>
+        </p>
       </div>
 
-      <Card className="max-w-4xl mx-auto">
-        <CardContent className="p-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {Object.entries(countryData.costOfLiving).map(([category, cost]) => (
-              <div key={category} className="text-center">
-                <div className="bg-primary/10 rounded-full p-4 w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                  <DollarSign className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="font-semibold capitalize mb-2">{category}</h3>
-                <p className="text-sm text-gray-600">{cost}</p>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 max-w-6xl mx-auto">
+        {costItems.map((item, index) => {
+          const icon = iconMap[item.category.toLowerCase()] || <DollarSign className="h-6 w-6 text-[#023047]" />;
+          return (
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 text-center border border-gray-100"
+            >
+              <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full bg-[#fa8500]/10">
+                {icon}
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              <h3 className="text-md font-semibold text-[#023047] capitalize mb-1">{item.category}</h3>
+              <p className="text-sm text-gray-600">{item.amount}</p>
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 };

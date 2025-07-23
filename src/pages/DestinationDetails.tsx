@@ -19,12 +19,11 @@ const MoreInformationSection = ({ content }: { content: string }) => {
   
   return (
     <section>
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold mb-4">More Information</h2>
-        <p className="text-gray-600">Additional details about studying in this destination</p>
+      <div className="text-left mb-1">
+        <h2 className="text-3xl font-bold mb-0">More Information</h2>
       </div>
       <div 
-        className="prose prose-lg max-w-none"
+        className="prose prose-lg max-w-none mt-0"
         dangerouslySetInnerHTML={{ __html: content }}
       />
     </section>
@@ -104,7 +103,7 @@ const DestinationDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <DestinationHero destination={destination} />
 
       <div className="container mx-auto py-12 px-4 space-y-16">
@@ -114,8 +113,19 @@ const DestinationDetails = () => {
           whyStudyPoints={whyStudyPoints} 
         />
 
-        {/* 3. More Information */}
-        <MoreInformationSection content={destination.more_information || ''} />
+        {/* Combined 2-column layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Left Column: More Information */}
+          <div>
+            <MoreInformationSection content={destination.more_information || ''} />
+            {/* Right Column: Lifestyle & Culture + Visa Information */}
+            <LifestyleVisaSection destination={destination} />
+          </div>
+
+          <div>
+            
+          </div>
+        </div>
 
         {/* 4. Cost of Living */}
         <CostOfLivingSection 
@@ -123,8 +133,11 @@ const DestinationDetails = () => {
           costOfLivingContent={destination.cost_of_living_info}
         />
 
-        {/* 5. Lifestyle & Culture + Visa Information */}
-        <LifestyleVisaSection destination={destination} />
+        {/* 8. Job Market & Career Opportunities */}
+        <JobMarketSection 
+          destinationName={destination.name} 
+          jobMarketPoints={jobMarketPoints} 
+        />
 
         {/* 6. Top Universities (slider) */}
         <UniversitiesSection 
@@ -138,11 +151,7 @@ const DestinationDetails = () => {
           courses={courses} 
         />
 
-        {/* 8. Job Market & Career Opportunities */}
-        <JobMarketSection 
-          destinationName={destination.name} 
-          jobMarketPoints={jobMarketPoints} 
-        />
+
 
         {/* 9. FAQs */}
         <PageViewFAQ faqs={Array.isArray(destination.faqs) ? destination.faqs.filter((faq: any) => 

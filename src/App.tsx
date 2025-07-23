@@ -61,6 +61,7 @@ import StudyLevelsManager from '@/pages/admin/courses/StudyLevelsManager';
 import BlogCategoriesManager from '@/pages/admin/blogs/BlogCategoriesManager';
 import ApplicationsList from '@/pages/admin/applications/ApplicationsList';
 import MarketingConsents from '@/pages/admin/marketing/MarketingConsents';
+import StaffProfile from '@/pages/StaffProfile';
 
 const queryClient = new QueryClient();
 
@@ -91,6 +92,7 @@ function App() {
                 <Route path="contact" element={<Contact />} />
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="sitemap" element={<Sitemap />} />
+                <Route path="staff/:id" element={<StaffProfile />} />
                 <Route path="pages/:slug" element={<PageView />} />
               </Route>
               <Route path="/student-dashboard" element={<StudentDashboard />}>

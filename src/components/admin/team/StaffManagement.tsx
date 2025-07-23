@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserPlus, Edit, Trash2, Mail, Phone, Linkedin, Twitter, Facebook } from 'lucide-react';
+import { UserPlus, Edit, Trash2, Mail, Phone, Linkedin, Twitter, Facebook, Eye } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import StaffForm, { StaffFormData } from './StaffForm';
 
@@ -302,6 +302,14 @@ const StaffManagement = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(`/staff/${staff.id}`, '_blank')}
+                          title="View Profile"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
                         <Button
                           variant="outline"
                           size="sm"

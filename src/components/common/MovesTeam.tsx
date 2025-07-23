@@ -1,5 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface StaffMember {
   id: string;
@@ -60,69 +61,65 @@ const LeadershipTeam = () => {
   const teamMembers = staffMembers.filter((member) => member.role === 'team_member');
 
   const renderLeaderCard = (leader: StaffMember) => (
-    <div 
-      key={leader.id}
-      className="group bg-white rounded-2xl border-gray-100 shadow-lg border-[1px]"
-    >
-      <div className="relative overflow-hidden">
-        <div className="flex items-center justify-center w-[300px] h-[300px]">
-          <img
-            src={leader.image}
-            alt={leader.alt}
-            className="w-full h-full object-cover rounded-t-2xl"
-          />
+    <Link to={`/staff/${leader.id}`} key={leader.id}>
+      <div className="group bg-white rounded-2xl border-gray-100 shadow-lg border-[1px] cursor-pointer hover:shadow-xl transition-all duration-300">
+        <div className="relative overflow-hidden">
+          <div className="flex items-center justify-center w-[300px] h-[300px]">
+            <img
+              src={leader.image}
+              alt={leader.alt}
+              className="w-full h-full object-cover rounded-t-2xl group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        </div>
+        <div className="p-6 text-center">
+          <h5 className="text-xl font-semibold text-primary mb-2 group-hover:text-orange-500 transition-colors duration-300">
+            {leader.name}
+          </h5>
         </div>
       </div>
-      <div className="p-6 text-center">
-        <h5 className="text-xl font-semibold text-primary mb-2 group-hover:text-orange-500 transition-colors duration-300">
-          {leader.name}
-        </h5>
-      </div>
-    </div>
+    </Link>
   );
 
   const renderCounselorCard = (counselor: StaffMember) => (
-    <div 
-      key={counselor.id}
-      className="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300"
-    >
-      <div className="flex items-center justify-center w-full h-[250px]">
-        <img
-          src={counselor.image}
-          alt={counselor.alt}
-          className="w-full h-full object-cover"
-        />
+    <Link to={`/staff/${counselor.id}`} key={counselor.id}>
+      <div className="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 cursor-pointer hover:shadow-xl">
+        <div className="flex items-center justify-center w-full h-[250px]">
+          <img
+            src={counselor.image}
+            alt={counselor.alt}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+        <div className="p-6 text-center">
+          <h5 className="text-lg font-semibold text-primary mb-1 group-hover:text-orange-500 transition-colors duration-300">
+            {counselor.name}
+          </h5>
+        </div>
       </div>
-      <div className="p-6 text-center">
-        <h5 className="text-lg font-semibold text-primary mb-1 group-hover:text-orange-500 transition-colors duration-300">
-          {counselor.name}
-        </h5>
-      </div>
-    </div>
+    </Link>
   );
 
   const renderMemberCard = (member: StaffMember) => (
-    <div 
-      key={member.id}
-      className="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300"
-    >
-      {/* Square Image Container */}
-      <div className="w-full aspect-square bg-gray-100">
-        <img
-          src={member.image}
-          alt={member.alt}
-          className="w-full h-full object-cover"
-        />
-      </div>
-      
-      {/* Content */}
-      <div className="p-4 text-center">
-        <h5 className="text-xl font-semibold text-primary mb-2 group-hover:text-orange-500 transition-colors duration-300">
-          {member.name
-          }
+    <Link to={`/staff/${member.id}`} key={member.id}>
+      <div className="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 cursor-pointer hover:shadow-xl">
+        {/* Square Image Container */}
+        <div className="w-full aspect-square bg-gray-100">
+          <img
+            src={member.image}
+            alt={member.alt}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+        
+        {/* Content */}
+        <div className="p-4 text-center">
+          <h5 className="text-xl font-semibold text-primary mb-2 group-hover:text-orange-500 transition-colors duration-300">
+            {member.name}
           </h5>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 
   return (

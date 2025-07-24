@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
+import SecurityAlert from '@/components/admin/SecurityAlert';
 
 const Dashboard = () => {
   // Fetch dynamic counts from the database
@@ -130,6 +131,8 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-8">
+      <SecurityAlert />
+      
       {/* Header Section */}
       <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-primary to-accent p-8 text-white">
         <div className="relative z-10">

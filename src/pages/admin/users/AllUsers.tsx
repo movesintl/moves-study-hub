@@ -3,8 +3,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Loader2, Edit } from 'lucide-react';
 import { toast } from 'sonner';
+import { useAuditLog } from '@/hooks/useAuditLog';
 
 interface AuthUser {
   id: string;
@@ -17,10 +21,12 @@ interface AuthUser {
   created_at: string;
 }
 
+type UserRole = 'admin' | 'editor' | 'counselor' | 'student';
+
 interface UserProfile {
   id: string;
   user_id: string;
-  role: string;
+  role: UserRole | 'user'; // Allow 'user' for existing data, will be migrated to 'student'
   created_at: string;
   email?: string;
   full_name?: string;
@@ -29,6 +35,9 @@ interface UserProfile {
 const AllUsers: React.FC = () => {
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editingUserId, setEditingUserId] = useState<string | null>(null);
+  const [newRole, setNewRole] = useState<UserRole>('student');
+  const { logEvent } = useAuditLog();
 
   useEffect(() => {
     fetchUsers();
@@ -81,6 +90,37 @@ const AllUsers: React.FC = () => {
     }
   };
 
+  const handleRoleChange = async (userId: string, oldRole: UserRole | 'user', newRole: UserRole) => {
+    try {
+      const { error } = await supabase
+        .from('user_profiles')
+        .update({ role: newRole })
+        .eq('user_id', userId);
+
+      if (error) throw error;
+
+      // Log the role change for audit purposes
+      await logEvent({
+        action: 'role_change',
+        tableName: 'user_profiles',
+        recordId: userId,
+        oldValues: { role: oldRole },
+        newValues: { role: newRole }
+      });
+
+      // Update local state
+      setUsers(users.map(user => 
+        user.user_id === userId ? { ...user, role: newRole } : user
+      ));
+
+      setEditingUserId(null);
+      toast.success(`User role updated to ${newRole}`);
+    } catch (error) {
+      console.error('Error updating user role:', error);
+      toast.error('Failed to update user role');
+    }
+  };
+
   const getRoleBadgeVariant = (role: string) => {
     switch (role) {
       case 'admin':
@@ -89,6 +129,9 @@ const AllUsers: React.FC = () => {
         return 'default';
       case 'counselor':
         return 'secondary';
+      case 'student':
+      case 'user': // Legacy role, treat as student
+        return 'outline';
       default:
         return 'outline';
     }
@@ -121,6 +164,7 @@ const AllUsers: React.FC = () => {
                 <TableHead>Email</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead>Created At</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -137,6 +181,56 @@ const AllUsers: React.FC = () => {
                   </TableCell>
                   <TableCell>
                     {new Date(user.created_at).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            setEditingUserId(user.user_id);
+                            // Convert legacy 'user' role to 'student' for editing
+                            setNewRole(user.role === 'user' ? 'student' : user.role as UserRole);
+                          }}
+                        >
+                          <Edit className="h-4 w-4 mr-1" />
+                          Edit Role
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Change User Role</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Change the role for {user.full_name || user.email}. This action will affect their access permissions.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <div className="py-4">
+                          <Select value={newRole} onValueChange={(value) => setNewRole(value as UserRole)}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a role" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="student">Student</SelectItem>
+                              <SelectItem value="counselor">Counselor</SelectItem>
+                              <SelectItem value="editor">Editor</SelectItem>
+                              <SelectItem value="admin">Admin</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel onClick={() => setEditingUserId(null)}>
+                            Cancel
+                          </AlertDialogCancel>
+                          <AlertDialogAction 
+                            onClick={() => handleRoleChange(user.user_id, user.role, newRole)}
+                            disabled={newRole === user.role}
+                          >
+                            Update Role
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </TableCell>
                 </TableRow>
               ))}

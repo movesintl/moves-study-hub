@@ -6,6 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRateLimit } from '@/hooks/useRateLimit';
 import { useAuditLog } from '@/hooks/useAuditLog';
+import { sanitizeText, sanitizeEmail } from '@/utils/sanitization';
 
 interface FormData {
   student_name: string;
@@ -77,12 +78,50 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
   });
 
   const handleInputChange = (field: keyof FormData, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    let sanitizedValue = value;
+    
+    // Apply input sanitization for text fields
+    if (typeof value === 'string') {
+      if (field === 'student_email') {
+        sanitizedValue = sanitizeEmail(value);
+      } else {
+        sanitizedValue = sanitizeText(value);
+      }
+    }
+    
+    setFormData(prev => ({ ...prev, [field]: sanitizedValue }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // Validate and sanitize required fields
+    const sanitizedName = sanitizeText(formData.student_name).trim();
+    const sanitizedEmail = sanitizeEmail(formData.student_email).trim();
+    const sanitizedPhone = sanitizeText(formData.student_phone).trim();
+    
+    if (!sanitizedName || !sanitizedEmail || !sanitizedPhone) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields with valid data (name, email, phone).",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    // Additional email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(sanitizedEmail)) {
+      toast({
+        title: "Validation Error",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
 
     // Validate mandatory fields
     if (!formData.agrees_to_terms) {
@@ -113,11 +152,11 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
         return;
       }
 
-      // Prepare data for counselling_bookings table
+      // Prepare data for counselling_bookings table with sanitized values
       const bookingData = {
-        student_name: formData.student_name,
-        student_email: formData.student_email,
-        student_phone: formData.student_phone,
+        student_name: sanitizedName,
+        student_email: sanitizedEmail,
+        student_phone: sanitizedPhone,
         preferred_destination: formData.preferred_destination,
         study_level: formData.study_level,
         course_interest: formData.course_interest,
@@ -157,9 +196,9 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
       // If user agreed to marketing, add them to marketing_consents table
       if (formData.agrees_to_marketing) {
         const marketingData = {
-          student_email: formData.student_email,
-          student_name: formData.student_name,
-          student_phone: formData.student_phone || null,
+          student_email: sanitizedEmail,
+          student_name: sanitizedName,
+          student_phone: sanitizedPhone || null,
           source: 'counselling_form'
         };
 

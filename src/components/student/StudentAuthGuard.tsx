@@ -39,13 +39,13 @@ const StudentAuthGuard: React.FC<StudentAuthGuardProps> = ({ children }) => {
         } else {
           const userRole = userProfile?.role;
           
-          // Allow access if user has no role (default user) or explicitly has user role
-          // Block access if user is admin or editor
-          const hasStudentAccess = !userRole || userRole === 'user';
+          // Allow access if user has no role (default student) or explicitly has student role
+          // Block access if user is admin, editor, or counselor
+          const hasStudentAccess = !userRole || userRole === 'student';
           setIsAuthorized(hasStudentAccess);
 
-          if (!hasStudentAccess && (userRole === 'admin' || userRole === 'editor')) {
-            // Redirect admin/editor users to admin panel
+          if (!hasStudentAccess && (userRole === 'admin' || userRole === 'editor' || userRole === 'counselor')) {
+            // Redirect admin/editor/counselor users to admin panel
             navigate('/admin');
           }
         }
@@ -73,13 +73,13 @@ const StudentAuthGuard: React.FC<StudentAuthGuardProps> = ({ children }) => {
           .single();
 
         if (checkError && checkError.code === 'PGRST116') {
-          // User doesn't have a profile, create one with 'user' role
+          // User doesn't have a profile, create one with 'student' role
           const { error: insertError } = await supabase
             .from('user_profiles')
             .insert([
               {
                 user_id: user.id,
-                role: 'user'
+                role: 'student'
               }
             ]);
 

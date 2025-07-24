@@ -39,7 +39,7 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
           return;
         }
 
-        const hasAdminAccess = userProfile?.role === 'admin' || userProfile?.role === 'editor';
+        const hasAdminAccess = userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'counselor';
         setIsAdmin(hasAdminAccess);
 
         if (!hasAdminAccess) {

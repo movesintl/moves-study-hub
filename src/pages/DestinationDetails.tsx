@@ -121,13 +121,12 @@ const DestinationDetails = () => {
 
         {/* 4. Cost of Living */}
         <CostOfLivingSection 
-          destinationName={destination.name} 
-          costOfLivingContent={destination.cost_of_living_info}
+          destination={destination}
         />
 
         {/* 8. Job Market & Career Opportunities */}
         <JobMarketSection 
-          destinationName={destination.name} 
+          destination={destination}
           jobMarketPoints={jobMarketPoints} 
         />
 

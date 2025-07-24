@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Heart, Plane, MapPin, Globe, Calendar, Shield } from 'lucide-react';
 
-const LifestyleVisaSection = ({ destination = {} }) => {
+const LifestyleVisaSection = ({ destination = {} }: { destination?: any }) => {
   const [hoveredCard, setHoveredCard] = useState(null);
   
-  if (!destination.lifestyle_info && !destination.visa_info) {
+  if (!destination?.lifestyle_info && !destination?.visa_info) {
     return null;
   }
 
@@ -13,7 +13,7 @@ const LifestyleVisaSection = ({ destination = {} }) => {
       id: 'lifestyle',
       title: 'Lifestyle & Culture',
       icon: Heart,
-      content: destination.lifestyle_info,
+      content: destination?.lifestyle_info,
       primaryGradient: 'from-[#023047] via-[#034759] to-[#045c6a]',
       accentGradient: 'from-[#fa8500] via-[#fb9124] to-[#fc9d48]',
       iconColor: 'text-[#fa8500]',
@@ -27,7 +27,7 @@ const LifestyleVisaSection = ({ destination = {} }) => {
       id: 'visa',
       title: 'Visa Information',
       icon: Plane,
-      content: destination.visa_info,
+      content: destination?.visa_info,
       primaryGradient: 'from-[#023047] via-[#034759] to-[#045c6a]',
       accentGradient: 'from-[#fa8500] via-[#fb9124] to-[#fc9d48]',
       iconColor: 'text-[#023047]',
@@ -40,8 +40,8 @@ const LifestyleVisaSection = ({ destination = {} }) => {
   ];
 
   const visibleCards = cards.filter(card => 
-    (card.id === 'lifestyle' && destination.lifestyle_info) ||
-    (card.id === 'visa' && destination.visa_info)
+    (card.id === 'lifestyle' && destination?.lifestyle_info) ||
+    (card.id === 'visa' && destination?.visa_info)
   );
 
   return (

@@ -7,7 +7,7 @@ interface CostItem {
 }
 
 interface CostOfLivingSectionProps {
-  destinationName: string;
+  destination: any;
   costOfLivingContent?: string; // JSON string like: [{ category: 'Accommodation', amount: 'AUD $150-400/week' }]
 }
 
@@ -19,11 +19,11 @@ const iconMap: Record<string, JSX.Element> = {
   entertainment: <Film className="h-6 w-6 text-white" />,
 };
 
-const CostOfLivingSection = ({ destinationName, costOfLivingContent }: CostOfLivingSectionProps) => {
+const CostOfLivingSection = ({ destination }: CostOfLivingSectionProps) => {
   let costItems: CostItem[] = [];
 
   try {
-    const parsed = JSON.parse(costOfLivingContent || '[]');
+    const parsed = JSON.parse(destination?.cost_of_living_info || '[]');
     if (Array.isArray(parsed)) {
       costItems = parsed;
     }
@@ -65,7 +65,7 @@ const CostOfLivingSection = ({ destinationName, costOfLivingContent }: CostOfLiv
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Smart budgeting for your studies in{' '}
             <span className="font-bold text-[#023047] relative">
-              {destinationName}
+              {destination?.name}
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#fa8500] to-orange-400"></span>
             </span>
           </p>
@@ -152,7 +152,7 @@ const Demo = () => {
     ])
   };
 
-  return <CostOfLivingSection {...sampleData} />;
+  return <CostOfLivingSection destination={sampleData} />;
 };
 
-export default Demo;
+export default CostOfLivingSection;

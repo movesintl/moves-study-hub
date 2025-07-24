@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Briefcase, TrendingUp, Target, Rocket, Users, Award, MapPin, DollarSign, Clock, Star, ChevronRight, Building, Globe } from 'lucide-react';
 
 interface JobMarketSectionProps {
-  destinationName: string;
+  destination: any;
   jobMarketPoints: string[];
 }
 
-const JobMarketSection = ({ destinationName, jobMarketPoints }: JobMarketSectionProps) => {
+const JobMarketSection = ({ destination, jobMarketPoints }: JobMarketSectionProps) => {
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -59,7 +59,7 @@ const JobMarketSection = ({ destinationName, jobMarketPoints }: JobMarketSection
           <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-8">
             Unlock exceptional career opportunities in{' '}
             <span className="font-black text-transparent bg-clip-text bg-gradient-to-r from-[#023047] to-[#fa8500] relative">
-              {destinationName}
+              {destination?.name}
               <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#fa8500] to-orange-400 animate-pulse"></span>
             </span>
             {' '}with thriving industries and endless possibilities
@@ -240,7 +240,7 @@ const Demo = () => {
     ]
   };
 
-  return <JobMarketSection {...sampleData} />;
+  return <JobMarketSection destination={sampleData} jobMarketPoints={sampleData.jobMarketPoints} />;
 };
 
-export default Demo;
+export default JobMarketSection;

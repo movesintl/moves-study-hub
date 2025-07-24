@@ -272,8 +272,10 @@ const CourseComparison = () => {
               <div className="font-medium text-gray-700 py-3 border-t">Actions</div>
               {savedCourses.map((course) => (
                 <div key={`actions-${course.id}`} className="py-3 border-t">
-                  <Button className="w-full bg-accent hover:bg-accent/90">
-                    Apply Now
+                  <Button asChild className="w-full bg-accent hover:bg-accent/90">
+                    <Link to="/student-dashboard/applications">
+                      Apply Now
+                    </Link>
                   </Button>
                 </div>
               ))}

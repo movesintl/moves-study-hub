@@ -113,19 +113,11 @@ const DestinationDetails = () => {
           whyStudyPoints={whyStudyPoints} 
         />
 
-        {/* Combined 2-column layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left Column: More Information */}
-          <div>
+
             <MoreInformationSection content={destination.more_information || ''} />
+
             {/* Right Column: Lifestyle & Culture + Visa Information */}
             <LifestyleVisaSection destination={destination} />
-          </div>
-
-          <div>
-            
-          </div>
-        </div>
 
         {/* 4. Cost of Living */}
         <CostOfLivingSection 

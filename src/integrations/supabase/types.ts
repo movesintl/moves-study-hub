@@ -954,6 +954,14 @@ export type Database = {
         Args: { user_id: string }
         Returns: boolean
       }
+      is_admin_or_editor: {
+        Args: { user_id: string }
+        Returns: boolean
+      }
+      log_security_event: {
+        Args: { event_type: string; user_id: string; details?: Json }
+        Returns: undefined
+      }
       slugify: {
         Args: { "": string }
         Returns: string

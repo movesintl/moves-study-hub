@@ -57,6 +57,7 @@ export const menuItems: MenuItem[] = [
   { name: 'Pages', href: '/admin/pages', icon: Layout, requiredRoles: ['admin', 'editor'] },
   { name: 'Media Library', href: '/admin/media', icon: Image, requiredRoles: ['admin', 'editor'] },
   { name: 'Marketing', href: '/admin/marketing', icon: Target },
+  { name: 'All Users', href: '/admin/users', icon: Users, requiredRoles: ['admin'] },
   { name: 'Team', href: '/admin/team', icon: Users, requiredRoles: ['admin'] },
   { name: 'Contact', href: '/admin/contact', icon: Mail }
 ];

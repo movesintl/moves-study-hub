@@ -29,7 +29,8 @@ const AdminAuth = () => {
             .eq('user_id', user.id)
             .single();
 
-          if (!error && userProfile?.role === 'admin') {
+          const hasAdminAccess = userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'counselor';
+          if (!error && hasAdminAccess) {
             navigate('/admin');
           } else {
             toast({
@@ -74,7 +75,8 @@ const AdminAuth = () => {
           .eq('user_id', signedInUser.id)
           .single();
 
-        if (profileError || userProfile?.role !== 'admin') {
+        const hasAdminAccess = userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'counselor';
+        if (profileError || !hasAdminAccess) {
           await supabase.auth.signOut();
           toast({
             title: "Access Denied",
@@ -84,7 +86,7 @@ const AdminAuth = () => {
         } else {
           toast({
             title: "Success",
-            description: "Successfully signed in as admin!",
+            description: "Successfully signed in to admin panel!",
           });
           navigate('/admin');
         }

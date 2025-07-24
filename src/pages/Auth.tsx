@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import ForgotPasswordDialog from '@/components/auth/ForgotPasswordDialog';
+import { supabase } from '@/integrations/supabase/client';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -19,9 +20,29 @@ const Auth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      navigate('/student-dashboard');
-    }
+    const checkUserRole = async () => {
+      if (user) {
+        try {
+          const { data: userProfile } = await supabase
+            .from('user_profiles')
+            .select('role')
+            .eq('user_id', user.id)
+            .single();
+
+          // Redirect based on role
+          if (userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'counselor') {
+            navigate('/admin');
+          } else {
+            navigate('/student-dashboard');
+          }
+        } catch (error) {
+          console.error('Error checking user role:', error);
+          navigate('/student-dashboard');
+        }
+      }
+    };
+
+    checkUserRole();
   }, [user, navigate]);
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -41,7 +62,7 @@ const Auth = () => {
         title: "Success",
         description: "Successfully signed in!",
       });
-      navigate('/student-dashboard');
+      // Role-based redirect will be handled by useEffect
     }
     
     setLoading(false);

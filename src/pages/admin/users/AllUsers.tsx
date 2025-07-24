@@ -6,6 +6,17 @@ import { Badge } from '@/components/ui/badge';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
+interface AuthUser {
+  id: string;
+  email: string;
+  raw_user_meta_data?: {
+    full_name?: string;
+    first_name?: string;
+    last_name?: string;
+  };
+  created_at: string;
+}
+
 interface UserProfile {
   id: string;
   user_id: string;
@@ -38,16 +49,19 @@ const AllUsers: React.FC = () => {
       }
 
       // Get user emails from auth metadata through RPC call
-      const { data: authUsers, error: authError } = await supabase.rpc('get_auth_users');
+      const { data: authUsersData, error: authError } = await supabase.rpc('get_auth_users');
       
       if (authError) {
         console.error('Error fetching auth users:', authError);
         // Fallback to just showing profiles without email
         setUsers(profiles || []);
       } else {
+        // Parse the JSON response
+        const authUsers = Array.isArray(authUsersData) ? authUsersData : [];
+        
         // Merge profile data with auth data
         const mergedUsers = profiles?.map(profile => {
-          const authUser = authUsers?.find((au: any) => au.id === profile.user_id);
+          const authUser = authUsers.find((au: any) => au.id === profile.user_id) as unknown as AuthUser | undefined;
           return {
             ...profile,
             email: authUser?.email,

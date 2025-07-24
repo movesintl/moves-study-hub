@@ -946,6 +946,10 @@ export type Database = {
         Args: { university_name: string; university_id?: string }
         Returns: string
       }
+      get_auth_users: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
       is_admin: {
         Args: { user_id: string }
         Returns: boolean

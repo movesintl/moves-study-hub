@@ -62,6 +62,7 @@ import StudyLevelsManager from '@/pages/admin/courses/StudyLevelsManager';
 import BlogCategoriesManager from '@/pages/admin/blogs/BlogCategoriesManager';
 import ApplicationsList from '@/pages/admin/applications/ApplicationsList';
 import MarketingConsents from '@/pages/admin/marketing/MarketingConsents';
+import AllUsers from '@/pages/admin/users/AllUsers';
 import StaffProfile from '@/pages/StaffProfile';
 
 const queryClient = new QueryClient();
@@ -138,6 +139,11 @@ function App() {
                 <Route path="pages/:id/edit" element={<PageForm />} />
                 <Route path="media" element={<MediaLibrary />} />
                 <Route path="marketing" element={<MarketingConsents />} />
+                <Route path="users" element={
+                  <RoleGuard allowedRoles={['admin']}>
+                    <AllUsers />
+                  </RoleGuard>
+                } />
                 <Route path="contact" element={<ContactSubmissions />} />
               </Route>
               <Route path="*" element={<NotFound />} />

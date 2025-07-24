@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Send } from 'lucide-react';
+import { useRateLimit } from '@/hooks/useRateLimit';
+import { useAuditLog } from '@/hooks/useAuditLog';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -24,6 +26,8 @@ type ContactFormData = z.infer<typeof contactSchema>;
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { checkRateLimit } = useRateLimit();
+  const { logEvent } = useAuditLog();
 
   const {
     register,
@@ -38,17 +42,46 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase
+      // Check rate limit (max 5 contact submissions per hour)
+      const rateLimitAllowed = await checkRateLimit({
+        action: 'contact_submission',
+        maxRequests: 5,
+        windowMinutes: 60
+      });
+
+      if (!rateLimitAllowed) {
+        toast({
+          title: "Rate limit exceeded",
+          description: "You can only submit 5 contact forms per hour. Please try again later.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const contactData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone || null,
+        subject: data.subject,
+        message: data.message,
+      };
+
+      const { data: insertedData, error } = await supabase
         .from('contact_submissions')
-        .insert([{
-          name: data.name,
-          email: data.email,
-          phone: data.phone || null,
-          subject: data.subject,
-          message: data.message,
-        }]);
+        .insert([contactData])
+        .select('id')
+        .single();
 
       if (error) throw error;
+
+      // Log the contact submission event
+      await logEvent({
+        action: 'contact_submission_created',
+        tableName: 'contact_submissions',
+        recordId: insertedData?.id,
+        newValues: contactData
+      });
 
       toast({
         title: "Message Sent Successfully!",

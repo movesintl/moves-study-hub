@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { useRateLimit } from '@/hooks/useRateLimit';
+import { useAuditLog } from '@/hooks/useAuditLog';
 
 interface FormData {
   student_name: string;
@@ -27,6 +29,8 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const { checkRateLimit } = useRateLimit();
+  const { logEvent } = useAuditLog();
 
   const [formData, setFormData] = useState<FormData>({
     student_name: '',
@@ -92,6 +96,23 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
     }
 
     try {
+      // Check rate limit (max 3 counselling bookings per hour)
+      const rateLimitAllowed = await checkRateLimit({
+        action: 'counselling_booking',
+        maxRequests: 3,
+        windowMinutes: 60
+      });
+
+      if (!rateLimitAllowed) {
+        toast({
+          title: "Rate limit exceeded",
+          description: "You can only submit 3 counselling requests per hour. Please try again later.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
       // Prepare data for counselling_bookings table
       const bookingData = {
         student_name: formData.student_name,
@@ -114,14 +135,24 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
 
       console.log('Submitting booking data:', bookingData);
 
-      const { error } = await supabase
+      const { data: insertedData, error } = await supabase
         .from('counselling_bookings')
-        .insert([bookingData]);
+        .insert([bookingData])
+        .select('id')
+        .single();
 
       if (error) {
         console.error('Supabase error:', error);
         throw error;
       }
+
+      // Log the counselling booking event
+      await logEvent({
+        action: 'counselling_booking_created',
+        tableName: 'counselling_bookings',
+        recordId: insertedData?.id,
+        newValues: bookingData
+      });
 
       // If user agreed to marketing, add them to marketing_consents table
       if (formData.agrees_to_marketing) {

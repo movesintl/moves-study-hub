@@ -18,6 +18,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import SecurityAlert from '@/components/admin/SecurityAlert';
+import SecurityMonitor from '@/components/admin/SecurityMonitor';
 
 const Dashboard = () => {
   // Fetch dynamic counts from the database

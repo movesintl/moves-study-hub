@@ -86,19 +86,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setSession(null);
       setUser(null);
       
-      // Sign out from Supabase
-      const { error } = await supabase.auth.signOut();
+      // Sign out from Supabase with global scope to clear all sessions
+      const { error } = await supabase.auth.signOut({ scope: 'global' });
       
       if (error) {
         console.error('Error signing out:', error);
       }
       
-      // Clear any remaining local storage
-      localStorage.removeItem('supabase.auth.token');
+      // Clear all local storage and session storage
+      localStorage.clear();
       sessionStorage.clear();
+      
+      // Clear any cached data by reloading the page
+      window.location.reload();
       
     } catch (error) {
       console.error('Sign out error:', error);
+      // Force reload even on error to ensure clean state
+      window.location.reload();
     }
   };
 

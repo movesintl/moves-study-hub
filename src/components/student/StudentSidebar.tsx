@@ -23,7 +23,8 @@ import {
   Settings, 
   LogOut,
   MessageCircle,
-  Bell
+  Bell,
+  Home
 } from 'lucide-react';
 
 const mainMenuItems = [
@@ -34,10 +35,6 @@ const mainMenuItems = [
   { title: 'Get Counselling', url: '/student-dashboard/counselling', icon: MessageCircle },
 ];
 
-const accountMenuItems = [
-  { title: 'Profile', url: '/student-dashboard/profile', icon: User },
-  { title: 'Settings', url: '/student-dashboard/settings', icon: Settings },
-];
 
 export function StudentSidebar() {
   const { state } = useSidebar();
@@ -51,8 +48,8 @@ export function StudentSidebar() {
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'bg-sidebar-primary text-sidebar-primary-foreground font-medium' : 'text-white/90 hover:text-white';
 
-  const handleSignOut = async () => {
-    await signOut();
+  const handleVisitWebsite = () => {
+    window.location.href = '/';
   };
 
   return (
@@ -115,76 +112,16 @@ export function StudentSidebar() {
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
-
-          {/* Account Menu */}
-          <SidebarGroup className="mt-6">
-            <SidebarGroupLabel className="text-white text-xs uppercase tracking-wider px-4 mb-3">
-              Account
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu className="space-y-2 px-4">
-                {accountMenuItems.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <NavLink 
-                        to={item.url} 
-                        end 
-                        className={({ isActive }) => 
-                          `flex items-center px-4 py-3 rounded-xl transition-all duration-300 
-                        hover:bg-sidebar-accent hover:shadow-elegant hover:scale-105 
-                        ${isActive ? 'bg-sidebar-primary shadow-elegant' : ''} 
-                        text-white hover:text-orange-500 group relative overflow-hidden`
-                        }
-                      >
-                        {item.title === 'Profile' ? (
-                          <>
-                            {isCollapsed ? (
-                              <Avatar className="h-5 w-5">
-                                <AvatarImage src="" />
-                                <AvatarFallback className="text-xs bg-sidebar-primary text-sidebar-primary-foreground">
-                                  {user?.email?.charAt(0).toUpperCase()}
-                                </AvatarFallback>
-                              </Avatar>
-                            ) : (
-                              <Avatar className="h-5 w-5 mr-3">
-                                <AvatarImage src="" />
-                                <AvatarFallback className="text-xs bg-sidebar-primary text-sidebar-primary-foreground">
-                                  {user?.email?.charAt(0).toUpperCase()}
-                                </AvatarFallback>
-                              </Avatar>
-                            )}
-                            {!isCollapsed && (
-                              <span className="font-medium transition-all duration-300">{item.title}</span>
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            <item.icon className={`${isCollapsed ? '' : 'mr-3'} h-5 w-5 transition-all duration-300 group-hover:scale-110`} />
-                            {!isCollapsed && (
-                              <span className="font-medium transition-all duration-300">{item.title}</span>
-                            )}
-                          </>
-                        )}
-                        {!isCollapsed && (
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        )}
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
         </SidebarContent>
 
-        {/* Sign Out Section */}
+        {/* Visit Website Section */}
         <div className="p-4 border-t border-white/10">
           <SidebarMenuButton 
-            onClick={handleSignOut} 
-            className="w-full flex items-center px-4 py-3 rounded-xl text-white/90 hover:bg-red-500/20 hover:text-red-300 transition-all duration-300 group"
+            onClick={handleVisitWebsite} 
+            className="w-full flex items-center px-4 py-3 rounded-xl text-white/90 hover:bg-blue-500/20 hover:text-blue-300 transition-all duration-300 group"
           >
-            <LogOut className={`${isCollapsed ? '' : 'mr-3'} h-5 w-5 transition-all duration-300 group-hover:scale-110`} />
-            {!isCollapsed && <span className="font-medium">Sign Out</span>}
+            <Home className={`${isCollapsed ? '' : 'mr-3'} h-5 w-5 transition-all duration-300 group-hover:scale-110`} />
+            {!isCollapsed && <span className="font-medium">Visit Website</span>}
           </SidebarMenuButton>
         </div>
       </div>

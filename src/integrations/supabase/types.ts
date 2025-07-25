@@ -762,6 +762,53 @@ export type Database = {
         }
         Relationships: []
       }
+      job_applications: {
+        Row: {
+          career_id: string
+          cover_letter_file_url: string | null
+          created_at: string
+          cv_file_url: string | null
+          email: string
+          full_name: string
+          id: string
+          phone: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          career_id: string
+          cover_letter_file_url?: string | null
+          created_at?: string
+          cv_file_url?: string | null
+          email: string
+          full_name: string
+          id?: string
+          phone?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          career_id?: string
+          cover_letter_file_url?: string | null
+          created_at?: string
+          cv_file_url?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_job_applications_career"
+            columns: ["career_id"]
+            isOneToOne: false
+            referencedRelation: "careers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       marketing_consents: {
         Row: {
           consent_date: string

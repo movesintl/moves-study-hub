@@ -73,6 +73,17 @@ const Navigation = () => {
       path: `/destinations/${dest.slug}`
     }));
 
+  // Services submenu from database
+  const servicesSubmenu = [
+    { name: 'All Services', path: '/services' },
+    ...services
+      .filter(service => service.slug && service.slug.trim() !== '')
+      .map(service => ({
+        name: service.title,
+        path: `/services/${service.slug}`
+      }))
+  ];
+
   const navigationItems = [
     { name: 'Home', path: '/' },
     { name: 'Find a Course', path: '/courses' },
@@ -81,13 +92,11 @@ const Navigation = () => {
       path: '/destinations',
       submenu: destinationSubmenu
     },
-    // Services as individual menu items without dropdown
-    ...services
-      .filter(service => service.slug && service.slug.trim() !== '')
-      .map(service => ({
-        name: service.title,
-        path: `/services/${service.slug}`
-      })),
+    {
+      name: 'Services',
+      path: '/services',
+      submenu: servicesSubmenu
+    },
     // Book Consultation button as menu item
     { 
       name: 'Book Consultation', 

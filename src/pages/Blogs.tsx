@@ -53,6 +53,20 @@ const Blogs = () => {
     }
   });
 
+  // Fetch blog stats for hero
+  const { data: blogStats } = useQuery({
+    queryKey: ['blog-stats'],
+    queryFn: async () => {
+      const { count, error } = await supabase
+        .from('blogs')
+        .select('*', { count: 'exact', head: true })
+        .eq('published', true);
+      
+      if (error) throw error;
+      return count || 0;
+    }
+  });
+
   // Fetch blog categories
   const { data: categories } = useQuery({
     queryKey: ['blog-categories'],
@@ -268,34 +282,88 @@ const Blogs = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Magazine Header */}
-      <section className="border-b bg-gradient-to-r from-background via-muted/20 to-background">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-6 py-2 mb-6 border border-primary/20">
-              <Quote className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-primary uppercase tracking-wide">The Archive</span>
+      {/* Enhanced Magazine Header */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-background via-primary/5 to-accent/10">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto px-4 py-20 lg:py-28 relative">
+          <div className="max-w-5xl mx-auto">
+            {/* Top Badge */}
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-3 bg-card/80 backdrop-blur-sm rounded-full px-6 py-3 border border-border/50 shadow-lg">
+                <Quote className="h-5 w-5 text-primary" />
+                <span className="text-sm font-semibold text-primary uppercase tracking-wider">The Chronicle</span>
+                <Separator orientation="vertical" className="h-4" />
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <BookOpen className="h-4 w-4" />
+                  <span>{blogStats ? `${blogStats}+ Stories` : 'Loading...'}</span>
+                </div>
+              </div>
             </div>
-            
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Stories Worth
-              <span className="block italic text-primary">Reading</span>
-            </h1>
-            
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              A curated collection of insights, stories, and expert perspectives
-            </p>
-            
-            {/* Search */}
-            <div className="max-w-xl mx-auto">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
-                <Input
-                  placeholder="Search stories..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 pr-4 py-4 text-lg border-2 focus:border-primary rounded-xl"
-                />
+
+            {/* Main Headlines */}
+            <div className="text-center space-y-6 mb-12">
+              <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold leading-none">
+                <span className="block text-foreground">Stories</span>
+                <span className="block text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-clip-text animate-pulse">
+                  Worth
+                </span>
+                <span className="block text-foreground italic font-serif">Reading</span>
+              </h1>
+              
+              <p className="text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                A curated collection of insights, expert perspectives, and compelling narratives 
+                that inform, inspire, and ignite curiosity.
+              </p>
+            </div>
+
+            {/* Enhanced Search */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative">
+                  <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground h-6 w-6 group-focus-within:text-primary transition-colors z-10" />
+                  <Input
+                    placeholder="Discover stories, explore topics, find insights..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-16 pr-6 py-6 text-lg bg-card/80 backdrop-blur-sm border-2 border-border/50 focus:border-primary/50 rounded-2xl shadow-xl hover:shadow-2xl transition-all font-medium"
+                  />
+                  <div className="absolute right-6 top-1/2 transform -translate-y-1/2">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <kbd className="px-2 py-1 bg-muted/80 rounded text-xs">⌘</kbd>
+                      <span>+</span>
+                      <kbd className="px-2 py-1 bg-muted/80 rounded text-xs">K</kbd>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="flex flex-wrap justify-center gap-8 text-center">
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl px-6 py-4 border border-border/50">
+                <div className="text-2xl font-bold text-primary">{processedBlogs.length}</div>
+                <div className="text-sm text-muted-foreground">Articles</div>
+              </div>
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl px-6 py-4 border border-border/50">
+                <div className="text-2xl font-bold text-primary">{categories?.length || 0}</div>
+                <div className="text-sm text-muted-foreground">Categories</div>
+              </div>
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl px-6 py-4 border border-border/50">
+                <div className="text-2xl font-bold text-primary">
+                  {processedBlogs.reduce((total, blog) => total + getReadingTime(blog.content || ''), 0)}
+                </div>
+                <div className="text-sm text-muted-foreground">Min Read</div>
+              </div>
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl px-6 py-4 border border-border/50">
+                <div className="text-2xl font-bold text-primary">∞</div>
+                <div className="text-sm text-muted-foreground">Knowledge</div>
               </div>
             </div>
           </div>

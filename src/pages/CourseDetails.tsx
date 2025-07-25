@@ -160,8 +160,8 @@ const CourseDetails = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-primary via-primary/95 to-accent text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+      <div className="relative bg-primary text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black/5"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Breadcrumb */}
           <nav className="mb-8">
@@ -179,15 +179,15 @@ const CourseDetails = () => {
               {/* Tags */}
               <div className="flex flex-wrap items-center gap-3 mb-6">
                 {course.featured && (
-                  <Badge className="bg-yellow-500/20 text-yellow-200 border-yellow-400/30 px-3 py-1">
+                  <Badge className="bg-yellow-500 text-yellow-900 border-yellow-600 px-3 py-1 font-medium">
                     <Award className="h-3 w-3 mr-1" />
                     Featured
                   </Badge>
                 )}
-                <Badge className="bg-white/15 text-white border-white/25 px-3 py-1 font-medium">
+                <Badge className="bg-blue-500 text-white border-blue-600 px-3 py-1 font-medium">
                   {course.study_area}
                 </Badge>
-                <Badge className="bg-white/15 text-white border-white/25 px-3 py-1 font-medium">
+                <Badge className="bg-green-500 text-white border-green-600 px-3 py-1 font-medium">
                   {course.level}
                 </Badge>
               </div>
@@ -199,9 +199,9 @@ const CourseDetails = () => {
               
               {/* Quick Info */}
               <div className="grid sm:grid-cols-3 gap-4 mb-8">
-                <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <MapPin className="h-5 w-5" />
+                <div className="flex items-center gap-3 p-4 bg-blue-500/20 backdrop-blur-sm rounded-xl border border-blue-400/30">
+                  <div className="p-2 bg-blue-500/30 rounded-lg">
+                    <MapPin className="h-5 w-5 text-blue-100" />
                   </div>
                   <div>
                     <div className="text-white/80 text-sm">University</div>
@@ -209,9 +209,9 @@ const CourseDetails = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Globe className="h-5 w-5" />
+                <div className="flex items-center gap-3 p-4 bg-green-500/20 backdrop-blur-sm rounded-xl border border-green-400/30">
+                  <div className="p-2 bg-green-500/30 rounded-lg">
+                    <Globe className="h-5 w-5 text-green-100" />
                   </div>
                   <div>
                     <div className="text-white/80 text-sm">Location</div>
@@ -219,9 +219,9 @@ const CourseDetails = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-                  <div className="p-2 bg-white/20 rounded-lg">
-                    <Clock className="h-5 w-5" />
+                <div className="flex items-center gap-3 p-4 bg-purple-500/20 backdrop-blur-sm rounded-xl border border-purple-400/30">
+                  <div className="p-2 bg-purple-500/30 rounded-lg">
+                    <Clock className="h-5 w-5 text-purple-100" />
                   </div>
                   <div>
                     <div className="text-white/80 text-sm">Duration</div>
@@ -233,7 +233,7 @@ const CourseDetails = () => {
             
             {/* Tuition Fee Card */}
             <div className="lg:justify-self-end">
-              <div className="p-6 bg-white/15 backdrop-blur-md rounded-2xl border border-white/25 text-center">
+              <div className="p-6 bg-orange-500/20 backdrop-blur-md rounded-2xl border border-orange-400/30 text-center">
                 <div className="text-white/80 text-sm mb-2">Tuition Fee</div>
                 <div className="text-3xl font-bold mb-4">
                   {course.currency} {course.tuition_fee?.toLocaleString()}
@@ -241,7 +241,7 @@ const CourseDetails = () => {
                 <div className="space-y-3">
                   {course.application_link ? (
                     <Button 
-                      className="w-full bg-white text-primary hover:bg-white/90 font-semibold"
+                      className="w-full bg-orange-500 text-white hover:bg-orange-600 font-semibold"
                       asChild
                     >
                       <a href={course.application_link} target="_blank" rel="noopener noreferrer">
@@ -251,7 +251,7 @@ const CourseDetails = () => {
                     </Button>
                   ) : (
                     <Button 
-                      className="w-full bg-white text-primary hover:bg-white/90 font-semibold"
+                      className="w-full bg-orange-500 text-white hover:bg-orange-600 font-semibold"
                       asChild
                     >
                       <Link to="/student-dashboard/applications">
@@ -263,7 +263,7 @@ const CourseDetails = () => {
                   
                   <Button 
                     variant={isSaved ? "default" : "outline"} 
-                    className={`w-full border-white/30 ${isSaved ? 'bg-red-500 hover:bg-red-600 text-white border-transparent' : 'text-white hover:bg-white/10'}`}
+                    className={`w-full border-orange-300 ${isSaved ? 'bg-red-500 hover:bg-red-600 text-white border-transparent' : 'text-white hover:bg-orange-500/20 border-orange-400'}`}
                     onClick={handleSaveCourse}
                     disabled={saveMutation.isPending}
                   >

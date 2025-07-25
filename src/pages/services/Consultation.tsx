@@ -126,18 +126,18 @@ const Consultation = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative bg-primary overflow-hidden">
+      <section className="relative overflow-hidden" style={{ backgroundColor: '#023047' }}>
         <div className="absolute inset-0 bg-[url('/bg.svg')] opacity-10" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
           <div className="text-center space-y-6 mb-12">
-            <div className="inline-flex items-center gap-2 bg-yellow-400 text-black px-6 py-3 rounded-full font-bold">
+            <div className="inline-flex items-center gap-2 text-black px-6 py-3 rounded-full font-bold" style={{ backgroundColor: '#fa8500' }}>
               <Star className="h-5 w-5" />
               100% FREE Consultation
             </div>
             
             <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
               Book Your Free
-              <span className="block bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+              <span className="block" style={{ color: '#fa8500' }}>
                 Study Abroad Consultation
               </span>
             </h1>
@@ -148,19 +148,19 @@ const Consultation = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto pt-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-yellow-400">500+</div>
+                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>500+</div>
                 <div className="text-white/80 text-sm">Success Stories</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-400">98%</div>
+                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>98%</div>
                 <div className="text-white/80 text-sm">Success Rate</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-400">150+</div>
+                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>150+</div>
                 <div className="text-white/80 text-sm">Universities</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-orange-400">15+</div>
+                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>15+</div>
                 <div className="text-white/80 text-sm">Countries</div>
               </div>
             </div>
@@ -174,8 +174,8 @@ const Consultation = () => {
           <div className="grid lg:grid-cols-5 gap-12 items-start">
             {/* Form Column - Takes more space */}
             <div className="lg:col-span-3 order-2 lg:order-1">
-              <div className="bg-white rounded-3xl shadow-2xl border border-orange-100 overflow-hidden">
-                <div className="bg-gradient-to-r from-primary to-orange-500 text-white p-6 text-center">
+              <div className="bg-white rounded-3xl shadow-2xl border-2 overflow-hidden" style={{ borderColor: '#fa8500' }}>
+                <div className="text-white p-6 text-center" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
                   <div className="flex items-center justify-center gap-3 mb-3">
                     <Calendar className="h-8 w-8" />
                     <h2 className="text-2xl font-bold">Book Your Free Session</h2>
@@ -191,22 +191,22 @@ const Consultation = () => {
             {/* Benefits Column */}
             <div className="lg:col-span-2 order-1 lg:order-2 space-y-6">
               <div className="text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-bold mb-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold mb-4" style={{ backgroundColor: '#fa8500', color: 'white' }}>
                   <Award className="h-4 w-4" />
                   What You'll Get
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Comprehensive Consultation Package</h3>
+                <h3 className="text-2xl font-bold mb-6" style={{ color: '#023047' }}>Comprehensive Consultation Package</h3>
               </div>
 
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
-                  <div key={index} className="bg-white rounded-xl p-4 shadow-sm border border-orange-100 hover:shadow-md transition-shadow">
+                  <div key={index} className="bg-white rounded-xl p-4 shadow-sm border-2 hover:shadow-md transition-shadow" style={{ borderColor: '#fa8500' }}>
                     <div className="flex items-start gap-3">
-                      <div className="p-2 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex-shrink-0">
+                      <div className="p-2 rounded-lg flex-shrink-0" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
                         <benefit.icon className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-gray-900 mb-1">{benefit.title}</h4>
+                        <h4 className="font-bold mb-1" style={{ color: '#023047' }}>{benefit.title}</h4>
                         <p className="text-gray-700 text-sm leading-relaxed">{benefit.description}</p>
                       </div>
                     </div>
@@ -214,22 +214,22 @@ const Consultation = () => {
                 ))}
               </div>
 
-              <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-6 mt-6">
+              <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-6 mt-6 border-2" style={{ borderColor: '#fa8500' }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <Shield className="h-6 w-6 text-green-600" />
-                  <h4 className="font-bold text-green-900">100% Risk Free</h4>
+                  <Shield className="h-6 w-6" style={{ color: '#023047' }} />
+                  <h4 className="font-bold" style={{ color: '#023047' }}>100% Risk Free</h4>
                 </div>
-                <ul className="space-y-2 text-green-800 text-sm">
+                <ul className="space-y-2 text-sm" style={{ color: '#023047' }}>
                   <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
                     No hidden charges or obligations
                   </li>
                   <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
                     Expert certified consultants
                   </li>
                   <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
                     Personalized recommendations
                   </li>
                 </ul>
@@ -288,11 +288,11 @@ const Consultation = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-6 py-3 rounded-full font-bold mb-6">
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold mb-6" style={{ backgroundColor: '#fa8500', color: 'white' }}>
               <Award className="h-5 w-5" />
               Why Students Choose Us
             </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6" style={{ color: '#023047' }}>
               Trusted by Thousands of Students
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -302,12 +302,12 @@ const Consultation = () => {
 
           <div className="grid md:grid-cols-3 gap-6">
             {whyChooseUs.map((item, index) => (
-              <Card key={index} className="text-center group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-0 bg-gradient-to-br from-orange-50 to-red-50">
+              <Card key={index} className="text-center group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 bg-gradient-to-br from-orange-50 to-red-50" style={{ borderColor: '#fa8500' }}>
                 <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
                     <item.icon className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-orange-900 mb-3">{item.title}</h3>
+                  <h3 className="text-xl font-bold mb-3" style={{ color: '#023047' }}>{item.title}</h3>
                   <p className="text-orange-700 leading-relaxed text-sm">{item.description}</p>
                 </CardContent>
               </Card>
@@ -494,7 +494,7 @@ const Consultation = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary via-orange-500 to-red-500 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
         <div className="absolute inset-0 bg-[url('/bg.svg')] opacity-10" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="space-y-8">
@@ -505,7 +505,7 @@ const Consultation = () => {
             
             <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
               Ready to Book Your
-              <span className="block bg-gradient-to-r from-yellow-400 to-orange-300 bg-clip-text text-transparent">
+              <span className="block" style={{ color: '#fa8500' }}>
                 Free Consultation?
               </span>
             </h2>
@@ -515,7 +515,7 @@ const Consultation = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button size="lg" className="bg-yellow-400 text-black hover:bg-yellow-500 text-lg px-10 py-6 font-bold shadow-xl">
+              <Button size="lg" className="text-black hover:opacity-90 text-lg px-10 py-6 font-bold shadow-xl" style={{ backgroundColor: '#fa8500' }}>
                 <Calendar className="mr-3 h-6 w-6" />
                 Book Free Consultation Now
               </Button>

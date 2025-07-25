@@ -4,6 +4,8 @@ import { Outlet } from 'react-router-dom';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import CourseComparisonWidget from './CourseComparisonWidget';
+import CookieConsent from '@/components/common/CookieConsent';
+import { Toaster } from '@/components/ui/sonner';
 
 const Layout = () => {
   return (
@@ -14,6 +16,8 @@ const Layout = () => {
       </main>
       <Footer />
       <CourseComparisonWidget />
+      <CookieConsent />
+      <Toaster />
     </div>
   );
 };

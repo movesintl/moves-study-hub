@@ -24,6 +24,7 @@ import Auth from '@/pages/Auth';
 import NotFound from '@/pages/NotFound';
 import Contact from '@/pages/Contact';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import CookiePolicy from '@/pages/CookiePolicy';
 import Sitemap from '@/pages/Sitemap';
 import ContactSubmissions from '@/pages/admin/contact/ContactSubmissions';
 import PageView from '@/pages/PageView';
@@ -105,6 +106,7 @@ function App() {
                 <Route path="course-comparison" element={<CourseComparison />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="cookie-policy" element={<CookiePolicy />} />
                 <Route path="sitemap" element={<Sitemap />} />
                 <Route path="events" element={<Events />} />
                 <Route path="events/:slug" element={<EventDetails />} />

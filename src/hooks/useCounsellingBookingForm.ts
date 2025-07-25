@@ -4,9 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import { useRateLimit } from '@/hooks/useRateLimit';
-import { useAuditLog } from '@/hooks/useAuditLog';
-import { sanitizeText, sanitizeEmail } from '@/utils/sanitization';
+import { useSecurityValidation } from '@/hooks/useSecurityValidation';
 
 interface FormData {
   student_name: string;
@@ -30,8 +28,7 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const { checkRateLimit } = useRateLimit();
-  const { logEvent } = useAuditLog();
+  const { validateForm, checkFormRateLimit } = useSecurityValidation();
 
   const [formData, setFormData] = useState<FormData>({
     student_name: '',
@@ -78,94 +75,92 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
   });
 
   const handleInputChange = (field: keyof FormData, value: string | boolean) => {
-    let sanitizedValue = value;
-    
-    // Apply input sanitization for text fields
-    if (typeof value === 'string') {
-      if (field === 'student_email') {
-        sanitizedValue = sanitizeEmail(value);
-      } else {
-        sanitizedValue = sanitizeText(value);
-      }
-    }
-    
-    setFormData(prev => ({ ...prev, [field]: sanitizedValue }));
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    // Validate and sanitize required fields
-    const sanitizedName = sanitizeText(formData.student_name).trim();
-    const sanitizedEmail = sanitizeEmail(formData.student_email).trim();
-    const sanitizedPhone = sanitizeText(formData.student_phone).trim();
     
-    if (!sanitizedName || !sanitizedEmail || !sanitizedPhone) {
+    // Check rate limiting
+    const rateLimitOk = await checkFormRateLimit('counselling_booking');
+    if (!rateLimitOk) {
       toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields with valid data (name, email, phone).",
+        title: "Rate Limit Exceeded",
+        description: "Too many submissions. Please wait before trying again.",
         variant: "destructive",
       });
-      setLoading(false);
       return;
     }
 
-    // Additional email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(sanitizedEmail)) {
+    // Comprehensive validation
+    const validationRules = {
+      student_name: { required: true, minLength: 2, maxLength: 100, type: 'text' as const },
+      student_email: { required: true, type: 'email' as const },
+      student_phone: { required: true, type: 'phone' as const },
+      preferred_destination: { maxLength: 100, type: 'text' as const },
+      study_level: { maxLength: 50, type: 'text' as const },
+      preferred_time: { maxLength: 50, type: 'text' as const },
+      course_interest: { maxLength: 200, type: 'text' as const },
+      current_education_level: { maxLength: 100, type: 'text' as const },
+      english_test_score: { maxLength: 50, type: 'text' as const },
+      work_experience: { maxLength: 500, type: 'text' as const },
+      message: { maxLength: 1000, type: 'text' as const }
+    };
+
+    // Convert FormData to Record<string, string> for validation
+    const formDataForValidation: Record<string, string> = {
+      student_name: String(formData.student_name),
+      student_email: String(formData.student_email),
+      student_phone: String(formData.student_phone),
+      preferred_destination: String(formData.preferred_destination),
+      study_level: String(formData.study_level),
+      preferred_time: String(formData.preferred_time),
+      course_interest: String(formData.course_interest),
+      current_education_level: String(formData.current_education_level),
+      english_test_score: String(formData.english_test_score),
+      work_experience: String(formData.work_experience),
+      message: String(formData.message)
+    };
+
+    const validation = validateForm(formDataForValidation, validationRules);
+    
+    if (!validation.isValid) {
+      const firstError = Object.values(validation.errors)[0];
       toast({
         title: "Validation Error",
-        description: "Please enter a valid email address.",
+        description: firstError,
         variant: "destructive",
       });
-      setLoading(false);
       return;
     }
 
-    // Validate mandatory fields
-    if (!formData.agrees_to_terms) {
+    // Check required agreements
+    if (!formData.agrees_to_terms || !formData.agrees_to_contact) {
       toast({
         title: "Agreement Required",
-        description: "You must agree to the Terms and Privacy Policy to continue.",
+        description: "You must agree to the required terms and contact consent.",
         variant: "destructive",
       });
-      setLoading(false);
       return;
     }
 
+    setLoading(true);
+
     try {
-      // Check rate limit (max 3 counselling bookings per hour)
-      const rateLimitAllowed = await checkRateLimit({
-        action: 'counselling_booking',
-        maxRequests: 3,
-        windowMinutes: 60
-      });
-
-      if (!rateLimitAllowed) {
-        toast({
-          title: "Rate limit exceeded",
-          description: "You can only submit 3 counselling requests per hour. Please try again later.",
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-
       // Prepare data for counselling_bookings table with sanitized values
       const bookingData = {
-        student_name: sanitizedName,
-        student_email: sanitizedEmail,
-        student_phone: sanitizedPhone,
-        preferred_destination: formData.preferred_destination,
-        study_level: formData.study_level,
-        course_interest: formData.course_interest,
-        current_education_level: formData.current_education_level,
-        english_test_score: formData.english_test_score,
-        work_experience: formData.work_experience,
+        student_name: validation.sanitizedData.student_name,
+        student_email: validation.sanitizedData.student_email,
+        student_phone: validation.sanitizedData.student_phone,
+        preferred_destination: validation.sanitizedData.preferred_destination,
+        study_level: validation.sanitizedData.study_level,
+        preferred_time: validation.sanitizedData.preferred_time,
+        course_interest: validation.sanitizedData.course_interest,
+        current_education_level: validation.sanitizedData.current_education_level,
+        english_test_score: validation.sanitizedData.english_test_score,
+        work_experience: validation.sanitizedData.work_experience,
+        message: validation.sanitizedData.message,
         preferred_date: formData.preferred_date || null,
-        preferred_time: formData.preferred_time || null,
-        message: formData.message,
         agrees_to_terms: formData.agrees_to_terms,
         agrees_to_contact: formData.agrees_to_contact,
         agrees_to_marketing: formData.agrees_to_marketing,
@@ -174,31 +169,21 @@ export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess
 
       console.log('Submitting booking data:', bookingData);
 
-      const { data: insertedData, error } = await supabase
+      const { error } = await supabase
         .from('counselling_bookings')
-        .insert([bookingData])
-        .select('id')
-        .single();
+        .insert([bookingData]);
 
       if (error) {
         console.error('Supabase error:', error);
         throw error;
       }
 
-      // Log the counselling booking event
-      await logEvent({
-        action: 'counselling_booking_created',
-        tableName: 'counselling_bookings',
-        recordId: insertedData?.id,
-        newValues: bookingData
-      });
-
       // If user agreed to marketing, add them to marketing_consents table
       if (formData.agrees_to_marketing) {
         const marketingData = {
-          student_email: sanitizedEmail,
-          student_name: sanitizedName,
-          student_phone: sanitizedPhone || null,
+          student_email: validation.sanitizedData.student_email,
+          student_name: validation.sanitizedData.student_name,
+          student_phone: validation.sanitizedData.student_phone || null,
           source: 'counselling_form'
         };
 

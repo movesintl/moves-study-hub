@@ -728,24 +728,30 @@ export type Database = {
           action: string
           count: number
           created_at: string
+          failure_count: number | null
           id: string
           identifier: string
+          lockout_until: string | null
           window_start: string
         }
         Insert: {
           action: string
           count?: number
           created_at?: string
+          failure_count?: number | null
           id?: string
           identifier: string
+          lockout_until?: string | null
           window_start?: string
         }
         Update: {
           action?: string
           count?: number
           created_at?: string
+          failure_count?: number | null
           id?: string
           identifier?: string
+          lockout_until?: string | null
           window_start?: string
         }
         Relationships: []
@@ -1009,6 +1015,25 @@ export type Database = {
         }
         Returns: boolean
       }
+      check_rate_limit_with_lockout: {
+        Args: {
+          p_identifier: string
+          p_action: string
+          p_max_requests?: number
+          p_window_minutes?: number
+          p_max_failures?: number
+          p_lockout_minutes?: number
+        }
+        Returns: Json
+      }
+      detect_suspicious_activity: {
+        Args: {
+          p_user_id?: string
+          p_ip_address?: unknown
+          p_time_window_hours?: number
+        }
+        Returns: Json
+      }
       generate_service_slug: {
         Args: { service_title: string; service_id?: string }
         Returns: string
@@ -1040,6 +1065,17 @@ export type Database = {
           p_record_id?: string
           p_old_values?: Json
           p_new_values?: Json
+        }
+        Returns: undefined
+      }
+      log_auth_event: {
+        Args: {
+          p_event_type: string
+          p_user_id?: string
+          p_ip_address?: unknown
+          p_user_agent?: string
+          p_success?: boolean
+          p_details?: Json
         }
         Returns: undefined
       }

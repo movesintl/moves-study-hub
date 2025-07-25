@@ -196,6 +196,9 @@ const Dashboard = () => {
         </Card>
       </div>
 
+      {/* Security Monitor */}
+      <SecurityMonitor />
+
       {/* Main Dashboard Items */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {dashboardItems.map((item) => (

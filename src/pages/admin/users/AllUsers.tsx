@@ -6,9 +6,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Loader2, Edit } from 'lucide-react';
+import { Loader2, Edit, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
-import { useAuditLog } from '@/hooks/useAuditLog';
+import { useRoleValidation } from '@/hooks/useRoleValidation';
 
 interface AuthUser {
   id: string;
@@ -37,7 +37,7 @@ const AllUsers: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
   const [newRole, setNewRole] = useState<UserRole>('student');
-  const { logEvent } = useAuditLog();
+  const { currentRole, hasPermission, updateUserRole, canModifyRole } = useRoleValidation();
 
   useEffect(() => {
     fetchUsers();
@@ -92,21 +92,13 @@ const AllUsers: React.FC = () => {
 
   const handleRoleChange = async (userId: string, oldRole: UserRole | 'user', newRole: UserRole) => {
     try {
-      const { error } = await supabase
-        .from('user_profiles')
-        .update({ role: newRole })
-        .eq('user_id', userId);
-
-      if (error) throw error;
-
-      // Log the role change for audit purposes
-      await logEvent({
-        action: 'role_change',
-        tableName: 'user_profiles',
-        recordId: userId,
-        oldValues: { role: oldRole },
-        newValues: { role: newRole }
-      });
+      const result = await updateUserRole(userId, newRole, oldRole === 'user' ? 'student' : oldRole);
+      
+      if (!result.success) {
+        toast.error(result.error || 'Failed to update user role');
+        setEditingUserId(null);
+        return;
+      }
 
       // Update local state
       setUsers(users.map(user => 
@@ -118,6 +110,7 @@ const AllUsers: React.FC = () => {
     } catch (error) {
       console.error('Error updating user role:', error);
       toast.error('Failed to update user role');
+      setEditingUserId(null);
     }
   };
 
@@ -193,16 +186,25 @@ const AllUsers: React.FC = () => {
                             // Convert legacy 'user' role to 'student' for editing
                             setNewRole(user.role === 'user' ? 'student' : user.role as UserRole);
                           }}
+                          disabled={!hasPermission('canManageUsers') || !canModifyRole(user.role as UserRole)}
                         >
                           <Edit className="h-4 w-4 mr-1" />
-                          Edit Role
+                          {canModifyRole(user.role as UserRole) ? 'Edit Role' : 'Cannot Edit'}
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>Change User Role</AlertDialogTitle>
+                          <AlertDialogTitle className="flex items-center gap-2">
+                            <AlertTriangle className="h-5 w-5 text-orange-500" />
+                            Change User Role
+                          </AlertDialogTitle>
                           <AlertDialogDescription>
-                            Change the role for {user.full_name || user.email}. This action will affect their access permissions.
+                            Are you sure you want to change the role for {user.full_name || user.email}? This action will affect their access permissions and is logged for security purposes.
+                            {newRole === 'admin' && (
+                              <div className="mt-2 p-2 bg-orange-50 border border-orange-200 rounded">
+                                <strong>Warning:</strong> Granting admin access gives full system control.
+                              </div>
+                            )}
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <div className="py-4">

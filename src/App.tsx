@@ -68,6 +68,7 @@ import AllUsers from '@/pages/admin/users/AllUsers';
 import StaffProfile from '@/pages/StaffProfile';
 import EventsList from '@/pages/admin/events/EventsList';
 import EventForm from '@/pages/admin/events/EventForm';
+import EventRegistrationsPage from '@/pages/admin/events/EventRegistrationsPage';
 
 const queryClient = new QueryClient();
 
@@ -136,6 +137,7 @@ function App() {
                 <Route path="events" element={<EventsList />} />
                 <Route path="events/new" element={<EventForm />} />
                 <Route path="events/:id/edit" element={<EventForm />} />
+                <Route path="events/:eventId/registrations" element={<EventRegistrationsPage />} />
                 <Route path="services" element={<ServicesList />} />
                 <Route path="services/new" element={<ServiceForm />} />
                 <Route path="services/:id/edit" element={<ServiceForm />} />

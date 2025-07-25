@@ -12,9 +12,10 @@ import { UserPlus } from 'lucide-react';
 interface EventRegistrationFormProps {
   eventId: string;
   eventTitle: string;
+  onSuccess?: () => void;
 }
 
-const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({ eventId, eventTitle }) => {
+const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({ eventId, eventTitle, onSuccess }) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
@@ -38,6 +39,7 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({ eventId, 
       toast({ title: 'Registration successful!', description: 'We will contact you with event details.' });
       setFormData({ name: '', email: '', phone: '', company: '', designation: '', message: '' });
       queryClient.invalidateQueries({ queryKey: ['event-registrations'] });
+      onSuccess?.();
     },
     onError: (error: any) => {
       if (error.message.includes('duplicate key')) {

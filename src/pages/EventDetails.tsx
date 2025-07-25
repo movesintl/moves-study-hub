@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Helmet } from 'react-helmet-async';
@@ -6,12 +6,14 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Clock, User, Mail, Phone, ExternalLink, ArrowLeft, Share2 } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Calendar, MapPin, Clock, User, Mail, Phone, ExternalLink, ArrowLeft, Share2, UserPlus } from 'lucide-react';
 import { format } from 'date-fns';
 import EventRegistrationForm from '@/components/events/EventRegistrationForm';
 
 const EventDetails = () => {
   const { slug } = useParams();
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   const { data: event, isLoading, error } = useQuery({
     queryKey: ['event', slug],
@@ -244,15 +246,30 @@ const EventDetails = () => {
                           </a>
                         </Button>
                       ) : null}
+                      
+                      {/* Registration Form Dialog */}
+                      <Dialog open={isRegistrationOpen} onOpenChange={setIsRegistrationOpen}>
+                        <DialogTrigger asChild>
+                          <Button variant="outline" className="w-full">
+                            <UserPlus className="h-4 w-4 mr-2" />
+                            Register for this Event
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle>Register for {event.title}</DialogTitle>
+                          </DialogHeader>
+                          <EventRegistrationForm 
+                            eventId={event.id} 
+                            eventTitle={event.title}
+                            onSuccess={() => setIsRegistrationOpen(false)} 
+                          />
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   )}
                 </CardContent>
               </Card>
-
-              {/* Registration Form */}
-              {!isEventPast && !registrationDeadlinePassed && (
-                <EventRegistrationForm eventId={event.id} eventTitle={event.title} />
-              )}
 
               {/* Contact Information */}
               <Card>

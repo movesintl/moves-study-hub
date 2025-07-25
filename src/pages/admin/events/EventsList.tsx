@@ -211,6 +211,11 @@ const EventsList = () => {
                             <Eye className="h-4 w-4" />
                           </Button>
                         </Link>
+                        <Link to={`/admin/events/${event.id}/registrations`}>
+                          <Button variant="outline" size="sm" title="View Registrations">
+                            <Calendar className="h-4 w-4" />
+                          </Button>
+                        </Link>
                         <Link to={`/admin/events/${event.id}/edit`}>
                           <Button variant="outline" size="sm">
                             <Edit className="h-4 w-4" />

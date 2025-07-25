@@ -1,40 +1,69 @@
-import { MapPin } from "lucide-react";
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import { Users, GraduationCap, Trophy, Globe } from "lucide-react";
+import { useCountingAnimation } from "@/hooks/useCountingAnimation";
 
 const FloatingStats = () => {
-  // Fetch address information from database
-  const { data: addressData } = useQuery({
-    queryKey: ['company-address'],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from('site_settings')
-        .select('key, value')
-        .eq('key', 'company_address')
-        .single();
-      
-      return (data?.value as string) || 'Sydney and Brisbane, Australia';
+  const studentStats = useCountingAnimation({ end: 2500, duration: 3000 });
+  const successStats = useCountingAnimation({ end: 98, duration: 2000 });
+  const universitiesStats = useCountingAnimation({ end: 150, duration: 2500 });
+  const countriesStats = useCountingAnimation({ end: 15, duration: 1500 });
+
+  const stats = [
+    {
+      icon: Users,
+      count: studentStats.count,
+      label: "Students Placed",
+      suffix: "+",
+      color: "text-blue-500",
+      ref: studentStats.ref
+    },
+    {
+      icon: Trophy,
+      count: successStats.count,
+      label: "Success Rate",
+      suffix: "%",
+      color: "text-green-500",
+      ref: successStats.ref
+    },
+    {
+      icon: GraduationCap,
+      count: universitiesStats.count,
+      label: "Universities",
+      suffix: "+",
+      color: "text-purple-500",
+      ref: universitiesStats.ref
+    },
+    {
+      icon: Globe,
+      count: countriesStats.count,
+      label: "Countries",
+      suffix: "+",
+      color: "text-orange-500",
+      ref: countriesStats.ref
     }
-  });
+  ];
 
   return (
     <div className="relative z-10 -mt-16 mb-0">
       {/* Background section that goes behind the floating card */}
       <div className="bg-[#fcfcfc] absolute inset-0 top-16 bottom-0"></div>
       <div className="relative max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
-        <div className="bg-[#FA8500] rounded-2xl shadow-xl p-6 md:p-8">
-          <div className="flex justify-center items-center">
-            <div className="text-center">
-              <div className="flex justify-center mb-3">
-                <MapPin className="h-8 w-8 md:h-10 md:w-10 text-white" />
+        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center" ref={stat.ref}>
+                <div className="flex justify-center mb-3">
+                  <div className={`p-3 rounded-full bg-gray-50 ${stat.color}`}>
+                    <stat.icon className="h-6 w-6 md:h-8 md:w-8" />
+                  </div>
+                </div>
+                <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                  {stat.count}{stat.suffix}
+                </div>
+                <div className="text-sm md:text-base text-gray-600 font-medium">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-2">
-                Address
-              </div>
-              <div className="text-sm md:text-base text-white/90 font-medium">
-                {addressData}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

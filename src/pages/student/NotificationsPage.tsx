@@ -22,7 +22,8 @@ const NotificationsPage: React.FC = () => {
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Notifications</h1>
         <p className="text-gray-600 mt-2">Stay updated with your application status and announcements</p>
-        {user && <p className="text-xs text-gray-400 mt-1">User: {user.email}</p>}
+        {user && <p className="text-xs text-gray-400 mt-1">User: {user.email} (ID: {user.id})</p>}
+        {!user && <p className="text-xs text-red-500 mt-1">No user found - please log in</p>}
       </div>
       
       <NotificationCenter />

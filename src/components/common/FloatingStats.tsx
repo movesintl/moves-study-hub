@@ -13,7 +13,7 @@ const FloatingStats = () => {
       count: studentStats.count,
       label: "Students Placed",
       suffix: "+",
-      color: "text-blue-500",
+      color: "text-white",
       ref: studentStats.ref
     },
     {
@@ -21,7 +21,7 @@ const FloatingStats = () => {
       count: successStats.count,
       label: "Success Rate",
       suffix: "%",
-      color: "text-green-500",
+      color: "text-white",
       ref: successStats.ref
     },
     {
@@ -29,7 +29,7 @@ const FloatingStats = () => {
       count: universitiesStats.count,
       label: "Universities",
       suffix: "+",
-      color: "text-purple-500",
+      color: "text-white",
       ref: universitiesStats.ref
     },
     {
@@ -37,7 +37,7 @@ const FloatingStats = () => {
       count: countriesStats.count,
       label: "Countries",
       suffix: "+",
-      color: "text-orange-500",
+      color: "text-white",
       ref: countriesStats.ref
     }
   ];

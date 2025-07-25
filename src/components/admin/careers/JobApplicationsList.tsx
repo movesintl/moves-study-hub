@@ -74,6 +74,33 @@ export const JobApplicationsList: React.FC<JobApplicationsListProps> = ({
     }
   };
 
+  const downloadFile = async (filePath: string, fileName: string) => {
+    try {
+      console.log('Attempting to download file:', filePath);
+      
+      // Generate a signed URL for downloading
+      const { data, error } = await supabase.storage
+        .from('job-applications')
+        .createSignedUrl(filePath, 300); // 5 minutes expiry
+      
+      if (error) {
+        console.error('Error generating signed URL:', error);
+        return;
+      }
+      
+      // Create download link
+      const link = document.createElement('a');
+      link.href = data.signedUrl;
+      link.download = fileName;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Download error:', error);
+    }
+  };
+
   const getStatusColor = (status: string) => {
     const colors = {
       'pending': 'bg-yellow-100 text-yellow-800',
@@ -157,7 +184,7 @@ export const JobApplicationsList: React.FC<JobApplicationsListProps> = ({
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => window.open(application.cv_file_url!, '_blank')}
+                          onClick={() => downloadFile(application.cv_file_url!, `${application.full_name}-CV`)}
                         >
                           <Download className="h-3 w-3 mr-1" />
                           CV
@@ -167,7 +194,7 @@ export const JobApplicationsList: React.FC<JobApplicationsListProps> = ({
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => window.open(application.cover_letter_file_url!, '_blank')}
+                          onClick={() => downloadFile(application.cover_letter_file_url!, `${application.full_name}-Cover-Letter`)}
                         >
                           <Download className="h-3 w-3 mr-1" />
                           Cover Letter

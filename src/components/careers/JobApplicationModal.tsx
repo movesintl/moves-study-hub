@@ -75,11 +75,8 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
       return null;
     }
 
-    const { data: { publicUrl } } = supabase.storage
-      .from('job-applications')
-      .getPublicUrl(filePath);
-
-    return publicUrl;
+    // Return just the file path, not the full URL
+    return filePath;
   };
 
   const onSubmit = async (data: JobApplicationFormData) => {

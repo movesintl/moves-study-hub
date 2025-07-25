@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import { ExternalLink, MapPin, Clock, DollarSign, Calendar, ArrowLeft, Graduatio
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { useSavedCourses } from '@/hooks/useSavedCourses';
 import HowToApply from '@/components/common/HowToApply';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 
@@ -16,7 +17,7 @@ const CourseDetails = () => {
   const { slug } = useParams();
   const { user } = useAuth();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
+  const { savedCourseIds, toggleSaveCourse } = useSavedCourses();
 
   const { data: course, isLoading, error } = useQuery({
     queryKey: ['course', slug],
@@ -36,71 +37,12 @@ const CourseDetails = () => {
     }
   });
 
-  const { data: isSaved = false } = useQuery({
-    queryKey: ['saved-course', course?.id, user?.id],
-    queryFn: async () => {
-      if (!user?.id || !course?.id) return false;
-      
-      const { data, error } = await supabase
-        .from('saved_courses')
-        .select('id')
-        .eq('course_id', course.id)
-        .eq('user_id', user.id)
-        .single();
-      
-      if (error && error.code !== 'PGRST116') throw error;
-      return !!data;
-    },
-    enabled: !!user && !!course,
-  });
+  // Check if course is saved using the hook
+  const isSaved = course?.id ? savedCourseIds.has(course.id) : false;
 
-  const saveMutation = useMutation({
-    mutationFn: async () => {
-      if (!user?.id || !course?.id) throw new Error('User not authenticated');
-      
-      if (isSaved) {
-        const { error } = await supabase
-          .from('saved_courses')
-          .delete()
-          .eq('course_id', course.id)
-          .eq('user_id', user.id);
-        
-        if (error) throw error;
-      } else {
-        const { error } = await supabase
-          .from('saved_courses')
-          .insert({ course_id: course.id, user_id: user.id });
-        
-        if (error) throw error;
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['saved-course', course?.id, user?.id] });
-      toast({
-        title: isSaved ? "Course removed from saved list" : "Course saved successfully",
-        description: isSaved ? "You can find it in your saved courses." : "You can view it in your saved courses.",
-      });
-    },
-    onError: (error) => {
-      toast({
-        title: "Error",
-        description: "Failed to update saved courses. Please try again.",
-        variant: "destructive",
-      });
-      console.error('Save course error:', error);
-    },
-  });
-
-  const handleSaveCourse = () => {
-    if (!user) {
-      toast({
-        title: "Authentication required",
-        description: "Please sign in to save courses.",
-        variant: "destructive",
-      });
-      return;
-    }
-    saveMutation.mutate();
+  const handleSaveCourse = async () => {
+    if (!course?.id) return;
+    await toggleSaveCourse(course.id);
   };
 
   const formatTuitionFee = (min: number, max: number, currency: string) => {
@@ -265,10 +207,9 @@ const CourseDetails = () => {
                     variant={isSaved ? "default" : "outline"} 
                     className={`w-full border-orange-300 ${isSaved ? 'bg-red-500 hover:bg-red-600 text-white border-transparent' : 'text-white hover:bg-orange-500/20 border-orange-400'}`}
                     onClick={handleSaveCourse}
-                    disabled={saveMutation.isPending}
                   >
                     <Heart className={`h-4 w-4 mr-2 ${isSaved ? 'fill-current' : ''}`} />
-                    {saveMutation.isPending ? 'Saving...' : isSaved ? 'Saved' : 'Save Course'}
+                    {isSaved ? 'Saved' : 'Save Course'}
                   </Button>
                 </div>
               </div>

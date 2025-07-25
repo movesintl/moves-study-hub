@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   Calendar, 
   User, 
@@ -13,13 +13,11 @@ import {
   BookOpen, 
   ArrowRight, 
   Clock,
-  Eye,
-  Heart,
   TrendingUp,
-  Filter,
   Grid3X3,
   List,
-  Star
+  Sparkles,
+  Filter
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -37,7 +35,9 @@ const Blogs = () => {
         .from('blogs')
         .select(`
           *,
-          blog_categories:category_id(name)
+          blog_category_assignments!inner(
+            blog_categories(name, id)
+          )
         `)
         .eq('published', true)
         .order('created_at', { ascending: false });
@@ -64,12 +64,14 @@ const Blogs = () => {
   // Filter and sort blogs
   const processedBlogs = React.useMemo(() => {
     let filtered = blogs?.filter(blog => {
+      const categories = blog.blog_category_assignments?.map((assignment: any) => assignment.blog_categories) || [];
+      
       const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            blog.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            blog.author?.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesCategory = selectedCategory === 'all' || 
-                             blog.blog_categories?.name === selectedCategory;
+                             categories.some((cat: any) => cat.name === selectedCategory);
       
       return matchesSearch && matchesCategory;
     }) || [];
@@ -88,15 +90,16 @@ const Blogs = () => {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
-      month: 'short',
+      month: 'long',
       day: 'numeric'
     });
   };
 
-  const truncateContent = (content: string, maxLength: number = 120) => {
+  const truncateContent = (content: string, maxLength: number = 150) => {
     if (!content) return '';
-    if (content.length <= maxLength) return content;
-    return content.substring(0, maxLength).trim() + '...';
+    const text = content.replace(/<[^>]*>/g, ''); // Remove HTML tags
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength).trim() + '...';
   };
 
   const getReadingTime = (content: string) => {
@@ -105,41 +108,35 @@ const Blogs = () => {
     return Math.ceil(words / 200);
   };
 
-  // Featured blog (first blog)
-  const featuredBlog = processedBlogs[0];
-  const regularBlogs = processedBlogs.slice(1);
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Modern Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-accent overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/api/placeholder/1920/800')] bg-cover bg-center opacity-10"></div>
-        <div className="relative container mx-auto px-4 py-20 lg:py-32">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-4 py-2 mb-6">
-              <TrendingUp className="h-4 w-4" />
-              <span className="text-sm font-medium">Latest Insights & Stories</span>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-muted/30">
+      {/* Hero Section */}
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5"></div>
+        <div className="container mx-auto px-4 relative">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-6 border border-primary/20">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium text-primary">Discover Knowledge</span>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Discover Amazing
-              <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                Stories & Insights
-              </span>
+            
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Insights & Stories
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Explore our collection of carefully crafted articles, expert insights, and inspiring stories 
-              that will keep you informed and engaged.
+            
+            <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+              Explore thoughtfully crafted articles, expert insights, and inspiring stories that inform, educate, and inspire.
             </p>
             
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto relative">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+            {/* Enhanced Search */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative group">
+                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 group-focus-within:text-primary transition-colors" />
                 <Input
-                  placeholder="Search articles, topics, or authors..."
+                  placeholder="Search articles, topics, authors..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 pr-4 py-4 text-lg bg-white/95 backdrop-blur border-0 rounded-full shadow-lg"
+                  className="pl-14 pr-6 py-6 text-lg bg-card/50 backdrop-blur border-border/50 focus:border-primary/50 rounded-2xl shadow-lg hover:shadow-xl transition-all"
                 />
               </div>
             </div>
@@ -147,268 +144,220 @@ const Blogs = () => {
         </div>
       </section>
 
-      {/* Featured Article */}
-      {featuredBlog && (
-        <section className="container mx-auto px-4 py-16">
-          <div className="flex items-center gap-2 mb-8">
-            <Star className="h-5 w-5 text-primary" />
-            <h2 className="text-2xl font-bold">Featured Article</h2>
-          </div>
-          
-          <Card className="group overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-500 bg-gradient-to-br from-card to-card/80">
-            <div className="grid lg:grid-cols-2 gap-0">
-              {featuredBlog.featured_image_url && (
-                <div className="relative h-80 lg:h-full overflow-hidden">
-                  <img 
-                    src={featuredBlog.featured_image_url} 
-                    alt={featuredBlog.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  {featuredBlog.blog_categories && (
-                    <div className="absolute top-4 left-4">
-                      <Badge variant="secondary" className="bg-white/90 text-foreground">
-                        {featuredBlog.blog_categories.name}
-                      </Badge>
-                    </div>
-                  )}
-                </div>
-              )}
-              
-              <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                  {featuredBlog.author && (
-                    <div className="flex items-center gap-2">
-                      <User className="h-4 w-4" />
-                      <span className="font-medium">{featuredBlog.author}</span>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    <span>{formatDate(featuredBlog.created_at)}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
-                    <span>{getReadingTime(featuredBlog.content || '')} min read</span>
-                  </div>
-                </div>
-                
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight group-hover:text-primary transition-colors">
-                  {featuredBlog.title}
-                </h3>
-                
-                {featuredBlog.content && (
-                  <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-                    {truncateContent(featuredBlog.content.replace(/<[^>]*>/g, ''), 200)}
-                  </p>
-                )}
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Eye className="h-4 w-4" />
-                      <span>2.1k views</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Heart className="h-4 w-4" />
-                      <span>156 likes</span>
-                    </div>
-                  </div>
-                  
-                  <Button size="lg" className="group-hover:translate-x-1 transition-transform" asChild>
-                    <Link to={`/blogs/${featuredBlog.slug || featuredBlog.id}`}>
-                      Read Full Article
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
+      {/* Filter Section */}
+      <section className="container mx-auto px-4 mb-8">
+        <div className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-lg">
+          <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Filter className="h-5 w-5 text-primary" />
+              <span className="font-semibold text-lg">Filter & Sort</span>
+              <Badge variant="outline" className="ml-2">
+                {blogsLoading ? 'Loading...' : `${processedBlogs.length} articles`}
+              </Badge>
             </div>
-          </Card>
-        </section>
-      )}
-
-      {/* Filters & Controls */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
-          <div>
-            <h2 className="text-3xl font-bold mb-2">All Articles</h2>
-            <p className="text-muted-foreground">
-              {blogsLoading ? 'Loading...' : `${processedBlogs.length} article(s) found`}
-            </p>
-          </div>
-          
-          <div className="flex flex-wrap gap-4 items-center">
-            {/* Category Filter */}
-            <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
-              <TabsList className="grid grid-cols-2 lg:grid-cols-4 h-auto p-1">
-                <TabsTrigger value="all" className="px-4 py-2">All</TabsTrigger>
-                {categories?.slice(0, 3).map((category) => (
-                  <TabsTrigger key={category.id} value={category.name} className="px-4 py-2">
-                    {category.name}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
             
-            {/* Sort Options */}
-            <select 
-              value={sortBy} 
-              onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-4 py-2 border rounded-lg bg-background"
-            >
-              <option value="newest">Newest First</option>
-              <option value="popular">Most Popular</option>
-              <option value="trending">Trending</option>
-            </select>
-            
-            {/* View Mode Toggle */}
-            <div className="flex items-center border rounded-lg p-1">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="h-8 w-8 p-0"
-              >
-                <Grid3X3 className="h-4 w-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="h-8 w-8 p-0"
-              >
-                <List className="h-4 w-4" />
-              </Button>
+            <div className="flex flex-wrap gap-4 items-center">
+              {/* Category Filter */}
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-48 bg-background/50">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories?.map((category) => (
+                    <SelectItem key={category.id} value={category.name}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              
+              {/* Sort Options */}
+              <Select value={sortBy} onValueChange={(value: any) => setSortBy(value)}>
+                <SelectTrigger className="w-40 bg-background/50">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="newest">Newest First</SelectItem>
+                  <SelectItem value="popular">Most Popular</SelectItem>
+                  <SelectItem value="trending">Trending</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              {/* View Mode Toggle */}
+              <div className="flex bg-background/50 rounded-lg p-1 border">
+                <Button
+                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('grid')}
+                  className="h-9 px-3"
+                >
+                  <Grid3X3 className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={viewMode === 'list' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('list')}
+                  className="h-9 px-3"
+                >
+                  <List className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Articles Grid/List */}
-      <section className="container mx-auto px-4 pb-16">
+      {/* Articles Section */}
+      <section className="container mx-auto px-4 pb-20">
         {blogsLoading ? (
-          <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+          <div className={`grid gap-8 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 max-w-4xl mx-auto'}`}>
             {[...Array(6)].map((_, index) => (
-              <Card key={index} className="animate-pulse">
-                <div className="h-48 bg-muted rounded-t-lg"></div>
-                <CardHeader>
-                  <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
-                  <div className="h-6 bg-muted rounded"></div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="h-4 bg-muted rounded"></div>
-                    <div className="h-4 bg-muted rounded w-2/3"></div>
+              <Card key={index} className="animate-pulse bg-card/30 border-border/50">
+                <div className="h-56 bg-muted/50 rounded-t-xl"></div>
+                <CardContent className="p-6">
+                  <div className="space-y-3">
+                    <div className="h-4 bg-muted/50 rounded w-20"></div>
+                    <div className="h-6 bg-muted/50 rounded w-full"></div>
+                    <div className="h-4 bg-muted/50 rounded w-3/4"></div>
+                    <div className="h-4 bg-muted/50 rounded w-1/2"></div>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
         ) : processedBlogs.length === 0 ? (
-          <div className="text-center py-16">
-            <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-2xl font-semibold mb-2">No articles found</h3>
-            <p className="text-muted-foreground mb-6">
-              {searchTerm || selectedCategory !== 'all' 
-                ? 'Try adjusting your search or filter criteria.' 
-                : 'Check back later for new articles.'}
-            </p>
-            <Button onClick={() => { setSearchTerm(''); setSelectedCategory('all'); }}>
-              Clear Filters
-            </Button>
+          <div className="text-center py-20">
+            <div className="max-w-md mx-auto">
+              <BookOpen className="h-20 w-20 text-muted-foreground/50 mx-auto mb-6" />
+              <h3 className="text-2xl font-semibold mb-3">No articles found</h3>
+              <p className="text-muted-foreground mb-8">
+                {searchTerm || selectedCategory !== 'all' 
+                  ? 'Try adjusting your search criteria or browse all articles.' 
+                  : 'Check back soon for new content.'}
+              </p>
+              <Button 
+                onClick={() => { setSearchTerm(''); setSelectedCategory('all'); }}
+                className="hover:scale-105 transition-transform"
+              >
+                Clear Filters
+              </Button>
+            </div>
           </div>
         ) : (
-          <div className={`grid gap-6 ${
+          <div className={`grid gap-8 ${
             viewMode === 'grid' 
               ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
               : 'grid-cols-1 max-w-4xl mx-auto'
           }`}>
-            {regularBlogs.map((blog) => (
-              <Card key={blog.id} className={`group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden ${
-                viewMode === 'list' ? 'flex flex-row' : ''
-              }`}>
-                {blog.featured_image_url && (
-                  <div className={`relative overflow-hidden ${
-                    viewMode === 'list' ? 'w-80 flex-shrink-0' : 'h-48'
-                  }`}>
-                    <img 
-                      src={blog.featured_image_url} 
-                      alt={blog.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  </div>
-                )}
-                
-                <div className="p-6 flex-1">
-                  <div className="flex items-center justify-between mb-3">
-                    {blog.blog_categories && (
-                      <Badge variant="secondary" className="text-xs">
-                        {blog.blog_categories.name}
-                      </Badge>
-                    )}
-                    <div className="flex items-center text-xs text-muted-foreground">
-                      <Calendar className="h-3 w-3 mr-1" />
-                      {formatDate(blog.created_at)}
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                    {blog.title}
-                  </h3>
-                  
-                  {blog.content && (
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
-                      {truncateContent(blog.content.replace(/<[^>]*>/g, ''))}
-                    </p>
-                  )}
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      {blog.author && (
-                        <div className="flex items-center gap-1">
-                          <User className="h-3 w-3" />
-                          {blog.author}
+            {processedBlogs.map((blog, index) => {
+              const categories = blog.blog_category_assignments?.map((assignment: any) => assignment.blog_categories) || [];
+              const isFirstPost = index === 0;
+              
+              return (
+                <Card 
+                  key={blog.id} 
+                  className={`group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-card/50 backdrop-blur border-border/50 overflow-hidden ${
+                    viewMode === 'list' ? 'flex flex-row' : ''
+                  } ${isFirstPost && viewMode === 'grid' ? 'md:col-span-2 lg:col-span-3' : ''}`}
+                >
+                  {blog.featured_image_url && (
+                    <div className={`relative overflow-hidden ${
+                      viewMode === 'list' ? 'w-72 flex-shrink-0' : 
+                      isFirstPost && viewMode === 'grid' ? 'h-72' : 'h-56'
+                    }`}>
+                      <img 
+                        src={blog.featured_image_url} 
+                        alt={blog.featured_image_alt || blog.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                      
+                      {/* Category Badge */}
+                      {categories.length > 0 && (
+                        <div className="absolute top-4 left-4">
+                          <Badge variant="secondary" className="bg-white/90 text-foreground backdrop-blur">
+                            {categories[0].name}
+                          </Badge>
                         </div>
                       )}
-                      <div className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        {getReadingTime(blog.content || '')} min
+                    </div>
+                  )}
+                  
+                  <CardContent className={`p-6 flex-1 ${isFirstPost && viewMode === 'grid' ? 'lg:p-8' : ''}`}>
+                    {/* Meta Info */}
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                      {blog.author && (
+                        <div className="flex items-center gap-2">
+                          <User className="h-4 w-4" />
+                          <span className="font-medium">{blog.author}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4" />
+                        <span>{formatDate(blog.created_at)}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-4 w-4" />
+                        <span>{getReadingTime(blog.content || '')} min read</span>
                       </div>
                     </div>
                     
-                    <Button variant="ghost" size="sm" className="group-hover:text-primary p-0" asChild>
+                    {/* Title */}
+                    <h3 className={`font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2 ${
+                      isFirstPost && viewMode === 'grid' ? 'text-3xl lg:text-4xl' : 'text-xl'
+                    }`}>
+                      {blog.title}
+                    </h3>
+                    
+                    {/* Content Preview */}
+                    {blog.content && (
+                      <p className={`text-muted-foreground leading-relaxed mb-6 line-clamp-3 ${
+                        isFirstPost && viewMode === 'grid' ? 'text-lg' : 'text-sm'
+                      }`}>
+                        {truncateContent(blog.content, isFirstPost && viewMode === 'grid' ? 200 : 120)}
+                      </p>
+                    )}
+                    
+                    {/* Read More Button */}
+                    <Button 
+                      variant="ghost" 
+                      className="group-hover:text-primary group-hover:translate-x-1 transition-all p-0 h-auto font-semibold" 
+                      asChild
+                    >
                       <Link to={`/blogs/${blog.slug || blog.id}`}>
-                        Read More
-                        <ArrowRight className="ml-1 h-3 w-3" />
+                        Read Article
+                        <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         )}
       </section>
 
       {/* Newsletter CTA */}
-      <section className="bg-gradient-to-r from-primary to-accent text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Never Miss an Update
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Subscribe to our newsletter and get the latest articles, insights, and exclusive content delivered straight to your inbox.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <Input 
-              placeholder="Enter your email address" 
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/70 backdrop-blur"
-            />
-            <Button variant="secondary" size="lg" className="whitespace-nowrap">
-              Subscribe Now
-            </Button>
+      <section className="bg-gradient-to-r from-primary/5 via-primary/10 to-accent/5 py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <TrendingUp className="h-12 w-12 text-primary mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Stay Updated
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Get the latest articles and insights delivered to your inbox. No spam, just quality content.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+              <Input 
+                placeholder="Enter your email address" 
+                className="bg-background/50 backdrop-blur border-border/50 focus:border-primary/50 rounded-xl"
+              />
+              <Button size="lg" className="rounded-xl hover:scale-105 transition-transform">
+                Subscribe
+              </Button>
+            </div>
           </div>
         </div>
       </section>

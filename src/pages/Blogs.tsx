@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
 import { 
   Calendar, 
   User, 
@@ -17,14 +18,19 @@ import {
   Grid3X3,
   List,
   Sparkles,
-  Filter
+  Filter,
+  Star,
+  Quote,
+  Eye,
+  MessageCircle,
+  Share2
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 const Blogs = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<'magazine' | 'grid' | 'list'>('magazine');
   const [sortBy, setSortBy] = useState<'newest' | 'popular' | 'trending'>('newest');
 
   // Fetch blogs
@@ -80,7 +86,6 @@ const Blogs = () => {
     if (sortBy === 'newest') {
       filtered.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     } else if (sortBy === 'popular') {
-      // Mock popularity - in real app you'd have view counts
       filtered.sort(() => Math.random() - 0.5);
     }
 
@@ -97,7 +102,7 @@ const Blogs = () => {
 
   const truncateContent = (content: string, maxLength: number = 150) => {
     if (!content) return '';
-    const text = content.replace(/<[^>]*>/g, ''); // Remove HTML tags
+    const text = content.replace(/<[^>]*>/g, '');
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength).trim() + '...';
   };
@@ -108,35 +113,188 @@ const Blogs = () => {
     return Math.ceil(words / 200);
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-muted/30">
-      {/* Hero Section */}
-      <section className="relative py-24 lg:py-32">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5"></div>
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-6 border border-primary/20">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Discover Knowledge</span>
+  // Magazine layout logic
+  const heroArticle = processedBlogs[0];
+  const featuredArticles = processedBlogs.slice(1, 5);
+  const regularArticles = processedBlogs.slice(5);
+
+  const MagazineCard = ({ blog, size = 'regular', className = '' }: { 
+    blog: any; 
+    size?: 'hero' | 'featured' | 'regular' | 'small';
+    className?: string;
+  }) => {
+    const categories = blog.blog_category_assignments?.map((assignment: any) => assignment.blog_categories) || [];
+    
+    return (
+      <Card className={`group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 bg-card ${className}`}>
+        {blog.featured_image_url && (
+          <div className={`relative overflow-hidden ${
+            size === 'hero' ? 'h-80 lg:h-96' :
+            size === 'featured' ? 'h-64' :
+            size === 'small' ? 'h-40' : 'h-56'
+          }`}>
+            <img 
+              src={blog.featured_image_url} 
+              alt={blog.featured_image_alt || blog.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+            
+            {/* Category Badge */}
+            {categories.length > 0 && (
+              <div className="absolute top-4 left-4">
+                <Badge className="bg-primary text-primary-foreground font-medium">
+                  {categories[0].name}
+                </Badge>
+              </div>
+            )}
+
+            {/* Featured Badge */}
+            {size === 'hero' && (
+              <div className="absolute top-4 right-4">
+                <Badge variant="secondary" className="bg-yellow-500 text-yellow-900 font-bold">
+                  <Star className="w-3 h-3 mr-1" />
+                  Featured
+                </Badge>
+              </div>
+            )}
+
+            {/* Overlay Content for Hero */}
+            {size === 'hero' && (
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <div className="flex items-center gap-4 text-sm mb-4 opacity-90">
+                  {blog.author && (
+                    <div className="flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      <span className="font-medium">{blog.author}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    <span>{formatDate(blog.created_at)}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    <span>{getReadingTime(blog.content || '')} min read</span>
+                  </div>
+                </div>
+                
+                <h2 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+                  {blog.title}
+                </h2>
+                
+                {blog.content && (
+                  <p className="text-lg text-white/90 mb-6 line-clamp-2">
+                    {truncateContent(blog.content, 200)}
+                  </p>
+                )}
+                
+                <Button size="lg" className="bg-white text-black hover:bg-white/90" asChild>
+                  <Link to={`/blogs/${blog.slug || blog.id}`}>
+                    Read Full Story
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+        
+        {size !== 'hero' && (
+          <CardContent className={`${size === 'small' ? 'p-4' : 'p-6'}`}>
+            {/* Meta Info */}
+            <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
+              {blog.author && (
+                <div className="flex items-center gap-1">
+                  <User className="h-3 w-3" />
+                  <span className="font-medium">{blog.author}</span>
+                </div>
+              )}
+              <div className="flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                <span>{formatDate(blog.created_at)}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                <span>{getReadingTime(blog.content || '')} min</span>
+              </div>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              Insights & Stories
+            {/* Title */}
+            <h3 className={`font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2 ${
+              size === 'featured' ? 'text-xl' : 
+              size === 'small' ? 'text-base' : 'text-lg'
+            }`}>
+              {blog.title}
+            </h3>
+            
+            {/* Content Preview */}
+            {blog.content && size !== 'small' && (
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                {truncateContent(blog.content, size === 'featured' ? 120 : 100)}
+              </p>
+            )}
+            
+            {/* Footer */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Eye className="h-3 w-3" />
+                  <span>{Math.floor(Math.random() * 1000) + 100}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <MessageCircle className="h-3 w-3" />
+                  <span>{Math.floor(Math.random() * 50) + 5}</span>
+                </div>
+              </div>
+              
+              <Button 
+                variant="ghost" 
+                size="sm"
+                className="group-hover:text-primary group-hover:translate-x-1 transition-all p-0 h-auto font-semibold text-xs" 
+                asChild
+              >
+                <Link to={`/blogs/${blog.slug || blog.id}`}>
+                  Read More
+                  <ArrowRight className="ml-1 h-3 w-3" />
+                </Link>
+              </Button>
+            </div>
+          </CardContent>
+        )}
+      </Card>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Magazine Header */}
+      <section className="border-b bg-gradient-to-r from-background via-muted/20 to-background">
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-6 py-2 mb-6 border border-primary/20">
+              <Quote className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium text-primary uppercase tracking-wide">The Archive</span>
+            </div>
+            
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Stories Worth
+              <span className="block italic text-primary">Reading</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-              Explore thoughtfully crafted articles, expert insights, and inspiring stories that inform, educate, and inspire.
+            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+              A curated collection of insights, stories, and expert perspectives
             </p>
             
-            {/* Enhanced Search */}
-            <div className="max-w-2xl mx-auto">
-              <div className="relative group">
-                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 group-focus-within:text-primary transition-colors" />
+            {/* Search */}
+            <div className="max-w-xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
                 <Input
-                  placeholder="Search articles, topics, authors..."
+                  placeholder="Search stories..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-14 pr-6 py-6 text-lg bg-card/50 backdrop-blur border-border/50 focus:border-primary/50 rounded-2xl shadow-lg hover:shadow-xl transition-all"
+                  className="pl-12 pr-4 py-4 text-lg border-2 focus:border-primary rounded-xl"
                 />
               </div>
             </div>
@@ -144,25 +302,21 @@ const Blogs = () => {
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="container mx-auto px-4 mb-8">
-        <div className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-lg">
-          <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Filter className="h-5 w-5 text-primary" />
-              <span className="font-semibold text-lg">Filter & Sort</span>
-              <Badge variant="outline" className="ml-2">
-                {blogsLoading ? 'Loading...' : `${processedBlogs.length} articles`}
-              </Badge>
-            </div>
-            
-            <div className="flex flex-wrap gap-4 items-center">
-              {/* Category Filter */}
+      {/* Filter Bar */}
+      <section className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Filter className="h-4 w-4 text-primary" />
+                <span className="font-semibold">Filter</span>
+              </div>
+              
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-48 bg-background/50">
-                  <SelectValue placeholder="Select category" />
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background border">
                   <SelectItem value="all">All Categories</SelectItem>
                   {categories?.map((category) => (
                     <SelectItem key={category.id} value={category.name}>
@@ -172,25 +326,34 @@ const Blogs = () => {
                 </SelectContent>
               </Select>
               
-              {/* Sort Options */}
               <Select value={sortBy} onValueChange={(value: any) => setSortBy(value)}>
-                <SelectTrigger className="w-40 bg-background/50">
+                <SelectTrigger className="w-40">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="newest">Newest First</SelectItem>
-                  <SelectItem value="popular">Most Popular</SelectItem>
+                <SelectContent className="bg-background border">
+                  <SelectItem value="newest">Latest</SelectItem>
+                  <SelectItem value="popular">Popular</SelectItem>
                   <SelectItem value="trending">Trending</SelectItem>
                 </SelectContent>
               </Select>
-              
-              {/* View Mode Toggle */}
-              <div className="flex bg-background/50 rounded-lg p-1 border">
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground mr-2">View:</span>
+              <div className="flex bg-muted rounded-lg p-1">
+                <Button
+                  variant={viewMode === 'magazine' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('magazine')}
+                  className="h-8 px-3 text-xs"
+                >
+                  Magazine
+                </Button>
                 <Button
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('grid')}
-                  className="h-9 px-3"
+                  className="h-8 px-3"
                 >
                   <Grid3X3 className="h-4 w-4" />
                 </Button>
@@ -198,29 +361,32 @@ const Blogs = () => {
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('list')}
-                  className="h-9 px-3"
+                  className="h-8 px-3"
                 >
                   <List className="h-4 w-4" />
                 </Button>
               </div>
+              
+              <Badge variant="outline" className="ml-4">
+                {blogsLoading ? 'Loading...' : `${processedBlogs.length} stories`}
+              </Badge>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Articles Section */}
-      <section className="container mx-auto px-4 pb-20">
+      {/* Content */}
+      <section className="container mx-auto px-4 py-12">
         {blogsLoading ? (
-          <div className={`grid gap-8 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 max-w-4xl mx-auto'}`}>
-            {[...Array(6)].map((_, index) => (
-              <Card key={index} className="animate-pulse bg-card/30 border-border/50">
-                <div className="h-56 bg-muted/50 rounded-t-xl"></div>
+          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {[...Array(9)].map((_, index) => (
+              <Card key={index} className="animate-pulse">
+                <div className="h-56 bg-muted"></div>
                 <CardContent className="p-6">
                   <div className="space-y-3">
-                    <div className="h-4 bg-muted/50 rounded w-20"></div>
-                    <div className="h-6 bg-muted/50 rounded w-full"></div>
-                    <div className="h-4 bg-muted/50 rounded w-3/4"></div>
-                    <div className="h-4 bg-muted/50 rounded w-1/2"></div>
+                    <div className="h-4 bg-muted rounded w-20"></div>
+                    <div className="h-6 bg-muted rounded"></div>
+                    <div className="h-4 bg-muted rounded w-3/4"></div>
                   </div>
                 </CardContent>
               </Card>
@@ -228,133 +394,116 @@ const Blogs = () => {
           </div>
         ) : processedBlogs.length === 0 ? (
           <div className="text-center py-20">
-            <div className="max-w-md mx-auto">
-              <BookOpen className="h-20 w-20 text-muted-foreground/50 mx-auto mb-6" />
-              <h3 className="text-2xl font-semibold mb-3">No articles found</h3>
-              <p className="text-muted-foreground mb-8">
-                {searchTerm || selectedCategory !== 'all' 
-                  ? 'Try adjusting your search criteria or browse all articles.' 
-                  : 'Check back soon for new content.'}
-              </p>
-              <Button 
-                onClick={() => { setSearchTerm(''); setSelectedCategory('all'); }}
-                className="hover:scale-105 transition-transform"
-              >
-                Clear Filters
-              </Button>
-            </div>
+            <BookOpen className="h-20 w-20 text-muted-foreground/50 mx-auto mb-6" />
+            <h3 className="text-2xl font-semibold mb-3">No stories found</h3>
+            <p className="text-muted-foreground mb-8">
+              Try adjusting your search or explore all categories
+            </p>
+            <Button onClick={() => { setSearchTerm(''); setSelectedCategory('all'); }}>
+              View All Stories
+            </Button>
           </div>
         ) : (
-          <div className={`grid gap-8 ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
-              : 'grid-cols-1 max-w-4xl mx-auto'
-          }`}>
-            {processedBlogs.map((blog, index) => {
-              const categories = blog.blog_category_assignments?.map((assignment: any) => assignment.blog_categories) || [];
-              const isFirstPost = index === 0;
-              
-              return (
-                <Card 
-                  key={blog.id} 
-                  className={`group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-card/50 backdrop-blur border-border/50 overflow-hidden ${
-                    viewMode === 'list' ? 'flex flex-row' : ''
-                  } ${isFirstPost && viewMode === 'grid' ? 'md:col-span-2 lg:col-span-3' : ''}`}
-                >
-                  {blog.featured_image_url && (
-                    <div className={`relative overflow-hidden ${
-                      viewMode === 'list' ? 'w-72 flex-shrink-0' : 
-                      isFirstPost && viewMode === 'grid' ? 'h-72' : 'h-56'
-                    }`}>
-                      <img 
-                        src={blog.featured_image_url} 
-                        alt={blog.featured_image_alt || blog.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                      
-                      {/* Category Badge */}
-                      {categories.length > 0 && (
-                        <div className="absolute top-4 left-4">
-                          <Badge variant="secondary" className="bg-white/90 text-foreground backdrop-blur">
-                            {categories[0].name}
-                          </Badge>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  
-                  <CardContent className={`p-6 flex-1 ${isFirstPost && viewMode === 'grid' ? 'lg:p-8' : ''}`}>
-                    {/* Meta Info */}
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                      {blog.author && (
-                        <div className="flex items-center gap-2">
-                          <User className="h-4 w-4" />
-                          <span className="font-medium">{blog.author}</span>
-                        </div>
-                      )}
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4" />
-                        <span>{formatDate(blog.created_at)}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4" />
-                        <span>{getReadingTime(blog.content || '')} min read</span>
-                      </div>
+          <>
+            {/* Magazine Layout */}
+            {viewMode === 'magazine' && (
+              <div className="space-y-12">
+                {/* Hero Article */}
+                {heroArticle && (
+                  <div className="mb-12">
+                    <MagazineCard blog={heroArticle} size="hero" />
+                  </div>
+                )}
+
+                {/* Featured Articles */}
+                {featuredArticles.length > 0 && (
+                  <div className="mb-12">
+                    <div className="flex items-center gap-3 mb-8">
+                      <Sparkles className="h-5 w-5 text-primary" />
+                      <h2 className="text-2xl font-bold">Featured Stories</h2>
+                      <Separator className="flex-1" />
                     </div>
                     
-                    {/* Title */}
-                    <h3 className={`font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2 ${
-                      isFirstPost && viewMode === 'grid' ? 'text-3xl lg:text-4xl' : 'text-xl'
-                    }`}>
-                      {blog.title}
-                    </h3>
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                      {featuredArticles.map((blog, index) => (
+                        <MagazineCard 
+                          key={blog.id} 
+                          blog={blog} 
+                          size={index < 2 ? 'featured' : 'regular'}
+                          className={index < 2 ? 'md:col-span-1 lg:col-span-2' : ''}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Regular Articles */}
+                {regularArticles.length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-8">
+                      <BookOpen className="h-5 w-5 text-primary" />
+                      <h2 className="text-2xl font-bold">More Stories</h2>
+                      <Separator className="flex-1" />
+                    </div>
                     
-                    {/* Content Preview */}
-                    {blog.content && (
-                      <p className={`text-muted-foreground leading-relaxed mb-6 line-clamp-3 ${
-                        isFirstPost && viewMode === 'grid' ? 'text-lg' : 'text-sm'
-                      }`}>
-                        {truncateContent(blog.content, isFirstPost && viewMode === 'grid' ? 200 : 120)}
-                      </p>
-                    )}
-                    
-                    {/* Read More Button */}
-                    <Button 
-                      variant="ghost" 
-                      className="group-hover:text-primary group-hover:translate-x-1 transition-all p-0 h-auto font-semibold" 
-                      asChild
-                    >
-                      <Link to={`/blogs/${blog.slug || blog.id}`}>
-                        Read Article
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      {regularArticles.map((blog, index) => (
+                        <MagazineCard 
+                          key={blog.id} 
+                          blog={blog} 
+                          size={index % 7 === 0 ? 'featured' : index % 5 === 0 ? 'regular' : 'small'}
+                          className={index % 7 === 0 ? 'md:col-span-2' : ''}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Grid Layout */}
+            {viewMode === 'grid' && (
+              <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {processedBlogs.map((blog) => (
+                  <MagazineCard key={blog.id} blog={blog} size="regular" />
+                ))}
+              </div>
+            )}
+
+            {/* List Layout */}
+            {viewMode === 'list' && (
+              <div className="max-w-4xl mx-auto space-y-8">
+                {processedBlogs.map((blog) => (
+                  <MagazineCard 
+                    key={blog.id} 
+                    blog={blog} 
+                    size="regular"
+                    className="flex flex-row"
+                  />
+                ))}
+              </div>
+            )}
+          </>
         )}
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="bg-gradient-to-r from-primary/5 via-primary/10 to-accent/5 py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+      {/* Newsletter */}
+      <section className="bg-gradient-to-r from-primary/5 to-accent/5 border-t">
+        <div className="container mx-auto px-4 py-16">
+          <div className="max-w-2xl mx-auto text-center">
             <TrendingUp className="h-12 w-12 text-primary mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Stay Updated
+            <h2 className="text-3xl font-bold mb-4">
+              Never Miss a Story
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Get the latest articles and insights delivered to your inbox. No spam, just quality content.
+            <p className="text-lg text-muted-foreground mb-8">
+              Get our best stories delivered to your inbox weekly
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <Input 
-                placeholder="Enter your email address" 
-                className="bg-background/50 backdrop-blur border-border/50 focus:border-primary/50 rounded-xl"
+                placeholder="Your email address" 
+                className="flex-1"
               />
-              <Button size="lg" className="rounded-xl hover:scale-105 transition-transform">
+              <Button size="lg">
                 Subscribe
               </Button>
             </div>

@@ -158,53 +158,119 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-accent text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <Link to="/courses" className="inline-flex items-center text-white/80 hover:text-white mb-6 transition-colors">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Courses
-          </Link>
+      <div className="relative bg-gradient-to-br from-primary via-primary/95 to-accent text-white overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          {/* Breadcrumb */}
+          <nav className="mb-8">
+            <Link 
+              to="/courses" 
+              className="inline-flex items-center text-white/80 hover:text-white transition-all duration-200 group"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2 transition-transform group-hover:-translate-x-1" />
+              <span className="text-sm font-medium">Back to Courses</span>
+            </Link>
+          </nav>
           
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-4">
+          <div className="grid lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2">
+              {/* Tags */}
+              <div className="flex flex-wrap items-center gap-3 mb-6">
                 {course.featured && (
-                  <Badge className="bg-white/20 text-white border-white/30">
-                    ✨ Featured
+                  <Badge className="bg-yellow-500/20 text-yellow-200 border-yellow-400/30 px-3 py-1">
+                    <Award className="h-3 w-3 mr-1" />
+                    Featured
                   </Badge>
                 )}
-                <Badge variant="secondary" className="bg-white/10 text-white border-white/20">
+                <Badge className="bg-white/15 text-white border-white/25 px-3 py-1 font-medium">
                   {course.study_area}
                 </Badge>
-                <Badge variant="secondary" className="bg-white/10 text-white border-white/20">
+                <Badge className="bg-white/15 text-white border-white/25 px-3 py-1 font-medium">
                   {course.level}
                 </Badge>
               </div>
               
-              <h1 className="text-4xl font-bold mb-4 leading-tight">{course.title}</h1>
+              {/* Course Title */}
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                {course.title}
+              </h1>
               
-              <div className="flex flex-wrap items-center gap-6 text-white/90">
-                <div className="flex items-center">
-                  <MapPin className="h-5 w-5 mr-2" />
-                  <span className="font-medium">{course.universities?.name || course.university}</span>
+              {/* Quick Info */}
+              <div className="grid sm:grid-cols-3 gap-4 mb-8">
+                <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <MapPin className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="text-white/80 text-sm">University</div>
+                    <div className="font-semibold">{course.universities?.name || course.university}</div>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <Globe className="h-5 w-5 mr-2" />
-                  <span>{course.destinations?.name || course.country}</span>
+                
+                <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Globe className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="text-white/80 text-sm">Location</div>
+                    <div className="font-semibold">{course.destinations?.name || course.country}</div>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <Clock className="h-5 w-5 mr-2" />
-                  <span>{formatDuration(course.duration_months)}</span>
+                
+                <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Clock className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="text-white/80 text-sm">Duration</div>
+                    <div className="font-semibold">{formatDuration(course.duration_months)}</div>
+                  </div>
                 </div>
               </div>
             </div>
             
-            <div className="text-right">
-              <div className="text-white/80 text-sm mb-1">Tuition Fee</div>
-              <div className="text-2xl font-bold">
-                {course.currency} {course.tuition_fee?.toLocaleString()}
+            {/* Tuition Fee Card */}
+            <div className="lg:justify-self-end">
+              <div className="p-6 bg-white/15 backdrop-blur-md rounded-2xl border border-white/25 text-center">
+                <div className="text-white/80 text-sm mb-2">Tuition Fee</div>
+                <div className="text-3xl font-bold mb-4">
+                  {course.currency} {course.tuition_fee?.toLocaleString()}
+                </div>
+                <div className="space-y-3">
+                  {course.application_link ? (
+                    <Button 
+                      className="w-full bg-white text-primary hover:bg-white/90 font-semibold"
+                      asChild
+                    >
+                      <a href={course.application_link} target="_blank" rel="noopener noreferrer">
+                        Apply Now
+                        <ExternalLink className="h-4 w-4 ml-2" />
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button 
+                      className="w-full bg-white text-primary hover:bg-white/90 font-semibold"
+                      asChild
+                    >
+                      <Link to="/student-dashboard/applications">
+                        Apply Now
+                        <ExternalLink className="h-4 w-4 ml-2" />
+                      </Link>
+                    </Button>
+                  )}
+                  
+                  <Button 
+                    variant={isSaved ? "default" : "outline"} 
+                    className={`w-full border-white/30 ${isSaved ? 'bg-red-500 hover:bg-red-600 text-white border-transparent' : 'text-white hover:bg-white/10'}`}
+                    onClick={handleSaveCourse}
+                    disabled={saveMutation.isPending}
+                  >
+                    <Heart className={`h-4 w-4 mr-2 ${isSaved ? 'fill-current' : ''}`} />
+                    {saveMutation.isPending ? 'Saving...' : isSaved ? 'Saved' : 'Save Course'}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -212,148 +278,149 @@ const CourseDetails = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid lg:grid-cols-3 gap-12">
           {/* Left Column - Course Details */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-12">
             {/* Course Image */}
             {course.thumbnail_url && (
-              <Card className="overflow-hidden shadow-lg">
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
                 <img 
                   src={course.thumbnail_url} 
                   alt={course.title}
-                  className="w-full h-80 object-cover"
+                  className="w-full h-96 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-              </Card>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+              </div>
             )}
 
-            {/* Course Description */}
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center text-2xl">
-                  <BookOpen className="h-6 w-6 mr-3 text-primary" />
-                  Course Overview
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-700 leading-relaxed text-lg">
-                  {course.description || 'No description available for this course.'}
-                </p>
-              </CardContent>
-            </Card>
+            {/* Course Overview */}
+            <div className="bg-white rounded-2xl shadow-xl border border-border/50 overflow-hidden">
+              <div className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <BookOpen className="h-6 w-6 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-bold">Course Overview</h2>
+                </div>
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-muted-foreground text-lg leading-relaxed">
+                    {course.description || 'No description available for this course.'}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            {/* Requirements */}
-            <div className="grid md:grid-cols-2 gap-6">
+            {/* Requirements Section */}
+            <div className="grid md:grid-cols-2 gap-8">
               {course.eligibility && (
-                <Card className="shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <CheckCircle className="h-5 w-5 mr-2 text-green-500" />
-                      Eligibility Requirements
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-700 whitespace-pre-line">{course.eligibility}</p>
-                  </CardContent>
-                </Card>
+                <div className="bg-white rounded-2xl shadow-xl border border-border/50 overflow-hidden">
+                  <div className="p-8">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="p-2 bg-green-100 rounded-lg">
+                        <CheckCircle className="h-5 w-5 text-green-600" />
+                      </div>
+                      <h3 className="text-xl font-bold">Eligibility Requirements</h3>
+                    </div>
+                    <div className="prose max-w-none">
+                      <p className="text-muted-foreground whitespace-pre-line">{course.eligibility}</p>
+                    </div>
+                  </div>
+                </div>
               )}
 
               {course.requirements && (
-                <Card className="shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Award className="h-5 w-5 mr-2 text-blue-500" />
-                      Additional Requirements
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-700 whitespace-pre-line">{course.requirements}</p>
-                  </CardContent>
-                </Card>
+                <div className="bg-white rounded-2xl shadow-xl border border-border/50 overflow-hidden">
+                  <div className="p-8">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="p-2 bg-blue-100 rounded-lg">
+                        <Award className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <h3 className="text-xl font-bold">Additional Requirements</h3>
+                    </div>
+                    <div className="prose max-w-none">
+                      <p className="text-muted-foreground whitespace-pre-line">{course.requirements}</p>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </div>
 
           {/* Right Column - Course Info & Actions */}
-          <div className="space-y-6">
-            {/* Quick Info */}
-            <Card className="shadow-lg bg-gradient-to-br from-primary/5 to-accent/5">
-              <CardHeader>
-                <CardTitle className="text-xl">Course Information</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <GraduationCap className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <div className="text-sm text-gray-600">Study Level</div>
-                    <div className="font-semibold">{course.level}</div>
+          <div className="space-y-8">
+            {/* Course Quick Stats */}
+            <div className="bg-gradient-to-br from-primary/5 via-background to-accent/5 rounded-2xl shadow-xl border border-border/50 overflow-hidden">
+              <div className="p-8">
+                <h3 className="text-xl font-bold mb-6">Course Information</h3>
+                
+                <div className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center p-6 bg-white rounded-xl shadow-sm border border-border/30">
+                      <div className="p-3 bg-primary/10 rounded-full mx-auto mb-3 w-fit">
+                        <GraduationCap className="h-6 w-6 text-primary" />
+                      </div>
+                      <div className="text-sm text-muted-foreground mb-1">Study Level</div>
+                      <div className="font-bold text-foreground">{course.level}</div>
+                    </div>
+                    
+                    <div className="text-center p-6 bg-white rounded-xl shadow-sm border border-border/30">
+                      <div className="p-3 bg-accent/10 rounded-full mx-auto mb-3 w-fit">
+                        <Clock className="h-6 w-6 text-accent" />
+                      </div>
+                      <div className="text-sm text-muted-foreground mb-1">Duration</div>
+                      <div className="font-bold text-foreground">{formatDuration(course.duration_months)}</div>
+                    </div>
                   </div>
-                  
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <Clock className="h-8 w-8 text-accent mx-auto mb-2" />
-                    <div className="text-sm text-gray-600">Duration</div>
-                    <div className="font-semibold">{formatDuration(course.duration_months)}</div>
-                  </div>
-                </div>
 
-                <div className="p-4 bg-white rounded-lg shadow-sm">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-sm text-gray-600 mb-1">Tuition Fee</div>
-                      <div className="text-xl font-bold text-primary">
-                        {course.currency} {course.tuition_fee?.toLocaleString()}
+                  {course.intake_dates && course.intake_dates.length > 0 && (
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-border/30">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Calendar className="h-5 w-5 text-primary" />
+                        <h4 className="font-semibold">Intake Dates</h4>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {course.intake_dates.map((date, index) => (
+                          <Badge key={index} variant="secondary" className="px-3 py-1">
+                            {date}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
-                    <DollarSign className="h-8 w-8 text-primary/40" />
-                  </div>
+                  )}
                 </div>
-
-                {course.intake_dates && course.intake_dates.length > 0 && (
-                  <div>
-                    <h4 className="font-semibold mb-3 flex items-center">
-                      <Calendar className="h-4 w-4 mr-2 text-primary" />
-                      Intake Dates
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {course.intake_dates.map((date, index) => (
-                        <Badge key={index} variant="outline" className="bg-white">
-                          {date}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* University Info */}
             {course.universities && (
-              <Card className="shadow-lg">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Users className="h-5 w-5 mr-2 text-primary" />
-                    University
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
+              <div className="bg-white rounded-2xl shadow-xl border border-border/50 overflow-hidden">
+                <div className="p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Users className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold">University</h3>
+                  </div>
+                  
+                  <div className="space-y-6">
                     {course.universities.logo_url && (
-                      <div className="flex justify-center">
+                      <div className="flex justify-center p-4 bg-muted/30 rounded-xl">
                         <img 
                           src={course.universities.logo_url} 
                           alt={course.universities.name}
-                          className="h-16 object-contain"
+                          className="h-20 object-contain"
                         />
                       </div>
                     )}
                     <div className="text-center">
-                      <h4 className="font-semibold text-lg">{course.universities.name}</h4>
+                      <h4 className="font-bold text-lg mb-2">{course.universities.name}</h4>
                       {course.universities.location && (
-                        <p className="text-gray-600 mt-1">{course.universities.location}</p>
+                        <p className="text-muted-foreground">{course.universities.location}</p>
                       )}
                     </div>
                     {course.universities.slug && (
-                      <Button variant="outline" size="sm" className="w-full" asChild>
+                      <Button variant="outline" className="w-full" asChild>
                         <Link to={`/universities/${course.universities.slug}`}>
                           <ExternalLink className="h-4 w-4 mr-2" />
                           View University Details
@@ -361,38 +428,12 @@ const CourseDetails = () => {
                       </Button>
                     )}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )}
 
             {/* Action Buttons */}
-            <div className="space-y-3">
-              {course.application_link ? (
-                <Button className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg" asChild>
-                  <a href={course.application_link} target="_blank" rel="noopener noreferrer">
-                    Apply Now
-                    <ExternalLink className="h-5 w-5 ml-2" />
-                  </a>
-                </Button>
-              ) : (
-                <Button className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg" asChild>
-                  <Link to="/student-dashboard/applications">
-                    Apply Now
-                    <ExternalLink className="h-5 w-5 ml-2" />
-                  </Link>
-                </Button>
-              )}
-              
-              <Button 
-                variant={isSaved ? "default" : "outline"} 
-                className={`w-full h-12 font-semibold border-2 ${isSaved ? 'bg-red-500 hover:bg-red-600 text-white' : ''}`}
-                onClick={handleSaveCourse}
-                disabled={saveMutation.isPending}
-              >
-                <Heart className={`h-4 w-4 mr-2 ${isSaved ? 'fill-current' : ''}`} />
-                {saveMutation.isPending ? 'Saving...' : isSaved ? 'Remove from Saved' : 'Save Course'}
-              </Button>
-              
+            <div className="space-y-4">
               <Button variant="outline" className="w-full h-12 font-semibold border-2" asChild>
                 <Link to="/course-comparison">
                   <BarChart3 className="h-4 w-4 mr-2" />

@@ -3,9 +3,19 @@ import { useAuth } from '@/contexts/AuthContext';
 import NotificationCenter from '@/components/notifications/NotificationCenter';
 
 const NotificationsPage: React.FC = () => {
-  const { user } = useAuth();
+  const { user, loading, session } = useAuth();
   
-  console.log('NotificationsPage rendered, user:', user);
+  console.log('Student NotificationsPage rendered, user:', user);
+  console.log('Student NotificationsPage loading:', loading);
+  console.log('Student NotificationsPage session:', session);
+  
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-600">Loading user information...</div>
+      </div>
+    );
+  }
   
   return (
     <div className="space-y-6">

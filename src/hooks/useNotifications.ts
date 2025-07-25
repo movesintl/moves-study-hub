@@ -27,12 +27,25 @@ export const useNotifications = () => {
   const fetchNotifications = useCallback(async () => {
     console.log('fetchNotifications called, user:', user);
     if (!user) {
+      console.log('No user found, stopping fetch');
       setLoading(false);
       return;
     }
 
+    console.log('User details:', {
+      id: user.id,
+      email: user.email,
+      aud: user.aud,
+      role: user.role
+    });
+
     try {
       console.log('Fetching notifications for user:', user.id);
+      
+      // Check if user is authenticated properly
+      const session = await supabase.auth.getSession();
+      console.log('Current session:', session);
+      
       const { data, error } = await supabase
         .from('notifications')
         .select('*')
@@ -41,8 +54,12 @@ export const useNotifications = () => {
         .limit(50);
 
       console.log('Notifications query result:', { data, error });
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error details:', error);
+        throw error;
+      }
 
+      console.log('Setting notifications:', data);
       setNotifications((data || []) as Notification[]);
       setUnreadCount(data?.filter(n => !n.is_read).length || 0);
     } catch (error) {

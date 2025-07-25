@@ -6,8 +6,6 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { BlogDetailsSidebar } from '@/components/blog/BlogDetailsSidebar';
 import { 
   ArrowLeft, 
   Calendar, 
@@ -191,42 +189,34 @@ const BlogDetails = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SidebarProvider>
-        <div className="flex w-full">
-          {/* Sidebar */}
-          <BlogDetailsSidebar blog={blog} relatedBlogs={relatedBlogs || []} />
+      {/* Header */}
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between px-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/blogs" className="flex items-center gap-2">
+                <ArrowLeft className="h-4 w-4" />
+                <span className="hidden sm:inline">Back to Blog</span>
+              </Link>
+            </Button>
+          </div>
 
-          {/* Main Content */}
-          <div className="flex-1 min-w-0">
-            {/* Header */}
-            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <div className="container flex h-16 items-center justify-between px-4">
-                <div className="flex items-center gap-4">
-                  <SidebarTrigger />
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link to="/blogs" className="flex items-center gap-2">
-                      <ArrowLeft className="h-4 w-4" />
-                      <span className="hidden sm:inline">Back to Blog</span>
-                    </Link>
-                  </Button>
-                </div>
+          {/* Share buttons */}
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={() => setIsLiked(!isLiked)}>
+              <Heart className={`h-4 w-4 ${isLiked ? 'fill-red-500 text-red-500' : ''}`} />
+              <span className="hidden sm:inline ml-1">Like</span>
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => sharePost()}>
+              <Share2 className="h-4 w-4" />
+              <span className="hidden sm:inline ml-1">Share</span>
+            </Button>
+          </div>
+        </div>
+      </header>
 
-                {/* Share buttons */}
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm" onClick={() => setIsLiked(!isLiked)}>
-                    <Heart className={`h-4 w-4 ${isLiked ? 'fill-red-500 text-red-500' : ''}`} />
-                    <span className="hidden sm:inline ml-1">Like</span>
-                  </Button>
-                  <Button variant="ghost" size="sm" onClick={() => sharePost()}>
-                    <Share2 className="h-4 w-4" />
-                    <span className="hidden sm:inline ml-1">Share</span>
-                  </Button>
-                </div>
-              </div>
-            </header>
-
-            {/* Main Content Area */}
-            <main className="flex-1 overflow-auto">
+      {/* Main Content Area */}
+      <main className="flex-1 overflow-auto">
               {/* Hero Section */}
               <div className="relative">
                 {blog.featured_image_url && (
@@ -422,23 +412,27 @@ const BlogDetails = () => {
                   </Card>
                 )}
 
-                {/* Navigation */}
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 md:pt-8 border-t">
+                {/* Navigation to other posts */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-8 border-t">
                   <Button variant="outline" asChild>
-                    <Link to="/blogs">
-                      <ArrowLeft className="h-4 w-4 mr-2" />
-                      All Articles
+                    <Link to="/blogs" className="flex items-center gap-2">
+                      <ArrowLeft className="h-4 w-4" />
+                      Back to all posts
                     </Link>
                   </Button>
-                  <Button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                    Back to Top
+                  
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="flex items-center gap-2"
+                  >
+                    <ChevronUp className="h-4 w-4" />
+                    Back to top
                   </Button>
                 </div>
               </div>
             </main>
-          </div>
-        </div>
-      </SidebarProvider>
     </div>
   );
 };

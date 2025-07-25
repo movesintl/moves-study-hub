@@ -83,13 +83,13 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ items }) => {
               )}
               
               {/* Dropdown Menu */}
-              <div className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 z-[60] transition-all duration-300 transform ${
+              <div className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-2xl border border-gray-200 z-[9999] transition-all duration-300 transform backdrop-blur-sm ${
                 openDropdown === item.name 
                   ? 'opacity-100 translate-y-0 visible' 
                   : 'opacity-0 -translate-y-2 invisible'
-              }`}>
+              }`} style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}>
                 {/* Arrow pointing up */}
-                <div className="absolute -top-2 left-6 w-4 h-4 bg-white border-l border-t border-gray-100 transform rotate-45"></div>
+                <div className="absolute -top-2 left-6 w-4 h-4 bg-white border-l border-t border-gray-200 transform rotate-45" style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}></div>
                 
                 <div className="py-2">
                   {item.submenu.map((subItem, index) => (

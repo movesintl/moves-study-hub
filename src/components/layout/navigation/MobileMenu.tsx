@@ -85,30 +85,42 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         {/* Main navigation items in mobile */}
         {navigationItems.map((item) => (
           <div key={item.name}>
-            <Link
-              to={item.path}
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                isActive(item.path)
-                  ? 'text-primary bg-gray-100'
-                  : 'text-gray-700 hover:text-primary hover:bg-gray-100'
-              }`}
-              onClick={onClose}
-            >
-              {item.name}
-            </Link>
-            {item.submenu && (
-              <div className="ml-4 space-y-1">
-                {item.submenu.map((subItem: any) => (
-                  <Link
-                    key={subItem.name}
-                    to={subItem.path}
-                    className="block px-3 py-2 text-sm text-gray-600 hover:text-primary"
-                    onClick={onClose}
-                  >
-                    {subItem.name}
-                  </Link>
-                ))}
-              </div>
+            {item.isButton ? (
+              <Link
+                to={item.path}
+                className="block mx-3 my-2 px-4 py-3 rounded-md text-center text-white bg-[#fa8500] hover:bg-[#fa8500]/90 font-medium"
+                onClick={onClose}
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <>
+                <Link
+                  to={item.path}
+                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                    isActive(item.path)
+                      ? 'text-primary bg-gray-100'
+                      : 'text-gray-700 hover:text-primary hover:bg-gray-100'
+                  }`}
+                  onClick={onClose}
+                >
+                  {item.name}
+                </Link>
+                {item.submenu && (
+                  <div className="ml-4 space-y-1">
+                    {item.submenu.map((subItem: any) => (
+                      <Link
+                        key={subItem.name}
+                        to={subItem.path}
+                        className="block px-3 py-2 text-sm text-gray-600 hover:text-primary"
+                        onClick={onClose}
+                      >
+                        {subItem.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </div>
         ))}
@@ -149,10 +161,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 <Link to="/auth">Sign In</Link>
               </Button>
               <Button
-                className="w-full bg-accent hover:bg-accent/90 text-white"
+                className="w-full bg-[#fa8500] hover:bg-[#fa8500]/90 text-white"
                 asChild
               >
-                <Link to="/services/consultation">Book Consultation</Link>
+                <Link to="/consultation">Book Consultation</Link>
               </Button>
             </>
           )}

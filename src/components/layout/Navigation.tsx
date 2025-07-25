@@ -33,6 +33,7 @@ const Navigation = () => {
     { name: 'About Us', path: '/about' },
     { name: 'Events', path: '/events' },
     { name: 'Blogs', path: '/blogs' },
+    { name: 'Careers', path: '/careers' },
     { name: 'Contact', path: '/contact' },
     {
       name: 'Our Offices',

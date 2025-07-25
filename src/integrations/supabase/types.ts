@@ -248,6 +248,66 @@ export type Database = {
           },
         ]
       }
+      careers: {
+        Row: {
+          application_deadline: string | null
+          apply_link: string
+          benefits: string | null
+          created_at: string
+          department: string
+          full_description: string
+          id: string
+          is_published: boolean
+          job_title: string
+          job_type: Database["public"]["Enums"]["job_type"]
+          location: string
+          meta_description: string | null
+          meta_title: string | null
+          requirements: string
+          short_description: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          application_deadline?: string | null
+          apply_link: string
+          benefits?: string | null
+          created_at?: string
+          department: string
+          full_description: string
+          id?: string
+          is_published?: boolean
+          job_title: string
+          job_type: Database["public"]["Enums"]["job_type"]
+          location: string
+          meta_description?: string | null
+          meta_title?: string | null
+          requirements: string
+          short_description: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          application_deadline?: string | null
+          apply_link?: string
+          benefits?: string | null
+          created_at?: string
+          department?: string
+          full_description?: string
+          id?: string
+          is_published?: boolean
+          job_title?: string
+          job_type?: Database["public"]["Enums"]["job_type"]
+          location?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          requirements?: string
+          short_description?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string
@@ -1174,6 +1234,10 @@ export type Database = {
         }
         Returns: Json
       }
+      generate_career_slug: {
+        Args: { career_title: string; career_id?: string }
+        Returns: string
+      }
       generate_event_slug: {
         Args: { event_title: string; event_id?: string }
         Returns: string
@@ -1233,6 +1297,7 @@ export type Database = {
       }
     }
     Enums: {
+      job_type: "Full-Time" | "Part-Time" | "Internship" | "Contract"
       user_role: "admin" | "editor" | "user" | "counselor" | "student"
     }
     CompositeTypes: {
@@ -1361,6 +1426,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      job_type: ["Full-Time", "Part-Time", "Internship", "Contract"],
       user_role: ["admin", "editor", "user", "counselor", "student"],
     },
   },

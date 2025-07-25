@@ -69,6 +69,10 @@ import StaffProfile from '@/pages/StaffProfile';
 import EventsList from '@/pages/admin/events/EventsList';
 import EventForm from '@/pages/admin/events/EventForm';
 import EventRegistrationsPage from '@/pages/admin/events/EventRegistrationsPage';
+import CareersList from '@/pages/admin/careers/CareersList';
+import CareerForm from '@/pages/admin/careers/CareerForm';
+import Careers from '@/pages/Careers';
+import CareerDetails from '@/pages/CareerDetails';
 
 const queryClient = new QueryClient();
 
@@ -132,6 +136,9 @@ function App() {
                 <Route path="destinations" element={<DestinationsList />} />
                 <Route path="destinations/new" element={<DestinationForm />} />
                 <Route path="destinations/:id/edit" element={<DestinationForm />} />
+                <Route path="careers" element={<CareersList />} />
+                <Route path="careers/new" element={<CareerForm />} />
+                <Route path="careers/:id/edit" element={<CareerForm />} />
                 <Route path="applications" element={<ApplicationsList />} />
                 <Route path="counselling" element={<CounsellingBookings />} />
                 <Route path="events" element={<EventsList />} />

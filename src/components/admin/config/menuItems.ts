@@ -13,7 +13,8 @@ import {
   MessageCircle,
   Layout,
   Target,
-  Calendar
+  Calendar,
+  Briefcase
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -42,6 +43,7 @@ export const menuItems: MenuItem[] = [
   },
   { name: 'Universities', href: '/admin/universities', icon: Building2, requiredRoles: ['admin', 'editor'] },
   { name: 'Destinations', href: '/admin/destinations', icon: MapPin, requiredRoles: ['admin', 'editor'] },
+  { name: 'Careers', href: '/admin/careers', icon: Briefcase, requiredRoles: ['admin', 'editor'] },
   { name: 'Applications', href: '/admin/applications', icon: ClipboardList },
   { name: 'Counselling', href: '/admin/counselling', icon: MessageCircle },
   { name: 'Events', href: '/admin/events', icon: Calendar, requiredRoles: ['admin', 'editor'] },

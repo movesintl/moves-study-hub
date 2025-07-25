@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
@@ -24,9 +24,12 @@ export const useNotifications = () => {
   const { user } = useAuth();
   const { toast } = useToast();
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     console.log('fetchNotifications called, user:', user);
-    if (!user) return;
+    if (!user) {
+      setLoading(false);
+      return;
+    }
 
     try {
       console.log('Fetching notifications for user:', user.id);
@@ -51,7 +54,7 @@ export const useNotifications = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user, toast]);
 
   const markAsRead = async (notificationId: string) => {
     try {
@@ -130,10 +133,8 @@ export const useNotifications = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      fetchNotifications();
-    }
-  }, [user]);
+    fetchNotifications();
+  }, [fetchNotifications]);
 
   // Set up real-time subscription
   useEffect(() => {

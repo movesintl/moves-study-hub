@@ -31,6 +31,7 @@ const Navigation = () => {
   // Secondary menu items (top menu)
   const secondaryMenuItems = [
     { name: 'About Us', path: '/about' },
+    { name: 'Events', path: '/events' },
     { name: 'Blogs', path: '/blogs' },
     { name: 'Contact', path: '/contact' },
     {

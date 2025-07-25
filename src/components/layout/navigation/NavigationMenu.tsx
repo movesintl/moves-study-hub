@@ -41,6 +41,11 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ items }) => {
       return true;
     }
     
+    // For events, check if we're on any event page
+    if (item.path === '/events' && location.pathname.startsWith('/events/')) {
+      return true;
+    }
+    
     return false;
   };
 

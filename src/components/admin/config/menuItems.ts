@@ -12,7 +12,8 @@ import {
   ClipboardList,
   MessageCircle,
   Layout,
-  Target
+  Target,
+  Calendar
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -43,6 +44,7 @@ export const menuItems: MenuItem[] = [
   { name: 'Destinations', href: '/admin/destinations', icon: MapPin, requiredRoles: ['admin', 'editor'] },
   { name: 'Applications', href: '/admin/applications', icon: ClipboardList },
   { name: 'Counselling', href: '/admin/counselling', icon: MessageCircle },
+  { name: 'Events', href: '/admin/events', icon: Calendar, requiredRoles: ['admin', 'editor'] },
   { name: 'Services', href: '/admin/services', icon: Settings, requiredRoles: ['admin', 'editor'] },
   { 
     name: 'Blogs', 

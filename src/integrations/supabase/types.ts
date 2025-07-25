@@ -562,6 +562,93 @@ export type Database = {
         }
         Relationships: []
       }
+      events: {
+        Row: {
+          city: string | null
+          contact_email: string
+          contact_phone: string | null
+          created_at: string
+          description: string | null
+          end_time: string
+          event_link: string | null
+          event_type: string
+          host_name: string | null
+          id: string
+          image_url: string | null
+          is_featured: boolean
+          is_free: boolean
+          is_published: boolean
+          location: string | null
+          meta_description: string | null
+          meta_title: string | null
+          mode: string
+          registration_deadline: string | null
+          registration_form_url: string | null
+          registration_required: boolean
+          slug: string
+          start_time: string
+          ticket_price: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          city?: string | null
+          contact_email: string
+          contact_phone?: string | null
+          created_at?: string
+          description?: string | null
+          end_time: string
+          event_link?: string | null
+          event_type: string
+          host_name?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          is_free?: boolean
+          is_published?: boolean
+          location?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          mode: string
+          registration_deadline?: string | null
+          registration_form_url?: string | null
+          registration_required?: boolean
+          slug: string
+          start_time: string
+          ticket_price?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          city?: string | null
+          contact_email?: string
+          contact_phone?: string | null
+          created_at?: string
+          description?: string | null
+          end_time?: string
+          event_link?: string | null
+          event_type?: string
+          host_name?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          is_free?: boolean
+          is_published?: boolean
+          location?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          mode?: string
+          registration_deadline?: string | null
+          registration_form_url?: string | null
+          registration_required?: boolean
+          slug?: string
+          start_time?: string
+          ticket_price?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       marketing_consents: {
         Row: {
           consent_date: string
@@ -1033,6 +1120,10 @@ export type Database = {
           p_time_window_hours?: number
         }
         Returns: Json
+      }
+      generate_event_slug: {
+        Args: { event_title: string; event_id?: string }
+        Returns: string
       }
       generate_service_slug: {
         Args: { service_title: string; service_id?: string }

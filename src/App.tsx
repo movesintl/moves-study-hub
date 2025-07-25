@@ -27,6 +27,8 @@ import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import Sitemap from '@/pages/Sitemap';
 import ContactSubmissions from '@/pages/admin/contact/ContactSubmissions';
 import PageView from '@/pages/PageView';
+import Events from '@/pages/Events';
+import EventDetails from '@/pages/EventDetails';
 
 // Student Dashboard Pages
 import Dashboard from '@/pages/student/Dashboard';
@@ -64,6 +66,8 @@ import ApplicationsList from '@/pages/admin/applications/ApplicationsList';
 import MarketingConsents from '@/pages/admin/marketing/MarketingConsents';
 import AllUsers from '@/pages/admin/users/AllUsers';
 import StaffProfile from '@/pages/StaffProfile';
+import EventsList from '@/pages/admin/events/EventsList';
+import EventForm from '@/pages/admin/events/EventForm';
 
 const queryClient = new QueryClient();
 
@@ -94,6 +98,8 @@ function App() {
                 <Route path="contact" element={<Contact />} />
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="sitemap" element={<Sitemap />} />
+                <Route path="events" element={<Events />} />
+                <Route path="events/:slug" element={<EventDetails />} />
                 <Route path="staff/:id" element={<StaffProfile />} />
                 <Route path="pages/:slug" element={<PageView />} />
               </Route>
@@ -127,6 +133,9 @@ function App() {
                 <Route path="destinations/:id/edit" element={<DestinationForm />} />
                 <Route path="applications" element={<ApplicationsList />} />
                 <Route path="counselling" element={<CounsellingBookings />} />
+                <Route path="events" element={<EventsList />} />
+                <Route path="events/new" element={<EventForm />} />
+                <Route path="events/:id/edit" element={<EventForm />} />
                 <Route path="services" element={<ServicesList />} />
                 <Route path="services/new" element={<ServiceForm />} />
                 <Route path="services/:id/edit" element={<ServiceForm />} />

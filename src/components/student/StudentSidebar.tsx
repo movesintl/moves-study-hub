@@ -22,13 +22,15 @@ import {
   User, 
   Settings, 
   LogOut,
-  MessageCircle
+  MessageCircle,
+  Bell
 } from 'lucide-react';
 
 const mainMenuItems = [
   { title: 'Dashboard', url: '/student-dashboard/home', icon: LayoutDashboard },
   { title: 'My Applications', url: '/student-dashboard/applications', icon: FileText },
   { title: 'Saved Courses', url: '/student-dashboard/saved-courses', icon: Heart },
+  { title: 'Notifications', url: '/student-dashboard/notifications', icon: Bell },
   { title: 'Get Counselling', url: '/student-dashboard/counselling', icon: MessageCircle },
 ];
 

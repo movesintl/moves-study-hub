@@ -73,6 +73,8 @@ import CareersList from '@/pages/admin/careers/CareersList';
 import CareerForm from '@/pages/admin/careers/CareerForm';
 import Careers from '@/pages/Careers';
 import CareerDetails from '@/pages/CareerDetails';
+import AdminNotificationsPage from '@/pages/admin/notifications/NotificationsPage';
+import StudentNotificationsPage from '@/pages/student/NotificationsPage';
 
 const queryClient = new QueryClient();
 
@@ -114,12 +116,14 @@ function App() {
                 <Route path="home" element={<Dashboard />} />
                 <Route path="applications" element={<Applications />} />
                 <Route path="saved-courses" element={<SavedCourses />} />
+                <Route path="notifications" element={<StudentNotificationsPage />} />
                 <Route path="counselling" element={<Counselling />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="settings" element={<Settings />} />
               </Route>
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<AdminDashboard />} />
+                <Route path="notifications" element={<AdminNotificationsPage />} />
                 <Route path="profile" element={<AdminProfile />} />
                 <Route path="settings" element={<AdminSettings />} />
                 <Route path="team" element={

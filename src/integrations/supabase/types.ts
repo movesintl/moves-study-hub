@@ -881,6 +881,48 @@ export type Database = {
         }
         Relationships: []
       }
+      notifications: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          reference_id: string | null
+          reference_table: string | null
+          title: string
+          type: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          reference_id?: string | null
+          reference_table?: string | null
+          title: string
+          type?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          reference_id?: string | null
+          reference_table?: string | null
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       pages: {
         Row: {
           body_content: string | null
@@ -1273,6 +1315,18 @@ export type Database = {
         }
         Returns: Json
       }
+      create_notification: {
+        Args: {
+          p_user_id: string
+          p_title: string
+          p_message: string
+          p_type?: string
+          p_category?: string
+          p_reference_id?: string
+          p_reference_table?: string
+        }
+        Returns: string
+      }
       detect_suspicious_activity: {
         Args: {
           p_user_id?: string
@@ -1336,6 +1390,17 @@ export type Database = {
       }
       log_security_event: {
         Args: { event_type: string; user_id: string; details?: Json }
+        Returns: undefined
+      }
+      notify_admins: {
+        Args: {
+          p_title: string
+          p_message: string
+          p_type?: string
+          p_category?: string
+          p_reference_id?: string
+          p_reference_table?: string
+        }
         Returns: undefined
       }
       slugify: {

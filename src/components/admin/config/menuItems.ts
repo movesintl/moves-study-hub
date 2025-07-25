@@ -14,7 +14,8 @@ import {
   Layout,
   Target,
   Calendar,
-  Briefcase
+  Briefcase,
+  Bell
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -30,6 +31,7 @@ export interface MenuItem {
 
 export const menuItems: MenuItem[] = [
   { name: 'Dashboard', href: '/admin', icon: Home },
+  { name: 'Notifications', href: '/admin/notifications', icon: Bell },
   { 
     name: 'Courses', 
     href: '/admin/courses', 

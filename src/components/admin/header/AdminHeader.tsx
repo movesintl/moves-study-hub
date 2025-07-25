@@ -13,6 +13,7 @@ import {
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { menuItems } from '../config/menuItems';
+import NotificationDropdown from '@/components/notifications/NotificationDropdown';
 
 const AdminHeader = () => {
   const navigate = useNavigate();
@@ -87,12 +88,8 @@ const AdminHeader = () => {
       </div>
       
       <div className="flex items-center space-x-4">
-        {/* Notification Bell */}
-        <Button variant="ghost" size="icon" className="relative hover:bg-gray-100 rounded-full">
-          <div className="w-10 h-10 flex items-center justify-center">
-            <div className="w-5 h-5 bg-gray-400 rounded-full"></div>
-          </div>
-        </Button>
+        {/* Notifications */}
+        <NotificationDropdown />
 
         {/* User Dropdown */}
         <DropdownMenu>

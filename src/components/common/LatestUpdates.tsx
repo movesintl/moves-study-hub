@@ -56,6 +56,7 @@ const LatestUpdates = () => {
       if (error) throw error;
       return data as Blog[];
     },
+    staleTime: 10 * 60 * 1000, // Cache for 10 minutes
   });
 
   if (isLoading) {

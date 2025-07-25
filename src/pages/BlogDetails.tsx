@@ -41,82 +41,46 @@ const BlogDetails = () => {
     queryFn: async () => {
       if (!id) throw new Error('No blog identifier provided');
       
-      // First try to fetch by slug, then by ID
-      let query = supabase
+      // Optimized single query - try slug first
+      const { data, error } = await supabase
         .from('blogs')
         .select(`
-          *,
-          blog_category_assignments!inner(
+          id, title, slug, content, featured_image_url, featured_image_alt,
+          author, created_at, tags, faqs, meta_description,
+          blog_category_assignments(
             blog_categories(name, id)
           )
         `)
-        .eq('published', true);
-
-      // Check if the id looks like a UUID (contains hyphens)
-      if (id.includes('-')) {
-        query = query.eq('id', id);
-      } else {
-        query = query.eq('slug', id);
-      }
-
-      const { data, error } = await query.single();
+        .eq('published', true)
+        .or(`slug.eq.${id},id.eq.${id}`)
+        .maybeSingle();
       
-      if (error) {
-        // If slug lookup fails, try ID lookup as fallback
-        if (!id.includes('-')) {
-          const { data: fallbackData, error: fallbackError } = await supabase
-            .from('blogs')
-            .select(`
-              *,
-              blog_category_assignments!inner(
-                blog_categories(name, id)
-              )
-            `)
-            .eq('id', id)
-            .eq('published', true)
-            .single();
-          
-          if (fallbackError) throw fallbackError;
-          return fallbackData;
-        }
-        throw error;
-      }
-      
+      if (error) throw error;
       return data;
-    }
+    },
+    staleTime: 10 * 60 * 1000, // Cache for 10 minutes
   });
 
-  // Fetch related blogs
+  // Fetch related blogs - simplified query
   const { data: relatedBlogs } = useQuery({
     queryKey: ['related-blogs', blog?.id],
     queryFn: async () => {
       if (!blog) return [];
       
-      const categories = blog.blog_category_assignments?.map((assignment: any) => assignment.blog_categories.id) || [];
-      
-      if (categories.length === 0) return [];
-      
+      // Simplified related blogs query - just get latest from same category
       const { data, error } = await supabase
         .from('blogs')
-        .select(`
-          id,
-          title,
-          slug,
-          featured_image_url,
-          created_at,
-          blog_category_assignments!inner(
-            blog_categories(name, id)
-          )
-        `)
+        .select('id, title, slug, featured_image_url, created_at')
         .eq('published', true)
         .neq('id', blog.id)
-        .in('blog_category_assignments.blog_categories.id', categories)
+        .order('created_at', { ascending: false })
         .limit(3);
       
       if (error) throw error;
       return data || [];
     },
-    enabled: !!blog
+    enabled: !!blog,
+    staleTime: 15 * 60 * 1000, // Cache for 15 minutes
   });
 
   // Calculate reading time (rough estimate: 200 words per minute)

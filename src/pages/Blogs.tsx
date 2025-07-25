@@ -33,78 +33,70 @@ const Blogs = () => {
   const [viewMode, setViewMode] = useState<'magazine' | 'grid' | 'list'>('magazine');
   const [sortBy, setSortBy] = useState<'newest' | 'popular' | 'trending'>('newest');
 
-  // Fetch blogs
-  const { data: blogs, isLoading: blogsLoading } = useQuery({
-    queryKey: ['blogs'],
+  // Optimized single query to fetch all necessary data
+  const { data: blogsData, isLoading: blogsLoading } = useQuery({
+    queryKey: ['blogs-data', selectedCategory, sortBy],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('blogs')
-        .select(`
-          *,
-          blog_category_assignments(
-            blog_categories(name, id)
-          )
-        `)
-        .eq('published', true)
-        .order('created_at', { ascending: false });
-      
-      if (error) throw error;
-      return data || [];
-    }
-  });
-
-  // Fetch blog stats for hero
-  const { data: blogStats } = useQuery({
-    queryKey: ['blog-stats'],
-    queryFn: async () => {
-      const { count, error } = await supabase
-        .from('blogs')
-        .select('*', { count: 'exact', head: true })
-        .eq('published', true);
-      
-      if (error) throw error;
-      return count || 0;
-    }
-  });
-
-  // Fetch blog categories
-  const { data: categories } = useQuery({
-    queryKey: ['blog-categories'],
-    queryFn: async () => {
-      const { data, error } = await supabase
+      // Fetch categories first
+      const { data: categories, error: categoriesError } = await supabase
         .from('blog_categories')
         .select('*')
         .order('name');
       
-      if (error) throw error;
-      return data || [];
-    }
+      if (categoriesError) throw categoriesError;
+
+      // Build blogs query with optimizations
+      let blogsQuery = supabase
+        .from('blogs')
+        .select(`
+          id, title, slug, content, featured_image_url, featured_image_alt,
+          author, created_at, tags,
+          blog_category_assignments!inner(
+            blog_categories(name, id)
+          )
+        `)
+        .eq('published', true);
+
+      // Apply category filter at database level if specific category selected
+      if (selectedCategory !== 'all') {
+        blogsQuery = blogsQuery.eq('blog_category_assignments.blog_categories.name', selectedCategory);
+      }
+
+      // Apply sorting at database level
+      if (sortBy === 'newest') {
+        blogsQuery = blogsQuery.order('created_at', { ascending: false });
+      }
+
+      // Limit initial load for performance
+      blogsQuery = blogsQuery.limit(50);
+
+      const { data: blogs, error: blogsError, count } = await blogsQuery;
+      
+      if (blogsError) throw blogsError;
+
+      return {
+        blogs: blogs || [],
+        categories: categories || [],
+        total: count || 0
+      };
+    },
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });
 
-  // Filter and sort blogs
+  const blogs = blogsData?.blogs || [];
+  const categories = blogsData?.categories || [];
+  const blogStats = blogsData?.total || 0;
+
+  // Optimized filtering - only search filter applied client-side
   const processedBlogs = React.useMemo(() => {
-    let filtered = blogs?.filter(blog => {
-      const categories = blog.blog_category_assignments?.map((assignment: any) => assignment.blog_categories) || [];
-      
-      const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           blog.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           blog.author?.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchesCategory = selectedCategory === 'all' || 
-                             categories.some((cat: any) => cat.name === selectedCategory);
-      
-      return matchesSearch && matchesCategory;
-    }) || [];
-
-    // Sort blogs
-    if (sortBy === 'newest') {
-      filtered.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    } else if (sortBy === 'popular') {
-      filtered.sort(() => Math.random() - 0.5);
-    }
-
-    return filtered;
-  }, [blogs, searchTerm, selectedCategory, sortBy]);
+    if (!searchTerm.trim()) return blogs;
+    
+    return blogs.filter(blog => {
+      // Only search in title and author for performance
+      return blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+             blog.author?.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+  }, [blogs, searchTerm]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {

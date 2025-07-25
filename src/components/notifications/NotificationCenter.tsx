@@ -19,6 +19,11 @@ const NotificationCenter: React.FC = () => {
   
   const [activeTab, setActiveTab] = useState<string>('all');
 
+  // Debug logging
+  console.log('NotificationCenter - loading:', loading);
+  console.log('NotificationCenter - notifications:', notifications);
+  console.log('NotificationCenter - unreadCount:', unreadCount);
+
   const getCategoryIcon = (category: string) => {
     const iconMap = {
       application: FileText,

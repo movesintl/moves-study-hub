@@ -25,15 +25,18 @@ export const useNotifications = () => {
   const { toast } = useToast();
 
   const fetchNotifications = async () => {
+    console.log('fetchNotifications called, user:', user);
     if (!user) return;
 
     try {
+      console.log('Fetching notifications for user:', user.id);
       const { data, error } = await supabase
         .from('notifications')
         .select('*')
         .order('created_at', { ascending: false })
         .limit(50);
 
+      console.log('Notifications query result:', { data, error });
       if (error) throw error;
 
       setNotifications((data || []) as Notification[]);

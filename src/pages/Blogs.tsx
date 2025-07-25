@@ -160,77 +160,96 @@ const Blogs = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredBlogs.map((blog) => (
-              <Card key={blog.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                {blog.featured_image_url && (
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={blog.featured_image_url} 
-                      alt={blog.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  </div>
-                )}
-                
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between mb-2">
-                    {blog.blog_categories && (
-                      <Badge variant="secondary" className="text-xs">
-                        {blog.blog_categories.name}
-                      </Badge>
-                    )}
-                    <div className="flex items-center text-xs text-gray-500">
-                      <Calendar className="h-3 w-3 mr-1" />
-                      {formatDate(blog.created_at)}
+            {filteredBlogs.map((blog) => {
+              // Debug logging
+              console.log('Blog item:', {
+                id: blog.id,
+                slug: blog.slug,
+                title: blog.title,
+                linkUrl: `/blogs/${blog.slug || blog.id}`
+              });
+              
+              return (
+                <Card key={blog.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                  {blog.featured_image_url && (
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={blog.featured_image_url} 
+                        alt={blog.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                     </div>
-                  </div>
-                  
-                  <CardTitle className="group-hover:text-primary transition-colors line-clamp-2">
-                    {blog.title}
-                  </CardTitle>
-                </CardHeader>
-                
-                <CardContent className="space-y-4">
-                  {blog.content && (
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {truncateContent(blog.content.replace(/<[^>]*>/g, ''))}
-                    </p>
                   )}
                   
-                  <div className="flex items-center justify-between">
-                    {blog.author && (
-                      <div className="flex items-center text-sm text-gray-500">
-                        <User className="h-3 w-3 mr-1" />
-                        {blog.author}
-                      </div>
-                    )}
-                    
-                    <Button variant="ghost" size="sm" className="group-hover:text-primary" asChild>
-                      <Link to={`/blogs/${blog.slug || blog.id}`}>
-                        Read More
-                        <ArrowRight className="ml-1 h-3 w-3" />
-                      </Link>
-                    </Button>
-                  </div>
-                  
-                  {blog.tags && blog.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 pt-2 border-t">
-                      {blog.tags.slice(0, 3).map((tag, index) => (
-                        <Badge key={index} variant="outline" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                      {blog.tags.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{blog.tags.length - 3} more
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      {blog.blog_categories && (
+                        <Badge variant="secondary" className="text-xs">
+                          {blog.blog_categories.name}
                         </Badge>
                       )}
+                      <div className="flex items-center text-xs text-gray-500">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        {formatDate(blog.created_at)}
+                      </div>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
+                    
+                    <CardTitle className="group-hover:text-primary transition-colors line-clamp-2">
+                      {blog.title}
+                    </CardTitle>
+                  </CardHeader>
+                  
+                  <CardContent className="space-y-4">
+                    {blog.content && (
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {truncateContent(blog.content.replace(/<[^>]*>/g, ''))}
+                      </p>
+                    )}
+                    
+                    <div className="flex items-center justify-between">
+                      {blog.author && (
+                        <div className="flex items-center text-sm text-gray-500">
+                          <User className="h-3 w-3 mr-1" />
+                          {blog.author}
+                        </div>
+                      )}
+                      
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="group-hover:text-primary" 
+                        asChild
+                        onClick={() => {
+                          console.log('Read More clicked for blog:', blog.id, 'slug:', blog.slug);
+                          console.log('Navigating to:', `/blogs/${blog.slug || blog.id}`);
+                        }}
+                      >
+                        <Link to={`/blogs/${blog.slug || blog.id}`}>
+                          Read More
+                          <ArrowRight className="ml-1 h-3 w-3" />
+                        </Link>
+                      </Button>
+                    </div>
+                    
+                    {blog.tags && blog.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 pt-2 border-t">
+                        {blog.tags.slice(0, 3).map((tag, index) => (
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                        {blog.tags.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{blog.tags.length - 3} more
+                          </Badge>
+                        )}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         )}
       </div>

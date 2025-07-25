@@ -1,5 +1,7 @@
 import React from 'react';
 import { useCountingAnimation } from "@/hooks/useCountingAnimation";
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import {
   Users,
   GraduationCap,
@@ -9,10 +11,32 @@ import {
 } from "lucide-react";
 
 const StoryWithStatsSection = () => {
-  const { count: studentsCount, ref: studentsRef } = useCountingAnimation({ end: 10000, duration: 2000 });
-  const { count: universitiesCount, ref: universitiesRef } = useCountingAnimation({ end: 500, duration: 2000 });
-  const { count: countriesCount, ref: countriesRef } = useCountingAnimation({ end: 15, duration: 2000 });
-  const { count: experienceCount, ref: experienceRef } = useCountingAnimation({ end: 15, duration: 2000 });
+  // Fetch stats from database
+  const { data: statsData } = useQuery({
+    queryKey: ['company-stats'],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('site_settings')
+        .select('key, value')
+        .in('key', ['students_placed', 'partner_universities', 'countries_served', 'years_experience']);
+      
+      return data?.reduce((acc, setting) => {
+        acc[setting.key] = setting.value;
+        return acc;
+      }, {} as Record<string, any>) || {};
+    }
+  });
+
+  // Get values from database or use defaults
+  const studentsPlaced = parseInt(statsData?.students_placed || '10000');
+  const partnerUniversities = parseInt(statsData?.partner_universities || '500');
+  const countriesServed = parseInt(statsData?.countries_served || '15');
+  const yearsExperience = parseInt(statsData?.years_experience || '15');
+
+  const { count: studentsCount, ref: studentsRef } = useCountingAnimation({ end: studentsPlaced, duration: 2000 });
+  const { count: universitiesCount, ref: universitiesRef } = useCountingAnimation({ end: partnerUniversities, duration: 2000 });
+  const { count: countriesCount, ref: countriesRef } = useCountingAnimation({ end: countriesServed, duration: 2000 });
+  const { count: experienceCount, ref: experienceRef } = useCountingAnimation({ end: yearsExperience, duration: 2000 });
 
   const stats = [
     {
@@ -52,20 +76,17 @@ const StoryWithStatsSection = () => {
               <span className="text-xl font-semibold text-primary">Our Story</span>
             </div>
             <h2 className="text-2xl lg:text-4xl font-bold text-primary leading-tight">
-              Founded in 2008,<br />
-              <span className="text-orange-500">Moves International</span> began with a simple mission
+              {statsData?.company_story_title || "Founded in 2008, Moves International began with a simple mission"}
             </h2>
             <div className="space-y-4 text-gray-600 text-base leading-relaxed">
               <p>
-                To make quality international education accessible to students from Nepal, Bangladesh, and across South Asia.
-                What started as a small counseling service has grown into a comprehensive educational consultancy.
+                {statsData?.company_story_paragraph_1 || "To make quality international education accessible to students from Nepal, Bangladesh, and across South Asia. What started as a small counseling service has grown into a comprehensive educational consultancy."}
               </p>
               <p>
-                We've helped more than 10,000 students realize their dreams of studying abroad, built on trust, transparency,
-                and an unwavering commitment to student success.
+                {statsData?.company_story_paragraph_2 || `We've helped more than ${studentsPlaced.toLocaleString()} students realize their dreams of studying abroad, built on trust, transparency, and an unwavering commitment to student success.`}
               </p>
               <p>
-                Today, we continue to expand our services and partnerships to deliver expert guidance to every student.
+                {statsData?.company_story_paragraph_3 || "Today, we continue to expand our services and partnerships to deliver expert guidance to every student."}
               </p>
             </div>
           </div>

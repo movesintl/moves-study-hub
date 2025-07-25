@@ -4,18 +4,14 @@ import { Button } from '@/components/ui/button';
 import Webstories from "@/components/common/Webstories";
 import HighQuality from "@/components/common/HighQuality";
 import StickyProfileComponent from "@/components/common/StickyProfile";
-import FloatingStats from "@/components/common/FloatingStats";
-import { Card, CardContent } from '@/components/ui/card';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 
 import {
-  Globe,
-  Users,
-  Award,
   BookOpen,
-  Heart,
-  Target,
   CheckCircle,
-  ArrowRight
+  ArrowRight,
+  Award
 } from 'lucide-react';
 import StoryWithStatsSection from '@/components/common/StoryStats';
 import {
@@ -31,39 +27,34 @@ import LeadershipTeam from '@/components/common/MovesTeam';
 import LatestUpdates from '@/components/common/LatestUpdates';
 
 const About = () => {
-  const values = [
-    {
-      icon: Heart,
-      title: "Student-Centric Approach",
-      description: "We put our students first, providing personalized guidance tailored to individual goals and aspirations."
-    },
-    {
-      icon: Target,
-      title: "Excellence in Service",
-      description: "We maintain the highest standards in all our services, from initial consultation to post-arrival support."
-    },
-    {
-      icon: Globe,
-      title: "Global Network",
-      description: "Our worldwide presence ensures comprehensive support wherever your educational journey takes you."
+  // Fetch about page content from database
+  const { data: aboutPageData, isLoading } = useQuery({
+    queryKey: ['about-page'],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('pages')
+        .select('*')
+        .eq('slug', 'about')
+        .single();
+      return data;
     }
-  ];
+  });
 
-  const achievements = [
-    { number: "15+", label: "Years of Experience" },
-    { number: "10,000+", label: "Students Placed" },
-    { number: "500+", label: "Partner Universities" },
-    { number: "25+", label: "Countries Served" }
-  ];
-
-  const whyChooseUs = [
-    "Expert counselors with extensive international education experience",
-    "Comprehensive support from application to arrival",
-    "Strong partnerships with top universities worldwide",
-    "Proven track record of successful student placements",
-    "24/7 support throughout your educational journey",
-    "Transparent and ethical practices"
-  ];
+  // Fetch company statistics from settings
+  const { data: companyStats } = useQuery({
+    queryKey: ['company-stats'],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('site_settings')
+        .select('key, value')
+        .in('key', ['students_placed', 'partner_universities', 'years_experience', 'countries_served']);
+      
+      return data?.reduce((acc, setting) => {
+        acc[setting.key] = setting.value;
+        return acc;
+      }, {} as Record<string, any>) || {};
+    }
+  });
 
   return (
     <div className="min-h-screen ">
@@ -95,10 +86,10 @@ const About = () => {
               {/* Main Title */}
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-                  Best Migration Agents & <span className="text-accent">Education</span> Consultants
+                  {aboutPageData?.title || "Best Migration Agents & Education Consultants"}
                 </h1>
                 <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
-                  We are registered migration agents & education consultants in Australia with 5k+ satisfied clients.
+                  {aboutPageData?.subtitle || "We are registered migration agents & education consultants in Australia with 5k+ satisfied clients."}
                 </p>
               </div>
 
@@ -129,8 +120,8 @@ const About = () => {
                   <span>Registered Professionals</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-accent" />
-                  <span>5,000+ Satisfied Clients</span>
+                  <CheckCircle className="h-5 w-5 text-accent" />
+                  <span>{companyStats?.students_placed || '5,000+'}+ Satisfied Clients</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Award className="h-5 w-5 text-accent" />
@@ -167,11 +158,15 @@ const About = () => {
 
       <div className="text-center mb-6">
         <h2 className="text-5xl font-bold text-primary mb-3">
-          Moves International&apos;s Team
+          {aboutPageData?.content?.includes('team_title') ? 
+            JSON.parse(aboutPageData.content).team_title : 
+            "Moves International's Team"}
         </h2>
-         <p className="text-base text-gray-600  text-center">
-          Experts, Visionaries and ACHIEVERS
-      </p>
+         <p className="text-base text-gray-600 text-center">
+          {aboutPageData?.content?.includes('team_subtitle') ? 
+            JSON.parse(aboutPageData.content).team_subtitle : 
+            "Experts, Visionaries and ACHIEVERS"}
+        </p>
       </div>
       <LeadershipTeam />
       <StickyProfileComponent />

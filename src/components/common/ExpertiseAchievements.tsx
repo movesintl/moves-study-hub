@@ -1,7 +1,25 @@
 import { ArrowRight, ChevronRight, Flag, PlayCircle } from 'lucide-react'
 import React from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { supabase } from '@/integrations/supabase/client'
 
 const ExpertiseAchievements = () => {
+  // Fetch expertise content from database
+  const { data: statsData } = useQuery({
+    queryKey: ['company-stats'],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('site_settings')
+        .select('key, value')
+        .in('key', ['company_established', 'satisfied_clients', 'university_partners']);
+      
+      return data?.reduce((acc, setting) => {
+        acc[setting.key] = setting.value;
+        return acc;
+      }, {} as Record<string, any>) || {};
+    }
+  });
+
   return (
     <section className="py-16 bg-[#f7f9fa]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,7 +106,7 @@ const ExpertiseAchievements = () => {
                     alt="Study International Logo"
                     className="w-8 h-8 mb-3 object-contain"
                   />
-                  <p className="text-3xl font-bold text-primary">2009</p>
+                  <p className="text-3xl font-bold text-primary">{statsData?.company_established || '2009'}</p>
                   <p className="text-sm text-gray-600 mt-1">Established In</p>
                 </div>
               </div>
@@ -101,7 +119,7 @@ const ExpertiseAchievements = () => {
                     alt="Study International Logo"
                     className="w-8 h-8 mb-3 object-contain"
                   />
-                  <p className="text-3xl font-bold text-primary">5k+</p>
+                  <p className="text-3xl font-bold text-primary">{statsData?.satisfied_clients || '5k+'}+</p>
                   <p className="text-sm text-gray-600 mt-1">Satisfied Clients</p>
                 </div>
               </div>
@@ -114,7 +132,7 @@ const ExpertiseAchievements = () => {
                     alt="Study International Logo"
                     className="w-8 h-8 mb-3 object-contain"
                   />
-                  <p className="text-3xl font-bold text-primary">50+</p>
+                  <p className="text-3xl font-bold text-primary">{statsData?.university_partners || '50+'}+</p>
                   <p className="text-sm text-gray-600 mt-1">University Partners</p>
                 </div>
               </div>

@@ -96,12 +96,6 @@ const Navigation = () => {
       name: 'Services',
       path: '/services',
       submenu: servicesSubmenu
-    },
-    // Book Consultation button as menu item
-    { 
-      name: 'Book Consultation', 
-      path: '/consultation',
-      isButton: true 
     }
   ];
 

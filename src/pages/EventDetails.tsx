@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Clock, User, Mail, Phone, ExternalLink, ArrowLeft, Share2 } from 'lucide-react';
 import { format } from 'date-fns';
+import EventRegistrationForm from '@/components/events/EventRegistrationForm';
 
 const EventDetails = () => {
   const { slug } = useParams();
@@ -247,6 +248,11 @@ const EventDetails = () => {
                   )}
                 </CardContent>
               </Card>
+
+              {/* Registration Form */}
+              {!isEventPast && !registrationDeadlinePassed && (
+                <EventRegistrationForm eventId={event.id} eventTitle={event.title} />
+              )}
 
               {/* Contact Information */}
               <Card>

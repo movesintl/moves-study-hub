@@ -562,6 +562,59 @@ export type Database = {
         }
         Relationships: []
       }
+      event_registrations: {
+        Row: {
+          company: string | null
+          created_at: string
+          designation: string | null
+          email: string
+          event_id: string
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          registration_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          designation?: string | null
+          email: string
+          event_id: string
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          registration_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          designation?: string | null
+          email?: string
+          event_id?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          registration_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       events: {
         Row: {
           city: string | null

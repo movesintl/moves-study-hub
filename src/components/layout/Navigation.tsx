@@ -28,6 +28,19 @@ const Navigation = () => {
     }
   });
 
+  // Fetch services for the navigation
+  const { data: services = [] } = useQuery({
+    queryKey: ['services'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('services')
+        .select('id, title, slug')
+        .order('title');
+      if (error) throw error;
+      return data;
+    }
+  });
+
   // Secondary menu items (top menu)
   const secondaryMenuItems = [
     { name: 'About Us', path: '/about' },
@@ -60,9 +73,6 @@ const Navigation = () => {
       path: `/destinations/${dest.slug}`
     }));
 
-  console.log('Destinations data:', destinations);
-  console.log('Destination submenu:', destinationSubmenu);
-
   const navigationItems = [
     { name: 'Home', path: '/' },
     { name: 'Find a Course', path: '/courses' },
@@ -71,18 +81,18 @@ const Navigation = () => {
       path: '/destinations',
       submenu: destinationSubmenu
     },
-    {
-      name: 'Services',
-      path: '/services',
-      submenu: [
-        { name: 'All Services', path: '/services' },
-        { name: 'Consultation', path: '/services/consultation' },
-        { name: 'Visa & Migration', path: '/services/visa-migration' },
-        { name: 'English Test Prep', path: '/services/english-test-prep' },
-        { name: 'Application Assistance', path: '/services/application-assistance' },
-        { name: 'Scholarship Guidance', path: '/services/scholarship-guidance' },
-        { name: 'Pre-Departure Support', path: '/services/pre-departure-support' }
-      ]
+    // Services as individual menu items without dropdown
+    ...services
+      .filter(service => service.slug && service.slug.trim() !== '')
+      .map(service => ({
+        name: service.title,
+        path: `/services/${service.slug}`
+      })),
+    // Book Consultation button as menu item
+    { 
+      name: 'Book Consultation', 
+      path: '/consultation',
+      isButton: true 
     }
   ];
 
@@ -122,8 +132,8 @@ const Navigation = () => {
                   <Button variant="outline" asChild className="hover:scale-105 transition-transform duration-200">
                     <Link to="/auth">Sign In</Link>
                   </Button>
-                  <Button className="bg-accent hover:bg-accent/90 text-white hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg" asChild>
-                    <Link to="/services/consultation">Book Consultation</Link>
+                  <Button className="bg-[#fa8500] hover:bg-[#fa8500]/90 text-white hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg" asChild>
+                    <Link to="/consultation">Book Consultation</Link>
                   </Button>
                 </div>
               )}

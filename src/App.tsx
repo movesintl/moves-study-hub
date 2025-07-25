@@ -96,6 +96,7 @@ function App() {
                 <Route path="services" element={<Services />} />
                 <Route path="services/:id" element={<ServiceDetails />} />
                 <Route path="services/consultation" element={<Consultation />} />
+                <Route path="consultation" element={<Consultation />} />
                 <Route path="universities" element={<Universities />} />
                 <Route path="universities/:slug" element={<UniversityDetails />} />
                 <Route path="destinations" element={<Destinations />} />

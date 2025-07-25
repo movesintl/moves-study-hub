@@ -10,6 +10,7 @@ interface NavigationItem {
     name: string;
     path: string;
   }>;
+  isButton?: boolean;
 }
 
 interface NavigationMenuProps {
@@ -117,6 +118,13 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ items }) => {
                 </div>
               </div>
             </div>
+          ) : item.isButton ? (
+            <Link
+              to={item.path}
+              className="bg-[#fa8500] hover:bg-[#fa8500]/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg"
+            >
+              {item.name}
+            </Link>
           ) : (
             <Link
               to={item.path}

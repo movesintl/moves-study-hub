@@ -115,10 +115,7 @@ const UniversityDetails = () => {
   }
 
   const stats = [
-    { icon: GraduationCap, label: 'Programs', value: courses.length || 'N/A' },
-    { icon: Users, label: 'Students', value: '15,000+' },
-    { icon: Award, label: 'Ranking', value: 'Top 100' },
-    { icon: Globe, label: 'Countries', value: '80+' }
+    { icon: GraduationCap, label: 'Programs', value: courses.length || 'N/A' }
   ];
 
   return (

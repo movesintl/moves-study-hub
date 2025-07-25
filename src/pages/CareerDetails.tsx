@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, MapPin, Calendar, Building2, ExternalLink, Clock } from 'lucide-react';
 import { format } from 'date-fns';
-import { JobApplicationForm } from '@/components/careers/JobApplicationForm';
+import { JobApplicationModal } from '@/components/careers/JobApplicationModal';
 
 const CareerDetails = () => {
   const { slug } = useParams();
@@ -208,27 +208,18 @@ const CareerDetails = () => {
               {!isDeadlinePassed && (
                 <Card>
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold mb-4">Quick Apply</h3>
+                    <h3 className="text-lg font-semibold mb-4">Ready to Apply?</h3>
                     <p className="text-gray-600 mb-4">
-                      Apply directly through our platform or use the external link.
+                      Take the next step in your career journey with Moves International.
                     </p>
-                    <div className="space-y-3">
-                      <Button asChild className="w-full" variant="outline">
-                        <a 
-                          href={career.apply_link} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          Apply via External Link
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
+                    <JobApplicationModal 
+                      careerId={career.id} 
+                      jobTitle={career.job_title}
+                    >
+                      <Button className="w-full">
+                        Apply Now
                       </Button>
-                      <div className="text-center text-sm text-gray-500">or</div>
-                      <div className="text-center">
-                        <span className="text-sm text-gray-600">Apply using the form below</span>
-                      </div>
-                    </div>
+                    </JobApplicationModal>
                   </CardContent>
                 </Card>
               )}
@@ -261,14 +252,6 @@ const CareerDetails = () => {
               </Card>
             </div>
           </div>
-
-          {/* Application Form */}
-          {!isDeadlinePassed && (
-            <JobApplicationForm 
-              careerId={career.id} 
-              jobTitle={career.job_title} 
-            />
-          )}
         </div>
       </div>
     </>

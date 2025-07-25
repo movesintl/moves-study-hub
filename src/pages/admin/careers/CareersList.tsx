@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Plus, Edit, Trash2, Eye, MapPin, Calendar, Building2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
+import { JobApplicationsList } from '@/components/admin/careers/JobApplicationsList';
 
 const CareersList = () => {
   const [filter, setFilter] = useState('all');
@@ -186,7 +187,11 @@ const CareersList = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <JobApplicationsList 
+                          careerId={career.id} 
+                          jobTitle={career.job_title} 
+                        />
                         <Link to={`/careers/${career.slug}`} target="_blank">
                           <Button variant="outline" size="sm">
                             <Eye className="h-4 w-4" />

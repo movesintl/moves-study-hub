@@ -47,19 +47,19 @@ const FloatingStats = () => {
       {/* Background section that goes behind the floating card */}
       <div className="bg-[#fcfcfc] absolute inset-0 top-16 bottom-0"></div>
       <div className="relative max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
+        <div className="bg-secondary rounded-2xl shadow-xl p-6 md:p-8 border border-secondary">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center" ref={stat.ref}>
                 <div className="flex justify-center mb-3">
-                  <div className={`p-3 rounded-full bg-gray-50 ${stat.color}`}>
+                  <div className={`p-3 rounded-full bg-white/20 ${stat.color}`}>
                     <stat.icon className="h-6 w-6 md:h-8 md:w-8" />
                   </div>
                 </div>
-                <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">
                   {stat.count}{stat.suffix}
                 </div>
-                <div className="text-sm md:text-base text-gray-600 font-medium">
+                <div className="text-sm md:text-base text-white/90 font-medium">
                   {stat.label}
                 </div>
               </div>

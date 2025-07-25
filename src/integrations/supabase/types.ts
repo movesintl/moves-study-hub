@@ -1229,9 +1229,14 @@ export type Database = {
       }
       universities: {
         Row: {
+          accreditation_status: string | null
+          admission_requirements: Json | null
+          application_deadlines: Json | null
+          application_portal_status: string | null
           country: string | null
           created_at: string
           featured: boolean
+          global_ranking: string | null
           id: string
           location: string | null
           logo_url: string | null
@@ -1242,9 +1247,14 @@ export type Database = {
           website_url: string | null
         }
         Insert: {
+          accreditation_status?: string | null
+          admission_requirements?: Json | null
+          application_deadlines?: Json | null
+          application_portal_status?: string | null
           country?: string | null
           created_at?: string
           featured?: boolean
+          global_ranking?: string | null
           id?: string
           location?: string | null
           logo_url?: string | null
@@ -1255,9 +1265,14 @@ export type Database = {
           website_url?: string | null
         }
         Update: {
+          accreditation_status?: string | null
+          admission_requirements?: Json | null
+          application_deadlines?: Json | null
+          application_portal_status?: string | null
           country?: string | null
           created_at?: string
           featured?: boolean
+          global_ranking?: string | null
           id?: string
           location?: string | null
           logo_url?: string | null

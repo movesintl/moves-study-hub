@@ -154,9 +154,9 @@ const UniversityDetails = () => {
 
   const stats = [
     { icon: GraduationCap, label: 'Programs Offered', value: courses.length, color: 'text-blue-600' },
-    { icon: Users, label: 'Application Portal', value: 'Open', color: 'text-green-600' },
-    { icon: Globe, label: 'Global Ranking', value: 'Top 500', color: 'text-purple-600' },
-    { icon: Award, label: 'Accreditation', value: 'Verified', color: 'text-orange-600' }
+    { icon: Users, label: 'Application Portal', value: university?.application_portal_status || 'Open', color: 'text-green-600' },
+    { icon: Globe, label: 'Global Ranking', value: university?.global_ranking || 'Top 500', color: 'text-purple-600' },
+    { icon: Award, label: 'Accreditation', value: university?.accreditation_status || 'Verified', color: 'text-orange-600' }
   ];
 
   return (
@@ -263,7 +263,7 @@ const UniversityDetails = () => {
                 </div>
               </div>
 
-              {/* University Logo & Quick Stats */}
+              {/* University Logo & Quick Stats moved here */}
               <div className="lg:col-span-4 space-y-6">
                 {university.logo_url && (
                   <div className="flex justify-center lg:justify-end">
@@ -572,27 +572,41 @@ const UniversityDetails = () => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-                        <div>
-                          <div className="font-medium">Academic Qualifications</div>
-                          <div className="text-sm text-muted-foreground">Minimum 65% in relevant field</div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-                        <div>
-                          <div className="font-medium">English Proficiency</div>
-                          <div className="text-sm text-muted-foreground">IELTS 6.5 or TOEFL 80</div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-                        <div>
-                          <div className="font-medium">Documents Required</div>
-                          <div className="text-sm text-muted-foreground">Transcripts, CV, SOP, LOR</div>
-                        </div>
-                      </div>
+                      {university?.admission_requirements && Array.isArray(university.admission_requirements) && university.admission_requirements.length > 0 ? (
+                        (university.admission_requirements as any[]).map((req: any, index: number) => (
+                          <div key={index} className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                            <div>
+                              <div className="font-medium">{req.title}</div>
+                              <div className="text-sm text-muted-foreground">{req.description}</div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <>
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                            <div>
+                              <div className="font-medium">Academic Qualifications</div>
+                              <div className="text-sm text-muted-foreground">Minimum 65% in relevant field</div>
+                            </div>
+                          </div>
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                            <div>
+                              <div className="font-medium">English Proficiency</div>
+                              <div className="text-sm text-muted-foreground">IELTS 6.5 or TOEFL 80</div>
+                            </div>
+                          </div>
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                            <div>
+                              <div className="font-medium">Documents Required</div>
+                              <div className="text-sm text-muted-foreground">Transcripts, CV, SOP, LOR</div>
+                            </div>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -603,18 +617,29 @@ const UniversityDetails = () => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-3">
-                      <div className="p-3 border border-orange-200 bg-orange-50 rounded-lg">
-                        <div className="font-medium text-orange-800">Fall Intake 2024</div>
-                        <div className="text-sm text-orange-600">Deadline: March 15, 2024</div>
-                      </div>
-                      <div className="p-3 border border-blue-200 bg-blue-50 rounded-lg">
-                        <div className="font-medium text-blue-800">Spring Intake 2025</div>
-                        <div className="text-sm text-blue-600">Deadline: September 15, 2024</div>
-                      </div>
-                      <div className="p-3 border border-green-200 bg-green-50 rounded-lg">
-                        <div className="font-medium text-green-800">Summer Intake 2025</div>
-                        <div className="text-sm text-green-600">Deadline: January 15, 2025</div>
-                      </div>
+                      {university?.application_deadlines && Array.isArray(university.application_deadlines) && university.application_deadlines.length > 0 ? (
+                        (university.application_deadlines as any[]).map((deadline: any, index: number) => (
+                          <div key={index} className={`p-3 border rounded-lg ${deadline.color || 'border-blue-200 bg-blue-50'}`}>
+                            <div className={`font-medium ${deadline.textColor || 'text-blue-800'}`}>{deadline.intake}</div>
+                            <div className={`text-sm ${deadline.dateColor || 'text-blue-600'}`}>Deadline: {deadline.deadline}</div>
+                          </div>
+                        ))
+                      ) : (
+                        <>
+                          <div className="p-3 border border-orange-200 bg-orange-50 rounded-lg">
+                            <div className="font-medium text-orange-800">Fall Intake 2024</div>
+                            <div className="text-sm text-orange-600">Deadline: March 15, 2024</div>
+                          </div>
+                          <div className="p-3 border border-blue-200 bg-blue-50 rounded-lg">
+                            <div className="font-medium text-blue-800">Spring Intake 2025</div>
+                            <div className="text-sm text-blue-600">Deadline: September 15, 2024</div>
+                          </div>
+                          <div className="p-3 border border-green-200 bg-green-50 rounded-lg">
+                            <div className="font-medium text-green-800">Summer Intake 2025</div>
+                            <div className="text-sm text-green-600">Deadline: January 15, 2025</div>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

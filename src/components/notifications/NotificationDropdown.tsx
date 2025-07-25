@@ -182,7 +182,7 @@ const NotificationDropdown: React.FC = () => {
                 if (currentPath.startsWith('/admin')) {
                   navigate('/admin/notifications');
                 } else {
-                  navigate('/student/notifications');
+                  navigate('/student-dashboard/notifications');
                 }
               }}
             >

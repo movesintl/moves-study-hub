@@ -25,7 +25,10 @@ export const useNotifications = () => {
   const { toast } = useToast();
 
   const fetchNotifications = useCallback(async () => {
+    console.log('=== FETCH NOTIFICATIONS CALLED ===');
     console.log('fetchNotifications called, user:', user);
+    console.log('Component type: NotificationCenter in full page');
+    
     if (!user) {
       console.log('No user found, stopping fetch');
       setLoading(false);
@@ -44,7 +47,8 @@ export const useNotifications = () => {
       
       // Check if user is authenticated properly
       const session = await supabase.auth.getSession();
-      console.log('Current session:', session);
+      console.log('Current session valid:', !!session.data.session);
+      console.log('Session user ID:', session.data.session?.user?.id);
       
       const { data, error } = await supabase
         .from('notifications')
@@ -53,15 +57,20 @@ export const useNotifications = () => {
         .order('created_at', { ascending: false })
         .limit(50);
 
-      console.log('Notifications query result:', { data, error });
+      console.log('=== NOTIFICATIONS QUERY RESULT ===');
+      console.log('Data:', data);
+      console.log('Error:', error);
+      console.log('Data length:', data?.length || 0);
+      
       if (error) {
         console.error('Supabase error details:', error);
         throw error;
       }
 
-      console.log('Setting notifications:', data);
+      console.log('Setting notifications in state:', data);
       setNotifications((data || []) as Notification[]);
       setUnreadCount(data?.filter(n => !n.is_read).length || 0);
+      console.log('Notifications state updated successfully');
     } catch (error) {
       console.error('Error fetching notifications:', error);
       toast({
@@ -71,6 +80,7 @@ export const useNotifications = () => {
       });
     } finally {
       setLoading(false);
+      console.log('=== FETCH NOTIFICATIONS COMPLETED ===');
     }
   }, [user, toast]);
 

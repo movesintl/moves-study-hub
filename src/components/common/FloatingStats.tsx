@@ -47,7 +47,7 @@ const FloatingStats = () => {
       {/* Background section that goes behind the floating card */}
       <div className="bg-[#fcfcfc] absolute inset-0 top-16 bottom-0"></div>
       <div className="relative max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
-        <div className="bg-secondary rounded-2xl shadow-xl p-6 md:p-8 border border-secondary">
+        <div className="rounded-2xl shadow-xl p-6 md:p-8 border" style={{ backgroundColor: '#fa8500', borderColor: '#fa8500' }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center" ref={stat.ref}>

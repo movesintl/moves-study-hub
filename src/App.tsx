@@ -105,6 +105,8 @@ function App() {
                 <Route path="sitemap" element={<Sitemap />} />
                 <Route path="events" element={<Events />} />
                 <Route path="events/:slug" element={<EventDetails />} />
+                <Route path="careers" element={<Careers />} />
+                <Route path="careers/:slug" element={<CareerDetails />} />
                 <Route path="staff/:id" element={<StaffProfile />} />
                 <Route path="pages/:slug" element={<PageView />} />
               </Route>

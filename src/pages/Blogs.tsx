@@ -41,7 +41,7 @@ const Blogs = () => {
         .from('blogs')
         .select(`
           *,
-          blog_category_assignments!inner(
+          blog_category_assignments(
             blog_categories(name, id)
           )
         `)

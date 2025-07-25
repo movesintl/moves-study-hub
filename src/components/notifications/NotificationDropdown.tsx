@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bell, Check, CheckCheck, Trash2, Clock, User, FileText, Phone, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +15,7 @@ import { useNotifications, Notification } from '@/hooks/useNotifications';
 import { formatDistanceToNow } from 'date-fns';
 
 const NotificationDropdown: React.FC = () => {
+  const navigate = useNavigate();
   const { 
     notifications, 
     loading, 
@@ -172,7 +174,18 @@ const NotificationDropdown: React.FC = () => {
 
         {notifications.length > 0 && (
           <div className="p-2 border-t">
-            <Button variant="ghost" className="w-full text-sm">
+            <Button 
+              variant="ghost" 
+              className="w-full text-sm"
+              onClick={() => {
+                const currentPath = window.location.pathname;
+                if (currentPath.startsWith('/admin')) {
+                  navigate('/admin/notifications');
+                } else {
+                  navigate('/student/notifications');
+                }
+              }}
+            >
               View all notifications
             </Button>
           </div>

@@ -66,12 +66,15 @@ const Navigation = () => {
   ];
 
   // Main navigation items - filter out destinations without slugs
-  const destinationSubmenu = destinations
+  const destinationSubmenu = [
+    {name: 'All Destinations', path: '/destinations'},
+    ...destinations
     .filter(dest => dest.slug && dest.slug.trim() !== '')
     .map(dest => ({
       name: dest.name,
       path: `/destinations/${dest.slug}`
-    }));
+    }))
+  ];
 
   // Services submenu from database
   const servicesSubmenu = [

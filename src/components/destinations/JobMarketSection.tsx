@@ -35,16 +35,13 @@ const JobMarketSection = ({ destination, jobMarketPoints }: JobMarketSectionProp
         {/* Enhanced Header */}
         <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Enhanced Badge */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-white/80 via-orange-50/80 to-white/80 backdrop-blur-sm border border-orange-200/50 rounded-full text-[#023047] mb-8 shadow-lg hover:shadow-xl transition-all duration-300 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-[#fa8500] to-orange-400 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
-              <Target className="h-4 w-4 text-white" />
-            </div>
-            <span className="text-sm font-bold tracking-wide">CAREER OPPORTUNITIES</span>
-            <TrendingUp className="h-4 w-4 text-[#fa8500] animate-pulse" />
-          </div>
+          <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
+                  <TrendingUp className="w-4 h-4 mr-2" />
+                  Career Opportunities
+                </div>
 
           {/* Enhanced Title */}
-          <h2 className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#023047] via-[#fa8500] to-[#023047] mb-6 leading-tight animate-pulse">
+          <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-primary mb-6 leading-tight animate-pulse">
             Job Market & Growth
           </h2>
 

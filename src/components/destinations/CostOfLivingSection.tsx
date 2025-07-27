@@ -44,17 +44,15 @@ const CostOfLivingSection = ({ destination }: CostOfLivingSectionProps) => {
         {/* Section Header */}
         <div className="text-center mb-16">
           {/* Floating badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-full text-gray-700 mb-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <Calculator className="h-4 w-4 text-[#fa8500]" />
-            <span className="text-sm font-semibold">Budget Planning</span>
-            <Sparkles className="h-3 w-3 text-[#fa8500] animate-pulse" />
+          <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
+            <Calculator className="w-4 h-4 mr-2" />
+            Budget Planning
           </div>
-
           {/* Main title with modern typography */}
-          <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#023047] via-[#034663] to-[#023047] mb-4 leading-tight">
+          <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-primary mb-4 leading-tight">
             Cost of Living
           </h2>
-          
+
           {/* Animated underline */}
           <div className="relative mx-auto w-32 h-1 mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-[#fa8500] to-orange-400 rounded-full"></div>
@@ -75,7 +73,7 @@ const CostOfLivingSection = ({ destination }: CostOfLivingSectionProps) => {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {costItems.map((item, index) => {
             const icon = iconMap[item.category.toLowerCase()] || <DollarSign className="h-6 w-6 text-white" />;
-            
+
             return (
               <div
                 key={index}
@@ -83,10 +81,10 @@ const CostOfLivingSection = ({ destination }: CostOfLivingSectionProps) => {
               >
                 {/* Glowing background effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#fa8500]/20 to-[#023047]/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 scale-105"></div>
-                
+
                 {/* Main card */}
                 <div className="relative bg-gradient-to-br from-slate-50 via-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-[#fa8500]/30 group-hover:scale-105 group-hover:-translate-y-2">
-                  
+
                   {/* Icon section */}
                   <div className="relative mb-6">
                     <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[#023047] to-[#034663] shadow-xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">

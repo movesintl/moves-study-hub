@@ -13,6 +13,8 @@ import CoursesSection from '@/components/destinations/CoursesSection';
 import JobMarketSection from '@/components/destinations/JobMarketSection';
 import PageViewFAQ from '@/pages/components/PageViewFAQ';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
+import PopularCourses from '@/components/common/PopularCourses';
+import FeaturedUniversities from '@/components/common/FeaturedUniversities';
 
 const MoreInformationSection = ({ content }: { content: string }) => {
   if (!content) return null;
@@ -131,15 +133,11 @@ const DestinationDetails = () => {
         />
 
         {/* 6. Top Universities (slider) */}
-        <UniversitiesSection 
-          destinationName={destination.name} 
-          universities={universities} 
-        />
+        <FeaturedUniversities />
 
         {/* 7. Popular Courses (Slider) */}
-        <CoursesSection 
-          destinationName={destination.name} 
-          courses={courses} 
+        <PopularCourses
+          
         />
 
 

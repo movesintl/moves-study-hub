@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, Plane, MapPin, Globe, Calendar, Shield } from 'lucide-react';
+import { Heart, Plane, MapPin, Globe, Calendar, Shield, TrendingUp } from 'lucide-react';
 
 const LifestyleVisaSection = ({ destination = {} }: { destination?: any }) => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -49,13 +49,13 @@ const LifestyleVisaSection = ({ destination = {} }: { destination?: any }) => {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg border border-gray-100 mb-6">
-            <div className="w-2 h-2 bg-gradient-to-r from-[#fa8500] to-[#023047] rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-[#023047] tracking-wide uppercase">Essential Information</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#023047] to-[#045c6a] bg-clip-text text-transparent mb-4">
+          <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
+        <TrendingUp className="w-4 h-4 mr-2" />
+        Essential Information
+      </div>
+          <h2 className="text-4xl md:text-5xl font-bold bg-primary bg-clip-text text-transparent mb-4">
             Your Journey Awaits
-          </h2>
+          </h2> 
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Discover everything you need to know about living and traveling in your dream destination
           </p>

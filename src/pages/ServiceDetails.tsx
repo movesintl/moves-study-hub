@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon, DotIcon, Dot, FileUser } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon, DotIcon, Dot, FileUser, ChevronRight, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
@@ -69,30 +69,17 @@ const ServiceDetails = () => {
 
             {/* Breadcrumb-style navigation */}
             <div className="space-y-6 lg:space-y-8">
-              <Breadcrumb className=''>
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <a href="/" className='text-orange-500 hover:text-orange-100'>Home</a>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator>
-                    •
-                  </BreadcrumbSeparator>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <a href="/services" className='text-orange-500 hover:text-orange-100'>Services</a>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator>
-                    •
-                  </BreadcrumbSeparator>
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className='text-white'>{service.title}</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-
+              {/* Breadcrumb Navigation */}
+              <nav className="mb-8 flex items-center text-sm text-gray-300">
+                <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+                  <Home className="h-4 w-4" />
+                  <span>Home</span>
+                </div>
+                <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
+                <span className="hover:text-white transition-colors cursor-pointer">Service</span>
+                <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
+                <span className="text-[#fa8500] font-medium">{service.title}</span>
+              </nav>
               {/* Main Title */}
               <div className="space-y-4">
                 <h1 className="text-4xl flex lg:text-6xl font-bold text-white leading-tight">
@@ -187,7 +174,7 @@ const ServiceDetails = () => {
         <div className="max-w-4xl mx-auto">
           <div className="space-y-4">
             <div className="inline-flex items-center ml-4 w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-base font-medium">
-            <FileUser className="w-4 h-4 mr-2" />  {service.title}
+              <FileUser className="w-4 h-4 mr-2" />  {service.title}
             </div>
 
             <div>
@@ -225,7 +212,7 @@ const ServiceDetails = () => {
       {/* Lead Enquiry Form */}
       <LeadEnquiryForm />
 
-      <OtherServicesSection/>
+      <OtherServicesSection />
     </div>
   );
 };

@@ -10,6 +10,8 @@ import {
   ArrowRight,
   CheckCircle,
   Clock,
+  Home,
+  ChevronRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -91,19 +93,16 @@ const Services = () => {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px]">
             {/* Left Column - Text Content */}
             <div className="space-y-6 lg:space-y-8">
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <Link to="/" className="text-accent hover:text-accent/80">Home</Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator>•</BreadcrumbSeparator>
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="text-white">Services</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
+               {/* Breadcrumb Navigation */}
+                      <nav className="mb-8 flex items-center text-sm text-gray-300">
+                        <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+                          <Home className="h-4 w-4" />
+                          <span>Home</span>
+                        </div>
+                        <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
+                        <span className="hover:text-white transition-colors cursor-pointer">Service</span>
+                        
+                      </nav>
 
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">

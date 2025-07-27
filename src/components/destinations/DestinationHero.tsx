@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Home, ChevronRight, ExternalLink, BookOpen, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface DestinationHeroProps {
   destination: {
@@ -10,6 +11,7 @@ interface DestinationHeroProps {
 }
 
 const DestinationHero = ({ destination }: DestinationHeroProps) => {
+  const navigate = useNavigate();
   return (
     <section className="bg-[#023047] py-16 relative overflow-hidden">
       {/* Background decorative elements */}
@@ -19,12 +21,12 @@ const DestinationHero = ({ destination }: DestinationHeroProps) => {
       <div className="container mx-auto max-w-7xl px-4 relative">
         {/* Breadcrumb Navigation */}
         <nav className="mb-8 flex items-center text-sm text-gray-300">
-          <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+          <div onClick={() => navigate('/home')} className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
             <Home className="h-4 w-4" />
             <span>Home</span>
           </div>
           <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
-          <span className="hover:text-white transition-colors cursor-pointer">Destinations</span>
+          <span onClick={() => navigate('/destinations')} className="hover:text-white transition-colors cursor-pointer">Destinations</span>
           <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
           <span className="text-[#fa8500] font-medium">{destination.name}</span>
         </nav>

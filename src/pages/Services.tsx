@@ -69,21 +69,6 @@ const Services = () => {
     return () => clearInterval(interval);
   }, [services.length]);
 
-  // Get icon component based on service slug
-  const getIconComponent = (slug) => {
-    switch (slug) {
-      case 'consultation':
-        return MessageCircle;
-      case 'admission':
-        return FileCheck;
-      case 'visa':
-        return Plane;
-      case 'test-preparation':
-        return BookOpen;
-      default:
-        return Award;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">

@@ -33,10 +33,13 @@ const Auth = () => {
           if (userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'counselor') {
             navigate('/admin');
           } else {
+            // All other roles (student, user, etc.) go to student dashboard
             navigate('/student-dashboard');
           }
         } catch (error) {
           console.error('Error checking user role:', error);
+          // If no profile exists or error, still redirect to student dashboard
+          // The trigger should create the profile automatically
           navigate('/student-dashboard');
         }
       }

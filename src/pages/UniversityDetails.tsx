@@ -169,7 +169,7 @@ const UniversityDetails = () => {
         
         <div className="relative">
           {/* Navigation Bar */}
-          <div className="container mx-auto px-4 py-6">
+          <div className="container mx-auto max-w-7xl px-4 py-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Button variant="ghost" size="sm" onClick={() => navigate('/universities')}>
@@ -196,7 +196,7 @@ const UniversityDetails = () => {
           </div>
 
           {/* Hero Content */}
-          <div className="container mx-auto px-4 pb-16">
+          <div className="container mx-auto max-w-7xl px-4 pb-16">
             <div className="grid lg:grid-cols-12 gap-8 items-center">
               {/* University Information */}
               <div className="lg:col-span-8 space-y-6">

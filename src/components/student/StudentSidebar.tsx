@@ -94,25 +94,27 @@ export function StudentSidebar() {
                           `flex items-center px-4 py-3 rounded-xl transition-all duration-300 
                           hover:bg-sidebar-accent hover:shadow-elegant hover:scale-105 
                           ${isActive ? 'bg-sidebar-primary shadow-elegant' : ''} 
-                          relative overflow-hidden group`
+                          relative overflow-hidden`
                         }
                       >
-                        <item.icon
-                          className={`${isCollapsed ? '' : 'mr-3'} h-5 w-5 transition-all duration-300 
-                          text-white group-hover:text-orange-500 
-                          ${isActive(item.url) ? 'text-orange-500' : ''}`}
-                        />
+                        {({ isActive }) => (
+                          <>
+                            <item.icon
+                              className={`${isCollapsed ? '' : 'mr-3'} h-5 w-5 transition-all duration-300 
+                              ${isActive ? 'text-orange-500' : 'text-white hover:text-orange-500'}`}
+                            />
 
-                        {!isCollapsed && (
-                          <span className={`font-medium transition-all duration-300 
-                          text-white group-hover:text-orange-500 
-                          ${isActive(item.url) ? 'text-orange-500' : ''}`}>
-                            {item.title}
-                          </span>
-                        )}
+                            {!isCollapsed && (
+                              <span className={`font-medium transition-all duration-300 
+                              ${isActive ? 'text-orange-500' : 'text-white hover:text-orange-500'}`}>
+                                {item.title}
+                              </span>
+                            )}
 
-                        {!isCollapsed && (
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            {!isCollapsed && (
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                            )}
+                          </>
                         )}
                       </NavLink>
                     </SidebarMenuButton>

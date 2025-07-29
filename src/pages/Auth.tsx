@@ -24,23 +24,47 @@ const Auth = () => {
     const checkUserRole = async () => {
       if (user) {
         try {
+          // Wait a bit for profile creation if this is a new signup
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
           const { data: userProfile } = await supabase
             .from('user_profiles')
             .select('role')
             .eq('user_id', user.id)
-            .single();
+            .maybeSingle();
 
-          // Redirect based on role
-          if (userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'counselor') {
-            navigate('/admin');
+          if (!userProfile) {
+            // Profile doesn't exist yet, try one more time
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            const { data: retryProfile } = await supabase
+              .from('user_profiles')
+              .select('role')
+              .eq('user_id', user.id)
+              .maybeSingle();
+            
+            if (!retryProfile) {
+              console.error('No user profile found, defaulting to student dashboard');
+              navigate('/student-dashboard');
+              return;
+            }
+            
+            // Use retry result
+            if (retryProfile.role === 'admin' || retryProfile.role === 'editor' || retryProfile.role === 'counselor') {
+              navigate('/admin');
+            } else {
+              navigate('/student-dashboard');
+            }
           } else {
-            // All other roles (student, user, etc.) go to student dashboard
-            navigate('/student-dashboard');
+            // Profile exists, redirect based on role
+            if (userProfile.role === 'admin' || userProfile.role === 'editor' || userProfile.role === 'counselor') {
+              navigate('/admin');
+            } else {
+              navigate('/student-dashboard');
+            }
           }
         } catch (error) {
           console.error('Error checking user role:', error);
-          // If no profile exists or error, still redirect to student dashboard
-          // The trigger should create the profile automatically
+          // Default to student dashboard if role fetch fails
           navigate('/student-dashboard');
         }
       }

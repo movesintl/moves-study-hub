@@ -68,19 +68,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     });
 
-    // If user is created successfully but needs email confirmation
-    if (data.user && !data.session && !error) {
-      // Try to create the profile immediately for users who don't need email confirmation
-      try {
-        await supabase.from('user_profiles').insert({
-          user_id: data.user.id,
-          role: 'student'
-        }).select().single();
-      } catch (profileError) {
-        // Profile creation will be handled by triggers, this is just a fallback
-        console.log('Profile will be created by database trigger');
-      }
-    }
+    // Profile creation is handled automatically by database triggers
+    // No manual intervention needed
     
     return { error };
   };

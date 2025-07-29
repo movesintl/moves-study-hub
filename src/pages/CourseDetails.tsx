@@ -204,8 +204,10 @@ const CourseDetails = () => {
                   )}
                   
                   <Button 
-                    variant={isSaved ? "default" : "outline"} 
-                    className={`w-full border-orange-300 ${isSaved ? 'bg-red-500 hover:bg-red-600 text-white border-transparent' : 'text-white hover:bg-orange-500/20 border-orange-400'}`}
+                    variant={isSaved ? "default" : "outline"}
+                    className={`w-full border-orange-300 ${isSaved 
+                      ? 'bg-orange-500 hover:bg-red-600 text-white border-transparent' 
+                      : 'bg-transpar\ent text-white hover:bg-orange-500/20 border-orange-400'}`}
                     onClick={handleSaveCourse}
                   >
                     <Heart className={`h-4 w-4 mr-2 ${isSaved ? 'fill-current' : ''}`} />
@@ -372,16 +374,6 @@ const CourseDetails = () => {
                 </div>
               </div>
             )}
-
-            {/* Action Buttons */}
-            <div className="space-y-4">
-              <Button variant="outline" className="w-full h-12 font-semibold border-2" asChild>
-                <Link to="/course-comparison">
-                  <BarChart3 className="h-4 w-4 mr-2" />
-                  Compare Courses
-                </Link>
-              </Button>
-            </div>
           </div>
         </div>
       </div>

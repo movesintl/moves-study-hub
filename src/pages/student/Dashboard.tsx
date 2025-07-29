@@ -130,7 +130,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
         {stats.map((stat, index) => (
           <Card key={stat.title} className="group hover:shadow-brand transition-all duration-500 bg-gradient-subtle border-0 shadow-elegant hover:scale-105 overflow-hidden relative">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -148,7 +148,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Recent Applications */}
         <Card className="shadow-elegant border-0 bg-gradient-subtle hover:shadow-brand transition-all duration-300 overflow-hidden">
           <CardHeader className="bg-gradient-to-r from-primary/5 to-accent/5 border-b border-border/50">
@@ -242,7 +242,7 @@ const Dashboard = () => {
           <CardDescription className="text-base">Accelerate your academic journey with these essential tools</CardDescription>
         </CardHeader>
         <CardContent className="p-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <Button asChild className="h-auto p-8 flex flex-col items-center bg-gradient-brand hover:scale-105 shadow-elegant hover:shadow-brand transition-all duration-300 group">
               <Link to="/courses">
                 <div className="p-4 bg-white/20 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">

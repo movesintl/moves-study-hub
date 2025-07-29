@@ -15,6 +15,7 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('signin');
   const { signIn, signUp, signInWithGoogle, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -86,11 +87,11 @@ const Auth = () => {
     } else {
       toast({
         title: "Account created successfully!",
-        description: "If email confirmation is required, please check your email. Otherwise, you can sign in now.",
+        description: "You can now sign in with your credentials.",
       });
-      // Clear the form
-      setEmail('');
-      setPassword('');
+      // Switch to sign-in tab and keep the email for convenience
+      setActiveTab('signin');
+      setPassword(''); // Clear password for security
     }
     
     setLoading(false);
@@ -175,7 +176,7 @@ const Auth = () => {
             </p>
           </div>
 
-          <Tabs defaultValue="signin" className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8">
               <TabsTrigger value="signin" className="text-sm">Sign In</TabsTrigger>
               <TabsTrigger value="signup" className="text-sm">Sign Up</TabsTrigger>

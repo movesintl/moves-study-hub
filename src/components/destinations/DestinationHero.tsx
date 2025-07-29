@@ -46,7 +46,6 @@ const DestinationHero = ({ destination }: DestinationHeroProps) => {
               <h1 className="text-4xl md:text-5xl font-bold leading-tight">
                 {destination.name}
               </h1>
-              <div className="w-16 h-1 bg-[#fa8500] rounded-full"></div>
             </div>
 
             {/* Description */}

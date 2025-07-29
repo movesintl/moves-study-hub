@@ -60,13 +60,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signUp = async (email: string, password: string) => {
     const redirectUrl = `${window.location.origin}/student-dashboard`;
     
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: redirectUrl
       }
     });
+
+    // If user is created successfully but needs email confirmation
+    if (data.user && !data.session && !error) {
+      // Try to create the profile immediately for users who don't need email confirmation
+      try {
+        await supabase.from('user_profiles').insert({
+          user_id: data.user.id,
+          role: 'student'
+        }).select().single();
+      } catch (profileError) {
+        // Profile creation will be handled by triggers, this is just a fallback
+        console.log('Profile will be created by database trigger');
+      }
+    }
+    
     return { error };
   };
 

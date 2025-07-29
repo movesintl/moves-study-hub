@@ -302,8 +302,8 @@ const UniversityDetails = () => {
 
       {/* Enhanced Content Section */}
       <section className="py-8">
-        <div className="container mx-auto px-4">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="max-w-7xl mx-auto">
+        <div className="container mx-auto max-w-7xl px-4">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* Enhanced Tab Navigation */}
             <div className="flex justify-center mb-8">
               <TabsList className="grid grid-cols-4 w-full max-w-2xl h-14 bg-muted/30 backdrop-blur p-1">

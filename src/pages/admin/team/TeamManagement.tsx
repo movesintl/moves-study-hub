@@ -21,7 +21,7 @@ import StaffManagement from '@/components/admin/team/StaffManagement';
 
 const inviteSchema = z.object({
   email: z.string().email('Invalid email address'),
-  role: z.enum(['admin', 'editor', 'user'] as const),
+  role: z.enum(['admin', 'editor', 'counselor', 'student'] as const),
 });
 
 type InviteFormData = z.infer<typeof inviteSchema>;
@@ -35,7 +35,7 @@ const TeamManagement = () => {
     resolver: zodResolver(inviteSchema),
     defaultValues: {
       email: '',
-      role: 'user',
+      role: 'student',
     },
   });
 
@@ -53,7 +53,7 @@ const TeamManagement = () => {
 
   // Update user role
   const updateRoleMutation = useMutation({
-    mutationFn: async ({ userId, newRole }: { userId: string; newRole: 'admin' | 'editor' | 'user' }) => {
+    mutationFn: async ({ userId, newRole }: { userId: string; newRole: 'admin' | 'editor' | 'counselor' | 'student' }) => {
       const { error } = await supabase
         .from('user_profiles')
         .update({ role: newRole })
@@ -102,7 +102,7 @@ const TeamManagement = () => {
   });
 
   const handleRoleChange = (userId: string, newRole: string) => {
-    if (newRole === 'admin' || newRole === 'editor' || newRole === 'user') {
+    if (newRole === 'admin' || newRole === 'editor' || newRole === 'counselor' || newRole === 'student') {
       updateRoleMutation.mutate({ userId, newRole });
     }
   };
@@ -169,7 +169,8 @@ const TeamManagement = () => {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="user">User</SelectItem>
+                              <SelectItem value="student">Student</SelectItem>
+                              <SelectItem value="counselor">Counselor</SelectItem>
                               <SelectItem value="editor">Editor</SelectItem>
                               <SelectItem value="admin">Admin</SelectItem>
                             </SelectContent>
@@ -220,13 +221,14 @@ const TeamManagement = () => {
                         <TableCell>
                           <Select
                             onValueChange={(value) => handleRoleChange(member.user_id!, value)}
-                            defaultValue={member.role || 'user'}
+                            defaultValue={member.role || 'student'}
                           >
                             <SelectTrigger className="w-32">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="user">User</SelectItem>
+                              <SelectItem value="student">Student</SelectItem>
+                              <SelectItem value="counselor">Counselor</SelectItem>
                               <SelectItem value="editor">Editor</SelectItem>
                               <SelectItem value="admin">Admin</SelectItem>
                             </SelectContent>

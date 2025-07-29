@@ -58,7 +58,7 @@ import BlogForm from '@/pages/admin/blogs/BlogForm';
 import PagesList from '@/pages/admin/pages/PagesList';
 import PageForm from '@/pages/admin/pages/PageForm';
 import MediaLibrary from '@/pages/admin/media/MediaLibrary';
-import AdminAuth from '@/pages/admin/AdminAuth';
+
 import RoleGuard from '@/components/admin/RoleGuard';
 import StudyAreasManager from '@/pages/admin/courses/StudyAreasManager';
 import StudyLevelsManager from '@/pages/admin/courses/StudyLevelsManager';
@@ -87,7 +87,6 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/auth" element={<Auth />} />
-              <Route path="/admin/auth" element={<AdminAuth />} />
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />

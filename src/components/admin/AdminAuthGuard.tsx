@@ -20,7 +20,7 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
       if (authLoading) return;
 
       if (!user) {
-        navigate('/admin/auth');
+        navigate('/auth');
         return;
       }
 
@@ -35,7 +35,7 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
         if (error) {
           console.error('Error checking admin status:', error);
           setIsAdmin(false);
-          navigate('/admin/auth');
+          navigate('/auth');
           return;
         }
 
@@ -43,12 +43,12 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
         setIsAdmin(hasAdminAccess);
 
         if (!hasAdminAccess) {
-          navigate('/admin/auth');
+          navigate('/auth');
         }
       } catch (error) {
         console.error('Error in admin check:', error);
         setIsAdmin(false);
-        navigate('/admin/auth');
+        navigate('/auth');
       } finally {
         setLoading(false);
       }

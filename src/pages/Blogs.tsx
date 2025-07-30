@@ -51,7 +51,7 @@ const Blogs = () => {
         .select(`
           id, title, slug, content, featured_image_url, featured_image_alt,
           author, created_at, tags,
-          blog_category_assignments!inner(
+          blog_category_assignments(
             blog_categories(name, id)
           )
         `)

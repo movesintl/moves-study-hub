@@ -41,8 +41,8 @@ const BlogDetails = () => {
     queryFn: async () => {
       if (!id) throw new Error('No blog identifier provided');
       
-      // Optimized single query - try slug first
-      const { data, error } = await supabase
+      // First try to match by slug, then by ID if it's a valid UUID
+      let query = supabase
         .from('blogs')
         .select(`
           id, title, slug, content, featured_image_url, featured_image_alt,
@@ -51,9 +51,18 @@ const BlogDetails = () => {
             blog_categories(name, id)
           )
         `)
-        .eq('published', true)
-        .or(`slug.eq.${id},id.eq.${id}`)
-        .maybeSingle();
+        .eq('published', true);
+
+      // Check if the id looks like a UUID (contains hyphens and is 36 chars)
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+      
+      if (isUUID) {
+        query = query.eq('id', id);
+      } else {
+        query = query.eq('slug', id);
+      }
+
+      const { data, error } = await query.maybeSingle();
       
       if (error) throw error;
       return data;

@@ -52,21 +52,24 @@ const Destinations = () => {
     <div className="min-h-screen">
       {/* Modern Hero Section */}
       <section className="relative bg-[#023047] text-white py-12 lg:py-20 overflow-hidden">
-        {/* Modern background elements */}
+        {/* Enhanced background elements with smoother animations */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-32 left-16 w-36 h-36 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute top-80 right-24 w-28 h-28 bg-accent/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
           <div className="absolute bottom-32 left-1/4 w-44 h-44 bg-white/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          {/* Additional subtle decorative elements */}
+          <div className="absolute top-1/4 right-1/3 w-2 h-2 bg-accent rounded-full animate-ping opacity-20"></div>
+          <div className="absolute bottom-1/3 left-1/4 w-1 h-1 bg-white rounded-full animate-ping delay-2000 opacity-30"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px]">
             {/* Left Column - Text Content */}
-            <div className="space-y-8 pt-0">
-              {/* Modern Breadcrumb */}
+            <div className="space-y-8 pt-0 animate-fade-in">
+              {/* Enhanced Modern Breadcrumb */}
               <nav className="flex items-center gap-3 text-sm">
-                <div className="flex items-center gap-2 text-white/70 hover:text-white transition-colors cursor-pointer">
-                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 cursor-pointer group">
+                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-white/40 transition-all duration-300">
                     <Home className="h-3 w-3 text-white" />
                   </div>
                   <span>Home</span>
@@ -75,32 +78,32 @@ const Destinations = () => {
                 <span className="text-white font-medium">Destinations</span>
               </nav>
 
-              {/* Hero Content */}
+              {/* Enhanced Hero Content */}
               <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20">
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300 animate-scale-in">
                   <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
                   Global Education Opportunities
                 </div>
                 
-                <h1 className="text-5xl lg:text-7xl font-black leading-tight">
-                  <span className="block text-white">
+                <h1 className="text-5xl lg:text-7xl font-black leading-tight animate-fade-in">
+                  <span className="block text-white drop-shadow-lg">
                     Study
                   </span>
-                  <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                  <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
                     Destinations
                   </span>
                 </h1>
                 
-                <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
+                <p className="text-xl text-white/90 leading-relaxed max-w-2xl animate-fade-in delay-200">
                   Explore top international education destinations and find the perfect country for your study abroad journey.
                 </p>
               </div>
 
-              {/* Modern Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              {/* Enhanced Modern Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
                 <Button 
                   size="lg" 
-                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8 py-6 text-white"
+                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
                 >
                   <Link to="/contact" className="flex items-center gap-2">
                     <Globe className="h-5 w-5" />
@@ -142,13 +145,13 @@ const Destinations = () => {
               </div>
             </div>
 
-            {/* Right Column - Modern Featured Visual */}
-            <div className="relative hidden lg:block">
-              <div className="relative w-full h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300">
+            {/* Enhanced Right Column - Modern Featured Visual */}
+            <div className="relative hidden lg:block animate-fade-in delay-700">
+              <div className="relative w-full h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>
                 
                 <div className="relative h-full flex flex-col items-center justify-center text-center p-8">
-                  <div className="w-24 h-24 bg-gradient-to-br from-accent to-orange-400 rounded-2xl flex items-center justify-center mb-6 shadow-xl">
+                  <div className="w-24 h-24 bg-gradient-to-br from-accent to-orange-400 rounded-2xl flex items-center justify-center mb-6 shadow-xl group-hover:scale-110 transition-transform duration-300">
                     <Globe className="h-12 w-12 text-white" />
                   </div>
                   

@@ -62,22 +62,25 @@ const About = () => {
     <div className="min-h-screen">
       {/* Modern Hero Section */}
       <section className="relative py-16 bg-[#023047] overflow-hidden min-h-[500px]">
-        {/* Modern background elements */}
+        {/* Enhanced background elements with smoother animations */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-24 left-12 w-44 h-44 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute top-96 right-16 w-32 h-32 bg-accent/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
           <div className="absolute bottom-48 left-1/4 w-52 h-52 bg-white/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          {/* Additional subtle decorative elements */}
+          <div className="absolute top-2/3 right-1/4 w-2 h-2 bg-accent rounded-full animate-ping opacity-20"></div>
+          <div className="absolute top-1/4 left-2/3 w-1 h-1 bg-white rounded-full animate-ping delay-1500 opacity-30"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
           {/* Main Hero Content */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px] py-8">
             {/* Left Column - Text Content */}
-            <div className="space-y-8">
-              {/* Modern Breadcrumb */}
+            <div className="space-y-8 animate-fade-in">
+              {/* Enhanced Modern Breadcrumb */}
               <nav className="flex items-center gap-3 text-sm">
-                <div className="flex items-center gap-2 text-white/70 hover:text-white transition-colors cursor-pointer">
-                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 cursor-pointer group">
+                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-white/40 transition-all duration-300">
                     <Home className="h-3 w-3 text-white" />
                   </div>
                   <span>Home</span>
@@ -86,32 +89,32 @@ const About = () => {
                 <span className="text-white font-medium">About Us</span>
               </nav>
 
-              {/* Hero Content */}
+              {/* Enhanced Hero Content */}
               <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20">
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300 animate-scale-in">
                   <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
                   Trusted Education Partners
                 </div>
                 
-                <h1 className="text-5xl lg:text-7xl font-black leading-tight">
-                  <span className="block text-white">
+                <h1 className="text-5xl lg:text-7xl font-black leading-tight animate-fade-in">
+                  <span className="block text-white drop-shadow-lg">
                     Best Migration
                   </span>
-                  <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                  <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
                     Agents & Consultants
                   </span>
                 </h1>
                 
-                <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
+                <p className="text-xl text-white/90 leading-relaxed max-w-2xl animate-fade-in delay-200">
                   {aboutPageData?.subtitle || "We are registered migration agents & education consultants in Australia with 5k+ satisfied clients."}
                 </p>
               </div>
 
-              {/* Modern Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              {/* Enhanced Modern Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
                 <Button 
                   size="lg" 
-                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8 py-6 text-white"
+                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
                 >
                   <Link to="/contact" className="flex items-center gap-2">
                     <ArrowRight className="h-5 w-5" />
@@ -153,19 +156,19 @@ const About = () => {
               </div>
             </div>
 
-            {/* Right Column - Modern Team Showcase */}
-            <div className="relative lg:ml-8">
-              <div className="relative w-full h-[300px] lg:h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300">
+            {/* Enhanced Right Column - Modern Team Showcase */}
+            <div className="relative lg:ml-8 animate-fade-in delay-700">
+              <div className="relative w-full h-[300px] lg:h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>
                 
                 <img
                   src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=face"
                   alt="Team member"
-                  className="relative w-full h-full object-cover rounded-2xl"
+                  className="relative w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
                 />
                 
                 {/* Modern overlay */}
-                <div className="absolute bottom-6 left-6 right-6 bg-[#023047]/90 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                <div className="absolute bottom-6 left-6 right-6 bg-[#023047]/90 backdrop-blur-sm rounded-xl p-4 border border-white/20 transform group-hover:scale-105 transition-transform duration-300">
                   <h3 className="text-xl font-bold text-white mb-1">Expert Team</h3>
                   <p className="text-white/80 text-sm">Dedicated professionals guiding your journey</p>
                 </div>

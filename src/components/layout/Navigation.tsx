@@ -134,14 +134,14 @@ const Navigation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 relative">
             <div
-              className={`flex items-center space-x-8 ${scrolled ? 'ml-0' : 'ml-52 transition ease-in-out duration-300'}`}
+              className={`flex items-center space-x-8 ${scrolled ? 'ml-52' : 'ml-52 transition ease-in-out duration-300'}`}
             >
               <Link to="/" className="overflow-visible">
                 <img
                   src="/lovable-uploads/abcbb2a1-5db8-45ce-8215-42e053f17039.png"
                   alt="Moves International"
                   className={`hidden bg-white md:block lg:block w-auto ${scrolled
-                      ? 'h-14'
+                      ? 'absolute left-0 top-0 py-0 h-14'
                       : 'absolute left-0 h-28 top-0 py-0 shadow-sm'
                     }`}
                   style={{

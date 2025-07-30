@@ -130,7 +130,7 @@ const PageView = () => {
             <div className="flex justify-center mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                Article
+                Page
               </div>
             </div>
 
@@ -225,7 +225,7 @@ const PageView = () => {
                       </div>
                       <div className="flex justify-between">
                         <span>Type:</span>
-                        <span className="text-primary font-medium">Article</span>
+                        <span className="text-primary font-medium">Page</span>
                       </div>
                     </div>
                   </div>

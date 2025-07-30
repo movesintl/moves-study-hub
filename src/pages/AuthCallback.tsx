@@ -59,7 +59,7 @@ const AuthCallback = () => {
               
               if (!retryProfile) {
                 console.error('No user profile found, defaulting to student dashboard');
-                navigate('/student-dashboard');
+                navigate('/student-dashboard/home');
                 return;
               }
               
@@ -67,14 +67,14 @@ const AuthCallback = () => {
               if (retryProfile.role === 'admin' || retryProfile.role === 'editor' || retryProfile.role === 'counselor') {
                 navigate('/admin');
               } else {
-                navigate('/student-dashboard');
+                navigate('/student-dashboard/home');
               }
             } else {
               // Profile exists, redirect based on role
               if (userProfile.role === 'admin' || userProfile.role === 'editor' || userProfile.role === 'counselor') {
                 navigate('/admin');
               } else {
-                navigate('/student-dashboard');
+                navigate('/student-dashboard/home');
               }
             }
 

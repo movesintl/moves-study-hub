@@ -1045,6 +1045,48 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          content: string
+          created_at: string
+          display_order: number | null
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          rating: number
+          reviewer_image_url: string | null
+          reviewer_name: string
+          reviewer_role: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          rating: number
+          reviewer_image_url?: string | null
+          reviewer_name: string
+          reviewer_role?: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          rating?: number
+          reviewer_image_url?: string | null
+          reviewer_name?: string
+          reviewer_role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       roles: {
         Row: {
           created_at: string | null

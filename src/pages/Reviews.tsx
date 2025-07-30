@@ -97,15 +97,15 @@ const Reviews = () => {
           {/* Stats */}
           <div className="grid md:grid-cols-3 gap-8 mb-20">
             <div className="text-center">
-              <div className="text-4xl font-bold text-indigo-600 mb-2">{totalReviews}+</div>
+              <div className="text-4xl font-bold text-primary mb-2">{totalReviews}+</div>
               <div className="text-slate-600">Happy Students</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-indigo-600 mb-2">{averageRating}/5</div>
+              <div className="text-4xl font-bold text-primary mb-2">{averageRating}/5</div>
               <div className="text-slate-600">Average Rating</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-indigo-600 mb-2">95%</div>
+              <div className="text-4xl font-bold text-primary mb-2">95%</div>
               <div className="text-slate-600">Success Rate</div>
             </div>
           </div>

@@ -170,7 +170,7 @@ const Events = () => {
   return (
     <div className="min-h-screen">
       {/* Modern Hero Section - Similar to Careers */}
-      <section className="relative bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
+      <section className="relative bg-white overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full blur-3xl animate-pulse"></div>

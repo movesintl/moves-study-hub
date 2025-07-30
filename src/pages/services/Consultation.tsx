@@ -124,44 +124,65 @@ const Consultation = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: '#023047' }}>
-        <div className="absolute inset-0 bg-[url('/bg.svg')] opacity-10" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-          <div className="text-center space-y-6 mb-12">
-            <div className="inline-flex items-center gap-2 text-black px-6 py-3 rounded-full font-bold" style={{ backgroundColor: '#fa8500' }}>
-              <Star className="h-5 w-5" />
+    <div className="min-h-screen">
+      {/* Modern Hero Section */}
+      <section className="relative bg-white overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-60 right-20 w-32 h-32 bg-gradient-to-br from-accent/10 to-accent/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-40 left-1/3 w-48 h-48 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+          <div className="text-center space-y-8 min-h-[400px] flex flex-col justify-center">
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500/10 to-emerald-600/20 px-4 py-2 rounded-full text-sm font-medium text-emerald-700 mx-auto">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
               100% FREE Consultation
             </div>
             
-            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-              Book Your Free
-              <span className="block" style={{ color: '#fa8500' }}>
-                Study Abroad Consultation
+            {/* Main Heading */}
+            <h1 className="text-5xl lg:text-7xl font-black leading-tight">
+              <span className="block bg-gradient-to-r from-foreground via-foreground to-primary/80 bg-clip-text text-transparent">
+                Get Expert
+              </span>
+              <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Study Abroad Guidance
               </span>
             </h1>
             
-            <p className="text-xl text-white/90 leading-relaxed max-w-3xl mx-auto">
-              Get personalized guidance from certified education consultants. Start your international education journey today.
-            </p>
+            {/* Description */}
+            <div className="max-w-3xl mx-auto space-y-4">
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                Connect with certified education consultants and get personalized guidance
+              </p>
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                Start your international education journey with expert support
+              </p>
+            </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto pt-6">
-              <div className="text-center">
-                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>500+</div>
-                <div className="text-white/80 text-sm">Success Stories</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>98%</div>
-                <div className="text-white/80 text-sm">Success Rate</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>150+</div>
-                <div className="text-white/80 text-sm">Universities</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>15+</div>
-                <div className="text-white/80 text-sm">Countries</div>
+            {/* Stats Grid */}
+            <div className="pt-8">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-lg max-w-4xl mx-auto">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">500+</div>
+                    <div className="text-sm text-muted-foreground font-medium">Success Stories</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">98%</div>
+                    <div className="text-sm text-muted-foreground font-medium">Success Rate</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">150+</div>
+                    <div className="text-sm text-muted-foreground font-medium">Universities</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">15+</div>
+                    <div className="text-sm text-muted-foreground font-medium">Countries</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -169,18 +190,18 @@ const Consultation = () => {
       </section>
 
       {/* Main Booking Section */}
-      <section className="py-16 bg-gradient-to-br from-orange-50 to-yellow-50 -mt-8 relative z-10">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-5 gap-12 items-start">
             {/* Form Column - Takes more space */}
             <div className="lg:col-span-3 order-2 lg:order-1">
-              <div className="bg-white rounded-3xl shadow-2xl border-2 overflow-hidden" style={{ borderColor: '#fa8500' }}>
-                <div className="text-white p-6 text-center" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
+              <div className="bg-card/50 backdrop-blur-sm rounded-3xl shadow-xl border border-border/50 overflow-hidden">
+                <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground p-6 text-center">
                   <div className="flex items-center justify-center gap-3 mb-3">
                     <Calendar className="h-8 w-8" />
                     <h2 className="text-2xl font-bold">Book Your Free Session</h2>
                   </div>
-                  <p className="text-white/90">Start your journey to international education success</p>
+                  <p className="text-primary-foreground/90">Start your journey to international education success</p>
                 </div>
                 <div className="p-6">
                   <CounsellingBookingForm />
@@ -191,45 +212,45 @@ const Consultation = () => {
             {/* Benefits Column */}
             <div className="lg:col-span-2 order-1 lg:order-2 space-y-6">
               <div className="text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold mb-4" style={{ backgroundColor: '#fa8500', color: 'white' }}>
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-accent to-orange-400 text-white px-4 py-2 rounded-full font-bold mb-4">
                   <Award className="h-4 w-4" />
                   What You'll Get
                 </div>
-                <h3 className="text-2xl font-bold mb-6" style={{ color: '#023047' }}>Comprehensive Consultation Package</h3>
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Comprehensive Consultation Package</h3>
               </div>
 
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
-                  <div key={index} className="bg-white rounded-xl p-4 shadow-sm border-2 hover:shadow-md transition-shadow" style={{ borderColor: '#fa8500' }}>
+                  <div key={index} className="bg-card border border-border rounded-xl p-4 hover:shadow-md transition-all duration-300 hover:border-primary/30">
                     <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg flex-shrink-0" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
-                        <benefit.icon className="h-5 w-5 text-white" />
+                      <div className="p-2 bg-gradient-to-r from-primary to-accent rounded-lg flex-shrink-0">
+                        <benefit.icon className="h-5 w-5 text-primary-foreground" />
                       </div>
                       <div>
-                        <h4 className="font-bold mb-1" style={{ color: '#023047' }}>{benefit.title}</h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">{benefit.description}</p>
+                        <h4 className="font-bold mb-1 text-foreground">{benefit.title}</h4>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{benefit.description}</p>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-6 mt-6 border-2" style={{ borderColor: '#fa8500' }}>
+              <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-6 mt-6 border border-emerald-200">
                 <div className="flex items-center gap-3 mb-4">
-                  <Shield className="h-6 w-6" style={{ color: '#023047' }} />
-                  <h4 className="font-bold" style={{ color: '#023047' }}>100% Risk Free</h4>
+                  <Shield className="h-6 w-6 text-emerald-600" />
+                  <h4 className="font-bold text-emerald-900">100% Risk Free</h4>
                 </div>
-                <ul className="space-y-2 text-sm" style={{ color: '#023047' }}>
+                <ul className="space-y-2 text-sm text-emerald-800">
                   <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
+                    <CheckCircle className="h-4 w-4 text-emerald-600" />
                     No hidden charges or obligations
                   </li>
                   <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
+                    <CheckCircle className="h-4 w-4 text-emerald-600" />
                     Expert certified consultants
                   </li>
                   <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
+                    <CheckCircle className="h-4 w-4 text-emerald-600" />
                     Personalized recommendations
                   </li>
                 </ul>
@@ -285,14 +306,14 @@ const Consultation = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gradient-to-br from-background via-background to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold mb-6" style={{ backgroundColor: '#fa8500', color: 'white' }}>
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-accent to-orange-400 text-white px-6 py-3 rounded-full font-bold mb-6">
               <Award className="h-5 w-5" />
               Why Students Choose Us
             </div>
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6" style={{ color: '#023047' }}>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-foreground">
               Trusted by Thousands of Students
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -302,13 +323,13 @@ const Consultation = () => {
 
           <div className="grid md:grid-cols-3 gap-6">
             {whyChooseUs.map((item, index) => (
-              <Card key={index} className="text-center group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 bg-gradient-to-br from-orange-50 to-red-50" style={{ borderColor: '#fa8500' }}>
+              <Card key={index} className="text-center group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-border bg-card/50 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
-                    <item.icon className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg bg-gradient-to-r from-primary to-accent">
+                    <item.icon className="h-8 w-8 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3" style={{ color: '#023047' }}>{item.title}</h3>
-                  <p className="text-orange-700 leading-relaxed text-sm">{item.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-foreground">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm">{item.description}</p>
                 </CardContent>
               </Card>
             ))}

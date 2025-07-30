@@ -83,7 +83,7 @@ export function StudentSidebar() {
               Navigation
             </SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu className="space-y-2 px-1">
+              <SidebarMenu className={`space-y-2 ${isCollapsed ? 'px-1' : 'px-4'}`}>
                 {mainMenuItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>

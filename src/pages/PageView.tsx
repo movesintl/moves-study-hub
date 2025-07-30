@@ -112,122 +112,153 @@ const PageView = () => {
         )}
       </Helmet>
       
-      <div className="min-h-screen bg-gradient-subtle relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-pulse delay-500"></div>
-        </div>
+      <div className="min-h-screen bg-background relative">
+        {/* Modern Hero Section */}
+        <div className="relative overflow-hidden">
+          {/* Geometric Background Pattern */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+            <div className="absolute top-0 left-0 w-full h-full">
+              <div className="absolute top-20 left-20 w-32 h-32 border border-primary/20 rotate-45 rounded-xl"></div>
+              <div className="absolute top-40 right-32 w-24 h-24 bg-accent/10 rounded-full"></div>
+              <div className="absolute bottom-32 left-1/4 w-40 h-40 border-2 border-accent/20 rounded-full"></div>
+              <div className="absolute bottom-20 right-20 w-28 h-28 bg-primary/10 rotate-12 rounded-lg"></div>
+            </div>
+          </div>
 
-        {/* Hero Section with Split Design */}
-        <div className="relative min-h-screen flex items-center bg-gradient-primary">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              
-              {/* Left Side - Text Content */}
-              <div className="text-white space-y-8 animate-fade-in">
-                <div className="space-y-4">
-                  <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
-                    <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium">Page Details</span>
-                  </div>
-                  
-                  <h1 className="text-6xl lg:text-7xl font-black leading-none">
-                    <span className="block text-white">
-                      {page.title}
-                    </span>
-                    {page.subtitle && (
-                      <span className="block text-white/80 text-4xl lg:text-5xl mt-2">
-                        {page.subtitle}
-                      </span>
-                    )}
-                  </h1>
-                </div>
-                
-                {page.page_description && (
-                  <p className="text-xl text-white/90 leading-relaxed max-w-lg">
-                    {page.page_description}
-                  </p>
-                )}
-                
-                {/* CTA Button */}
-                {page.cta_button_text && page.cta_button_link && (
-                  <div className="pt-4">
-                    <a 
-                      href={page.cta_button_link}
-                      className="inline-flex items-center gap-3 px-8 py-4 bg-white text-primary font-bold rounded-2xl hover:bg-white/90 transition-all duration-300 hover-scale shadow-elegant"
-                    >
-                      {page.cta_button_text}
-                      <ArrowRight className="h-5 w-5" />
-                    </a>
-                  </div>
-                )}
-              </div>
-
-              {/* Right Side - Feature Image or Content */}
-              <div className="relative animate-scale-in">
-                {page.feature_image_url ? (
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-xl"></div>
-                    <div className="relative glass rounded-3xl overflow-hidden border border-white/20 shadow-elegant backdrop-blur-xl">
-                      <img 
-                        src={page.feature_image_url} 
-                        alt={page.title}
-                        className="w-full h-96 object-cover"
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-xl"></div>
-                    <div className="relative glass rounded-3xl p-10 border border-white/20 shadow-elegant backdrop-blur-xl">
-                      <div className="text-center text-white">
-                        <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                          <CheckCircle className="h-10 w-10" />
-                        </div>
-                        <h3 className="text-2xl font-bold mb-4">Learn More</h3>
-                        <p className="text-white/90">Discover detailed information about this topic</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            {/* Badge */}
+            <div className="flex justify-center mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
+                <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                Article
               </div>
             </div>
+
+            {/* Title Section */}
+            <div className="text-center max-w-4xl mx-auto mb-16">
+              <h1 className="text-5xl md:text-7xl font-black leading-tight mb-6">
+                <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
+                  {page.title}
+                </span>
+              </h1>
+              
+              {page.subtitle && (
+                <h2 className="text-2xl md:text-3xl text-muted-foreground font-medium mb-8">
+                  {page.subtitle}
+                </h2>
+              )}
+              
+              {page.page_description && (
+                <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                  {page.page_description}
+                </p>
+              )}
+            </div>
+
+            {/* Feature Image */}
+            {page.feature_image_url && (
+              <div className="max-w-5xl mx-auto mb-16">
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+                  <div className="relative bg-card rounded-2xl overflow-hidden border border-border">
+                    <img 
+                      src={page.feature_image_url} 
+                      alt={page.title}
+                      className="w-full h-64 md:h-96 object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* CTA Button */}
+            {page.cta_button_text && page.cta_button_link && (
+              <div className="text-center">
+                <a 
+                  href={page.cta_button_link}
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 hover-scale shadow-lg"
+                >
+                  {page.cta_button_text}
+                  <ArrowRight className="h-5 w-5" />
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Content Section */}
-        {page.visual_builder_enabled && page.visual_builder_data ? (
-          <div className="relative py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative bg-muted/30 py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {page.visual_builder_enabled && page.visual_builder_data ? (
               <PageRenderer data={page.visual_builder_data} />
-            </div>
-          </div>
-        ) : (
-          <div className="relative py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative backdrop-blur-xl rounded-3xl p-12 border border-border shadow-elegant bg-background mb-16">
-                <PageViewContent
-                  pageDescription={page.page_description}
-                  contentImageUrl={page.content_image_url}
-                  contentVideoUrl={page.content_video_url}
-                  ctaText={page.cta_text}
-                  ctaButtonText={page.cta_button_text}
-                  ctaButtonLink={page.cta_button_link}
-                  bodyContent={page.body_content}
-                  content={page.content}
-                />
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Main Content */}
+                <div className="lg:col-span-2">
+                  <div className="bg-card rounded-2xl border border-border p-8 shadow-lg">
+                    <PageViewContent
+                      pageDescription={page.page_description}
+                      contentImageUrl={page.content_image_url}
+                      contentVideoUrl={page.content_video_url}
+                      ctaText={page.cta_text}
+                      ctaButtonText={page.cta_button_text}
+                      ctaButtonLink={page.cta_button_link}
+                      bodyContent={page.body_content}
+                      content={page.content}
+                    />
+                  </div>
+                </div>
+
+                {/* Sidebar */}
+                <div className="space-y-8">
+                  {/* Quick Info Card */}
+                  <div className="bg-card rounded-2xl border border-border p-6 shadow-lg">
+                    <h3 className="text-xl font-bold text-foreground mb-4">Quick Info</h3>
+                    <div className="space-y-3 text-sm text-muted-foreground">
+                      <div className="flex justify-between">
+                        <span>Published:</span>
+                        <span>{new Date(page.created_at).toLocaleDateString()}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Updated:</span>
+                        <span>{new Date(page.updated_at).toLocaleDateString()}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Type:</span>
+                        <span className="text-primary font-medium">Article</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Related Action Card */}
+                  <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl border border-primary/20 p-6">
+                    <h3 className="text-lg font-bold text-foreground mb-3">Need Help?</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Get expert guidance on your journey
+                    </p>
+                    <button className="w-full bg-primary text-primary-foreground font-medium py-3 rounded-xl hover:bg-primary/90 transition-colors">
+                      Contact Us
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
-        )}
+        </div>
 
         {/* FAQ Section */}
         {page.faqs && page.faqs.length > 0 && (
-          <div className="relative py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative backdrop-blur-xl rounded-3xl p-12 border border-border shadow-elegant bg-background mb-16">
+          <div className="relative py-24">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-foreground mb-4">
+                  Frequently Asked Questions
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Everything you need to know about this topic
+                </p>
+              </div>
+              <div className="bg-card rounded-2xl border border-border p-8 shadow-lg">
                 <PageViewFAQ faqs={page.faqs} />
               </div>
             </div>
@@ -236,9 +267,17 @@ const PageView = () => {
 
         {/* Related Blogs Section */}
         {relatedBlogs.length > 0 && (
-          <div className="relative py-20">
+          <div className="relative bg-muted/30 py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative backdrop-blur-xl rounded-3xl p-12 border border-border shadow-elegant bg-background mb-16">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-foreground mb-4">
+                  Related Articles
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Continue exploring with these related topics
+                </p>
+              </div>
+              <div className="bg-card rounded-2xl border border-border p-8 shadow-lg">
                 <PageViewRelatedBlogs relatedBlogs={relatedBlogs} />
               </div>
             </div>
@@ -247,9 +286,17 @@ const PageView = () => {
 
         {/* Lead Enquiry Form */}
         {page.show_counselling_form && (
-          <div className="relative py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative backdrop-blur-xl rounded-3xl p-12 border border-border shadow-elegant bg-background">
+          <div className="relative py-24">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-foreground mb-4">
+                  Get in Touch
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Ready to start your journey? Let's talk!
+                </p>
+              </div>
+              <div className="bg-card rounded-2xl border border-border p-8 shadow-lg">
                 <LeadEnquiryForm />
               </div>
             </div>

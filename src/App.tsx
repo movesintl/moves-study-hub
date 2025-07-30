@@ -21,6 +21,7 @@ import DestinationDetails from '@/pages/DestinationDetails';
 import BlogDetails from '@/pages/BlogDetails';
 import CourseComparison from '@/pages/CourseComparison';
 import Auth from '@/pages/Auth';
+import AuthCallback from '@/pages/AuthCallback';
 import NotFound from '@/pages/NotFound';
 import Contact from '@/pages/Contact';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
@@ -87,6 +88,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/auth" element={<Auth />} />
+              <Route path="/auth/callback" element={<AuthCallback />} />
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />

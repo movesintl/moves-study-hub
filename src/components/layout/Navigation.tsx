@@ -134,10 +134,7 @@ const Navigation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 relative">
             <div
-              className={`flex items-center space-x-8 ${scrolled ? 'ml-0' : 'ml-52'}`}
-              style={{
-                transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-              }}
+              className={`flex items-center space-x-8 ${scrolled ? 'ml-0' : 'ml-52 transition ease-in-out duration-300'}`}
             >
               <Link to="/" className="overflow-visible">
                 <img
@@ -148,7 +145,7 @@ const Navigation = () => {
                       : 'absolute left-0 h-28 top-0 py-0 shadow-sm'
                     }`}
                   style={{
-                    transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    transition: 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                   }}
                 />
               </Link>

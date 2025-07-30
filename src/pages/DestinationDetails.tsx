@@ -49,36 +49,6 @@ const DestinationDetails = () => {
     }
   });
 
-  const { data: universities = [] } = useQuery({
-    queryKey: ['destination-universities', destination?.name],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('universities')
-        .select('*')
-        .ilike('location', `%${destination?.name}%`)
-        .limit(12);
-      
-      if (error) throw error;
-      return data;
-    },
-    enabled: !!destination?.name
-  });
-
-  const { data: courses = [] } = useQuery({
-    queryKey: ['destination-courses', destination?.id],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('courses')
-        .select('*')
-        .eq('destination_id', destination?.id)
-        .eq('featured', true)
-        .limit(8);
-      
-      if (error) throw error;
-      return data;
-    },
-    enabled: !!destination?.id
-  });
 
   const { whyStudyPoints, jobMarketPoints } = useDestinationContent({
     destination: destination || { name: '', why_study_points: [], job_market_points: [] }

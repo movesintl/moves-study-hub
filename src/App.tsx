@@ -145,6 +145,7 @@ function App() {
                 <Route path="universities" element={<UniversitiesList />} />
                 <Route path="universities/new" element={<UniversityForm />} />
                 <Route path="universities/:id/edit" element={<UniversityForm />} />
+                
                 <Route path="destinations" element={<DestinationsList />} />
                 <Route path="destinations/new" element={<DestinationForm />} />
                 <Route path="destinations/:id/edit" element={<DestinationForm />} />

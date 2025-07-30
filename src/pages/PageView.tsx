@@ -112,135 +112,83 @@ const PageView = () => {
         )}
       </Helmet>
       
-      <div className="min-h-screen bg-background relative">
-        {/* Modern Hero Section */}
-        <div className="relative overflow-hidden">
-          {/* Geometric Background Pattern */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-            <div className="absolute top-0 left-0 w-full h-full">
-              <div className="absolute top-20 left-20 w-32 h-32 border border-primary/20 rotate-45 rounded-xl"></div>
-              <div className="absolute top-40 right-32 w-24 h-24 bg-accent/10 rounded-full"></div>
-              <div className="absolute bottom-32 left-1/4 w-40 h-40 border-2 border-accent/20 rounded-full"></div>
-              <div className="absolute bottom-20 right-20 w-28 h-28 bg-primary/10 rotate-12 rounded-lg"></div>
-            </div>
-          </div>
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            {/* Badge */}
-            <div className="flex justify-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
-                <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                Page
+      <div className="min-h-screen bg-background">
+        {/* Clean Hero Section */}
+        <div className="relative bg-gradient-to-br from-primary/5 via-background to-accent/5 overflow-hidden">
+          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+              
+              {/* Left Content */}
+              <div className="space-y-8">
+                <div className="space-y-6">
+                  <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-foreground">
+                    {page.title}
+                  </h1>
+                  
+                  {page.subtitle && (
+                    <h2 className="text-2xl lg:text-3xl text-muted-foreground font-medium">
+                      {page.subtitle}
+                    </h2>
+                  )}
+                  
+                  {page.page_description && (
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {page.page_description}
+                    </p>
+                  )}
+                </div>
+                
+                {page.cta_button_text && page.cta_button_link && (
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <a 
+                      href={page.cta_button_link}
+                      className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300"
+                    >
+                      {page.cta_button_text}
+                      <ArrowRight className="h-5 w-5" />
+                    </a>
+                  </div>
+                )}
               </div>
-            </div>
 
-            {/* Title Section */}
-            <div className="text-center max-w-4xl mx-auto mb-16">
-              <h1 className="text-5xl md:text-7xl font-black leading-tight mb-6">
-                <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-                  {page.title}
-                </span>
-              </h1>
-              
-              {page.subtitle && (
-                <h2 className="text-2xl md:text-3xl text-muted-foreground font-medium mb-8">
-                  {page.subtitle}
-                </h2>
-              )}
-              
-              {page.page_description && (
-                <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                  {page.page_description}
-                </p>
-              )}
-            </div>
-
-            {/* Feature Image */}
-            {page.feature_image_url && (
-              <div className="max-w-5xl mx-auto mb-16">
-                <div className="relative group">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-                  <div className="relative bg-card rounded-2xl overflow-hidden border border-border">
+              {/* Right Content - Feature Image */}
+              {page.feature_image_url && (
+                <div className="relative">
+                  <div className="aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden border border-border shadow-xl">
                     <img 
                       src={page.feature_image_url} 
                       alt={page.title}
-                      className="w-full h-64 md:h-96 object-cover"
+                      className="w-full h-full object-cover"
                     />
                   </div>
+                  {/* Decorative elements */}
+                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
+                  <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-accent/10 rounded-full blur-xl"></div>
                 </div>
-              </div>
-            )}
-
-            {/* CTA Button */}
-            {page.cta_button_text && page.cta_button_link && (
-              <div className="text-center">
-                <a 
-                  href={page.cta_button_link}
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 hover-scale shadow-lg"
-                >
-                  {page.cta_button_text}
-                  <ArrowRight className="h-5 w-5" />
-                </a>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
 
         {/* Content Section */}
-        <div className="relative bg-muted/30 py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative py-24">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             {page.visual_builder_enabled && page.visual_builder_data ? (
               <PageRenderer data={page.visual_builder_data} />
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Main Content */}
-                <div className="lg:col-span-2">
-                  <div className="bg-card rounded-2xl border border-border p-8 shadow-lg">
-                    <PageViewContent
-                      pageDescription={page.page_description}
-                      contentImageUrl={page.content_image_url}
-                      contentVideoUrl={page.content_video_url}
-                      ctaText={page.cta_text}
-                      ctaButtonText={page.cta_button_text}
-                      ctaButtonLink={page.cta_button_link}
-                      bodyContent={page.body_content}
-                      content={page.content}
-                    />
-                  </div>
-                </div>
-
-                {/* Sidebar */}
-                <div className="space-y-8">
-                  {/* Quick Info Card */}
-                  <div className="bg-card rounded-2xl border border-border p-6 shadow-lg">
-                    <h3 className="text-xl font-bold text-foreground mb-4">Quick Info</h3>
-                    <div className="space-y-3 text-sm text-muted-foreground">
-                      <div className="flex justify-between">
-                        <span>Published:</span>
-                        <span>{new Date(page.created_at).toLocaleDateString()}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Updated:</span>
-                        <span>{new Date(page.updated_at).toLocaleDateString()}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Type:</span>
-                        <span className="text-primary font-medium">Page</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Related Action Card */}
-                  <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl border border-primary/20 p-6">
-                    <h3 className="text-lg font-bold text-foreground mb-3">Need Help?</h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Get expert guidance on your journey
-                    </p>
-                    <button className="w-full bg-primary text-primary-foreground font-medium py-3 rounded-xl hover:bg-primary/90 transition-colors">
-                      Contact Us
-                    </button>
-                  </div>
-                </div>
+              <div className="bg-card rounded-2xl border border-border p-12 shadow-lg">
+                <PageViewContent
+                  pageDescription={page.page_description}
+                  contentImageUrl={page.content_image_url}
+                  contentVideoUrl={page.content_video_url}
+                  ctaText={page.cta_text}
+                  ctaButtonText={page.cta_button_text}
+                  ctaButtonLink={page.cta_button_link}
+                  bodyContent={page.body_content}
+                  content={page.content}
+                />
               </div>
             )}
           </div>

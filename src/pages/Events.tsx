@@ -173,11 +173,12 @@ const Events = () => {
       <section className="relative bg-[#023047] text-white py-12 lg:py-20 overflow-hidden">
         {/* Enhanced background elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-24 left-16 w-36 h-36 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-80 right-24 w-28 h-28 bg-accent/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
-          <div className="absolute bottom-32 left-1/4 w-44 h-44 bg-white/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
-          <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-accent rounded-full animate-ping opacity-20"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-white rounded-full animate-ping delay-2000 opacity-30"></div>
+          <div className="absolute top-20 left-10 w-40 h-40 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-60 right-20 w-32 h-32 bg-accent/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-40 left-1/3 w-48 h-48 bg-white/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          {/* Additional subtle decorative elements */}
+          <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-accent rounded-full animate-ping opacity-20"></div>
+          <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-white rounded-full animate-ping delay-3000 opacity-30"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -196,7 +197,7 @@ const Events = () => {
                 <span className="text-white font-medium">Events</span>
               </nav>
 
-              {/* Enhanced Hero Content */}
+              {/* Hero Content */}
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300 animate-scale-in">
                   <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
@@ -217,7 +218,7 @@ const Events = () => {
                 </p>
               </div>
 
-              {/* Enhanced Modern Action Buttons */}
+              {/* Modern Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
                 <Button 
                   size="lg" 
@@ -240,7 +241,7 @@ const Events = () => {
                 </Button>
               </div>
 
-              {/* Enhanced Trust Indicators */}
+              {/* Trust Indicators */}
               <div className="flex flex-wrap items-center gap-8 pt-4 animate-fade-in delay-500">
                 <div className="flex items-center gap-3 group">
                   <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30 group-hover:border-emerald-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-emerald-500/20">
@@ -263,7 +264,7 @@ const Events = () => {
               </div>
             </div>
 
-            {/* Right Column - Modern Visual */}
+            {/* Right Column - Featured Image */}
             <div className="relative hidden lg:block animate-fade-in delay-700">
               <div className="relative w-full h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>

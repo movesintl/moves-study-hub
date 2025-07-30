@@ -80,10 +80,11 @@ export const CourseHeader = ({
                 <Sparkles className="w-4 h-4 text-[#fa8500] mr-2" />
                 <span className="text-white font-medium text-sm">Discover Excellence</span>
               </div>
-              
-              <h1 className="text-3xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            
+              <h1 className="text-5xl lg:text-7xl font-black text-white mb-4 leading-tight animate-fade-in">
                 Find Your
-                <span className="block text-[#fa8500] drop-shadow-lg">Perfect Course</span>
+                  <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
+                  Perfect Course</span>
               </h1>
               
               <p className="text-lg text-white/90 mb-6 max-w-lg lg:max-w-none">

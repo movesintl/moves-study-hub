@@ -149,8 +149,9 @@ const FeaturedUniversities = () => {
                         {/* View Details Button - added min-width and better padding */}
                         <Button
                           asChild
-                          className="items-center gap-2 px-4 text-white py-2.5 bg-primary border border-gray-200 rounded-lg hover:bg-orange-600
-                           hover:border-gray-300 transition-all duration-200 text-sm font-medium w-full justify-center min-w-[180px]"
+                          className="items-center gap-2 px-4 text-white py-2.5 bg-accent border border-gray-200 rounded-lg hover:bg-accent/90
+                           hover:border-gray-300 hover:shadow-2xl hover:shadow-accent/25 transition-all duration-200 text-sm font-medium w-full 
+                           justify-center min-w-[180px] hover:scale-105"
                         >
                           <Link to={`/universities/${university.slug || university.id}`}>
                             <ExternalLink className="w-4 h-4" />

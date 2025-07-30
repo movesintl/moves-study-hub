@@ -1,6 +1,7 @@
 import React from 'react';
-import { MapPin, Home, ChevronRight, ExternalLink, BookOpen, Users } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { MapPin, Home, ChevronRight, ExternalLink, BookOpen, Users, MessageCircle } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '../ui/button';
 
 interface DestinationHeroProps {
   destination: {
@@ -35,15 +36,15 @@ const DestinationHero = ({ destination }: DestinationHeroProps) => {
           <div className="text-white space-y-8">
             {/* Badge */}
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-[#fa8500]/20 rounded-full">
-                <MapPin className="h-6 w-6 text-[#fa8500]" />
-              </div>
-              <span className="text-xl font-semibold tracking-wide">Study Destination</span>
+               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300 animate-scale-in">
+<MapPin className="h-4 w-4 text-accent " />
+                  Study Destination
+                </div>
             </div>
 
             {/* Main Title */}
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
                 {destination.name}
               </h1>
             </div>
@@ -57,18 +58,31 @@ const DestinationHero = ({ destination }: DestinationHeroProps) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="group flex items-center justify-center gap-3 px-8 py-4 bg-[#fa8500] hover:bg-orange-600 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#fa8500]/25">
+             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
+                <Button
+                  size="lg" 
+                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
+                >
+                  <Link to="/services/consultation" className="flex items-center gap-2">
                 <BookOpen className="h-5 w-5 group-hover:rotate-12 transition-transform" />
-                <span>Explore Programs</span>
+                    <span>
+                      Explore Programs
+                      </span>
                 <ExternalLink className="h-4 w-4 opacity-70" />
-              </button>
-              
-              <button className="flex items-center justify-center gap-3 px-8 py-4 border-2 border-gray-500 hover:border-white text-white font-semibold rounded-xl backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:scale-105">
-                <Users className="h-5 w-5" />
-                <span>Connect with Students</span>
-              </button>
-            </div>
+                  </Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
+                >
+                  <Link to="/contact" 
+                  className="flex items-center gap-2">
+                    <Users className="h-5 w-5" />
+                    Connect with Students
+                  </Link>
+                </Button>
+              </div>
           </div>
 
           {/* Image Section */}

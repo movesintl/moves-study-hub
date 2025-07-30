@@ -130,7 +130,8 @@ const HighQuality = () => {
             </div>
             {/* View All button */}
             <div className="flex justify-center mt-12 relative z-10">
-              <button className="bg-primary text-white px-8 py-3 rounded-md hover:bg-orange-500 transition-colors font-medium">
+              <button 
+              className="bg-accent hover:shadow-2xl hover:shadow-accent/25 hover:scale-105 transition-all duration-300 text-white px-8 py-3 rounded-md hover:bg-accent/90 font-medium">
                 View All
               </button>
             </div>

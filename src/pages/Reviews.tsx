@@ -5,6 +5,9 @@ import { Badge } from '@/components/ui/badge';
 import { ReviewCard } from '@/components/reviews/ReviewCard';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 import { supabase } from '@/integrations/supabase/client';
+import { Globe, User2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 interface Review {
   id: string;
@@ -29,7 +32,7 @@ const Reviews = () => {
         .select('*')
         .eq('is_published', true)
         .order('display_order', { ascending: true });
-      
+
       if (error) throw error;
       return data;
     }
@@ -37,7 +40,7 @@ const Reviews = () => {
 
   // Calculate stats
   const totalReviews = reviews.length;
-  const averageRating = reviews.length > 0 
+  const averageRating = reviews.length > 0
     ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
     : '5.0';
   const featuredReviews = reviews.filter(review => review.is_featured);
@@ -71,18 +74,14 @@ const Reviews = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden">
-        {/* Background Decorations */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-blue-400/20 rounded-full blur-3xl"></div>
-        </div>
+      <section className="relative py-24 bg-[#fcfcfc] overflow-hidden">
 
         <div className="relative max-w-7xl mx-auto px-4 text-center">
-          <Badge variant="outline" className="mb-6 bg-white/70 backdrop-blur-sm border-indigo-200/50">
+          <div className="inline-flex items-start w-fit leading-tight bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-3">
+            <User2 className="w-4 h-4 mr-2" />
             Student Testimonials
-          </Badge>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-slate-900 via-indigo-900 to-purple-900 bg-clip-text text-transparent">
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-primary bg-clip-text text-transparent">
             What Our Students Say
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
@@ -113,8 +112,8 @@ const Reviews = () => {
           {/* Reviews Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {reviews.map((review) => (
-              <ReviewCard 
-                key={review.id} 
+              <ReviewCard
+                key={review.id}
                 review={{
                   id: review.id,
                   content: review.content,
@@ -122,33 +121,31 @@ const Reviews = () => {
                   reviewerName: review.reviewer_name,
                   reviewerRole: review.reviewer_role,
                   reviewerImage: review.reviewer_image_url
-                }} 
+                }}
               />
             ))}
           </div>
 
           {/* Call to Action */}
           <div className="text-center mt-20">
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-12 max-w-4xl mx-auto">
-              <h3 className="text-3xl font-bold text-slate-900 mb-4">
+            <div className="bg-primary rounded-2xl p-8 text-white">
+              <h3 className="text-2xl font-bold mb-4">
                 Ready to Start Your Journey?
               </h3>
-              <p className="text-lg text-slate-600 mb-8">
+              <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
                 Join thousands of successful students who trusted us with their study abroad dreams.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
-                  href="/consultation" 
-                  className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  Book Free Consultation
-                </a>
-                <a 
-                  href="/contact" 
-                  className="inline-flex items-center justify-center px-8 py-3 bg-white text-indigo-600 font-semibold rounded-xl border-2 border-indigo-200 hover:border-indigo-300 transition-all duration-300"
-                >
-                  Contact Us
-                </a>
+                <Button
+                  asChild
+                  size='lg'
+                  className="hover:bg-accent/90 bg-accent hover:shadow-2xl hover:shadow-accent/25 hover:text-white transition-colors">
+                  <a
+                    href="/consultation"
+                    className="inline-flex items-center justify-center gap-2">  <Globe className="h-5 w-5" />                Book Free Consultation
+                  </a>
+                </Button>
+               
               </div>
             </div>
           </div>

@@ -32,3 +32,6 @@ const PopularCoursesHeader = () => {
 };
 
 export default PopularCoursesHeader;
+
+
+

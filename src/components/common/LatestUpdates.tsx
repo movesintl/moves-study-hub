@@ -184,7 +184,7 @@ const LatestUpdates = () => {
 
                   <Button
                     asChild
-                    className="mt-auto w-full group-hover:bg-orange-500 group-hover:text-white transition-colors"
+                    className="mt-auto w-full group-hover:bg-accent/90 bg-accent hover:shadow-2xl hover:shadow-accent/25 group-hover:text-white transition-colors"
                   >
                     <a href={`/blogs/${blog.slug}`} className="inline-flex items-center justify-center gap-2">
                       Read Article

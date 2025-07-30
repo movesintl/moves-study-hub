@@ -111,7 +111,8 @@ const Services = () => {
                   <span className="block text-white drop-shadow-lg">
                     Expert
                   </span>
-                  <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
+                  <span 
+                  className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
                     Services
                   </span>
                 </h1>
@@ -136,9 +137,10 @@ const Services = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-2 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                  className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
                 >
-                  <Link to="/contact" className="flex items-center gap-2">
+                  <Link to="/contact" 
+                  className="flex items-center gap-2">
                     <Users className="h-5 w-5" />
                     Speak to Expert
                   </Link>

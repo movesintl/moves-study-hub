@@ -59,7 +59,7 @@ export function StudentSidebar() {
           <div className="flex items-center justify-center">
             <div className="relative">
               <img 
-                src="/lovable-uploads/student-dashboard-logo.png" 
+                src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/moves-logo-white.png" 
                 alt="Student Portal Logo" 
                 className={`${isCollapsed ? 'w-10 h-10' : 'w-16 h-16'} object-contain transition-all duration-300 drop-shadow-lg`}
               />
@@ -83,7 +83,7 @@ export function StudentSidebar() {
               Navigation
             </SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu className="space-y-2 px-4">
+              <SidebarMenu className="space-y-2 px-1">
                 {mainMenuItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
@@ -91,7 +91,7 @@ export function StudentSidebar() {
                         to={item.url} 
                         end 
                         className={({ isActive }) => 
-                          `flex items-center px-4 py-3 rounded-xl transition-all duration-300 
+                          `flex items-center px-1 py-3 rounded-xl transition-all duration-300 
                           hover:bg-sidebar-accent hover:shadow-elegant hover:scale-105 
                           ${isActive ? 'bg-sidebar-primary shadow-elegant' : ''} 
                           relative overflow-hidden`
@@ -100,7 +100,7 @@ export function StudentSidebar() {
                         {({ isActive }) => (
                           <>
                             <item.icon
-                              className={`${isCollapsed ? '' : 'mr-3'} h-5 w-5 transition-all duration-300 
+                              className={`${isCollapsed ? '' : 'mr-1'} h-5 w-5 transition-all duration-300 
                               ${isActive ? 'text-orange-500' : 'text-white hover:text-orange-500'}`}
                             />
 

@@ -60,83 +60,120 @@ const About = () => {
 
   return (
     <div className="min-h-screen">
-      {/* About Us Hero Section */}
-      <section className="relative py-16 bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden min-h-[500px]">
+      {/* Modern Hero Section */}
+      <section className="relative py-16 bg-[#023047] overflow-hidden min-h-[500px]">
+        {/* Modern background elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-24 left-12 w-44 h-44 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-96 right-16 w-32 h-32 bg-accent/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-48 left-1/4 w-52 h-52 bg-white/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
           {/* Main Hero Content */}
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px] py-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px] py-8">
             {/* Left Column - Text Content */}
-            <div className="space-y-6 lg:space-y-8">
-              {/* Breadcrumb Navigation */}
+            <div className="space-y-8">
+              {/* Modern Breadcrumb */}
               <nav className="flex items-center gap-3 text-sm">
-                <div className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                  <Home className="h-4 w-4" />
+                <div className="flex items-center gap-2 text-white/70 hover:text-white transition-colors cursor-pointer">
+                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm">
+                    <Home className="h-3 w-3 text-white" />
+                  </div>
                   <span>Home</span>
                 </div>
-                <ChevronRight className="h-4 w-4 text-gray-500" />
+                <ChevronRight className="h-4 w-4 text-white/50" />
                 <span className="text-white font-medium">About Us</span>
               </nav>
 
-              {/* Main Title */}
-              <div className="space-y-4">
-                <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-                  {aboutPageData?.title || "Best Migration Agents & Education Consultants"}
+              {/* Hero Content */}
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20">
+                  <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                  Trusted Education Partners
+                </div>
+                
+                <h1 className="text-5xl lg:text-7xl font-black leading-tight">
+                  <span className="block text-white">
+                    Best Migration
+                  </span>
+                  <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                    Agents & Consultants
+                  </span>
                 </h1>
-                <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
+                
+                <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
                   {aboutPageData?.subtitle || "We are registered migration agents & education consultants in Australia with 5k+ satisfied clients."}
                 </p>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
-                  <Link to="/contact" className="flex items-center">
+              {/* Modern Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  size="lg" 
+                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8 py-6 text-white"
+                >
+                  <Link to="/contact" className="flex items-center gap-2">
+                    <ArrowRight className="h-5 w-5" />
                     Get Started Today
-                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-2 border-white hover:bg-white/90 bg-white text-gray-900 hover:text-gray-900 text-lg px-8 py-6 rounded-lg transition-all duration-300"
+                  className="border-2 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
                 >
-                  <Link to="/services" className="flex items-center">
-                    <BookOpen className="h-5 w-5 mr-2" />
+                  <Link to="/services" className="flex items-center gap-2">
+                    <BookOpen className="h-5 w-5" />
                     Our Services
                   </Link>
                 </Button>
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap items-center gap-6 text-white/80 pt-4">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-accent" />
-                  <span>Registered Professionals</span>
+              <div className="flex flex-wrap items-center gap-8 pt-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30">
+                    <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  </div>
+                  <span className="text-white/90 font-medium">Registered Professionals</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-accent" />
-                  <span>{companyStats?.students_placed || "5,000+"}+ Satisfied Clients</span>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-blue-500/20 backdrop-blur-sm rounded-lg border border-blue-500/30">
+                    <CheckCircle className="h-4 w-4 text-blue-400" />
+                  </div>
+                  <span className="text-white/90 font-medium">{companyStats?.students_placed || "5,000+"}+ Satisfied Clients</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Award className="h-5 w-5 text-accent" />
-                  <span>Proven Results</span>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-amber-500/20 backdrop-blur-sm rounded-lg border border-amber-500/30">
+                    <Award className="h-4 w-4 text-amber-400" />
+                  </div>
+                  <span className="text-white/90 font-medium">Proven Results</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column - Featured Team Image */}
+            {/* Right Column - Modern Team Showcase */}
             <div className="relative lg:ml-8">
-              <div className="w-full h-[300px] lg:h-[400px] object-cover rounded-2xl">
+              <div className="relative w-full h-[300px] lg:h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>
+                
                 <img
                   src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=face"
                   alt="Team member"
-                  className="w-full h-full object-cover rounded-2xl"
+                  className="relative w-full h-full object-cover rounded-2xl"
                 />
+                
+                {/* Modern overlay */}
+                <div className="absolute bottom-6 left-6 right-6 bg-[#023047]/90 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                  <h3 className="text-xl font-bold text-white mb-1">Expert Team</h3>
+                  <p className="text-white/80 text-sm">Dedicated professionals guiding your journey</p>
+                </div>
               </div>
 
-              {/* Decorative elements */}
-              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-accent/20 rounded-full blur-xl z-0"></div>
-              <div className="absolute -top-8 -left-8 w-24 h-24 bg-white/10 rounded-full blur-lg z-0"></div>
+              {/* Modern decorative elements */}
+              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-accent/20 rounded-full blur-xl"></div>
+              <div className="absolute -top-8 -left-8 w-24 h-24 bg-white/10 rounded-full blur-lg"></div>
             </div>
           </div>
         </div>

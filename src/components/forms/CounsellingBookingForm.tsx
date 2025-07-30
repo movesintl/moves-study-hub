@@ -26,13 +26,7 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
   } = useCounsellingBookingForm(defaultDestination, onSuccess);
 
   return (
-    <Card className="shadow-xl border-0">
-      <CardHeader className="bg-primary text-white rounded-t-lg">
-        <CardTitle className="text-2xl text-center flex items-center justify-center gap-2">
-          <GraduationCap className="h-6 w-6" />
-          Book Free Counselling
-        </CardTitle>
-      </CardHeader>
+    <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200/50 hover:shadow-3xl transition-all duration-300 ease-out hover:ring-gray-300/50">
       <CardContent className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <PersonalInfoSection

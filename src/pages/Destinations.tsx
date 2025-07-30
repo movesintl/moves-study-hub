@@ -50,131 +50,76 @@ const Destinations = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Modern Hero Section */}
-      <section className="relative min-h-screen bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-32 left-16 w-36 h-36 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-80 right-24 w-28 h-28 bg-gradient-to-br from-accent/10 to-accent/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
-          <div className="absolute bottom-32 left-1/4 w-44 h-44 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[600px]">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-12 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px]">
             {/* Left Column - Text Content */}
-            <div className="space-y-8">
-              {/* Modern Breadcrumb */}
+            <div className="space-y-6 lg:space-y-8 pt-0">
+              {/* Breadcrumb Navigation */}
               <nav className="flex items-center gap-3 text-sm">
-                <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                  <div className="p-1 bg-gradient-to-br from-primary/10 to-primary/20 rounded">
-                    <Home className="h-3 w-3 text-primary" />
-                  </div>
+                <div className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors cursor-pointer">
+                  <Home className="h-4 w-4" />
                   <span>Home</span>
                 </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                <span className="text-foreground font-medium">Destinations</span>
+                <ChevronRight className="h-4 w-4 text-gray-500" />
+                <span className="text-white font-medium">Destinations</span>
               </nav>
 
-              {/* Hero Content */}
-              <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-primary/20 px-4 py-2 rounded-full text-sm font-medium text-primary">
-                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                  Global Education Opportunities
-                </div>
-                
-                <h1 className="text-5xl lg:text-7xl font-black leading-tight">
-                  <span className="block bg-gradient-to-r from-foreground via-foreground to-primary/80 bg-clip-text text-transparent">
-                    Study
-                  </span>
-                  <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    Destinations
-                  </span>
+              <div className="space-y-4">
+                <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
+                  Study Destinations
                 </h1>
-                
-                <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                  Explore top international education destinations and find the perfect 
-                  country for your transformative study abroad journey.
+                <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
+                  Explore top international education destinations and find the perfect country for your study abroad journey.
                 </p>
               </div>
 
-              {/* Modern Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8 py-6"
-                >
-                  <Link to="/contact" className="flex items-center gap-2">
-                    <Globe className="h-5 w-5" />
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 rounded-lg">
+                  <Link to="/contact" className="flex items-center">
                     Get Free Advice
                   </Link>
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-2 border-primary/30 hover:border-primary hover:bg-primary/5 text-lg px-8 py-6 transition-all duration-300"
+                  className="border-2 border-white hover:bg-white/90 bg-white text-gray-900 hover:text-gray-900 text-lg px-8 py-6 rounded-lg transition-all duration-300"
                 >
-                  <Link to="/services" className="flex items-center gap-2">
-                    <GraduationCap className="h-5 w-5" />
+                  <Link to="/services" className="flex items-center">
+                    <GraduationCap className="h-5 w-5 mr-2" />
                     Our Services
                   </Link>
                 </Button>
               </div>
 
-              {/* Trust Indicators */}
-              <div className="flex flex-wrap items-center gap-8 pt-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-emerald-500/10 to-emerald-600/20 rounded-lg">
-                    <CheckCircle className="h-4 w-4 text-emerald-600" />
-                  </div>
-                  <span className="text-muted-foreground font-medium">Expert Guidance</span>
+              <div className="flex flex-wrap items-center gap-6 text-white/80 pt-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-accent" />
+                  <span>Expert guidance</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-blue-500/10 to-blue-600/20 rounded-lg">
-                    <Clock className="h-4 w-4 text-blue-600" />
-                  </div>
-                  <span className="text-muted-foreground font-medium">Visa Assistance</span>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-accent" />
+                  <span>Visa assistance</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-purple-500/10 to-purple-600/20 rounded-lg">
-                    <Globe className="h-4 w-4 text-purple-600" />
-                  </div>
-                  <span className="text-muted-foreground font-medium">Global Network</span>
+                <div className="flex items-center gap-2">
+                  <Globe className="h-5 w-5 text-accent" />
+                  <span>Global network</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column - Modern Visual */}
-            <div className="relative">
-              <div className="relative bg-gradient-to-br from-card to-card/80 backdrop-blur-sm border border-border/50 rounded-3xl overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5"></div>
-                
-                <div className="relative p-12 h-[400px] flex flex-col items-center justify-center text-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6 shadow-xl">
-                    <Globe className="h-12 w-12 text-white" />
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-foreground mb-4">Worldwide Coverage</h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    We support students in countries across all continents with comprehensive guidance
-                  </p>
-                  
-                  {/* Floating elements */}
-                  <div className="absolute top-8 right-8 w-16 h-16 bg-gradient-to-br from-accent/20 to-accent/40 rounded-full flex items-center justify-center">
-                    <MapPin className="h-6 w-6 text-accent" />
-                  </div>
-                  
-                  <div className="absolute bottom-8 left-8 w-12 h-12 bg-gradient-to-br from-secondary/20 to-secondary/40 rounded-full flex items-center justify-center">
-                    <GraduationCap className="h-5 w-5 text-secondary" />
+            {/* Right Column - Featured Image */}
+            <div className="relative hidden lg:block">
+              <div className="w-full h-[400px] bg-gradient-to-br from-primary/80 to-primary/60 rounded-xl overflow-hidden flex items-center justify-center">
+                <Globe className="h-32 w-32 text-white opacity-30" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-white text-center px-8">
+                    <h3 className="text-2xl font-bold mb-2">Worldwide Coverage</h3>
+                    <p className="text-lg">We support students in countries across all continents</p>
                   </div>
                 </div>
-                
-                {/* Decorative gradient bar */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-secondary"></div>
               </div>
-              
-              {/* Decorative elements */}
-              <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-gradient-to-tr from-accent/20 to-transparent rounded-full blur-3xl"></div>
             </div>
           </div>
         </div>

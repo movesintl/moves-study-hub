@@ -301,11 +301,11 @@ const Blogs = () => {
             {/* Main Headlines */}
             <div className="text-center space-y-6 mb-12">
               <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold leading-none">
-                <span className="block text-foreground">Stories</span>
-                <span className="block text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-clip-text animate-pulse">
-                  Worth
+                <span className="text-foreground">Stories </span>
+                <span className="text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-clip-text animate-pulse">
+                  Worth 
                 </span>
-                <span className="block text-foreground italic font-serif">Reading</span>
+                <span className="text-foreground italic font-serif">Reading</span>
               </h1>
               
               <p className="text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">

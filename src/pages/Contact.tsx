@@ -68,13 +68,10 @@ const Contact = () => {
                 
                 <h1 className="text-7xl lg:text-8xl font-black leading-none">
                   <span className="block text-white">
-                    LET'S
+                    Let's Talk
                   </span>
-                  <span className="block text-white -mt-4">
-                    TALK
-                  </span>
-                  <span className="block text-transparent bg-gradient-accent bg-clip-text -mt-4">
-                    FUTURE
+                  <span className="block text-white bg-gradient-accent bg-clip-text -mt-4">
+                    Future
                   </span>
                 </h1>
               </div>

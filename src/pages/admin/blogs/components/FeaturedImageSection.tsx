@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, Image as ImageIcon } from 'lucide-react';
+import MediaSelector from '@/components/admin/MediaSelector';
 
 interface FeaturedImageSectionProps {
   formData: {
@@ -73,6 +74,19 @@ export const FeaturedImageSection: React.FC<FeaturedImageSectionProps> = ({
             </div>
           </div>
         )}
+
+        <MediaSelector
+          value={formData.featured_image_url}
+          onChange={(value) => {
+            const event = {
+              target: { name: 'featured_image_url', value }
+            } as React.ChangeEvent<HTMLInputElement>;
+            onChange(event);
+          }}
+          label="Or browse media library"
+          placeholder="Select from media library"
+          accept="image/*"
+        />
 
         <div>
           <Label htmlFor="featured_image_url">Or paste image URL</Label>

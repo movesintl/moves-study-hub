@@ -1,62 +1,68 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useQuery } from '@tanstack/react-query';
 import { Badge } from '@/components/ui/badge';
 import { ReviewCard } from '@/components/reviews/ReviewCard';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
+import { supabase } from '@/integrations/supabase/client';
 
-// Sample reviews data - in a real app, this would come from a database
-const sampleReviews = [
-  {
-    id: '1',
-    content: 'Great experience with the team and Specially Disha didi. I am really thankful to the team for guiding me through the entire process of getting admission in my dream university.',
-    rating: 5,
-    reviewerName: 'Faizan Rafiq',
-    reviewerRole: 'Student',
-    reviewerImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
-  },
-  {
-    id: '2',
-    content: 'Amazing support throughout my journey. The counselors were extremely helpful and professional. They made my study abroad dream come true!',
-    rating: 5,
-    reviewerName: 'Priya Sharma',
-    reviewerRole: 'Student',
-    reviewerImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face'
-  },
-  {
-    id: '3',
-    content: 'The best consultancy for study abroad. They helped me get into my preferred university in Australia. Highly recommended for all students.',
-    rating: 5,
-    reviewerName: 'Rohit Kumar',
-    reviewerRole: 'Student',
-    reviewerImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-  },
-  {
-    id: '4',
-    content: 'Excellent guidance and support. The team helped me understand all the requirements and processes. Very professional and caring approach.',
-    rating: 5,
-    reviewerName: 'Sneha Patel',
-    reviewerRole: 'Student',
-    reviewerImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face'
-  },
-  {
-    id: '5',
-    content: 'Outstanding service! They made the complex process of studying abroad so simple. Thank you for making my dreams come true.',
-    rating: 5,
-    reviewerName: 'Arjun Singh',
-    reviewerRole: 'Student',
-    reviewerImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face'
-  },
-  {
-    id: '6',
-    content: 'Professional and dedicated team. They provided excellent guidance from application to visa process. Couldn\'t ask for better support.',
-    rating: 5,
-    reviewerName: 'Aisha Khan',
-    reviewerRole: 'Student',
-    reviewerImage: 'https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?w=150&h=150&fit=crop&crop=face'
-  }
-];
-
+interface Review {
+  id: string;
+  content: string;
+  rating: number;
+  reviewer_name: string;
+  reviewer_role: string;
+  reviewer_image_url?: string;
+  is_featured?: boolean;
+  is_published?: boolean;
+  display_order?: number;
+  created_at?: string;
+  updated_at?: string;
+}
 const Reviews = () => {
+  // Fetch reviews from database
+  const { data: reviews = [], isLoading, error } = useQuery({
+    queryKey: ['reviews'],
+    queryFn: async (): Promise<Review[]> => {
+      const { data, error } = await supabase
+        .from('reviews')
+        .select('*')
+        .eq('is_published', true)
+        .order('display_order', { ascending: true });
+      
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  // Calculate stats
+  const totalReviews = reviews.length;
+  const averageRating = reviews.length > 0 
+    ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
+    : '5.0';
+  const featuredReviews = reviews.filter(review => review.is_featured);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading reviews...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Something went wrong</h2>
+          <p className="text-slate-600">We couldn't load the reviews. Please try again later.</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <Helmet>
@@ -91,11 +97,11 @@ const Reviews = () => {
           {/* Stats */}
           <div className="grid md:grid-cols-3 gap-8 mb-20">
             <div className="text-center">
-              <div className="text-4xl font-bold text-indigo-600 mb-2">500+</div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">{totalReviews}+</div>
               <div className="text-slate-600">Happy Students</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-indigo-600 mb-2">4.9/5</div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">{averageRating}/5</div>
               <div className="text-slate-600">Average Rating</div>
             </div>
             <div className="text-center">
@@ -106,8 +112,18 @@ const Reviews = () => {
 
           {/* Reviews Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sampleReviews.map((review) => (
-              <ReviewCard key={review.id} review={review} />
+            {reviews.map((review) => (
+              <ReviewCard 
+                key={review.id} 
+                review={{
+                  id: review.id,
+                  content: review.content,
+                  rating: review.rating,
+                  reviewerName: review.reviewer_name,
+                  reviewerRole: review.reviewer_role,
+                  reviewerImage: review.reviewer_image_url
+                }} 
+              />
             ))}
           </div>
 

@@ -170,7 +170,7 @@ const Events = () => {
   return (
     <div className="min-h-screen">
       {/* Modern Hero Section - Similar to Careers */}
-      <section className="relative min-h-screen bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
+      <section className="relative bg-white overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
@@ -178,8 +178,8 @@ const Events = () => {
           <div className="absolute bottom-40 left-1/3 w-48 h-48 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pb-0">
-          <div className="text-center space-y-8 min-h-[600px] flex flex-col justify-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+          <div className="text-center space-y-8 min-h-[400px] flex flex-col justify-center">
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-primary/20 px-4 py-2 rounded-full text-sm font-medium text-primary mx-auto">
               <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>

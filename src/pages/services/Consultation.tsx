@@ -124,175 +124,130 @@ const Consultation = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: '#023047' }}>
-        <div className="absolute inset-0 bg-[url('/bg.svg')] opacity-10" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-          <div className="text-center space-y-6 mb-12">
-            <div className="inline-flex items-center gap-2 text-black px-6 py-3 rounded-full font-bold" style={{ backgroundColor: '#fa8500' }}>
-              <Star className="h-5 w-5" />
-              100% FREE Consultation
-            </div>
-            
-            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-              Book Your Free
-              <span className="block" style={{ color: '#fa8500' }}>
-                Study Abroad Consultation
-              </span>
-            </h1>
-            
-            <p className="text-xl text-white/90 leading-relaxed max-w-3xl mx-auto">
-              Get personalized guidance from certified education consultants. Start your international education journey today.
-            </p>
+    <div className="min-h-screen bg-gradient-subtle relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-pulse delay-500"></div>
+      </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto pt-6">
-              <div className="text-center">
-                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>500+</div>
-                <div className="text-white/80 text-sm">Success Stories</div>
+      {/* Hero Section with Split Design */}
+      <div className="relative min-h-screen flex items-center bg-gradient-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Left Side - Text Content */}
+            <div className="text-white space-y-8 animate-fade-in">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
+                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium">100% FREE Consultation</span>
+                </div>
+                
+                <h1 className="text-7xl lg:text-8xl font-black leading-none">
+                  <span className="block text-white">
+                    Expert
+                  </span>
+                  <span className="block text-white bg-gradient-accent bg-clip-text -mt-4">
+                    Guidance
+                  </span>
+                </h1>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>98%</div>
-                <div className="text-white/80 text-sm">Success Rate</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>150+</div>
-                <div className="text-white/80 text-sm">Universities</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold" style={{ color: '#fa8500' }}>15+</div>
-                <div className="text-white/80 text-sm">Countries</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Booking Section */}
-      <section className="py-16 bg-gradient-to-br from-orange-50 to-yellow-50 -mt-8 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-5 gap-12 items-start">
-            {/* Form Column - Takes more space */}
-            <div className="lg:col-span-3 order-2 lg:order-1">
-              <div className="bg-white rounded-3xl shadow-2xl border-2 overflow-hidden" style={{ borderColor: '#fa8500' }}>
-                <div className="text-white p-6 text-center" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
-                  <div className="flex items-center justify-center gap-3 mb-3">
-                    <Calendar className="h-8 w-8" />
-                    <h2 className="text-2xl font-bold">Book Your Free Session</h2>
+              
+              <p className="text-2xl text-white/90 leading-relaxed max-w-lg">
+                Connect with certified education consultants and get personalized guidance for your study abroad journey.
+              </p>
+              
+              {/* Interactive Stats */}
+              <div className="grid grid-cols-3 gap-6 pt-8">
+                <div className="group cursor-pointer">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover-scale">
+                    <div className="text-3xl font-bold text-white mb-2">500+</div>
+                    <div className="text-white/70 text-sm">Success Stories</div>
                   </div>
+                </div>
+                <div className="group cursor-pointer">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover-scale">
+                    <div className="text-3xl font-bold text-white mb-2">98%</div>
+                    <div className="text-white/70 text-sm">Success Rate</div>
+                  </div>
+                </div>
+                <div className="group cursor-pointer">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover-scale">
+                    <div className="text-3xl font-bold text-white mb-2">24/7</div>
+                    <div className="text-white/70 text-sm">Support</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Consultation Form */}
+            <div className="relative animate-scale-in">
+              <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-xl"></div>
+              <div className="relative glass rounded-3xl p-10 border border-white/20 shadow-elegant backdrop-blur-xl">
+                <div className="text-center mb-8">
+                  <div className="inline-block p-4 bg-gradient-brand rounded-2xl mb-4">
+                    <Calendar className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Book Your Free Session</h3>
                   <p className="text-white/90">Start your journey to international education success</p>
                 </div>
-                <div className="p-6">
-                  <CounsellingBookingForm />
-                </div>
-              </div>
-            </div>
-            
-            {/* Benefits Column */}
-            <div className="lg:col-span-2 order-1 lg:order-2 space-y-6">
-              <div className="text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold mb-4" style={{ backgroundColor: '#fa8500', color: 'white' }}>
-                  <Award className="h-4 w-4" />
-                  What You'll Get
-                </div>
-                <h3 className="text-2xl font-bold mb-6" style={{ color: '#023047' }}>Comprehensive Consultation Package</h3>
-              </div>
-
-              <div className="space-y-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="bg-white rounded-xl p-4 shadow-sm border-2 hover:shadow-md transition-shadow" style={{ borderColor: '#fa8500' }}>
-                    <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg flex-shrink-0" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
-                        <benefit.icon className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-bold mb-1" style={{ color: '#023047' }}>{benefit.title}</h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">{benefit.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-6 mt-6 border-2" style={{ borderColor: '#fa8500' }}>
-                <div className="flex items-center gap-3 mb-4">
-                  <Shield className="h-6 w-6" style={{ color: '#023047' }} />
-                  <h4 className="font-bold" style={{ color: '#023047' }}>100% Risk Free</h4>
-                </div>
-                <ul className="space-y-2 text-sm" style={{ color: '#023047' }}>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
-                    No hidden charges or obligations
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
-                    Expert certified consultants
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" style={{ color: '#fa8500' }} />
-                    Personalized recommendations
-                  </li>
-                </ul>
+                <CounsellingBookingForm />
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* How It Works Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-50 to-purple-50">
+      {/* Benefits Section - Floating Cards */}
+      <div className="relative py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-6 py-3 rounded-full font-bold mb-6">
-              <Target className="h-5 w-5" />
-              Our Proven Process
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              How It Works
+          
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <h2 className="text-6xl font-black text-foreground mb-6">
+              <span className="">
+                What You'll Get
+              </span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Our proven 4-step process ensures you get the most comprehensive guidance for your study abroad journey
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Our comprehensive consultation package designed to guide your success.
             </p>
           </div>
 
+          {/* Benefits Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {process.map((item, index) => (
-              <div key={item.step} className="relative">
-                <Card className="h-full bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 group">
-                  <CardContent className="p-8 text-center">
-                    <div className="relative mb-6">
-                      <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
-                        <span className="text-2xl font-bold text-white">{item.step}</span>
-                      </div>
-                      {index < process.length - 1 && (
-                        <div className="hidden lg:block absolute top-10 -right-4 w-8 h-0.5 bg-gradient-to-r from-blue-300 to-purple-300" />
-                      )}
+            {benefits.map((benefit, index) => (
+              <div key={index} className="group relative cursor-pointer">
+                <div className="relative backdrop-blur-xl rounded-3xl p-8 border border-border hover:border-primary/30 transition-all duration-300 hover-scale bg-background shadow-elegant">
+                  
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <benefit.icon className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
-                    <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
-                      <Clock className="h-4 w-4" />
-                      {item.duration}
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                    <h4 className="text-xl font-bold text-foreground mb-2">{benefit.title}</h4>
+                  </div>
+                  
+                  <p className="text-muted-foreground text-sm leading-relaxed text-center">
+                    {benefit.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Why Choose Us Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gradient-to-br from-background via-background to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold mb-6" style={{ backgroundColor: '#fa8500', color: 'white' }}>
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-accent to-orange-400 text-white px-6 py-3 rounded-full font-bold mb-6">
               <Award className="h-5 w-5" />
               Why Students Choose Us
             </div>
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6" style={{ color: '#023047' }}>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-foreground">
               Trusted by Thousands of Students
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -302,13 +257,13 @@ const Consultation = () => {
 
           <div className="grid md:grid-cols-3 gap-6">
             {whyChooseUs.map((item, index) => (
-              <Card key={index} className="text-center group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 bg-gradient-to-br from-orange-50 to-red-50" style={{ borderColor: '#fa8500' }}>
+              <Card key={index} className="text-center group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-border bg-card/50 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
-                    <item.icon className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg bg-gradient-to-r from-primary to-accent">
+                    <item.icon className="h-8 w-8 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3" style={{ color: '#023047' }}>{item.title}</h3>
-                  <p className="text-orange-700 leading-relaxed text-sm">{item.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-foreground">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm">{item.description}</p>
                 </CardContent>
               </Card>
             ))}

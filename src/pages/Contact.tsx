@@ -131,11 +131,9 @@ const Contact = () => {
           {/* Section Header */}
           <div className="text-center mb-20">
             <h2 className="text-6xl font-black text-foreground mb-6">
-              <span className="text-transparent bg-gradient-brand bg-clip-text">
-                GLOBAL
+              <span className="">
+                Our Offices
               </span>
-              <br />
-              PRESENCE
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Connect with our experts worldwide. Choose your preferred location.
@@ -267,7 +265,7 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-black text-foreground mb-6">
-              FIND US ON THE <span className="text-transparent bg-gradient-brand bg-clip-text">MAP</span>
+             Find Us 
             </h2>
           </div>
           
@@ -284,38 +282,6 @@ const Contact = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Our Office Locations"
                 />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="relative py-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="relative">
-            <div className="relative backdrop-blur-xl rounded-3xl p-16 border border-border shadow-elegant bg-background">
-              <h3 className="text-5xl font-black text-foreground mb-8">
-                READY TO <span className="text-transparent bg-gradient-accent bg-clip-text">TRANSFORM</span> YOUR FUTURE?
-              </h3>
-              <p className="text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-                Don't let another day pass without taking action. Your dream education is just one conversation away.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <button className="group bg-gradient-brand text-white px-12 py-6 rounded-2xl font-bold text-xl hover:shadow-brand transition-all duration-300 shadow-elegant hover-scale">
-                  <span className="flex items-center justify-center gap-3">
-                    Start Your Journey
-                    <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </button>
-                
-                <button className="border-2 border-primary text-primary px-12 py-6 rounded-2xl font-bold text-xl hover:bg-primary hover:text-white transition-all duration-300 hover-scale">
-                  <span className="flex items-center justify-center gap-3">
-                    <Phone className="h-6 w-6" />
-                    Call Now
-                  </span>
-                </button>
               </div>
             </div>
           </div>

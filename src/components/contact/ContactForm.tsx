@@ -105,7 +105,7 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="name" className="text-primary font-medium">Full Name *</Label>
+          <Label htmlFor="name" className="text-white font-medium">Full Name *</Label>
           <Input
             id="name"
             placeholder="John Doe"
@@ -118,7 +118,7 @@ const ContactForm = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-primary font-medium">Email Address *</Label>
+          <Label htmlFor="email" className="text-white font-medium">Email Address *</Label>
           <Input
             id="email"
             type="email"
@@ -134,7 +134,7 @@ const ContactForm = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="phone" className="text-primary font-medium">Phone Number</Label>
+          <Label htmlFor="phone" className="text-white font-medium">Phone Number</Label>
           <Input
             id="phone"
             placeholder="+977 xxx xxx xxx / +880 xxx xxx xxx"
@@ -144,7 +144,7 @@ const ContactForm = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="subject" className="text-primary font-medium">Subject *</Label>
+          <Label htmlFor="subject" className="text-white font-medium">Subject *</Label>
           <Input
             id="subject"
             placeholder="Course inquiry"
@@ -158,7 +158,7 @@ const ContactForm = () => {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="message" className="text-primary font-medium">Message *</Label>
+        <Label htmlFor="message" className="text-white font-medium">Message *</Label>
         <Textarea
           id="message"
           placeholder="Tell us about your study abroad goals, questions, or how we can help you..."
@@ -189,7 +189,7 @@ const ContactForm = () => {
         )}
       </Button>
 
-      <p className="text-sm text-gray-500 text-center">
+      <p className="text-sm text-white/70 text-center">
         * Required fields. We respect your privacy and will never share your information.
       </p>
     </form>

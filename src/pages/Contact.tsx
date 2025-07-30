@@ -52,13 +52,6 @@ const Contact = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Floating Navigation Dots */}
-      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 space-y-4">
-        <div className="w-3 h-3 bg-primary/70 rounded-full hover:bg-primary transition-colors cursor-pointer"></div>
-        <div className="w-3 h-3 bg-primary/30 rounded-full hover:bg-primary transition-colors cursor-pointer"></div>
-        <div className="w-3 h-3 bg-primary/30 rounded-full hover:bg-primary transition-colors cursor-pointer"></div>
-        <div className="w-3 h-3 bg-primary/30 rounded-full hover:bg-primary transition-colors cursor-pointer"></div>
-      </div>
 
       {/* Hero Section with Split Design */}
       <div className="relative min-h-screen flex items-center bg-gradient-primary">
@@ -121,8 +114,8 @@ const Contact = () => {
                   <div className="inline-block p-4 bg-gradient-brand rounded-2xl mb-4">
                     <Mail className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-2">Start Your Journey</h3>
-                  <p className="text-muted-foreground">Fill out the form and we'll get back to you within 24 hours</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">Start Your Journey</h3>
+                  <p className="text-white/90">Fill out the form and we'll get back to you within 24 hours</p>
                 </div>
                 <ContactForm />
               </div>

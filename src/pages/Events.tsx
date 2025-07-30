@@ -169,123 +169,88 @@ const Events = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Modern Hero Section */}
-      <section className="relative bg-[#023047] text-white py-12 lg:py-20 overflow-hidden">
-        {/* Enhanced background elements */}
+      {/* Modern Hero Section - Similar to Careers */}
+      <section className="relative min-h-screen bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
+        {/* Animated background elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-40 h-40 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-60 right-20 w-32 h-32 bg-accent/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
-          <div className="absolute bottom-40 left-1/3 w-48 h-48 bg-white/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
-          {/* Additional subtle decorative elements */}
-          <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-accent rounded-full animate-ping opacity-20"></div>
-          <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-white rounded-full animate-ping delay-3000 opacity-30"></div>
+          <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-60 right-20 w-32 h-32 bg-gradient-to-br from-accent/10 to-accent/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-40 left-1/3 w-48 h-48 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px]">
-            {/* Left Column - Text Content */}
-            <div className="space-y-8 animate-fade-in">
-              {/* Enhanced Modern Breadcrumb */}
-              <nav className="flex items-center gap-3 text-sm">
-                <div className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 cursor-pointer group">
-                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-white/40 transition-all duration-300">
-                    <Home className="h-3 w-3 text-white" />
-                  </div>
-                  <span>Home</span>
-                </div>
-                <ChevronRight className="h-4 w-4 text-white/50" />
-                <span className="text-white font-medium">Events</span>
-              </nav>
-
-              {/* Hero Content */}
-              <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300 animate-scale-in">
-                  <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-                  Educational Events & Workshops
-                </div>
-                
-                <h1 className="text-5xl lg:text-7xl font-black leading-tight animate-fade-in">
-                  <span className="block text-white drop-shadow-lg">
-                    Upcoming
-                  </span>
-                  <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
-                    Events
-                  </span>
-                </h1>
-                
-                <p className="text-xl text-white/90 leading-relaxed max-w-2xl animate-fade-in delay-200">
-                  Join our educational events, webinars, and workshops to explore study abroad opportunities and connect with experts.
-                </p>
-              </div>
-
-              {/* Modern Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
-                <Button 
-                  size="lg" 
-                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
-                >
-                  <Link to="#events" className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5" />
-                    Browse Events
-                  </Link>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300 hover:shadow-lg transform hover:scale-105"
-                >
-                  <Link to="/contact" className="flex items-center gap-2">
-                    <ExternalLink className="h-5 w-5" />
-                    Contact Us
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="flex flex-wrap items-center gap-8 pt-4 animate-fade-in delay-500">
-                <div className="flex items-center gap-3 group">
-                  <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30 group-hover:border-emerald-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-emerald-500/20">
-                    <Calendar className="h-4 w-4 text-emerald-400" />
-                  </div>
-                  <span className="text-white/90 font-medium">Regular Webinars</span>
-                </div>
-                <div className="flex items-center gap-3 group">
-                  <div className="p-2 bg-blue-500/20 backdrop-blur-sm rounded-lg border border-blue-500/30 group-hover:border-blue-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <MapPin className="h-4 w-4 text-blue-400" />
-                  </div>
-                  <span className="text-white/90 font-medium">Global Reach</span>
-                </div>
-                <div className="flex items-center gap-3 group">
-                  <div className="p-2 bg-purple-500/20 backdrop-blur-sm rounded-lg border border-purple-500/30 group-hover:border-purple-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/20">
-                    <Clock className="h-4 w-4 text-purple-400" />
-                  </div>
-                  <span className="text-white/90 font-medium">Expert Sessions</span>
-                </div>
-              </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center space-y-8 min-h-[600px] flex flex-col justify-center">
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-primary/20 px-4 py-2 rounded-full text-sm font-medium text-primary mx-auto">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+              Join Our Growing Community
+            </div>
+            
+            {/* Main Heading */}
+            <h1 className="text-5xl lg:text-7xl font-black leading-tight">
+              <span className="block bg-gradient-to-r from-foreground via-foreground to-primary/80 bg-clip-text text-transparent">
+                Build Your
+              </span>
+              <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Future With Us
+              </span>
+            </h1>
+            
+            {/* Description */}
+            <div className="max-w-3xl mx-auto space-y-4">
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                Be part of our mission to help students achieve their international education dreams.
+              </p>
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                Discover exciting educational events where innovation meets impact.
+              </p>
             </div>
 
-            {/* Right Column - Featured Image */}
-            <div className="relative hidden lg:block animate-fade-in delay-700">
-              <div className="relative w-full h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 group">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>
-                
-                <div className="relative h-full flex flex-col items-center justify-center text-center p-8">
-                  <div className="w-24 h-24 bg-gradient-to-br from-accent to-orange-400 rounded-2xl flex items-center justify-center mb-6 shadow-xl group-hover:scale-110 transition-transform duration-300">
-                    <Calendar className="h-12 w-12 text-white" />
+            {/* Filter Section */}
+            <div className="pt-12">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-lg max-w-4xl mx-auto">
+                <div className="flex flex-col md:flex-row gap-6 items-center">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gradient-to-r from-primary/10 to-primary/20 rounded-lg">
+                      <Filter className="h-4 w-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-semibold text-foreground">Filter Opportunities:</span>
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-white mb-4">Join Our Community</h3>
-                  <p className="text-lg text-white/80 leading-relaxed">
-                    Connect with fellow students and education experts worldwide
-                  </p>
-                  
-                  {/* Floating elements */}
-                  <div className="absolute top-8 right-8 w-16 h-16 bg-accent/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-accent/30">
-                    <Clock className="h-6 w-6 text-accent" />
-                  </div>
-                  
-                  <div className="absolute bottom-8 left-8 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
-                    <MapPin className="h-5 w-5 text-white" />
+                  <div className="flex flex-col md:flex-row gap-4 flex-1">
+                    <div className="relative flex-1">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                      <Input
+                        placeholder="Search events..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-10 bg-background/80 border-border/50 hover:border-primary/50 transition-colors"
+                      />
+                    </div>
+                    <Select value={eventTypeFilter} onValueChange={setEventTypeFilter}>
+                      <SelectTrigger className="w-full md:w-[180px] bg-background/80 border-border/50 hover:border-primary/50 transition-colors">
+                        <SelectValue placeholder="All Types" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Types</SelectItem>
+                        <SelectItem value="Webinar">Webinar</SelectItem>
+                        <SelectItem value="In-Person">In-Person</SelectItem>
+                        <SelectItem value="Workshop">Workshop</SelectItem>
+                        <SelectItem value="Open Day">Open Day</SelectItem>
+                        <SelectItem value="Info Session">Info Session</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Select value={modeFilter} onValueChange={setModeFilter}>
+                      <SelectTrigger className="w-full md:w-[150px] bg-background/80 border-border/50 hover:border-primary/50 transition-colors">
+                        <SelectValue placeholder="All Locations" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Locations</SelectItem>
+                        <SelectItem value="Online">Online</SelectItem>
+                        <SelectItem value="Offline">Offline</SelectItem>
+                        <SelectItem value="Hybrid">Hybrid</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>
@@ -298,53 +263,6 @@ const Events = () => {
       <div className="bg-gray-50">
         <div className="container mx-auto px-4 py-16" id="events">
           <div className="space-y-12">
-
-        {/* Enhanced Modern Filters */}
-        <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-lg">
-          <div className="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto">
-            <div className="flex items-center gap-3 mb-4 md:mb-0">
-              <div className="p-2 bg-gradient-to-r from-primary/10 to-primary/20 rounded-lg">
-                <Filter className="h-4 w-4 text-primary" />
-              </div>
-              <span className="text-sm font-semibold text-foreground">Filter Events:</span>
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 flex-1">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                <Input
-                  placeholder="Search events..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-background/80 border-border/50 hover:border-primary/50 transition-colors"
-                />
-              </div>
-              <Select value={eventTypeFilter} onValueChange={setEventTypeFilter}>
-                <SelectTrigger className="w-full md:w-[180px] bg-background/80 border-border/50 hover:border-primary/50 transition-colors">
-                  <SelectValue placeholder="Event Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="Webinar">Webinar</SelectItem>
-                  <SelectItem value="In-Person">In-Person</SelectItem>
-                  <SelectItem value="Workshop">Workshop</SelectItem>
-                  <SelectItem value="Open Day">Open Day</SelectItem>
-                  <SelectItem value="Info Session">Info Session</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select value={modeFilter} onValueChange={setModeFilter}>
-                <SelectTrigger className="w-full md:w-[150px] bg-background/80 border-border/50 hover:border-primary/50 transition-colors">
-                  <SelectValue placeholder="Mode" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Modes</SelectItem>
-                  <SelectItem value="Online">Online</SelectItem>
-                  <SelectItem value="Offline">Offline</SelectItem>
-                  <SelectItem value="Hybrid">Hybrid</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
 
         {/* Enhanced Featured Events */}
         {featuredEvents && featuredEvents.length > 0 && (

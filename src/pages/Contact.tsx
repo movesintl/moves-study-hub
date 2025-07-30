@@ -32,123 +32,154 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-subtle">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-primary to-accent text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative bg-gradient-primary text-white py-16 lg:py-20">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Get in Touch
+            <div className="inline-block p-3 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
+              <Mail className="h-8 w-8 text-white" />
+            </div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
+              Get in <span className="text-transparent bg-gradient-to-r from-white to-white/80 bg-clip-text">Touch</span>
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-              Ready to start your educational journey? We're here to help you every step of the way.
+            <p className="text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              Ready to transform your future? Let's start the conversation that changes everything.
             </p>
           </div>
         </div>
       </div>
 
       {/* Contact Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Contact Information */}
-          <div className="space-y-8">
+          <div className="space-y-10">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Let's Start a Conversation
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
+                Let's Start a <span className="text-transparent bg-gradient-primary bg-clip-text">Conversation</span>
               </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Have questions about studying abroad? Need guidance on courses or visa processes? 
-                Our expert team is ready to provide personalized assistance for your educational journey.
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                Transform your educational dreams into reality. Our expert team provides personalized guidance for your journey abroad.
               </p>
             </div>
 
             {/* Nepal Office */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-primary mb-4">Our Main Office</h3>
+            <div className="space-y-8">
+              <h3 className="text-2xl font-bold text-foreground mb-6">Our Main Office</h3>
               
-              <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary">
-                <h4 className="text-lg font-semibold text-primary mb-4">{nepalOffice.country}</h4>
+              <div className="glass rounded-3xl p-8 border border-white/20 shadow-elegant backdrop-blur-sm">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-gradient-primary rounded-2xl">
+                    <MapPin className="h-6 w-6 text-white" />
+                  </div>
+                  <h4 className="text-xl font-bold text-foreground">{nepalOffice.country}</h4>
+                </div>
                 
-                <div className="space-y-3">
-                  <div className="flex items-start space-x-3">
-                    <MapPin className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
-                    <p className="text-gray-600">{nepalOffice.address}</p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 bg-accent/10 rounded-xl">
+                      <MapPin className="h-5 w-5 text-accent" />
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">{nepalOffice.address}</p>
                   </div>
                   
-                  <div className="flex items-center space-x-3">
-                    <Phone className="h-5 w-5 text-accent flex-shrink-0" />
-                    <p className="text-gray-600">{nepalOffice.phone}</p>
+                  <div className="flex items-center gap-4">
+                    <div className="p-2 bg-accent/10 rounded-xl">
+                      <Phone className="h-5 w-5 text-accent" />
+                    </div>
+                    <p className="text-muted-foreground font-medium">{nepalOffice.phone}</p>
                   </div>
                   
-                  <div className="flex items-center space-x-3">
-                    <Mail className="h-5 w-5 text-accent flex-shrink-0" />
-                    <p className="text-gray-600">{nepalOffice.email}</p>
+                  <div className="flex items-center gap-4">
+                    <div className="p-2 bg-accent/10 rounded-xl">
+                      <Mail className="h-5 w-5 text-accent" />
+                    </div>
+                    <p className="text-muted-foreground font-medium">{nepalOffice.email}</p>
                   </div>
                 </div>
               </div>
 
               {/* Office Hours */}
-              <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-accent">
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <Clock className="h-6 w-6 text-accent mt-1" />
+              <div className="glass rounded-3xl p-8 border border-white/20 shadow-elegant backdrop-blur-sm">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-gradient-secondary rounded-2xl">
+                    <Clock className="h-6 w-6 text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-primary">Office Hours</h3>
-                    <p className="text-gray-600">
-                      Monday - Friday: 9:00 AM - 6:00 PM<br />
-                      Saturday: 10:00 AM - 4:00 PM<br />
-                      Sunday: Closed
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2">
-                      * Hours may vary by location. Please contact your nearest office for specific timings.
-                    </p>
-                  </div>
+                  <h3 className="text-xl font-bold text-foreground">Office Hours</h3>
                 </div>
+                <div className="space-y-2 text-muted-foreground">
+                  <p className="font-medium">Monday - Friday: <span className="text-foreground">9:00 AM - 6:00 PM</span></p>
+                  <p className="font-medium">Saturday: <span className="text-foreground">10:00 AM - 4:00 PM</span></p>
+                  <p className="font-medium">Sunday: <span className="text-foreground">Closed</span></p>
+                </div>
+                <p className="text-sm text-muted-foreground/70 mt-4 italic">
+                  * Hours may vary by location. Contact your nearest office for specific timings.
+                </p>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-primary">
-            <h3 className="text-2xl font-bold text-primary mb-6">
-              Send us a Message
-            </h3>
+          <div className="glass rounded-3xl p-10 border border-white/20 shadow-elegant backdrop-blur-sm sticky top-8">
+            <div className="text-center mb-8">
+              <div className="inline-block p-3 bg-gradient-primary rounded-2xl mb-4">
+                <Mail className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-foreground mb-2">
+                Send us a Message
+              </h3>
+              <p className="text-muted-foreground">
+                Ready to get started? Drop us a line and we'll get back to you soon.
+              </p>
+            </div>
             <ContactForm />
           </div>
         </div>
       </div>
 
       {/* Other Offices Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Our Global Offices
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
+            Our <span className="text-transparent bg-gradient-primary bg-clip-text">Global</span> Offices
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We have offices worldwide to serve you better. Visit us at any of our locations for personalized assistance.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Worldwide presence, local expertise. Visit us at any location for personalized guidance.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {otherOffices.map((office, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6 border-t-4 border-primary hover:shadow-lg transition-shadow">
-              <h4 className="text-lg font-semibold text-primary mb-4">{office.country}</h4>
+            <div key={index} className="group glass rounded-3xl p-8 border border-white/20 shadow-elegant backdrop-blur-sm hover:shadow-glow transition-all duration-300 hover-scale">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 bg-gradient-primary rounded-xl group-hover:scale-110 transition-transform duration-300">
+                  <MapPin className="h-5 w-5 text-white" />
+                </div>
+                <h4 className="text-lg font-bold text-foreground">{office.country}</h4>
+              </div>
               
-              <div className="space-y-3">
-                <div className="flex items-start space-x-3">
-                  <MapPin className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
-                  <p className="text-gray-600 text-sm">{office.address}</p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="p-1.5 bg-accent/10 rounded-lg mt-0.5">
+                    <MapPin className="h-4 w-4 text-accent" />
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{office.address}</p>
                 </div>
                 
-                <div className="flex items-center space-x-3">
-                  <Phone className="h-5 w-5 text-accent flex-shrink-0" />
-                  <p className="text-gray-600 text-sm">{office.phone}</p>
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 bg-accent/10 rounded-lg">
+                    <Phone className="h-4 w-4 text-accent" />
+                  </div>
+                  <p className="text-muted-foreground text-sm font-medium">{office.phone}</p>
                 </div>
                 
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-5 w-5 text-accent flex-shrink-0" />
-                  <p className="text-gray-600 text-sm">{office.email}</p>
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 bg-accent/10 rounded-lg">
+                    <Mail className="h-4 w-4 text-accent" />
+                  </div>
+                  <p className="text-muted-foreground text-sm font-medium">{office.email}</p>
                 </div>
               </div>
             </div>
@@ -157,15 +188,20 @@ const Contact = () => {
       </div>
 
       {/* Google Map Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-primary">
-          <div className="p-8 pb-0">
-            <h3 className="text-2xl font-bold text-primary mb-4">
-              Find Us on the Map
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Visit our offices worldwide. We're here to help you with your study abroad journey.
-            </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="glass rounded-3xl overflow-hidden border border-white/20 shadow-elegant backdrop-blur-sm">
+          <div className="p-10 pb-8">
+            <div className="text-center">
+              <div className="inline-block p-3 bg-gradient-primary rounded-2xl mb-6">
+                <MapPin className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-foreground mb-4">
+                Find Us on the Map
+              </h3>
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                Discover our worldwide presence and visit the office nearest to you.
+              </p>
+            </div>
           </div>
           
           <div className="relative h-96 w-full">
@@ -178,7 +214,7 @@ const Contact = () => {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Our Office Locations"
-              className="rounded-b-2xl"
+              className="rounded-b-3xl"
             />
           </div>
         </div>

@@ -283,7 +283,7 @@ const Blogs = () => {
           }}></div>
         </div>
         
-        <div className="container mx-auto px-4 py-20 lg:py-28 relative">
+        <div className="container mx-auto px-4 py-12 lg:py-16 relative">
           <div className="max-w-5xl mx-auto">
             {/* Top Badge */}
             <div className="text-center mb-8">

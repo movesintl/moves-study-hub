@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -67,13 +67,13 @@ const Navigation = () => {
 
   // Main navigation items - filter out destinations without slugs
   const destinationSubmenu = [
-    {name: 'All Destinations', path: '/destinations'},
+    { name: 'All Destinations', path: '/destinations' },
     ...destinations
-    .filter(dest => dest.slug && dest.slug.trim() !== '')
-    .map(dest => ({
-      name: dest.name,
-      path: `/destinations/${dest.slug}`
-    }))
+      .filter(dest => dest.slug && dest.slug.trim() !== '')
+      .map(dest => ({
+        name: dest.name,
+        path: `/destinations/${dest.slug}`
+      }))
   ];
 
   // Services submenu from database
@@ -107,6 +107,22 @@ const Navigation = () => {
     setIsOpen(false);
   };
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrolled]);
+
   return (
     <>
       {/* Secondary Top Menu */}
@@ -115,13 +131,24 @@ const Navigation = () => {
       {/* Main Navigation */}
       <nav className="bg-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center space-x-8">
-              <Link to="/" className="flex-shrink-0 flex items-center group">
+          <div className="flex justify-between items-center h-16 relative">
+            <div
+              className={`flex items-center space-x-8 ${scrolled ? 'ml-0' : 'ml-52'}`}
+              style={{
+                transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+              }}
+            >
+              <Link to="/" className="overflow-visible">
                 <img
                   src="/lovable-uploads/abcbb2a1-5db8-45ce-8215-42e053f17039.png"
                   alt="Moves International"
-                  className="h-14 w-auto transition-transform duration-300 group-hover:scale-105"
+                  className={`hidden bg-white md:block lg:block w-auto ${scrolled
+                      ? 'h-14'
+                      : 'absolute left-0 h-28'
+                    }`}
+                  style={{
+                    transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                  }}
                 />
               </Link>
 

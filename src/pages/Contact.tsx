@@ -145,8 +145,7 @@ const Contact = () => {
           {/* Main Office - Nepal */}
           <div className="mb-20">
             <div className="relative max-w-4xl mx-auto">
-              <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-xl"></div>
-              <div className="relative glass backdrop-blur-xl rounded-3xl p-12 border border-white/20 shadow-elegant">
+              <div className="relative backdrop-blur-xl rounded-3xl p-12 border border-border shadow-elegant bg-background">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div>
                     <div className="flex items-center gap-4 mb-6">
@@ -223,27 +222,15 @@ const Contact = () => {
                 className="group relative cursor-pointer"
                 onMouseEnter={() => setActiveOffice(index)}
               >
-                <div className={`absolute inset-0 rounded-3xl blur-xl transition-all duration-300 ${
+                <div className={`relative backdrop-blur-xl rounded-3xl p-8 border transition-all duration-300 hover-scale bg-background ${
                   activeOffice === index 
-                    ? 'bg-accent/20' 
-                    : 'bg-primary/5'
-                }`}></div>
-                
-                <div className={`relative glass backdrop-blur-xl rounded-3xl p-8 border transition-all duration-300 hover-scale ${
-                  activeOffice === index 
-                    ? 'border-primary/50 bg-primary/5' 
-                    : 'border-white/20 hover:border-primary/30'
+                    ? 'border-primary/50' 
+                    : 'border-border hover:border-primary/30'
                 }`}>
                   
                   <div className="text-center mb-6">
                     <div className="text-4xl mb-3">{office.flag}</div>
                     <h4 className="text-xl font-bold text-foreground mb-2">{office.country}</h4>
-                    {activeOffice === index && (
-                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-gradient-brand rounded-full text-white text-sm font-medium">
-                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        Active
-                      </div>
-                    )}
                   </div>
                   
                   <div className="space-y-4">
@@ -285,8 +272,7 @@ const Contact = () => {
           </div>
           
           <div className="relative">
-            <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-xl"></div>
-            <div className="relative glass backdrop-blur-xl rounded-3xl overflow-hidden border border-white/20 shadow-elegant">
+            <div className="relative backdrop-blur-xl rounded-3xl overflow-hidden border border-border shadow-elegant bg-background">
               <div className="h-96 w-full">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29506204.446354628!2d57.328125!3d23.725011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDEwJzAuMCJOIDgwwrAwMCcwLjAiRQ!5e0!3m2!1sen!2s!4v1625097600000!5m2!1sen!2s"
@@ -308,8 +294,7 @@ const Contact = () => {
       <div className="relative py-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-brand rounded-3xl blur-2xl opacity-30"></div>
-            <div className="relative glass backdrop-blur-xl rounded-3xl p-16 border border-white/20 shadow-elegant">
+            <div className="relative backdrop-blur-xl rounded-3xl p-16 border border-border shadow-elegant bg-background">
               <h3 className="text-5xl font-black text-foreground mb-8">
                 READY TO <span className="text-transparent bg-gradient-accent bg-clip-text">TRANSFORM</span> YOUR FUTURE?
               </h3>

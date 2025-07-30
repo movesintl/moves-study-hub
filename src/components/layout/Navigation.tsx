@@ -53,8 +53,7 @@ const Navigation = () => {
     fetchData();
   }, []);
 
-  // Secondary menu items (top menu) - unchanged
-  const secondaryMenuItems = [ /* ... */ ];
+
 
   // Main navigation items
   const destinationSubmenu = [
@@ -92,7 +91,29 @@ const Navigation = () => {
       submenu: servicesSubmenu
     }
   ];
-
+  const secondaryMenuItems = [
+    { name: 'About Us', path: '/about' },
+    { name: 'Events', path: '/events' },
+    { name: 'Blogs', path: '/blogs' },
+    { name: 'Reviews', path: '/reviews' },
+    { name: 'Careers', path: '/careers' },
+    { name: 'Contact', path: '/contact' },
+    {
+      name: 'Our Offices',
+      submenu: [
+        {
+          name: 'Bangladesh Office',
+          path: 'https://www.movesinternational.com.bd',
+          external: true
+        },
+        {
+          name: 'Australian Office',
+          path: 'https://www.movesinternational.com.au',
+          external: true
+        }
+      ]
+    }
+  ];
   // ... rest of your component code
 
   const handleSignOut = async () => {

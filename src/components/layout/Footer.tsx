@@ -17,11 +17,9 @@ const Footer = () => {
                 alt="Moves International" 
                 className="h-14 w-auto filter brightness-0 invert mb-4"
               />
-              <h3 className="text-xl font-semibold mb-3">Your Global Education Partner</h3>
+              <h3 className="text-xl font-semibold mb-3">Moves International</h3>
               <p className="text-gray-200 leading-relaxed mb-6 max-w-md">
-                Transform your future with world-class education opportunities. We guide students 
-                through every step of their international study journey with personalized support 
-                and expert guidance.
+Moves International is Australia's leading education and migration services provider, empowering international students to achieve their academic and career aspirations. 
               </p>
             </div>
             

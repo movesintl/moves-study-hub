@@ -19,9 +19,9 @@ export default function Services() {
             {/* Header section */}
             <div className="space-y-6">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 px-6 py-3 rounded-full">
-                <Lightbulb className="w-5 h-5 text-orange-500" />
-                <span className="text-orange-600 font-medium">Get Better About Us</span>
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-50 to-orange-100 px-4 py-2 rounded-full">
+                <Lightbulb className="w- h-5 text-orange-500" />
+                <span className="text-orange-600 text-1xl">Get Better About Us</span>
               </div>
 
               {/* Main heading */}

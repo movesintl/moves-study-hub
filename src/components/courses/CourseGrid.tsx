@@ -1,6 +1,6 @@
 // CourseGrid.tsx
 import React, { useState } from 'react';
-import { Heart, MapPin, Clock, DollarSign, Calendar, GraduationCap, Eye, University, ChevronUp, ChevronDown } from 'lucide-react';
+import { Heart, MapPin, Clock, DollarSign, Calendar, GraduationCap, Eye, University, ChevronUp, ChevronDown, Sparkles, Star } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -66,160 +66,182 @@ export const CourseGrid: React.FC<CourseGridProps> = ({
   };
 
   // Grid View Card
-  const renderGridView = (course: Course) => (
-    <Card key={course.id} className="group relative overflow-hidden bg-white border-0 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 rounded-3xl">
-      {/* Image */}
-      <div className="relative h-12 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
+
+const renderGridView = (course: Course) => (
+  <div className="h-full">
+    <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 rounded-xl h-full">
+      {/* Gradient overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-black/5 pointer-events-none"></div>
+      
+      {/* Featured badge */}
+      <div className="absolute top-2 left-2 z-20">
+        <div className="flex items-center gap-1 bg-gradient-to-r from-[#fa8500] to-[#023047] text-white px-2 py-0.5 rounded-full text-xs font-semibold shadow-lg">
+          <Sparkles className="h-2.5 w-2.5" />
+          Featured
+        </div>
+      </div>
+
+      {/* Image Section with reduced height */}
+      <div className="relative h-28 bg-gradient-to-br from-slate-100 via-[#023047]/5 to-[#fa8500]/10 overflow-hidden">
         <img
           src="https://coadhiipbnnqlmslpzeu.supabase.co/storage/v1/object/public/media/all/placeholder_image.jpg"
           alt={course.title}
-          className="w-full h-16 object-cover transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      </div>
-
-      <div className="p-5 space-y-4">
-        {/* Badge */}
-        <div className="absolute flex items-center gap-4 drop-shadow-sm top-3 mt-5 left-0  bg-white rounded-lg p-6 py-2 shadow-sm">
+        
+        {/* Gradient overlay on image */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+        
+        {/* University logo with bigger size */}
+        <div className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-sm rounded-lg p-2 shadow-lg">
           {course.universities?.logo_url ? (
             <img
               src={course.universities.logo_url}
               alt={`${course.university} logo`}
-              className='w-full h-8 object-cover'
+              className='w-28 h-auto object-cover'
             />
           ) : (
-            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-              <GraduationCap className="h-4 w-4 text-gray-500" />
+            <div className="w-8 h-8 rounded-md bg-gradient-to-br from-[#023047] to-[#fa8500] flex items-center justify-center">
+              <GraduationCap className="h-4 w-4 text-white" />
             </div>
           )}
         </div>
 
-        {/* Save Button */}
+        {/* Save Button with compact design */}
         <Button
           variant="ghost"
           size="sm"
-          className={`absolute top-3 mt-5 right-8 z-20 bg-white/90 backdrop-blur-sm hover:bg-white shadow-md rounded-full h-12 w-12 p-0 border-0 transition-all duration-300 hover:scale-110 ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
+          className={`absolute top-2 right-2 z-20 bg-white/95 backdrop-blur-sm hover:bg-white shadow-lg rounded-full h-8 w-8 p-0 border-0 transition-all duration-300 hover:scale-110 ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
           onClick={() => onSaveToggle?.(course.id)}
         >
-          <Heart className={`transition-all duration-300 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
+          <Heart className={`h-3.5 w-3.5 transition-all duration-300 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
         </Button>
+      </div>
 
-        {/* Title and University */}
+      {/* Content Section with reduced spacing */}
+      <div className="p-4 space-y-3 relative z-10">
+        {/* Title and Location */}
         <div className="space-y-2">
-          <h3 className="text-lg mt-8 font-bold text-gray-900 underline cursor-pointer line-clamp-2 leading-tight group-hover:text-primary transition-colors duration-300">
+          <h3 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors duration-300 cursor-pointer">
             {course.title}
           </h3>
           <div className="flex items-center text-gray-600">
-            <University className="h-3.5 mb-1 w-3.5 mr-1.5 text-gray-400" />
-            <span className="text-sm font-medium truncate">{course.university}</span>
-            <span className='text-gray-500 mx-2'>|</span>
             <MapPin className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
-            <span className="text-gray-700 text-sm font-medium">{course.country}</span>
+            <span className="text-sm font-medium">{course.country}</span>
           </div>
         </div>
 
-        {/* Description */}
-        {course.description && (
+        {/* Description - only show if not expanded */}
+        {course.description && !expandedFees.has(course.id) && (
           <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
             {course.description}
           </p>
         )}
 
-        {/* Badges */}
-        <div className="flex flex-wrap gap-2">
-          <Badge variant="outline" className="text-xs font-medium bg-blue-50 text-blue-500 border-blue-200 px-2.5 py-0.5">
+        {/* Compact Badges */}
+        <div className="flex flex-wrap gap-1.5">
+          <Badge className="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white border-0 px-2 py-1 text-xs font-semibold rounded-full shadow-sm">
             {course.level}
           </Badge>
-          <Badge variant="outline" className="text-xs font-medium bg-purple-50 text-orange-500 border-purple-200 px-2.5 py-0.5">
+          <Badge className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white border-0 px-2 py-1 text-xs font-semibold rounded-full shadow-sm">
             {course.study_area}
           </Badge>
         </div>
 
-        <div className="mb-2 border-b-2 bg-black"></div>
+        {/* Separator with gradient */}
+        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
 
-        {/* Duration and Intakes */}
+        {/* Course Details with compact styling */}
         <div className="space-y-2">
-          <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
-            <div className="flex items-center">
-              <Clock className="h-4 w-4 mr-2 text-gray-500" />
+          <div className="flex items-center justify-between p-2.5 bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg border border-gray-100">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-md flex items-center justify-center">
+                <Clock className="h-3 w-3 text-white" />
+              </div>
               <span className="text-sm font-medium text-gray-700">Duration</span>
             </div>
-            <span className="text-sm font-semibold text-gray-900">{formatDuration(course.duration_months)}</span>
+            <span className="text-sm font-bold text-gray-900 bg-white px-2 py-0.5 rounded-md shadow-sm">
+              {formatDuration(course.duration_months)}
+            </span>
           </div>
 
           {course.intake_dates?.length > 0 && (
-            <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-2 text-gray-500" />
+            <div className="flex items-center justify-between p-2.5 bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg border border-gray-100">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-red-500 rounded-md flex items-center justify-center">
+                  <Calendar className="h-3 w-3 text-white" />
+                </div>
                 <span className="text-sm font-medium text-gray-700">Intakes</span>
               </div>
-              <span className="text-sm font-semibold text-gray-900 truncate ml-2">
+              <span className="text-sm font-bold text-gray-900 bg-white px-2 py-0.5 rounded-md shadow-sm truncate ml-2">
                 {course.intake_dates.join(', ')}
               </span>
             </div>
           )}
         </div>
 
-        {/* Tuition Fee View More button - shown when collapsed */}
+        {/* Compact View More button */}
         {!expandedFees.has(course.id) && (
           <Button
             variant="ghost"
             size="sm"
-            className="h-auto p-0 font-medium text-sm text-orange-600 hover:text-orange-600 hover:bg-transparent"
+            className="h-auto p-1.5 font-semibold text-sm text-orange-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-all duration-200"
             onClick={() => toggleFeeExpansion(course.id)}
           >
-            View More <ChevronDown className="h-4 w-4 ml-1" />
+            View Pricing <ChevronDown className="h-3.5 w-3.5 ml-1" />
           </Button>
         )}
-        
-        {/* Tuition Fee section - shown only when expanded */}
+
+        {/* Compact Tuition Fee section */}
         {expandedFees.has(course.id) && (
-          <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-xl border border-indigo-100">
+          <div className="bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 p-3 rounded-xl border border-indigo-100 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <div className="text-xs text-gray-600 font-medium mb-1">Tuition Fee</div>
-                <div className="font-bold text-lg text-primary">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Star className="h-3.5 w-3.5 text-indigo-500" />
+                  <span className="text-sm text-indigo-600 font-semibold">Tuition Fee</span>
+                </div>
+                <div className="font-bold text-lg bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   {course.tuition_fee && course.currency
                     ? `${course.currency} ${course.tuition_fee.toLocaleString()}`
-                    : 'Contact for fee'}
+                    : 'Contact for pricing'}
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-auto p-0 text-xs text-primary hover:bg-transparent hover:text-primary"
+                  className="h-auto p-0.5 mt-1 text-xs text-indigo-600 hover:bg-transparent hover:text-indigo-700"
                   onClick={() => toggleFeeExpansion(course.id)}
                 >
-                  Show Less <ChevronUp className="h-4 w-4 ml-1" />
+                  Show Less <ChevronUp className="h-3 w-3 ml-1" />
                 </Button>
               </div>
-              <div className="bg-indigo-100 p-2.5 rounded-full">
-                <DollarSign className="h-5 w-5 text-primary" />
+              <div className="bg-gradient-to-br from-indigo-500 to-purple-500 p-2 rounded-xl shadow-lg">
+                <DollarSign className="h-5 w-5 text-white" />
               </div>
             </div>
           </div>
         )}
 
-        {/* Actions */}
-        <div className="flex gap-3 pt-2">
+        {/* Compact Action Buttons */}
+        <div className="flex gap-2 pt-2">
           <Button
             variant="outline"
-            className="flex-1 h-11 font-semibold border-2 hover:bg-orange-500 hover:border-0 border-primary text-primary hover:text-white transition-all duration-100"
-            onClick={() => onViewDetails(course.slug || '') }
+            className="flex-1 h-10 font-semibold border-2 border-orange-200 text-orange-600 hover:bg-orange-500 hover:border-orange-500 hover:text-white transition-all duration-300 rounded-xl shadow-sm hover:shadow-md"
+            onClick={() => onViewDetails(course.slug || '')}
           >
-            <Eye className="h-4 w-4 mr-2" />
             View Details
           </Button>
           <Button
+            className="flex-1 h-10 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
             onClick={onApplyNow}
-            className="flex-1 from-primary hover:bg-orange-500 text-white font-semibold h-11 shadow-lg hover:shadow-xl transition-all duration-300"
           >
             Apply Now
           </Button>
         </div>
       </div>
     </Card>
-  );
+  </div>
+);
 
 
 // List View Card

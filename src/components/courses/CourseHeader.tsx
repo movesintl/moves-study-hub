@@ -134,7 +134,7 @@ export const CourseHeader = ({
                   </div>
                   
                   {/* Enhanced Floating Elements */}
-                  <div className="absolute -top-6 -right-6 w-18 h-18 bg-gradient-to-br from-[#fa8500] to-[#e07600] rounded-2xl flex items-center justify-center shadow-2xl rotate-12 hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer">
+                  <div className="absolute -top-6 -right-6 p-1 w-18 h-18 bg-gradient-to-br from-[#fa8500] to-[#e07600] rounded-2xl flex items-center justify-center shadow-2xl rotate-12 hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer">
                     <BookOpen className="h-9 w-9 text-white drop-shadow-md" />
                     <div className="absolute -inset-1 bg-gradient-to-r from-[#fa8500] to-transparent rounded-2xl blur opacity-50"></div>
                   </div>

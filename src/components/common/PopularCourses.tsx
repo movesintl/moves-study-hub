@@ -244,12 +244,12 @@ const PopularCourses = ({ country }: CountryProps) => {
 
   return (
     <>
-      <section className="pt-20 pb-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 relative overflow-hidden">
+      <section className="pt-20 pb-6 bg-white relative overflow-hidden">
         {/* Background decorative elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-[#023047]/10 to-[#fa8500]/10 rounded-full blur-xl"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-[#fa8500]/10 to-[#023047]/10 rounded-full blur-xl"></div>
-        </div>
+        </div> */}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <PopularCoursesHeader />

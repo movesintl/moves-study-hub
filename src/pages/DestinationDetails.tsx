@@ -107,7 +107,7 @@ const DestinationDetails = () => {
 
         {/* 7. Popular Courses (Slider) */}
         <PopularCourses
-          
+          country={destination.name}
         />
 
 

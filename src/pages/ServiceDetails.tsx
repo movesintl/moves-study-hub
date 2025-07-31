@@ -82,7 +82,11 @@ const ServiceDetails = () => {
               </nav>
               {/* Main Title */}
               <div className="space-y-4">
-                <h1 className="text-4xl flex lg:text-6xl font-bold text-white leading-tight">
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300 animate-scale-in">
+                  <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                  Our Comprehensive Services
+                </div>
+                <h1 className="text-5xl flex lg:text-7xl font-black text-white leading-tight animate-fade-in">
                   {service.title}
                 </h1>
                 {service.short_description && (
@@ -112,18 +116,24 @@ const ServiceDetails = () => {
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap items-center gap-6 text-white/80 pt-4">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-accent" />
-                  <span>Expert guidance</span>
+              <div className="flex flex-wrap items-center gap-8 pt-4 animate-fade-in delay-500">
+                <div className="flex items-center gap-3 group">
+                  <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30 group-hover:border-emerald-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-emerald-500/20">
+                    <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  </div>
+                  <span className="text-white/90 font-medium">Expert Guidance</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-accent" />
-                  <span>Quick process</span>
+                <div className="flex items-center gap-3 group">
+                  <div className="p-2 bg-blue-500/20 backdrop-blur-sm rounded-lg border border-blue-500/30 group-hover:border-blue-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <Clock className="h-4 w-4 text-blue-400" />
+                  </div>
+                  <span className="text-white/90 font-medium">Quick Process</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Award className="h-5 w-5 text-accent" />
-                  <span>Proven results</span>
+                <div className="flex items-center gap-3 group">
+                  <div className="p-2 bg-amber-500/20 backdrop-blur-sm rounded-lg border border-amber-500/30 group-hover:border-amber-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-amber-500/20">
+                    <Award className="h-4 w-4 text-amber-400" />
+                  </div>
+                  <span className="text-white/90 font-medium">Proven Results</span>
                 </div>
               </div>
             </div>

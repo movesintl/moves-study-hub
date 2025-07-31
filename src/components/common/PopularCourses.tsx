@@ -35,7 +35,11 @@ interface Course {
   university_logo_url?: string;
 }
 
-const PopularCourses = () => {
+interface CountryProps {
+  country?: string
+}
+
+const PopularCourses = ({ country }: CountryProps) => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [savedCourseIds, setSavedCourseIds] = useState<Set<string>>(new Set());
@@ -44,7 +48,7 @@ const PopularCourses = () => {
   const { user } = useAuth();
   const [expandedFees, setExpandedFees] = useState<Set<string>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+
   // Add carousel API state to track current slide
   const [carouselApi, setCarouselApi] = useState<any>(null);
 
@@ -97,7 +101,7 @@ const PopularCourses = () => {
 
   const fetchPopularCourses = async () => {
     try {
-      const { data, error } = await supabase
+      let query =  supabase
         .from('courses')
         .select(`
           *,
@@ -106,9 +110,13 @@ const PopularCourses = () => {
           )
         `)
         .eq('featured', true)
+
         .limit(6)
         .order('created_at', { ascending: false });
-
+      if (country) {
+        query = query.eq('country', country);
+      }
+      const { data, error } = await query;
       if (error) throw error;
 
       // Transform data to include university logo
@@ -264,14 +272,17 @@ const PopularCourses = () => {
                           <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 rounded-xl h-full">
                             {/* Gradient overlay for depth */}
                             <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-black/5 pointer-events-none"></div>
-                            
+
                             {/* Featured badge */}
-                            <div className="absolute top-2 left-2 z-20">
-                              <div className="flex items-center gap-1 bg-gradient-to-r from-[#fa8500] to-[#023047] text-white px-2 py-0.5 rounded-full text-xs font-semibold shadow-lg">
-                                <Sparkles className="h-2.5 w-2.5" />
-                                Featured
+                            {course.featured && (
+                              <div className="absolute top-2 left-2 z-20">
+                                <div className="flex items-center gap-1 bg-gradient-to-r from-[#fa8500] to-[#023047] text-white px-2 py-0.5 rounded-full text-xs font-semibold shadow-lg">
+                                  <Sparkles className="h-2.5 w-2.5" />
+                                  Featured
+                                </div>
                               </div>
-                            </div>
+                            )}
+
 
                             {/* Image Section with reduced height */}
                             <div className="relative h-28 bg-gradient-to-br from-slate-100 via-[#023047]/5 to-[#fa8500]/10 overflow-hidden">
@@ -280,10 +291,10 @@ const PopularCourses = () => {
                                 alt={course.title}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                               />
-                              
+
                               {/* Gradient overlay on image */}
                               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
-                              
+
                               {/* University logo with bigger size */}
                               <div className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-sm rounded-lg p-2 shadow-lg">
                                 {course.university_logo_url ? (
@@ -436,10 +447,11 @@ const PopularCourses = () => {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  
+
                   {/* Enhanced navigation buttons */}
-                  <CarouselPrevious className="hidden md:flex -left-6 w-12 h-12 bg-white/90 backdrop-blur-sm border-2 border-white rounded-2xl shadow-xl hover:bg-white hover:shadow-2xl transition-all duration-300 hover:scale-110" />
-                  <CarouselNext className="hidden md:flex -right-6 w-12 h-12 bg-white/90 backdrop-blur-sm border-2 border-white rounded-2xl shadow-xl hover:bg-white hover:shadow-2xl transition-all duration-300 hover:scale-110" />
+                  <CarouselPrevious className="hidden md:flex -left-6 w-12 h-12 bg-white/90 backdrop-blur-sm border-2 border-white rounded-2xl shadow-xl hover:bg-white hover:shadow-2xl transition-all text-primary hover:text-primary duration-300 hover:scale-110" />
+                  <CarouselNext className="hidden md:flex -right-6 w-12 h-12 bg-white/90 backdrop-blur-sm border-2 border-white rounded-2xl shadow-xl hover:bg-white hover:shadow-2xl transition-all 
+                  text-primary hover:text-primary duration-300 hover:scale-110" />
                 </Carousel>
 
                 {/* Enhanced pagination dots */}
@@ -447,11 +459,10 @@ const PopularCourses = () => {
                   {Array.from({ length: totalSlides }, (_, idx) => (
                     <button
                       key={idx}
-                      className={`transition-all duration-300 rounded-full ${
-                        currentIndex === idx 
-                          ? 'w-8 h-3 bg-gradient-to-r from-orange-500 to-red-500 shadow-lg' 
+                      className={`transition-all duration-300 rounded-full ${currentIndex === idx
+                          ? 'w-8 h-3 bg-gradient-to-r from-orange-500 to-red-500 shadow-lg'
                           : 'w-3 h-3 bg-gray-300 hover:bg-gray-400 shadow-sm hover:shadow-md'
-                      }`}
+                        }`}
                       onClick={() => goToSlide(idx)}
                       aria-label={`Go to slide ${idx + 1}`}
                     />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, ArrowRight } from "lucide-react";
+import { Search, ArrowRight, GraduationCap, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
@@ -95,16 +95,19 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-white">
-                Book Free Consultation
+              <Button size="lg" 
+                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
+>               <MessageCircle className="h-5 w-5" />
+ Book Free Consultation
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
                 onClick={() => navigate("/courses")} 
-                className="border-white hover:bg-white hover:text-[#023047] text-[#023047]"
+                  className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
               >
+                <GraduationCap className="h-5 w-5"/>
                 Browse Courses
               </Button>
               {!user && null}

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon, DotIcon, Dot, FileUser, ChevronRight, Home } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Users, Clock, Award, SlashIcon, DotIcon, Dot, FileUser, ChevronRight, Home, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
@@ -100,6 +100,7 @@ const ServiceDetails = () => {
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
                   <Link to="/contact" className="flex items-center">
+                  <Globe className="h-5 w-5 mr-2" />
                     Get Started Today
                   </Link>
                 </Button>

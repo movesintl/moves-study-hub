@@ -27,7 +27,7 @@ export default function Services() {
               {/* Main heading */}
               <h2 className="text-4xl lg:text-5xl font-bold text-[#023047]-900 leading-tight">
                 Best{" "}
-                <span className="relative text-orange-500">
+                <span className="relative text-[#fa8500]">
                   guidance
                   <svg
                     className="absolute -bottom-2 left-0 w-full h-3"

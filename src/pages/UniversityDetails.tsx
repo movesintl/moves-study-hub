@@ -204,7 +204,7 @@ const UniversityDetails = () => {
                 <div className="flex flex-wrap gap-3">
                   <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm">
                     <Building2 className="h-4 w-4 mr-2" />
-                    Public University
+                    {university.institution_type || 'University'}
                   </Badge>
                   {university.featured && (
                     <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2">
@@ -306,7 +306,7 @@ const UniversityDetails = () => {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* Enhanced Tab Navigation */}
             <div className="flex justify-center mb-8">
-              <TabsList className="grid grid-cols-4 w-full max-w-2xl h-14 bg-muted/30 backdrop-blur p-1">
+              <TabsList className="grid grid-cols-3 w-full max-w-2xl h-14 bg-muted/30 backdrop-blur p-1">
                 <TabsTrigger value="overview" className="h-12 font-medium">
                   <Info className="h-4 w-4 mr-2" />
                   Overview
@@ -318,10 +318,6 @@ const UniversityDetails = () => {
                 <TabsTrigger value="admissions" className="h-12 font-medium">
                   <Users className="h-4 w-4 mr-2" />
                   Admissions
-                </TabsTrigger>
-                <TabsTrigger value="contact" className="h-12 font-medium">
-                  <Phone className="h-4 w-4 mr-2" />
-                  Contact
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -351,34 +347,43 @@ const UniversityDetails = () => {
                   </Card>
 
                   {/* Key Highlights */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Star className="h-5 w-5 text-yellow-500" />
-                        Key Highlights
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
-                          <CheckCircle className="h-5 w-5 text-green-600" />
-                          <span className="text-sm font-medium">AACSB Accredited</span>
+                  {Array.isArray(university.key_highlights) && university.key_highlights.length > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Star className="h-5 w-5 text-yellow-500" />
+                          Key Highlights
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="grid md:grid-cols-2 gap-4">
+                          {university.key_highlights.map((highlight: any, index: number) => {
+                            const colorMap: Record<string, { bg: string; text: string; icon: string }> = {
+                              blue: { bg: 'bg-blue-50', text: 'text-blue-600', icon: 'text-blue-600' },
+                              green: { bg: 'bg-green-50', text: 'text-green-600', icon: 'text-green-600' },
+                              purple: { bg: 'bg-purple-50', text: 'text-purple-600', icon: 'text-purple-600' },
+                              orange: { bg: 'bg-orange-50', text: 'text-orange-600', icon: 'text-orange-600' },
+                              red: { bg: 'bg-red-50', text: 'text-red-600', icon: 'text-red-600' },
+                              yellow: { bg: 'bg-yellow-50', text: 'text-yellow-600', icon: 'text-yellow-600' },
+                            };
+                            const colors = colorMap[highlight.color] || colorMap.blue;
+                            
+                            return (
+                              <div key={index} className={`flex items-center gap-3 p-3 ${colors.bg} rounded-lg`}>
+                                <CheckCircle className={`h-5 w-5 ${colors.icon}`} />
+                                <div>
+                                  <span className={`text-sm font-medium ${colors.text}`}>{highlight.title}</span>
+                                  {highlight.description && (
+                                    <p className={`text-xs ${colors.text} opacity-75 mt-1`}>{highlight.description}</p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
-                        <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
-                          <CheckCircle className="h-5 w-5 text-blue-600" />
-                          <span className="text-sm font-medium">Research Intensive</span>
-                        </div>
-                        <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
-                          <CheckCircle className="h-5 w-5 text-purple-600" />
-                          <span className="text-sm font-medium">Industry Partnerships</span>
-                        </div>
-                        <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg">
-                          <CheckCircle className="h-5 w-5 text-orange-600" />
-                          <span className="text-sm font-medium">Career Support</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  )}
                 </div>
 
                 {/* Enhanced Sidebar */}
@@ -401,10 +406,10 @@ const UniversityDetails = () => {
                     </CardContent>
                   </Card>
 
-                  {/* University Facts */}
+                  {/* Institute Facts */}
                   <Card>
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-lg">University Facts</CardTitle>
+                      <CardTitle className="text-lg">Institute Facts</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="flex justify-between text-sm">
@@ -419,41 +424,49 @@ const UniversityDetails = () => {
                       <Separator />
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Type</span>
-                        <span className="font-medium">Public Research University</span>
+                        <span className="font-medium">{university.institution_type || 'N/A'}</span>
                       </div>
                       <Separator />
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Established</span>
-                        <span className="font-medium">1887</span>
+                        <span className="font-medium">{university.established_year || 'N/A'}</span>
                       </div>
                     </CardContent>
                   </Card>
 
-                  {/* Rankings */}
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg flex items-center gap-2">
-                        <Award className="h-5 w-5 text-yellow-500" />
-                        Rankings & Recognition
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <div className="p-3 bg-yellow-50 rounded-lg text-center">
-                        <div className="text-2xl font-bold text-yellow-600">#247</div>
-                        <div className="text-xs text-yellow-600">QS World Ranking</div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="p-2 bg-blue-50 rounded text-center">
-                          <div className="font-bold text-blue-600">5★</div>
-                          <div className="text-xs text-blue-600">QS Rating</div>
+                  {/* Rankings & Recognition */}
+                  {(university.qs_world_ranking || university.qs_rating || university.research_rating) && (
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg flex items-center gap-2">
+                          <Award className="h-5 w-5 text-yellow-500" />
+                          Rankings & Recognition
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        {university.qs_world_ranking && (
+                          <div className="p-3 bg-yellow-50 rounded-lg text-center">
+                            <div className="text-2xl font-bold text-yellow-600">{university.qs_world_ranking}</div>
+                            <div className="text-xs text-yellow-600">QS World Ranking</div>
+                          </div>
+                        )}
+                        <div className="grid grid-cols-2 gap-2">
+                          {university.qs_rating && (
+                            <div className="p-2 bg-blue-50 rounded text-center">
+                              <div className="font-bold text-blue-600">{university.qs_rating}</div>
+                              <div className="text-xs text-blue-600">QS Rating</div>
+                            </div>
+                          )}
+                          {university.research_rating && (
+                            <div className="p-2 bg-green-50 rounded text-center">
+                              <div className="font-bold text-green-600">{university.research_rating}</div>
+                              <div className="text-xs text-green-600">Research</div>
+                            </div>
+                          )}
                         </div>
-                        <div className="p-2 bg-green-50 rounded text-center">
-                          <div className="font-bold text-green-600">A+</div>
-                          <div className="text-xs text-green-600">Research</div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  )}
                 </div>
               </div>
             </TabsContent>
@@ -657,107 +670,6 @@ const UniversityDetails = () => {
               </Card>
             </TabsContent>
 
-            <TabsContent value="contact" className="space-y-6">
-              <div className="grid lg:grid-cols-2 gap-8">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Contact Information</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-4">
-                        <div className="bg-primary/10 p-3 rounded-full">
-                          <Phone className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-foreground">Admissions Office</div>
-                          <div className="text-muted-foreground">+61 3 9925 2000</div>
-                          <div className="text-sm text-muted-foreground">Mon-Fri, 9 AM - 5 PM</div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start gap-4">
-                        <div className="bg-primary/10 p-3 rounded-full">
-                          <Mail className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-foreground">Email</div>
-                          <div className="text-muted-foreground">admissions@university.edu</div>
-                          <div className="text-sm text-muted-foreground">Response within 24 hours</div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start gap-4">
-                        <div className="bg-primary/10 p-3 rounded-full">
-                          <MapPin className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-foreground">Campus Address</div>
-                          <div className="text-muted-foreground">{university.location || 'Address not available'}</div>
-                          <div className="text-sm text-muted-foreground">Main Campus</div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {university.website_url && (
-                      <Button asChild className="w-full">
-                        <a href={university.website_url} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Visit Official Website
-                        </a>
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
-                
-                <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-                  <CardHeader>
-                    <CardTitle>International Student Support</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <p className="text-muted-foreground">
-                      Our dedicated team provides comprehensive support for international students throughout their journey.
-                    </p>
-                    <div className="space-y-3">
-                      <Button className="w-full justify-start">
-                        <Calendar className="h-4 w-4 mr-2" />
-                        Book Free Consultation
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Phone className="h-4 w-4 mr-2" />
-                        Schedule Campus Tour
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Download className="h-4 w-4 mr-2" />
-                        Download Prospectus
-                      </Button>
-                    </div>
-                    
-                    <div className="pt-4 border-t">
-                      <div className="text-sm text-muted-foreground mb-3">Available Support:</div>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span>Visa Guidance</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span>Accommodation</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span>Career Services</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span>Language Support</span>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
           </Tabs>
         </div>
       </section>

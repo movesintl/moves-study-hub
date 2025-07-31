@@ -34,6 +34,12 @@ const UniversityForm = () => {
     accreditation_status: string;
     admission_requirements: Array<{ title: string; description: string }>;
     application_deadlines: Array<{ intake: string; deadline: string }>;
+    key_highlights: Array<{ title: string; description: string; color: string }>;
+    qs_world_ranking: string;
+    qs_rating: string;
+    research_rating: string;
+    institution_type: string;
+    established_year: string;
   }>({
     name: '',
     location: '',
@@ -48,6 +54,12 @@ const UniversityForm = () => {
     accreditation_status: 'Verified',
     admission_requirements: [],
     application_deadlines: [],
+    key_highlights: [],
+    qs_world_ranking: '',
+    qs_rating: '',
+    research_rating: '',
+    institution_type: '',
+    established_year: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -98,6 +110,12 @@ const UniversityForm = () => {
         accreditation_status: university.accreditation_status || 'Verified',
         admission_requirements: Array.isArray(university.admission_requirements) ? university.admission_requirements as Array<{ title: string; description: string }> : [],
         application_deadlines: Array.isArray(university.application_deadlines) ? university.application_deadlines as Array<{ intake: string; deadline: string }> : [],
+        key_highlights: Array.isArray(university.key_highlights) ? university.key_highlights as Array<{ title: string; description: string; color: string }> : [],
+        qs_world_ranking: university.qs_world_ranking || '',
+        qs_rating: university.qs_rating || '',
+        research_rating: university.research_rating || '',
+        institution_type: university.institution_type || '',
+        established_year: university.established_year || '',
       });
     }
   }, [university]);
@@ -228,6 +246,35 @@ const UniversityForm = () => {
       ...prev,
       application_deadlines: prev.application_deadlines.filter((_, i) => i !== index)
     }));
+  };
+
+  // Key Highlights handlers
+  const addKeyHighlight = () => {
+    setFormData(prev => ({
+      ...prev,
+      key_highlights: [...prev.key_highlights, { title: '', description: '', color: 'blue' }]
+    }));
+  };
+
+  const updateKeyHighlight = (index: number, field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      key_highlights: prev.key_highlights.map((highlight, i) =>
+        i === index ? { ...highlight, [field]: value } : highlight
+      )
+    }));
+  };
+
+  const removeKeyHighlight = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      key_highlights: prev.key_highlights.filter((_, i) => i !== index)
+    }));
+  };
+
+  // Additional field handlers
+  const handleInstitutionTypeChange = (value: string) => {
+    setFormData(prev => ({ ...prev, institution_type: value }));
   };
 
   return (
@@ -454,6 +501,130 @@ const UniversityForm = () => {
                     </Button>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <Label>Key Highlights</Label>
+                <Button type="button" onClick={addKeyHighlight} size="sm" variant="outline">
+                  <Plus className="h-4 w-4 mr-1" />
+                  Add Highlight
+                </Button>
+              </div>
+              <div className="space-y-3">
+                {formData.key_highlights.map((highlight, index) => (
+                  <div key={index} className="flex gap-2 items-start">
+                    <div className="flex-1">
+                      <Input
+                        placeholder="Highlight title"
+                        value={highlight.title}
+                        onChange={(e) => updateKeyHighlight(index, 'title', e.target.value)}
+                        className="mb-2"
+                      />
+                      <Textarea
+                        placeholder="Optional description"
+                        value={highlight.description}
+                        onChange={(e) => updateKeyHighlight(index, 'description', e.target.value)}
+                        rows={2}
+                        className="mb-2"
+                      />
+                      <Select value={highlight.color} onValueChange={(value) => updateKeyHighlight(index, 'color', value)}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select color" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="blue">Blue</SelectItem>
+                          <SelectItem value="green">Green</SelectItem>
+                          <SelectItem value="purple">Purple</SelectItem>
+                          <SelectItem value="orange">Orange</SelectItem>
+                          <SelectItem value="red">Red</SelectItem>
+                          <SelectItem value="yellow">Yellow</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button
+                      type="button"
+                      onClick={() => removeKeyHighlight(index)}
+                      size="sm"
+                      variant="outline"
+                      className="mt-1"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <Label htmlFor="qs_world_ranking">QS World Ranking</Label>
+                <Input
+                  id="qs_world_ranking"
+                  name="qs_world_ranking"
+                  value={formData.qs_world_ranking}
+                  onChange={handleChange}
+                  placeholder="e.g., #247"
+                  className="mt-1"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="qs_rating">QS Rating</Label>
+                <Input
+                  id="qs_rating"
+                  name="qs_rating"
+                  value={formData.qs_rating}
+                  onChange={handleChange}
+                  placeholder="e.g., 5★"
+                  className="mt-1"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="research_rating">Research Rating</Label>
+                <Input
+                  id="research_rating"
+                  name="research_rating"
+                  value={formData.research_rating}
+                  onChange={handleChange}
+                  placeholder="e.g., A+"
+                  className="mt-1"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="institution_type">Institution Type</Label>
+                <Select value={formData.institution_type} onValueChange={handleInstitutionTypeChange}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="Select institution type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Public University">Public University</SelectItem>
+                    <SelectItem value="Private University">Private University</SelectItem>
+                    <SelectItem value="Public Research University">Public Research University</SelectItem>
+                    <SelectItem value="Private Research University">Private Research University</SelectItem>
+                    <SelectItem value="Community College">Community College</SelectItem>
+                    <SelectItem value="Technical Institute">Technical Institute</SelectItem>
+                    <SelectItem value="Liberal Arts College">Liberal Arts College</SelectItem>
+                    <SelectItem value="Professional School">Professional School</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="established_year">Established Year</Label>
+                <Input
+                  id="established_year"
+                  name="established_year"
+                  value={formData.established_year}
+                  onChange={handleChange}
+                  placeholder="e.g., 1887"
+                  className="mt-1"
+                />
               </div>
             </div>
 

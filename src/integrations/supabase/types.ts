@@ -1277,13 +1277,19 @@ export type Database = {
           application_portal_status: string | null
           country: string | null
           created_at: string
+          established_year: string | null
           featured: boolean
           global_ranking: string | null
           id: string
+          institution_type: string | null
+          key_highlights: Json | null
           location: string | null
           logo_url: string | null
           name: string
           overview_content: string | null
+          qs_rating: string | null
+          qs_world_ranking: string | null
+          research_rating: string | null
           slug: string | null
           updated_at: string
           website_url: string | null
@@ -1295,13 +1301,19 @@ export type Database = {
           application_portal_status?: string | null
           country?: string | null
           created_at?: string
+          established_year?: string | null
           featured?: boolean
           global_ranking?: string | null
           id?: string
+          institution_type?: string | null
+          key_highlights?: Json | null
           location?: string | null
           logo_url?: string | null
           name: string
           overview_content?: string | null
+          qs_rating?: string | null
+          qs_world_ranking?: string | null
+          research_rating?: string | null
           slug?: string | null
           updated_at?: string
           website_url?: string | null
@@ -1313,13 +1325,19 @@ export type Database = {
           application_portal_status?: string | null
           country?: string | null
           created_at?: string
+          established_year?: string | null
           featured?: boolean
           global_ranking?: string | null
           id?: string
+          institution_type?: string | null
+          key_highlights?: Json | null
           location?: string | null
           logo_url?: string | null
           name?: string
           overview_content?: string | null
+          qs_rating?: string | null
+          qs_world_ranking?: string | null
+          research_rating?: string | null
           slug?: string | null
           updated_at?: string
           website_url?: string | null

@@ -56,7 +56,7 @@ const About = () => {
   return (
     <div className="min-h-screen">
       {/* Modern Hero Section */}
-      <section className="relative py-16 bg-[#023047] overflow-hidden min-h-[500px]">
+      <section className="relative py-14 bg-[#023047] overflow-hidden min-h-[500px]">
         {/* Enhanced background elements with smoother animations */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-24 left-12 w-44 h-44 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
@@ -69,9 +69,9 @@ const About = () => {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
           {/* Main Hero Content */}
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px] py-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px] py-0">
             {/* Left Column - Text Content */}
-            <div className="space-y-8 animate-fade-in">
+            <div className="space-y-6 animate-fade-in">
               {/* Enhanced Modern Breadcrumb */}
               <nav className="flex items-center gap-3 text-sm">
                 <div className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 cursor-pointer group">
@@ -154,7 +154,7 @@ const About = () => {
             </div>
 
             {/* Enhanced Right Column - Modern Team Showcase */}
-            <div className="relative lg:ml-8 animate-fade-in delay-700">
+            <div className="relative lg:ml-8 animate-fade-in delay-700 mt-0">
               <div className="relative w-full h-auto lg:h-auto bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>
 

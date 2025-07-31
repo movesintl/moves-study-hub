@@ -11,7 +11,7 @@ import PageViewRelatedBlogs from './components/PageViewRelatedBlogs';
 import PageViewSkeleton from './components/PageViewSkeleton';
 import PageViewError from './components/PageViewError';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
-import { PageRenderer } from '@/components/visual-builder/PageRenderer';
+import PageRenderer from '@/components/visual-builder/PageRenderer';
 
 interface PageData {
   id: string;

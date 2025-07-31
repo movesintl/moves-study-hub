@@ -77,7 +77,7 @@ const Footer = () => {
 
           {/* Company & Resources */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 text-accent">Company</h3>
+            <h3 className="text-lg font-semibold mb-6 text-accent">Quick Links</h3>
             <ul className="space-y-3">
               <li><Link to="/about" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">About Us</Link></li>
               <li><Link to="/blogs" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Blog & Resources</Link></li>
@@ -85,7 +85,8 @@ const Footer = () => {
               <li><Link to="/auth" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Student Login</Link></li>
               <li><Link to="/student-dashboard/home" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Student Portal</Link></li>
               <li><Link to="/careers" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Careers</Link></li>
-              <li><Link to="/testimonials" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Success Stories</Link></li>
+              <li><Link to="/reviews" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Success Stories</Link></li>
+              <li><Link to="/events" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Events</Link></li>
             </ul>
           </div>
         </div>

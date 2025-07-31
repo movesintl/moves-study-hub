@@ -93,10 +93,7 @@ const Navigation = () => {
   ];
   const secondaryMenuItems = [
     { name: 'About Us', path: '/about' },
-    { name: 'Events', path: '/events' },
     { name: 'Blogs', path: '/blogs' },
-    { name: 'Reviews', path: '/reviews' },
-    { name: 'Careers', path: '/careers' },
     { name: 'Contact', path: '/contact' },
     {
       name: 'Our Offices',

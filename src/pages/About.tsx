@@ -13,16 +13,11 @@ import {
   ArrowRight,
   Award,
   Home,
-  ChevronRight
+  ChevronRight,
+  Globe,
+  GraduationCap
 } from 'lucide-react';
 import StoryWithStatsSection from '@/components/common/StoryStats';
-import {
-  Breadcrumb, BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import ExpertiseAchievements, { ExpertiseAchievements2 } from '@/components/common/ExpertiseAchievements';
 import CEOMsg from '@/components/common/CEOMsg';
 import LeadershipTeam from '@/components/common/MovesTeam';
@@ -114,20 +109,22 @@ const About = () => {
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
                 <Button 
                   size="lg" 
-                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
+                  className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 
+                  transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
                 >
                   <Link to="/contact" className="flex items-center gap-2">
-                    <ArrowRight className="h-5 w-5" />
-                    Get Started Today
+                    <Globe className="h-5 w-5" />
+                    Get Free Advice
                   </Link>
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-2 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
+                  className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
                 >
-                  <Link to="/services" className="flex items-center gap-2">
-                    <BookOpen className="h-5 w-5" />
+                  <Link to="/services" 
+                  className="flex items-center gap-2">
+                    <GraduationCap className="h-5 w-5" />
                     Our Services
                   </Link>
                 </Button>

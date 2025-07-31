@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { 
-  Building2, 
-  MapPin, 
-  ExternalLink, 
-  GraduationCap, 
-  Users, 
+import {
+  Building2,
+  MapPin,
+  ExternalLink,
+  GraduationCap,
+  Users,
   Calendar,
   Star,
   Globe,
@@ -25,7 +25,8 @@ import {
   Filter,
   Search,
   ChevronRight,
-  Info
+  Info,
+  DollarSign
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -38,12 +39,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { supabase } from '@/integrations/supabase/client';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
 
+
 const UniversityDetails = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
   const [programFilter, setProgramFilter] = useState('all');
   const [programSearch, setProgramSearch] = useState('');
+  const [savedCourseIds, setSavedCourseIds] = useState<Set<string>>(new Set());
+
 
   const { data: university, isLoading, error } = useQuery({
     queryKey: ['university', slug],
@@ -53,7 +57,7 @@ const UniversityDetails = () => {
         .select('*')
         .eq('slug', slug)
         .maybeSingle();
-      
+
       if (error) throw error;
       return data;
     }
@@ -63,12 +67,12 @@ const UniversityDetails = () => {
     queryKey: ['university-courses', university?.id],
     queryFn: async () => {
       if (!university?.id) return [];
-      
+
       const { data, error } = await supabase
         .from('courses')
         .select('*')
         .eq('university_id', university.id);
-      
+
       if (error) throw error;
       return data;
     },
@@ -78,7 +82,7 @@ const UniversityDetails = () => {
   // Filter courses based on search and level
   const filteredCourses = courses.filter(course => {
     const matchesSearch = course.title.toLowerCase().includes(programSearch.toLowerCase()) ||
-                         course.study_area.toLowerCase().includes(programSearch.toLowerCase());
+      course.study_area.toLowerCase().includes(programSearch.toLowerCase());
     const matchesLevel = programFilter === 'all' || course.level === programFilter;
     return matchesSearch && matchesLevel;
   });
@@ -105,7 +109,7 @@ const UniversityDetails = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Content Skeleton */}
           <div className="container mx-auto px-4 py-12">
             <div className="grid lg:grid-cols-4 gap-8">
@@ -159,6 +163,10 @@ const UniversityDetails = () => {
     { icon: Award, label: 'Accreditation', value: university?.accreditation_status || 'Verified', color: 'text-orange-600' }
   ];
 
+  function handleSaveToggle(id: string): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Dynamic Hero Section */}
@@ -166,7 +174,7 @@ const UniversityDetails = () => {
         <div className="absolute inset-0 opacity-30">
           <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.02)_1px,transparent_0)] bg-[size:24px_24px]"></div>
         </div>
-        
+
         <div className="relative">
           {/* Navigation Bar */}
           <div className="container mx-auto max-w-7xl px-4 py-6">
@@ -217,13 +225,13 @@ const UniversityDetails = () => {
                     Verified
                   </Badge>
                 </div>
-                
+
                 {/* University Name & Details */}
                 <div className="space-y-4">
                   <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
                     {university.name}
                   </h1>
-                  
+
                   {university.location && (
                     <div className="flex flex-wrap items-center gap-6 text-lg text-muted-foreground">
                       <div className="flex items-center gap-2">
@@ -246,12 +254,12 @@ const UniversityDetails = () => {
                     <Calendar className="h-5 w-5 mr-2" />
                     Book Consultation
                   </Button>
-                  
+
                   <Button size="lg" variant="outline" className="px-8 border-2 hover:bg-muted">
                     <Download className="h-5 w-5 mr-2" />
                     Download Brochure
                   </Button>
-                  
+
                   {university.website_url && (
                     <Button size="lg" variant="ghost" asChild className="px-6">
                       <a href={university.website_url} target="_blank" rel="noopener noreferrer">
@@ -271,8 +279,8 @@ const UniversityDetails = () => {
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300"></div>
                       <Card className="relative bg-card/80 backdrop-blur border-0 shadow-2xl">
                         <CardContent className="p-8">
-                          <img 
-                            src={university.logo_url} 
+                          <img
+                            src={university.logo_url}
                             alt={university.name}
                             className="h-24 w-24 lg:h-32 lg:w-32 object-contain mx-auto"
                           />
@@ -332,7 +340,7 @@ const UniversityDetails = () => {
                     </CardHeader>
                     <CardContent className="p-8">
                       {university.overview_content ? (
-                        <div 
+                        <div
                           className="prose prose-lg max-w-none text-foreground prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground"
                           dangerouslySetInnerHTML={{ __html: university.overview_content }}
                         />
@@ -367,7 +375,7 @@ const UniversityDetails = () => {
                               yellow: { bg: 'bg-yellow-50', text: 'text-yellow-600', icon: 'text-yellow-600' },
                             };
                             const colors = colorMap[highlight.color] || colorMap.blue;
-                            
+
                             return (
                               <div key={index} className={`flex items-center gap-3 p-3 ${colors.bg} rounded-lg`}>
                                 <CheckCircle className={`h-5 w-5 ${colors.icon}`} />
@@ -479,8 +487,8 @@ const UniversityDetails = () => {
                     <div className="flex-1">
                       <div className="relative">
                         <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                        <Input 
-                          placeholder="Search programs..." 
+                        <Input
+                          placeholder="Search programs..."
                           value={programSearch}
                           onChange={(e) => setProgramSearch(e.target.value)}
                           className="pl-10"
@@ -510,49 +518,92 @@ const UniversityDetails = () => {
               {filteredCourses.length > 0 ? (
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {filteredCourses.map((course) => (
-                    <Card key={course.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                    <Card key={course.id} className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 rounded-xl">
                       <CardContent className="p-0">
-                        <div className="p-6 space-y-4">
+                        <div className="p-5 space-y-4">
+                          {/* Header with title and save button */}
                           <div className="flex items-start justify-between">
-                            <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                            <h3 className="text-lg font-bold text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-2 leading-tight">
                               {course.title}
                             </h3>
-                            <Button variant="ghost" size="sm" className="p-1 flex-shrink-0">
-                              <Heart className="h-4 w-4" />
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className={`absolute top-2 right-2 z-20 bg-white/95 backdrop-blur-sm hover:bg-white shadow-lg rounded-full h-8 w-8 p-0 border-0 transition-all duration-300 hover:scale-110 ${savedCourseIds.has(course.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}`}
+                              onClick={() => handleSaveToggle(course.id)}
+                            >
+                              <Heart className={`h-3.5 w-3.5 transition-all duration-300 ${savedCourseIds.has(course.id) ? 'fill-current' : ''}`} />
                             </Button>
                           </div>
-                          
+
+                          {/* Badges with gradient styling */}
                           <div className="flex flex-wrap gap-2">
-                            <Badge variant="secondary">{course.level}</Badge>
-                            <Badge variant="outline">{course.study_area}</Badge>
+                            {course.level && (
+                              <Badge className="bg-gradient-to-r from-emerald-500 to-green-500 text-white border-0 px-2.5 py-1 text-xs font-semibold rounded-full shadow-sm">
+                                {course.level}
+                              </Badge>
+                            )}
+                            {course.study_area && (
+                              <Badge className="bg-gradient-to-r from-violet-500 to-purple-500 text-white border-0 px-2.5 py-1 text-xs font-semibold rounded-full shadow-sm">
+                                {course.study_area}
+                              </Badge>
+                            )}
                           </div>
-                          
-                          <p className="text-muted-foreground text-sm line-clamp-2">{course.description}</p>
-                          
+
+                          {/* Description with subtle hover effect */}
+                          {course.description && (
+                            <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed group-hover:text-gray-700 transition-colors">
+                              {course.description}
+                            </p>
+                          )}
+
+                          {/* Duration and tuition with enhanced styling */}
                           <div className="space-y-2">
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="flex items-center gap-1 text-muted-foreground">
-                                <Clock className="h-4 w-4" />
-                                <span>{Math.floor(course.duration_months / 12)} year{Math.floor(course.duration_months / 12) !== 1 ? 's' : ''}</span>
-                              </div>
-                              {course.tuition_fee && (
-                                <div className="font-semibold text-primary">
-                                  {course.currency} {course.tuition_fee?.toLocaleString()}
+                            <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg border border-gray-100">
+                              <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-md flex items-center justify-center">
+                                  <Clock className="h-3 w-3 text-white" />
                                 </div>
-                              )}
+                                <span className="text-sm font-medium text-gray-700">Duration</span>
+                              </div>
+                              <span className="text-sm font-bold text-gray-900">
+                                {Math.floor(course.duration_months / 12)} year{Math.floor(course.duration_months / 12) !== 1 ? 's' : ''}
+                              </span>
                             </div>
+
+                            {course.tuition_fee && (
+                              <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg border border-gray-100">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-red-500 rounded-md flex items-center justify-center">
+                                    <DollarSign className="h-3 w-3 text-white" />
+                                  </div>
+                                  <span className="text-sm font-medium text-gray-700">Tuition</span>
+                                </div>
+                                <span className="text-sm font-bold text-primary">
+                                  {course.currency} {course.tuition_fee?.toLocaleString()}
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
-                        
-                        <div className="border-t bg-muted/20 p-4">
-                          <div className="flex gap-2">
+
+                        {/* Action buttons with gradient hover effects */}
+                        <div className="border-t border-gray-100 bg-gradient-to-r from-gray-50 to-slate-50 p-4">
+                          <div className="flex gap-3">
                             <Link to={`/courses/${course.slug}`} className="flex-1">
-                              <Button variant="outline" size="sm" className="w-full">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="w-full h-10 font-semibold border-2 border-orange-200 text-orange-600 hover:bg-orange-500 hover:border-orange-500 hover:text-white transition-all duration-300 rounded-xl"
+                              >
                                 <Eye className="h-4 w-4 mr-1" />
                                 Details
                               </Button>
                             </Link>
-                            <Button size="sm" className="flex-1">
+                            <Button
+                              size="sm"
+                              className="flex-1 h-10 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                            >
                               Apply Now
                             </Button>
                           </div>
@@ -569,7 +620,7 @@ const UniversityDetails = () => {
                     </div>
                     <h3 className="text-2xl font-bold text-foreground mb-3">No Programs Found</h3>
                     <p className="text-muted-foreground mb-6">Try adjusting your search or filter criteria.</p>
-                    <Button onClick={() => {setProgramSearch(''); setProgramFilter('all')}}>
+                    <Button onClick={() => { setProgramSearch(''); setProgramFilter('all') }}>
                       Clear Filters
                     </Button>
                   </CardContent>

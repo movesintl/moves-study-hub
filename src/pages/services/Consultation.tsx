@@ -6,6 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import CounsellingBookingForm from '@/components/forms/CounsellingBookingForm';
+import Webstories from "@/components/common/Webstories";
+import LatestUpdates from "@/components/common/LatestUpdates";
+import HighQuality from "@/components/common/HighQuality";
+import StickyProfileComponent from "@/components/common/StickyProfile";
 
 const Consultation = () => {
   const benefits = [
@@ -238,273 +242,19 @@ const Consultation = () => {
           </div>
         </div>
       </div>
+{/* Services Overview Section */}
+      
+      <StickyProfileComponent />
+      <HighQuality />
 
-      {/* Why Choose Us Section */}
-      <section className="py-16 bg-gradient-to-br from-background via-background to-primary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-accent to-orange-400 text-white px-6 py-3 rounded-full font-bold mb-6">
-              <Award className="h-5 w-5" />
-              Why Students Choose Us
-            </div>
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-foreground">
-              Trusted by Thousands of Students
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Join the success stories of students who achieved their international education dreams
-            </p>
-          </div>
+      {/* Web stories */}
+      <div className="bg-white">
+        <Webstories />
+      </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {whyChooseUs.map((item, index) => (
-              <Card key={index} className="text-center group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-border bg-card/50 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg bg-gradient-to-r from-primary to-accent">
-                    <item.icon className="h-8 w-8 text-primary-foreground" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-foreground">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Consultation Booking Section */}
-      <section className="py-24 bg-gradient-to-br from-green-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-6 py-3 rounded-full font-bold mb-6">
-              <Calendar className="h-5 w-5" />
-              Book Your Free Session
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Ready to Start Your Journey?
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Take the first step towards your international education dreams. Our expert consultants are ready to guide you.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <div className="space-y-8">
-              <div className="bg-white rounded-3xl p-8 shadow-xl border border-green-100">
-                <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
-                  <div className="p-2 bg-green-100 rounded-xl">
-                    <Clock className="h-6 w-6 text-green-600" />
-                  </div>
-                  Flexible Scheduling
-                </h3>
-                
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4 p-4 bg-green-50 rounded-xl">
-                    <div className="p-3 bg-green-100 rounded-xl">
-                      <Calendar className="h-6 w-6 text-green-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-green-900">7 Days a Week</h4>
-                      <p className="text-green-700">Available Monday through Sunday</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl">
-                    <div className="p-3 bg-blue-100 rounded-xl">
-                      <Clock className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-blue-900">Extended Hours</h4>
-                      <p className="text-blue-700">Morning, afternoon, and evening slots</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-4 p-4 bg-purple-50 rounded-xl">
-                    <div className="p-3 bg-purple-100 rounded-xl">
-                      <Globe className="h-6 w-6 text-purple-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-purple-900">Multiple Formats</h4>
-                      <p className="text-purple-700">In-person, phone, or video consultations</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8 p-6 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Star className="h-6 w-6 text-yellow-600" />
-                    <h4 className="font-bold text-yellow-900">What's Included</h4>
-                  </div>
-                  <ul className="space-y-2 text-yellow-800">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      Complete academic assessment
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      Personalized university recommendations
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      Scholarship opportunities identification
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      Application timeline & strategy
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
-              <CounsellingBookingForm />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQs Section */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-800 px-6 py-3 rounded-full font-bold mb-6">
-              <BookOpen className="h-5 w-5" />
-              Common Questions
-            </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Get answers to the most common questions about our consultation service
-            </p>
-          </div>
-
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white border-0 rounded-xl px-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-                <AccordionTrigger className="text-left text-base font-bold text-purple-900 py-4 hover:no-underline hover:text-purple-700">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-purple-700 pb-4 leading-relaxed text-sm">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-800 px-6 py-3 rounded-full font-bold mb-6">
-              <Star className="h-5 w-5" />
-              Success Stories
-            </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Student Success Stories
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              See how our consultation helped students achieve their dreams
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-0 bg-gradient-to-br from-indigo-50 to-blue-50 overflow-hidden">
-                <CardContent className="p-6 relative">
-                  <div className="absolute top-4 right-4 opacity-20">
-                    <Star className="h-10 w-10 text-indigo-300" />
-                  </div>
-                  
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                      <span className="text-white font-bold text-lg">{testimonial.name[0]}</span>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-indigo-900 text-sm">{testimonial.name}</h4>
-                      <p className="text-xs text-indigo-700 font-medium">{testimonial.program}</p>
-                      <div className="flex items-center gap-1 mt-1">
-                        <MapPin className="h-3 w-3 text-indigo-600" />
-                        <p className="text-xs text-indigo-600 font-bold">{testimonial.country}</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  
-                  <p className="text-indigo-800 leading-relaxed italic font-medium text-sm">
-                    "{testimonial.quote}"
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
-      <section className="py-20 relative overflow-hidden" style={{ background: `linear-gradient(135deg, #023047 0%, #fa8500 100%)` }}>
-        <div className="absolute inset-0 bg-[url('/bg.svg')] opacity-10" />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 bg-white/20 text-white px-6 py-3 rounded-full font-bold backdrop-blur-sm">
-              <GraduationCap className="h-5 w-5" />
-              Your Future Starts Now
-            </div>
-            
-            <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
-              Ready to Book Your
-              <span className="block" style={{ color: '#fa8500' }}>
-                Free Consultation?
-              </span>
-            </h2>
-            
-            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-              Don't wait any longer. Start your international education journey today with expert guidance from our certified consultants.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button size="lg" className="text-black hover:opacity-90 text-lg px-10 py-6 font-bold shadow-xl" style={{ backgroundColor: '#fa8500' }}>
-                <Calendar className="mr-3 h-6 w-6" />
-                Book Free Consultation Now
-              </Button>
-              <div className="flex flex-col sm:flex-row items-center gap-4 text-white/90">
-                <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
-                  <Phone className="h-5 w-5" />
-                  <span>+61 234 567 890</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
-                  <Mail className="h-5 w-5" />
-                  <span>info@studyabroad.com</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-white/20">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                <div className="flex flex-col items-center gap-2 bg-white/10 p-4 rounded-xl backdrop-blur-sm">
-                  <CheckCircle className="h-6 w-6 text-green-400" />
-                  <span className="text-white font-medium text-sm">100% Free</span>
-                </div>
-                <div className="flex flex-col items-center gap-2 bg-white/10 p-4 rounded-xl backdrop-blur-sm">
-                  <Shield className="h-6 w-6 text-blue-400" />
-                  <span className="text-white font-medium text-sm">No Obligation</span>
-                </div>
-                <div className="flex flex-col items-center gap-2 bg-white/10 p-4 rounded-xl backdrop-blur-sm">
-                  <Award className="h-6 w-6 text-yellow-400" />
-                  <span className="text-white font-medium text-sm">Expert Guidance</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Latest Updates */}
+      <LatestUpdates />
+      
     </div>
   );
 };

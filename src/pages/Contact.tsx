@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Globe, Users, Award, ArrowRight, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Globe, Users, Award, ArrowRight, CheckCircle, Lock, ShieldCheck } from 'lucide-react';
 import ContactForm from '@/components/contact/ContactForm';
 
 const Contact = () => {
@@ -53,74 +53,94 @@ const Contact = () => {
       </div>
 
 
-      {/* Hero Section with Split Design */}
-      <div className="relative min-h-screen flex items-center bg-gradient-primary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
-            {/* Left Side - Text Content */}
-            <div className="text-white space-y-8 animate-fade-in">
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
-                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium">Available 24/7</span>
-                </div>
-                
-                <h1 className="text-7xl lg:text-8xl font-black leading-none">
-                  <span className="block text-white">
-                    Let's Talk
-                  </span>
-                  <span className="block text-white bg-gradient-accent bg-clip-text -mt-4">
-                    Future
-                  </span>
-                </h1>
-              </div>
-              
-              <p className="text-2xl text-white/90 leading-relaxed max-w-lg">
-                Your educational journey starts with a single conversation. Let's make it count.
-              </p>
-              
-              {/* Interactive Stats */}
-              <div className="grid grid-cols-3 gap-6 pt-8">
-                <div className="group cursor-pointer">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover-scale">
-                    <div className="text-3xl font-bold text-white mb-2">50K+</div>
-                    <div className="text-white/70 text-sm">Dreams Realized</div>
+    <section className="relative min-h-screen flex items-center bg-gradient-to-br from-[#023047] to-[#0a4a6e] overflow-hidden">
+  {/* Enhanced floating background elements */}
+  <div className="absolute inset-0 pointer-events-none">
+    <div className="absolute top-32 left-16 w-36 h-36 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
+    <div className="absolute top-80 right-24 w-28 h-28 bg-accent/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+    <div className="absolute bottom-32 left-1/4 w-44 h-44 bg-white/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
+    {/* Additional subtle decorative elements */}
+    <div className="absolute top-1/4 right-1/3 w-2 h-2 bg-accent rounded-full animate-ping opacity-20"></div>
+    <div className="absolute bottom-1/3 left-1/4 w-1 h-1 bg-white rounded-full animate-ping delay-2000 opacity-30"></div>
+  </div>
+
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full ">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      {/* Left Side - Enhanced Text Content */}
+      <div className="text-white space-y-8 animate-fade-in">
+        <div className="space-y-6">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 hover:border-white/40 transition-all duration-300">
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium">Available 24/7</span>
+          </div>
+          
+          <h1 className="text-6xl lg:text-8xl font-black leading-tight">
+            <span className="block text-white drop-shadow-lg">
+              Let's Talk
+            </span>
+            <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg -mt-2">
+              Future
+            </span>
+          </h1>
+        </div>
+        
+        <p className="text-xl text-white/90 leading-relaxed max-w-lg">
+          Your educational journey starts with a single conversation. Let's make it count.
+        </p>
+        
+        {/* Interactive Stats - Enhanced */}
+        <div className="grid grid-cols-3 gap-6 ">
+          {[
+            { value: "50K+", label: "Dreams Realized", color: "bg-emerald-500/20", icon: <CheckCircle className="h-4 w-4 text-emerald-400" /> },
+            { value: "15+", label: "Years Excellence", color: "bg-blue-500/20", icon: <Clock className="h-4 w-4 text-blue-400" /> },
+            { value: "24/7", label: "Support", color: "bg-amber-500/20", icon: <Globe className="h-4 w-4 text-amber-400" /> }
+          ].map((stat, index) => (
+            <div key={index} className="group cursor-pointer">
+              <div className={`${stat.color} backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-lg hover:scale-[1.03]`}>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded-lg border border-white/20">
+                    {stat.icon}
                   </div>
+                  <div className="text-3xl font-bold text-white">{stat.value}</div>
                 </div>
-                <div className="group cursor-pointer">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover-scale">
-                    <div className="text-3xl font-bold text-white mb-2">15+</div>
-                    <div className="text-white/70 text-sm">Years Excellence</div>
-                  </div>
-                </div>
-                <div className="group cursor-pointer">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover-scale">
-                    <div className="text-3xl font-bold text-white mb-2">24/7</div>
-                    <div className="text-white/70 text-sm">Support</div>
-                  </div>
-                </div>
+                <div className="text-white/80 text-sm">{stat.label}</div>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
 
-            {/* Right Side - Contact Form */}
-            <div className="relative animate-scale-in">
-              <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-xl"></div>
-              <div className="relative glass rounded-3xl p-10 border border-white/20 shadow-elegant backdrop-blur-xl">
-                <div className="text-center mb-8">
-                  <div className="inline-block p-4 bg-gradient-brand rounded-2xl mb-4">
-                    <Mail className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Start Your Journey</h3>
-                  <p className="text-white/90">Fill out the form and we'll get back to you within 24 hours</p>
-                </div>
-                <ContactForm />
-              </div>
+      {/* Right Side - Enhanced Contact Form */}
+      <div className="relative animate-scale-in py-10">
+        <div className="absolute inset-0 bg-accent/20  rounded-3xl blur-xl"></div>
+        <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-10 border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center p-5 bg-gradient-to-r from-accent to-orange-400 rounded-2xl mb-4 shadow-lg">
+              <Mail className="h-8 w-8 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-2">Start Your Journey</h3>
+            <p className="text-white/90">Fill out the form and we'll get back to you within 24 hours</p>
+          </div>
+          
+          <ContactForm />
+          
+          {/* Trust indicators */}
+          <div className="mt-8 pt-6 border-t border-white/20 flex flex-wrap justify-center gap-4">
+            <div className="flex items-center gap-2 text-white/80 text-sm">
+              <Lock className="h-4 w-4 text-green-400" />
+              <span>Secure & Confidential</span>
+            </div>
+            <div className="flex items-center gap-2 text-white/80 text-sm">
+              <ShieldCheck className="h-4 w-4 text-blue-400" />
+              <span>No Spam Ever</span>
             </div>
           </div>
         </div>
       </div>
-
+    </div>
+  </div>
+</section>
       {/* Floating Office Cards Section */}
       <div className="relative py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

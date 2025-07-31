@@ -104,16 +104,17 @@ const ServiceDetails = () => {
                     Get Started Today
                   </Link>
                 </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-white hover:bg-white/90 bg-white text-primary hover:text-primary text-lg px-8 py-6 rounded-lg transition-all duration-300"
-                >
-                  <Link to="/contact" className="flex items-center ">
-                    <Users className="h-5 w-5 mr-2" />
-                    Speak to Expert
-                  </Link>
-                </Button>
+                 <Button
+                                  variant="outline"
+                                  size="lg"
+                                  className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
+                                >
+                                  <Link to="/contact" 
+                                  className="flex items-center gap-2">
+                                    <Users className="h-5 w-5" />
+                                    Speak to Expert
+                                  </Link>
+                                </Button>
               </div>
 
               {/* Trust Indicators */}

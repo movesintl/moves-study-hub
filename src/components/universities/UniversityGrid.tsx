@@ -80,13 +80,16 @@ export const UniversityGrid = ({ universities }: UniversityGridProps) => {
               {/* Actions */}
               <div className="space-y-3 pt-4">
                 <Link to={`/universities/${university.slug || university.id}`}>
-                  <Button className="w-full">
-                    View University
+                  <Button 
+                    className="mt-auto w-full hover:bg-accent/90 bg-accent hover:shadow-2xl hover:shadow-accent/25 hover:text-white transition-colors"
+>                    View University
                   </Button>
                 </Link>
                 
                 {university.website_url && (
-                  <Button variant="outline" size="sm" className="w-full" asChild>
+                  <Button variant="outline" size="sm" 
+                                  className="w-full h-10 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                  asChild>
                     <a href={university.website_url} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Official Website

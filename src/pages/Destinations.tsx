@@ -116,7 +116,8 @@ const Destinations = () => {
                   size="lg"
                   className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
                 >
-                  <Link to="/services" className="flex items-center gap-2">
+                  <Link to="/services" 
+                  className="flex items-center gap-2">
                     <GraduationCap className="h-5 w-5" />
                     Our Services
                   </Link>

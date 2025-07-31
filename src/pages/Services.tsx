@@ -104,7 +104,7 @@ const Services = () => {
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300 animate-scale-in">
                   <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-                  Comprehensive Education Solutions
+                  Our Comprehensive Services
                 </div>
                 
                 <h1 className="text-5xl lg:text-7xl font-black leading-tight animate-fade-in">

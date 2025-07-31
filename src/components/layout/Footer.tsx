@@ -122,7 +122,7 @@ const Footer = () => {
                 to="/services/consultation" 
                 className="inline-flex items-center bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105"
               >
-                Book Now
+                Book Consultation Now
               </Link>
             </div>
           </div>

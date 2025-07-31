@@ -127,20 +127,20 @@ const Destinations = () => {
               {/* Trust Indicators */}
               <div className="flex flex-wrap items-center gap-8 pt-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30">
+                  <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30 hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/20">
                     <CheckCircle className="h-4 w-4 text-emerald-400" />
                   </div>
                   <span className="text-white/90 font-medium">Expert Guidance</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-500/20 backdrop-blur-sm rounded-lg border border-blue-500/30">
+                  <div className="p-2 bg-blue-500/20 backdrop-blur-sm rounded-lg border border-blue-500/30 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
                     <Clock className="h-4 w-4 text-blue-400" />
                   </div>
                   <span className="text-white/90 font-medium">Visa Assistance</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-purple-500/20 backdrop-blur-sm rounded-lg border border-purple-500/30">
-                    <Globe className="h-4 w-4 text-purple-400" />
+                  <div className="p-2 bg-amber-500/20 backdrop-blur-sm rounded-lg border border-amber-500/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20">
+                    <Globe className="h-4 w-4 text-amber-400" />
                   </div>
                   <span className="text-white/90 font-medium">Global Network</span>
                 </div>

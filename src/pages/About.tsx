@@ -45,7 +45,7 @@ const About = () => {
         .from('site_settings')
         .select('key, value')
         .in('key', ['students_placed', 'partner_universities', 'years_experience', 'countries_served']);
-      
+
       return data?.reduce((acc, setting) => {
         acc[setting.key] = setting.value;
         return acc;
@@ -90,7 +90,7 @@ const About = () => {
                   <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
                   Trusted Education Partners
                 </div>
-                
+
                 <h1 className="text-5xl lg:text-7xl font-black leading-tight animate-fade-in">
                   <span className="block text-white drop-shadow-lg">
                     Best Migration
@@ -99,7 +99,7 @@ const About = () => {
                     Agents & Consultants
                   </span>
                 </h1>
-                
+
                 <p className="text-xl text-white/90 leading-relaxed max-w-2xl animate-fade-in delay-200">
                   {aboutPageData?.subtitle || "We are registered migration agents & education consultants in Australia with 5k+ satisfied clients."}
                 </p>
@@ -107,8 +107,8 @@ const About = () => {
 
               {/* Enhanced Modern Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 
                   transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
                 >
@@ -122,8 +122,8 @@ const About = () => {
                   size="lg"
                   className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
                 >
-                  <Link to="/services" 
-                  className="flex items-center gap-2">
+                  <Link to="/services"
+                    className="flex items-center gap-2">
                     <GraduationCap className="h-5 w-5" />
                     Our Services
                   </Link>
@@ -131,18 +131,18 @@ const About = () => {
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap items-center gap-8 pt-4">
+              <div className="flex flex-wrap items-center gap-8 pt-4 animate-fade-in delay-500">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30">
                     <CheckCircle className="h-4 w-4 text-emerald-400" />
                   </div>
-                  <span className="text-white/90 font-medium">Registered Professionals</span>
+                  <span className="text-white/90 font-medium">Real Professionals</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-blue-500/20 backdrop-blur-sm rounded-lg border border-blue-500/30">
                     <CheckCircle className="h-4 w-4 text-blue-400" />
                   </div>
-                  <span className="text-white/90 font-medium">{companyStats?.students_placed || "5,000+"}+ Satisfied Clients</span>
+                  <span className="text-white/90 font-medium">{companyStats?.students_placed || "5,000+"}+ Clients</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-amber-500/20 backdrop-blur-sm rounded-lg border border-amber-500/30">
@@ -155,15 +155,14 @@ const About = () => {
 
             {/* Enhanced Right Column - Modern Team Showcase */}
             <div className="relative lg:ml-8 animate-fade-in delay-700">
-              <div className="relative w-full h-[300px] lg:h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 group">
+              <div className="relative w-full h-auto lg:h-auto bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>
-                
+
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=face"
-                  alt="Team member"
-                  className="relative w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
+                  src='https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt="Team member"
+                  className="relative w-full h-full object-contain rounded-2xl group-hover:scale-105 transition-transform duration-500"
                 />
-                
+
                 {/* Modern overlay */}
                 <div className="absolute bottom-6 left-6 right-6 bg-[#023047]/90 backdrop-blur-sm rounded-xl p-4 border border-white/20 transform group-hover:scale-105 transition-transform duration-300">
                   <h3 className="text-xl font-bold text-white mb-1">Expert Team</h3>
@@ -189,13 +188,13 @@ const About = () => {
 
       <div className="text-center mb-6">
         <h2 className="text-5xl font-bold text-primary mb-3">
-          {aboutPageData?.content?.includes('team_title') ? 
-            JSON.parse(aboutPageData.content).team_title : 
+          {aboutPageData?.content?.includes('team_title') ?
+            JSON.parse(aboutPageData.content).team_title :
             "Moves International's Team"}
         </h2>
-         <p className="text-base text-gray-600 text-center">
-          {aboutPageData?.content?.includes('team_subtitle') ? 
-            JSON.parse(aboutPageData.content).team_subtitle : 
+        <p className="text-base text-gray-600 text-center">
+          {aboutPageData?.content?.includes('team_subtitle') ?
+            JSON.parse(aboutPageData.content).team_subtitle :
             "Experts, Visionaries and ACHIEVERS"}
         </p>
       </div>

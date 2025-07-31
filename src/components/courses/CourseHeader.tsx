@@ -95,16 +95,22 @@ export const CourseHeader = ({
               {/* Quick Stats */}
               <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-white/90">
                 <div className="flex items-center space-x-2">
-                  <BookOpen className="w-4 h-4 text-[#fa8500]" />
-                  <span className="text-sm font-medium">{totalCount}+ Courses</span>
+                  <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30 hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/20">
+                  <BookOpen className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <span className="text-white/90 font-medium">{totalCount}+ Courses</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Users className="w-4 h-4 text-[#fa8500]" />
-                  <span className="text-sm font-medium">50+ Universities</span>
+                  <div className="p-2 bg-blue-500/20 backdrop-blur-sm rounded-lg border border-blue-500/30 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+                  <Users className="w-4 h-4 text-blue-400" />
+                                    </div>
+                  <span className="text-white/90 font-medium">50+ Universities</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Trophy className="w-4 h-4 text-[#fa8500]" />
-                  <span className="text-sm font-medium">100+ Study Areas</span>
+                  <div className="p-2 bg-amber-500/20 backdrop-blur-sm rounded-lg border border-amber-500/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20">
+                  <Trophy className="w-4 h-4 text-amber-400" />
+                  </div>
+                  <span className="text-white/90 font-medium">100+ Study Areas</span>
                 </div>
               </div>
             </div>

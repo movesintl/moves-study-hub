@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,6 +26,8 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const { toast } = useToast();
   const { checkRateLimit } = useRateLimit();
   const { logEvent } = useAuditLog();
@@ -42,6 +45,17 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
+      // Verify reCAPTCHA
+      if (!recaptchaToken) {
+        toast({
+          title: "reCAPTCHA Required",
+          description: "Please complete the reCAPTCHA verification.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       // Check rate limit (max 5 contact submissions per hour)
       const rateLimitAllowed = await checkRateLimit({
         action: 'contact_submission',
@@ -55,6 +69,23 @@ const ContactForm = () => {
           description: "You can only submit 5 contact forms per hour. Please try again later.",
           variant: "destructive",
         });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Verify reCAPTCHA with server
+      const { data: verificationResult, error: verificationError } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token: recaptchaToken }
+      });
+
+      if (verificationError || !verificationResult?.success) {
+        toast({
+          title: "Verification Failed",
+          description: "reCAPTCHA verification failed. Please try again.",
+          variant: "destructive",
+        });
+        recaptchaRef.current?.reset();
+        setRecaptchaToken(null);
         setIsSubmitting(false);
         return;
       }
@@ -89,6 +120,8 @@ const ContactForm = () => {
       });
 
       reset();
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
     } catch (error: any) {
       console.error('Contact form submission error:', error);
       toast({
@@ -169,6 +202,15 @@ const ContactForm = () => {
         {errors.message && (
           <p className="text-sm text-red-500">{errors.message.message}</p>
         )}
+      </div>
+
+      <div className="flex justify-center">
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+          onChange={setRecaptchaToken}
+          theme="dark"
+        />
       </div>
 
       <Button

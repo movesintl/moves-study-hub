@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GraduationCap } from 'lucide-react';
@@ -16,6 +17,8 @@ interface CounsellingBookingFormProps {
 
 const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBookingFormProps) => {
   const { user } = useAuth();
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const {
     formData,
     loading,
@@ -23,7 +26,7 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
     studyLevels,
     handleInputChange,
     handleSubmit,
-  } = useCounsellingBookingForm(defaultDestination, onSuccess);
+  } = useCounsellingBookingForm(defaultDestination, onSuccess, recaptchaToken, recaptchaRef);
 
   return (
     <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200/50 hover:shadow-3xl transition-all duration-300 ease-out hover:ring-gray-300/50">
@@ -45,6 +48,15 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
             formData={formData}
             onInputChange={handleInputChange}
           />
+
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6Lf8pKUqAAAAABQWZkF_HN_7TYn5N0nNdHMYrXR0"
+              onChange={setRecaptchaToken}
+              theme="light"
+            />
+          </div>
 
           <Button type="submit" disabled={loading} className="w-full h-12 text-lg bg-accent hover:bg-accent/90">
             {loading ? 'Submitting...' : 'Book Free Counselling'}

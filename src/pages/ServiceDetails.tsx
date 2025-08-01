@@ -86,8 +86,18 @@ const ServiceDetails = () => {
                   <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
                   Our Comprehensive Services
                 </div>
-                <h1 className="text-5xl flex lg:text-7xl font-black text-white leading-tight animate-fade-in">
-                  {service.title}
+                <h1 className="text-5xl  lg:text-7xl font-black leading-tight animate-fade-in">
+                  {service.title.split(' ')[0] && (
+                    <span className="block text-white drop-shadow-lg">
+                      {service.title.split(' ')[0]}
+                      <br />
+                    </span>
+                  )}
+                  {service.title.split(' ').length > 1 && (
+                    <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
+                      {service.title.split(' ').slice(1).join(' ')}
+                    </span>
+                  )}
                 </h1>
                 {service.short_description && (
                   <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
@@ -100,21 +110,21 @@ const ServiceDetails = () => {
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
                   <Link to="/contact" className="flex items-center">
-                  <Globe className="h-5 w-5 mr-2" />
+                    <Globe className="h-5 w-5 mr-2" />
                     Get Started Today
                   </Link>
                 </Button>
-                 <Button
-                                  variant="outline"
-                                  size="lg"
-                                  className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
-                                >
-                                  <Link to="/contact" 
-                                  className="flex items-center gap-2">
-                                    <Users className="h-5 w-5" />
-                                    Speak to Expert
-                                  </Link>
-                                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
+                >
+                  <Link to="/contact"
+                    className="flex items-center gap-2">
+                    <Users className="h-5 w-5" />
+                    Speak to Expert
+                  </Link>
+                </Button>
               </div>
 
               {/* Trust Indicators */}

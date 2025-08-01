@@ -14,7 +14,7 @@ const CourseComparisonWidget = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 animate-in slide-in-from-bottom-2">
+    <div className="fixed bottom-4 left-4 z-50 animate-in slide-in-from-bottom-2">
       <Card className="shadow-lg border-primary">
         <CardContent className="p-4">
           <div className="flex items-center gap-3">

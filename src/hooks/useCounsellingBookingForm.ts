@@ -1,7 +1,6 @@
 
-import { useState, RefObject } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
@@ -25,12 +24,7 @@ interface FormData {
   agrees_to_marketing: boolean;
 }
 
-export const useCounsellingBookingForm = (
-  defaultDestination?: string, 
-  onSuccess?: () => void,
-  recaptchaToken?: string | null,
-  recaptchaRef?: RefObject<ReCAPTCHA>
-) => {
+export const useCounsellingBookingForm = (defaultDestination?: string, onSuccess?: () => void) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -86,16 +80,6 @@ export const useCounsellingBookingForm = (
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Verify reCAPTCHA
-    if (!recaptchaToken) {
-      toast({
-        title: "reCAPTCHA Required",
-        description: "Please complete the reCAPTCHA verification.",
-        variant: "destructive",
-      });
-      return;
-    }
     
     // Check rate limiting
     const rateLimitOk = await checkFormRateLimit('counselling_booking');
@@ -163,22 +147,6 @@ export const useCounsellingBookingForm = (
     setLoading(true);
 
     try {
-      // Verify reCAPTCHA with server
-      const { data: verificationResult, error: verificationError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: recaptchaToken }
-      });
-
-      if (verificationError || !verificationResult?.success) {
-        toast({
-          title: "Verification Failed",
-          description: "reCAPTCHA verification failed. Please try again.",
-          variant: "destructive",
-        });
-        recaptchaRef?.current?.reset();
-        setLoading(false);
-        return;
-      }
-
       // Prepare data for counselling_bookings table with sanitized values
       const bookingData = {
         student_name: validation.sanitizedData.student_name,
@@ -252,9 +220,6 @@ export const useCounsellingBookingForm = (
         agrees_to_contact: false,
         agrees_to_marketing: false,
       });
-
-      // Reset reCAPTCHA
-      recaptchaRef?.current?.reset();
 
       onSuccess?.();
     } catch (error) {

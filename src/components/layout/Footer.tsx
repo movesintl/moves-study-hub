@@ -55,8 +55,8 @@ Moves International is Australia's leading education and migration services prov
               <li><Link to="/course-comparison" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Compare Courses</Link></li>
               <li><Link to="/destinations/australia" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Study in Australia</Link></li>
               <li><Link to="/destinations/canada" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Study in Canada</Link></li>
-              <li><Link to="/destinations/uk" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Study in UK</Link></li>
-              <li><Link to="/destinations/usa" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Study in USA</Link></li>
+              <li><Link to="/destinations/united-kingdom" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Study in UK</Link></li>
+              {/* <li><Link to="/destinations/usa" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Study in USA</Link></li> */}
             </ul>
           </div>
 
@@ -65,8 +65,8 @@ Moves International is Australia's leading education and migration services prov
             <h3 className="text-lg font-semibold mb-6 text-accent">Our Services</h3>
             <ul className="space-y-3">
               <li><Link to="/services/consultation" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Free Consultation</Link></li>
-              <li><Link to="/services/application-assistance" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Application Support</Link></li>
-              <li><Link to="/services/visa-migration" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Visa & Migration</Link></li>
+              <li><Link to="/services/application-assistant" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Application Assistant</Link></li>
+              <li><Link to="/services/education-career-counselling-" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Visa & Migration</Link></li>
               <li><Link to="/services/english-test-prep" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">IELTS Preparation</Link></li>
               <li><Link to="/services/scholarship-guidance" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Scholarships</Link></li>
               <li><Link to="/services/pre-departure-support" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Pre-Departure</Link></li>

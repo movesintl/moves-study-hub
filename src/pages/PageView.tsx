@@ -40,7 +40,7 @@ interface PageData {
   visual_builder_version?: string;
 }
 
-interface BlogData {
+export interface BlogData {
   id: string;
   title: string;
   slug: string;
@@ -132,6 +132,7 @@ const PageView = () => {
               ctaButtonLink={page.cta_button_link}
               bodyContent={page.body_content}
               content={page.content}
+              relatedPost={relatedBlogs}
             />
 
           </>

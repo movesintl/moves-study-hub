@@ -207,7 +207,7 @@ const ContactForm = () => {
       <div className="flex justify-center">
         <ReCAPTCHA
           ref={recaptchaRef}
-          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+          sitekey="6Lf8pKUqAAAAABQWZkF_HN_7TYn5N0nNdHMYrXR0"
           onChange={setRecaptchaToken}
           theme="dark"
         />

@@ -123,7 +123,6 @@ const PageView = () => {
           </div>
         ) : (
           <>
-            
             <PageViewContent
               pageDescription={page.page_description}
               contentImageUrl={page.content_image_url}

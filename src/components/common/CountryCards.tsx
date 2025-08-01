@@ -329,7 +329,8 @@ const CountryCards = () => {
               Our expert counselors will help you choose the best study destination based on
               your academic background, career goals, and budget.
             </p>
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-white">
+            <Button size="lg" 
+            className="bg-accent hover:bg-accent/90 text-white">
               Get Free Counseling
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

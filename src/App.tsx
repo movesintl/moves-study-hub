@@ -31,6 +31,8 @@ import ContactSubmissions from '@/pages/admin/contact/ContactSubmissions';
 import PageView from '@/pages/PageView';
 import Events from '@/pages/Events';
 import EventDetails from '@/pages/EventDetails';
+import Scholarships from '@/pages/Scholarships';
+import ScholarshipDetails from '@/pages/ScholarshipDetails';
 
 // Student Dashboard Pages
 import Dashboard from '@/pages/student/Dashboard';
@@ -71,6 +73,8 @@ import StaffProfile from '@/pages/StaffProfile';
 import EventsList from '@/pages/admin/events/EventsList';
 import EventForm from '@/pages/admin/events/EventForm';
 import EventRegistrationsPage from '@/pages/admin/events/EventRegistrationsPage';
+import ScholarshipsList from '@/pages/admin/scholarships/ScholarshipsList';
+import ScholarshipForm from '@/pages/admin/scholarships/ScholarshipForm';
 import CareersList from '@/pages/admin/careers/CareersList';
 import CareerForm from '@/pages/admin/careers/CareerForm';
 import Careers from '@/pages/Careers';
@@ -112,6 +116,8 @@ function App() {
                 <Route path="sitemap" element={<Sitemap />} />
                 <Route path="events" element={<Events />} />
                 <Route path="events/:slug" element={<EventDetails />} />
+                <Route path="scholarships" element={<Scholarships />} />
+                <Route path="scholarships/:slug" element={<ScholarshipDetails />} />
                 <Route path="careers" element={<Careers />} />
                 <Route path="careers/:slug" element={<CareerDetails />} />
                 <Route path="reviews" element={<Reviews />} />
@@ -158,6 +164,9 @@ function App() {
                 <Route path="events/new" element={<EventForm />} />
                 <Route path="events/:id/edit" element={<EventForm />} />
                 <Route path="events/:eventId/registrations" element={<EventRegistrationsPage />} />
+                <Route path="scholarships" element={<ScholarshipsList />} />
+                <Route path="scholarships/new" element={<ScholarshipForm />} />
+                <Route path="scholarships/:id/edit" element={<ScholarshipForm />} />
                 <Route path="services" element={<ServicesList />} />
                 <Route path="services/new" element={<ServiceForm />} />
                 <Route path="services/:id/edit" element={<ServiceForm />} />

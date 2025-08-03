@@ -1143,6 +1143,111 @@ export type Database = {
           },
         ]
       }
+      scholarships: {
+        Row: {
+          application_link: string | null
+          application_process: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          course_id: string | null
+          created_at: string
+          currency: string | null
+          deadline: string | null
+          destination_country: string | null
+          eligibility_criteria: string | null
+          end_date: string | null
+          featured_image_url: string | null
+          full_description: string | null
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          meta_description: string | null
+          meta_title: string | null
+          required_documents: string | null
+          scholarship_amount: string | null
+          scholarship_type: string
+          short_description: string | null
+          slug: string
+          start_date: string | null
+          title: string
+          university_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          application_link?: string | null
+          application_process?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          course_id?: string | null
+          created_at?: string
+          currency?: string | null
+          deadline?: string | null
+          destination_country?: string | null
+          eligibility_criteria?: string | null
+          end_date?: string | null
+          featured_image_url?: string | null
+          full_description?: string | null
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          meta_description?: string | null
+          meta_title?: string | null
+          required_documents?: string | null
+          scholarship_amount?: string | null
+          scholarship_type: string
+          short_description?: string | null
+          slug: string
+          start_date?: string | null
+          title: string
+          university_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          application_link?: string | null
+          application_process?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          course_id?: string | null
+          created_at?: string
+          currency?: string | null
+          deadline?: string | null
+          destination_country?: string | null
+          eligibility_criteria?: string | null
+          end_date?: string | null
+          featured_image_url?: string | null
+          full_description?: string | null
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          meta_description?: string | null
+          meta_title?: string | null
+          required_documents?: string | null
+          scholarship_amount?: string | null
+          scholarship_type?: string
+          short_description?: string | null
+          slug?: string
+          start_date?: string | null
+          title?: string
+          university_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scholarships_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "scholarships_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       services: {
         Row: {
           created_at: string
@@ -1416,6 +1521,10 @@ export type Database = {
       }
       generate_event_slug: {
         Args: { event_title: string; event_id?: string }
+        Returns: string
+      }
+      generate_scholarship_slug: {
+        Args: { scholarship_title: string; scholarship_id?: string }
         Returns: string
       }
       generate_service_slug: {

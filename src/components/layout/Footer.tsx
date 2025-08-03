@@ -84,6 +84,7 @@ Moves International is Australia's leading education and migration services prov
               <li><Link to="/student-dashboard/home" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Student Portal</Link></li>
               <li><Link to="/careers" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Careers</Link></li>
               <li><Link to="/reviews" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Success Stories</Link></li>
+              <li><Link to="/scholarships" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Scholarships</Link></li>
               <li><Link to="/events" className="text-gray-200 hover:text-accent transition-colors hover:translate-x-1 transform duration-200 block">Events</Link></li>
             </ul>
           </div>

@@ -14,7 +14,7 @@ export const VisualBuilderToolbar: React.FC<VisualBuilderToolbarProps> = ({
   onSave
 }) => {
   return (
-    <div className="bg-white border-b p-4 flex justify-between items-center">
+    <div className="bg-card border-b border-border p-4 flex justify-between items-center">
       <div className="flex gap-2">
         <Button
           onClick={onToggleEnabled}

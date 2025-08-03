@@ -132,7 +132,7 @@ const PageView = () => {
               ctaButtonLink={page.cta_button_link}
               bodyContent={page.body_content}
               content={page.content}
-              relatedPost={relatedBlogs}
+          
             />
 
           </>

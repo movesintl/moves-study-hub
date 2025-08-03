@@ -119,7 +119,7 @@ export const visualBuilderBlocks = [
     category: 'Components',
     content: `
       <div class="flex flex-wrap gap-4">
-        <button class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
+        <button class="px-6 py-3 bg-orange-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
           Primary Button
         </button>
         <button class="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors shadow-sm hover:shadow-md">
@@ -142,7 +142,7 @@ export const visualBuilderBlocks = [
         <div class="p-6">
           <h3 class="text-xl font-semibold text-gray-900 mb-2">Card Title</h3>
           <p class="text-gray-600 mb-4">This is a sample card component with image, title, description and action button.</p>
-          <button class="text-blue-600 font-medium hover:text-blue-800 transition-colors">
+          <button class="text-orange-600 font-medium hover:text-blue-800 transition-colors">
             Learn More →
           </button>
         </div>

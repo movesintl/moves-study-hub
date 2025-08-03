@@ -15,7 +15,8 @@ import {
   Target,
   Calendar,
   Briefcase,
-  Bell
+  Bell,
+  Award
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -48,6 +49,7 @@ export const menuItems: MenuItem[] = [
   { name: 'Applications', href: '/admin/applications', icon: ClipboardList },
   { name: 'Counselling', href: '/admin/counselling', icon: MessageCircle },
   { name: 'Events', href: '/admin/events', icon: Calendar, requiredRoles: ['admin', 'editor'] },
+  { name: 'Scholarships', href: '/admin/scholarships', icon: Award, requiredRoles: ['admin', 'editor'] },
   { name: 'Services', href: '/admin/services', icon: Settings, requiredRoles: ['admin', 'editor'] },
   { 
     name: 'Blogs', 

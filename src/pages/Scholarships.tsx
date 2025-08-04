@@ -22,13 +22,10 @@ const Scholarships = () => {
     queryFn: async () => {
       console.log('Fetching scholarships with filter:', filter);
       
+      // First, try a simple query without joins
       let query = supabase
         .from('scholarships')
-        .select(`
-          *,
-          universities(name),
-          courses(title)
-        `)
+        .select('*')
         .eq('is_published', true)
         .order('is_featured', { ascending: false })
         .order('created_at', { ascending: false });
@@ -60,18 +57,65 @@ const Scholarships = () => {
           break;
       }
 
-      const { data, error } = await query;
-      console.log('Scholarships query result:', { data, error });
+      const { data: scholarshipData, error: scholarshipError } = await query;
+      console.log('Scholarships query result:', { data: scholarshipData, error: scholarshipError });
       
-      if (error) {
-        console.error('Scholarships query error:', error);
-        throw error;
+      if (scholarshipError) {
+        console.error('Scholarships query error:', scholarshipError);
+        throw scholarshipError;
       }
-      return data;
+
+      // If we have scholarships, fetch related data separately
+      if (scholarshipData && scholarshipData.length > 0) {
+        // Get university data
+        const universityIds = scholarshipData
+          .map(s => s.university_id)
+          .filter(Boolean);
+
+        // Get course data  
+        const courseIds = scholarshipData
+          .map(s => s.course_id)
+          .filter(Boolean);
+
+        let universities = [];
+        let courses = [];
+
+        if (universityIds.length > 0) {
+          const { data: universityData } = await supabase
+            .from('universities')
+            .select('id, name')
+            .in('id', universityIds);
+          universities = universityData || [];
+        }
+
+        if (courseIds.length > 0) {
+          const { data: courseData } = await supabase
+            .from('courses')
+            .select('id, title')
+            .in('id', courseIds);
+          courses = courseData || [];
+        }
+
+        // Combine the data
+        const combinedData = scholarshipData.map(scholarship => ({
+          ...scholarship,
+          universities: universities.find(u => u.id === scholarship.university_id) || null,
+          courses: courses.find(c => c.id === scholarship.course_id) || null
+        }));
+
+        console.log('Combined scholarship data:', combinedData);
+        return combinedData;
+      }
+
+      return scholarshipData || [];
     }
   });
 
   console.log('Scholarships component render:', { scholarships, isLoading, error });
+
+  if (error) {
+    console.error('Scholarship query error:', error);
+  }
 
   const { data: countries } = useQuery({
     queryKey: ['scholarship-countries'],
@@ -255,10 +299,10 @@ const Scholarships = () => {
                         </div>
                       )}
                       
-                      {scholarship.universities?.name && (
+                      {(scholarship as any).universities?.name && (
                         <div className="flex items-center gap-2">
                           <Award className="h-4 w-4 text-primary" />
-                          <span className="truncate">{scholarship.universities.name}</span>
+                          <span className="truncate">{(scholarship as any).universities.name}</span>
                         </div>
                       )}
                       

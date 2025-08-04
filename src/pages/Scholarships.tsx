@@ -21,7 +21,7 @@ const Scholarships = () => {
     queryKey: ['scholarships', filter, searchTerm, typeFilter, countryFilter],
     queryFn: async () => {
       console.log('Fetching scholarships with filter:', filter);
-      
+
       // First, try a simple query without joins
       let query = supabase
         .from('scholarships')
@@ -59,7 +59,7 @@ const Scholarships = () => {
 
       const { data: scholarshipData, error: scholarshipError } = await query;
       console.log('Scholarships query result:', { data: scholarshipData, error: scholarshipError });
-      
+
       if (scholarshipError) {
         console.error('Scholarships query error:', scholarshipError);
         throw scholarshipError;
@@ -125,9 +125,9 @@ const Scholarships = () => {
         .select('destination_country')
         .not('destination_country', 'is', null)
         .eq('is_published', true);
-      
+
       if (error) throw error;
-      
+
       const uniqueCountries = [...new Set(data.map(item => item.destination_country))].filter(Boolean);
       return uniqueCountries;
     }
@@ -136,7 +136,7 @@ const Scholarships = () => {
   const getScholarshipTypeColor = (type: string) => {
     const colors = {
       'merit': 'bg-blue-100 text-blue-800',
-      'need-based': 'bg-green-100 text-green-800', 
+      'need-based': 'bg-green-100 text-green-800',
       'sports': 'bg-purple-100 text-purple-800',
       'academic': 'bg-orange-100 text-orange-800',
       'research': 'bg-gray-100 text-gray-800'
@@ -219,7 +219,7 @@ const Scholarships = () => {
                   <SelectItem value="research">Research</SelectItem>
                 </SelectContent>
               </Select>
-              
+
               <Select value={countryFilter} onValueChange={setCountryFilter}>
                 <SelectTrigger className="w-40">
                   <MapPin className="h-4 w-4 mr-2" />
@@ -246,101 +246,102 @@ const Scholarships = () => {
             </TabsList>
           </Tabs>
         </div>
+        <Tabs>
+          <TabsContent value={filter}>
+            {scholarships?.length === 0 ? (
+              <div className="text-center py-12">
+                <Award className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-600 mb-2">No scholarships found</h3>
+                <p className="text-gray-500">Try adjusting your search or filters</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {scholarships?.map((scholarship) => (
+                  <Card key={scholarship.id} className="group hover:shadow-lg transition-shadow">
+                    {scholarship.featured_image_url && (
+                      <div className="aspect-video overflow-hidden rounded-t-lg">
+                        <img
+                          src={scholarship.featured_image_url}
+                          alt={scholarship.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
 
-        <TabsContent value={filter}>
-          {scholarships?.length === 0 ? (
-            <div className="text-center py-12">
-              <Award className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">No scholarships found</h3>
-              <p className="text-gray-500">Try adjusting your search or filters</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {scholarships?.map((scholarship) => (
-                <Card key={scholarship.id} className="group hover:shadow-lg transition-shadow">
-                  {scholarship.featured_image_url && (
-                    <div className="aspect-video overflow-hidden rounded-t-lg">
-                      <img
-                        src={scholarship.featured_image_url}
-                        alt={scholarship.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex flex-wrap gap-2">
-                        <Badge className={getScholarshipTypeColor(scholarship.scholarship_type)}>
-                          {scholarship.scholarship_type}
-                        </Badge>
-                        {scholarship.is_featured && (
-                          <Badge variant="secondary">Featured</Badge>
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex flex-wrap gap-2">
+                          <Badge className={getScholarshipTypeColor(scholarship.scholarship_type)}>
+                            {scholarship.scholarship_type}
+                          </Badge>
+                          {scholarship.is_featured && (
+                            <Badge variant="secondary">Featured</Badge>
+                          )}
+                          {scholarship.deadline && isDeadlineSoon(scholarship.deadline) && (
+                            <Badge variant="destructive">Deadline Soon</Badge>
+                          )}
+                        </div>
+                      </div>
+
+                      <h3 className="text-lg font-semibold mb-2 line-clamp-2">
+                        {scholarship.title}
+                      </h3>
+
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                        {scholarship.short_description}
+                      </p>
+
+                      <div className="space-y-2 text-sm text-gray-600 mb-4">
+                        {scholarship.scholarship_amount && (
+                          <div className="flex items-center gap-2">
+                            <DollarSign className="h-4 w-4 text-primary" />
+                            <span>{scholarship.scholarship_amount} {scholarship.currency}</span>
+                          </div>
                         )}
-                        {scholarship.deadline && isDeadlineSoon(scholarship.deadline) && (
-                          <Badge variant="destructive">Deadline Soon</Badge>
+
+                        {(scholarship as any).universities?.name && (
+                          <div className="flex items-center gap-2">
+                            <Award className="h-4 w-4 text-primary" />
+                            <span className="truncate">{(scholarship as any).universities.name}</span>
+                          </div>
+                        )}
+
+                        {scholarship.destination_country && (
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-primary" />
+                            <span>{scholarship.destination_country}</span>
+                          </div>
+                        )}
+
+                        {scholarship.deadline && (
+                          <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4 text-primary" />
+                            <span>Deadline: {format(new Date(scholarship.deadline), 'MMM dd, yyyy')}</span>
+                          </div>
                         )}
                       </div>
-                    </div>
 
-                    <h3 className="text-lg font-semibold mb-2 line-clamp-2">
-                      {scholarship.title}
-                    </h3>
-
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                      {scholarship.short_description}
-                    </p>
-
-                    <div className="space-y-2 text-sm text-gray-600 mb-4">
-                      {scholarship.scholarship_amount && (
-                        <div className="flex items-center gap-2">
-                          <DollarSign className="h-4 w-4 text-primary" />
-                          <span>{scholarship.scholarship_amount} {scholarship.currency}</span>
-                        </div>
-                      )}
-                      
-                      {(scholarship as any).universities?.name && (
-                        <div className="flex items-center gap-2">
-                          <Award className="h-4 w-4 text-primary" />
-                          <span className="truncate">{(scholarship as any).universities.name}</span>
-                        </div>
-                      )}
-                      
-                      {scholarship.destination_country && (
-                        <div className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4 text-primary" />
-                          <span>{scholarship.destination_country}</span>
-                        </div>
-                      )}
-                      
-                      {scholarship.deadline && (
-                        <div className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4 text-primary" />
-                          <span>Deadline: {format(new Date(scholarship.deadline), 'MMM dd, yyyy')}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Link to={`/scholarships/${scholarship.slug}`} className="flex-1">
-                        <Button variant="outline" className="w-full">
-                          Learn More
-                        </Button>
-                      </Link>
-                      {scholarship.application_link && (
-                        <Button size="sm" variant="default" asChild>
-                          <a href={scholarship.application_link} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </TabsContent>
+                      <div className="flex gap-2">
+                        <Link to={`/scholarships/${scholarship.slug}`} className="flex-1">
+                          <Button variant="outline" className="w-full">
+                            Learn More
+                          </Button>
+                        </Link>
+                        {scholarship.application_link && (
+                          <Button size="sm" variant="default" asChild>
+                            <a href={scholarship.application_link} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

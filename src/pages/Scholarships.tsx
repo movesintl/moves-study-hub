@@ -17,9 +17,11 @@ const Scholarships = () => {
   const [typeFilter, setTypeFilter] = useState('all');
   const [countryFilter, setCountryFilter] = useState('all');
 
-  const { data: scholarships, isLoading } = useQuery({
+  const { data: scholarships, isLoading, error } = useQuery({
     queryKey: ['scholarships', filter, searchTerm, typeFilter, countryFilter],
     queryFn: async () => {
+      console.log('Fetching scholarships with filter:', filter);
+      
       let query = supabase
         .from('scholarships')
         .select(`
@@ -59,10 +61,17 @@ const Scholarships = () => {
       }
 
       const { data, error } = await query;
-      if (error) throw error;
+      console.log('Scholarships query result:', { data, error });
+      
+      if (error) {
+        console.error('Scholarships query error:', error);
+        throw error;
+      }
       return data;
     }
   });
+
+  console.log('Scholarships component render:', { scholarships, isLoading, error });
 
   const { data: countries } = useQuery({
     queryKey: ['scholarship-countries'],

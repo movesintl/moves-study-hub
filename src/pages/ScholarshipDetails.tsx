@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Award, MapPin, DollarSign, Calendar, ExternalLink, Building, BookOpen, Mail, Phone, ArrowLeft } from 'lucide-react';
+import { Award, MapPin, DollarSign, Calendar, ExternalLink, Building, BookOpen, Mail, Phone, ArrowLeft, GraduationCap, ChevronRight } from 'lucide-react';
 import { format } from 'date-fns';
 import { Helmet } from 'react-helmet-async';
 import LeadEnquiryForm from '@/components/common/LeadEnquiryForm';
@@ -27,7 +27,7 @@ const ScholarshipDetails = () => {
         .eq('slug', slug)
         .eq('is_published', true)
         .single();
-      
+
       if (error) throw error;
       return data;
     }
@@ -90,55 +90,81 @@ const ScholarshipDetails = () => {
         <meta name="description" content={scholarship.meta_description || scholarship.short_description} />
       </Helmet>
 
-      {/* Hero Section with Background */}
-      <div className="relative bg-gradient-to-r from-primary via-primary/95 to-accent text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto px-4 py-12 lg:py-20 relative z-10">
-          {/* Breadcrumb */}
-          <div className="mb-6">
-            <Link to="/scholarships" className="inline-flex items-center text-white/80 hover:text-white transition-colors">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Scholarships
-            </Link>
-          </div>
+      {/* Hero Section with Modern Design */}
+      <section className="relative bg-[#023047] text-white py-12 lg:py-20 overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-32 left-16 w-36 h-36 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-80 right-24 w-28 h-28 bg-accent/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-32 left-1/4 w-44 h-44 bg-white/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          {/* Subtle decorative elements */}
+          <div className="absolute top-1/4 right-1/3 w-2 h-2 bg-accent rounded-full animate-ping opacity-20"></div>
+          <div className="absolute bottom-1/3 left-1/4 w-1 h-1 bg-white rounded-full animate-ping delay-2000 opacity-30"></div>
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 space-y-6">
-              {/* Badges */}
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-white/20 text-white border-white/30 hover:bg-white/30">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[500px]">
+            {/* Left Column - Scholarship Content */}
+            <div className="space-y-8 pt-0 animate-fade-in">
+              {/* Modern Breadcrumb */}
+              <nav className="flex items-center gap-3 text-sm">
+                <Link
+                  to="/scholarships"
+                  className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 group"
+                >
+                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-white/40 transition-all duration-300">
+                    <ArrowLeft className="h-3 w-3 text-white" />
+                  </div>
+                  <span>Back to Scholarships</span>
+                </Link>
+                <ChevronRight className="h-4 w-4 text-white/50" />
+                <span className="text-white font-medium">{scholarship.title}</span>
+              </nav>
+
+              {/* Scholarship Content */}
+              <div className="space-y-6">
+                {/* Badges */}
+                <div className="flex flex-wrap gap-2">
+
+                   <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300 animate-scale-in">
+                  <GraduationCap className='w-4 h-4 text-accent '/>
                   {scholarship.scholarship_type}
-                </Badge>
-                {scholarship.is_featured && (
-                  <Badge className="bg-accent/80 text-white border-accent hover:bg-accent">
-                    Featured
-                  </Badge>
-                )}
-                {scholarship.deadline && isDeadlineSoon(scholarship.deadline) && (
-                  <Badge className="bg-red-500/80 text-white border-red-400 hover:bg-red-500">
-                    Deadline Soon
-                  </Badge>
+                </div>
+                  {scholarship.is_featured && (
+                    <Badge className="bg-accent/90 hover:bg-accent border-accent text-white transition-all duration-300">
+                      Featured
+                    </Badge>
+                  )}
+                  {scholarship.deadline && isDeadlineSoon(scholarship.deadline) && (
+                    <Badge className="bg-red-500/90 hover:bg-red-500 border-red-400 text-white transition-all duration-300">
+                      Deadline Soon
+                    </Badge>
+                  )}
+                </div>
+
+                {/* Title */}
+                <h1 className="text-4xl lg:text-6xl font-black leading-tight">
+                  <span className="block text-white drop-shadow-lg">
+                    {scholarship.title}
+                  </span>
+                </h1>
+
+                {/* Short Description */}
+                {scholarship.short_description && (
+                  <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
+                    {scholarship.short_description}
+                  </p>
                 )}
               </div>
 
-              {/* Title */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-                {scholarship.title}
-              </h1>
-
-              {/* Short Description */}
-              {scholarship.short_description && (
-                <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl">
-                  {scholarship.short_description}
-                </p>
-              )}
-
               {/* Key Stats */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {scholarship.scholarship_amount && (
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 transition-all duration-300">
                     <div className="flex items-center gap-3">
-                      <DollarSign className="h-6 w-6 text-accent" />
+                      <div className="p-2 bg-accent/20 backdrop-blur-sm rounded-lg border border-accent/30">
+                        <DollarSign className="h-5 w-5 text-accent" />
+                      </div>
                       <div>
                         <p className="text-white/80 text-sm">Amount</p>
                         <p className="text-white font-semibold">{scholarship.scholarship_amount} {scholarship.currency}</p>
@@ -148,9 +174,11 @@ const ScholarshipDetails = () => {
                 )}
 
                 {scholarship.deadline && (
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 transition-all duration-300">
                     <div className="flex items-center gap-3">
-                      <Calendar className="h-6 w-6 text-accent" />
+                      <div className="p-2 bg-blue-500/20 backdrop-blur-sm rounded-lg border border-blue-500/30">
+                        <Calendar className="h-5 w-5 text-blue-400" />
+                      </div>
                       <div>
                         <p className="text-white/80 text-sm">Deadline</p>
                         <p className="text-white font-semibold">{format(new Date(scholarship.deadline), 'MMM dd, yyyy')}</p>
@@ -160,9 +188,11 @@ const ScholarshipDetails = () => {
                 )}
 
                 {scholarship.destination_country && (
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 transition-all duration-300">
                     <div className="flex items-center gap-3">
-                      <MapPin className="h-6 w-6 text-accent" />
+                      <div className="p-2 bg-emerald-500/20 backdrop-blur-sm rounded-lg border border-emerald-500/30">
+                        <MapPin className="h-5 w-5 text-emerald-400" />
+                      </div>
                       <div>
                         <p className="text-white/80 text-sm">Location</p>
                         <p className="text-white font-semibold">{scholarship.destination_country}</p>
@@ -171,24 +201,50 @@ const ScholarshipDetails = () => {
                   </div>
                 )}
               </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                {scholarship.application_link && (
+                  <Button
+                    size="lg"
+                    className="bg-accent hover:bg-accent/90 shadow-xl hover:shadow-2xl hover:shadow-accent/25 
+              transition-all duration-300 text-lg px-8 py-6 text-white transform hover:scale-105"
+                  >
+                    <a href={scholarship.application_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                      <ExternalLink className="h-5 w-5" />
+                      Apply Now
+                    </a>
+                  </Button>
+                )}
+
+              </div>
             </div>
 
-            {/* Featured Image */}
+            {/* Right Column - Featured Image */}
             {scholarship.featured_image_url && (
-              <div className="lg:col-span-4">
-                <div className="aspect-square lg:aspect-auto lg:h-80 overflow-hidden rounded-xl shadow-2xl">
+              <div className="relative hidden lg:block animate-fade-in delay-700">
+                <div className="relative w-full h-[400px] bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>
                   <img
                     src={scholarship.featured_image_url}
                     alt={scholarship.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
+
+                  {/* Floating elements */}
+                  <div className="absolute top-8 right-8 w-16 h-16 bg-accent/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-accent/30">
+                    <Award className="h-6 w-6 text-accent" />
+                  </div>
+
+                  <div className="absolute bottom-8 left-8 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
+                    <GraduationCap className="h-5 w-5 text-white" />
+                  </div>
                 </div>
               </div>
             )}
           </div>
         </div>
-      </div>
-
+      </section>
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8 lg:py-12">
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
@@ -307,7 +363,7 @@ const ScholarshipDetails = () => {
           {/* Sidebar */}
           <div className="xl:col-span-1 space-y-6">
             {/* Sticky Container */}
-            <div className="xl:sticky xl:top-8 space-y-6">
+            <div className="xl:sticky xl:top-16 space-y-6 top-auto">
               {/* Apply Now - Highlighted */}
               <Card className="shadow-lg border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-accent/5">
                 <CardHeader className="pb-4">
@@ -322,7 +378,7 @@ const ScholarshipDetails = () => {
                       </a>
                     </Button>
                   )}
-                  
+
                   <Button variant="outline" size="lg" className="w-full border-2 hover:bg-primary/5" asChild>
                     <Link to="/contact">
                       Get Help with Application
@@ -389,18 +445,11 @@ const ScholarshipDetails = () => {
                 </Card>
               )}
 
-              {/* Get Help */}
-              <Card className="shadow-md">
-                <CardHeader>
-                  <CardTitle className="text-lg">Need Assistance?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <LeadEnquiryForm />
-                </CardContent>
-              </Card>
+              
             </div>
           </div>
         </div>
+                  <LeadEnquiryForm />
       </div>
     </div>
   );

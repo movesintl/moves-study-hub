@@ -119,30 +119,42 @@ const ScholarshipForm = () => {
 
   const saveScholarship = useMutation({
     mutationFn: async (data: typeof formData) => {
-      const scholarshipData = {
-        ...data,
+      const baseData = {
+        title: data.title,
+        short_description: data.short_description,
+        full_description: data.full_description,
+        eligibility_criteria: data.eligibility_criteria,
+        application_process: data.application_process,
+        required_documents: data.required_documents,
+        scholarship_amount: data.scholarship_amount,
+        currency: data.currency,
         deadline: data.deadline ? new Date(data.deadline).toISOString() : null,
         start_date: data.start_date ? new Date(data.start_date).toISOString() : null,
         end_date: data.end_date ? new Date(data.end_date).toISOString() : null,
         university_id: data.university_id || null,
-        course_id: data.course_id || null
+        course_id: data.course_id || null,
+        destination_country: data.destination_country,
+        scholarship_type: data.scholarship_type,
+        application_link: data.application_link,
+        contact_email: data.contact_email,
+        contact_phone: data.contact_phone,
+        is_published: data.is_published,
+        is_featured: data.is_featured,
+        featured_image_url: data.featured_image_url,
+        meta_title: data.meta_title,
+        meta_description: data.meta_description
       };
-
-      // Remove slug from insert data since it's auto-generated
-      if (!isEditing) {
-        delete (scholarshipData as any).slug;
-      }
 
       if (isEditing) {
         const { error } = await supabase
           .from('scholarships')
-          .update(scholarshipData)
+          .update(baseData)
           .eq('id', id);
         if (error) throw error;
       } else {
         const { error } = await supabase
           .from('scholarships')
-          .insert(scholarshipData);
+          .insert(baseData as any);
         if (error) throw error;
       }
     },

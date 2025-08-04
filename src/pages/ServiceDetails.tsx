@@ -71,10 +71,12 @@ const ServiceDetails = () => {
             <div className="space-y-6 lg:space-y-8">
               {/* Breadcrumb Navigation */}
               <nav className="mb-8 flex items-center text-sm text-gray-300">
-                <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-                  <Home className="h-4 w-4" />
-                  <span>Home</span>
-                </div>
+                 <div className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 cursor-pointer group">
+                                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-white/40 transition-all duration-300">
+                                    <Home className="h-3 w-3 text-white" />
+                                  </div>
+                                  <span>Home</span>
+                                </div>
                 <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
                 <span className="hover:text-white transition-colors cursor-pointer">Service</span>
                 <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />

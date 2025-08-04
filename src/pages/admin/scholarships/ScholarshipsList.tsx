@@ -11,20 +11,59 @@ import { Plus, Edit, Trash2, Eye, Award, MapPin, DollarSign } from 'lucide-react
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 
+// Type definitions
+interface University {
+  id: string;
+  name: string;
+}
+
+interface Course {
+  id: string;
+  title: string;
+}
+
+interface Scholarship {
+  id: string;
+  title: string;
+  slug: string;
+  scholarship_type: string;
+  scholarship_amount?: string;
+  currency?: string;
+  destination_country?: string;
+  deadline?: string;
+  is_featured: boolean;
+  is_published: boolean;
+  created_at: string;
+  university_id?: string;
+  course_id?: string;
+  universities?: University;
+  courses?: Course;
+}
+
+type ScholarshipFilter = 'all' | 'published' | 'drafts' | 'featured' | 'active' | 'expired';
+
 const ScholarshipsList = () => {
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState<ScholarshipFilter>('all');
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: scholarships, isLoading } = useQuery({
+  // Fetch scholarships with proper typing
+  const { data: scholarships, isLoading, error } = useQuery<
+    Scholarship[],
+    Error
+  >({
     queryKey: ['admin-scholarships', filter],
     queryFn: async () => {
-      let query = supabase.from('scholarships').select(`
-        *,
-        universities(name),
-        courses(title)
-      `).order('created_at', { ascending: false });
+      let query = supabase
+        .from('scholarships')
+        .select(`
+          *,
+          universities:university_id (name),
+          courses:course_id (title)
+        `)
+        .order('created_at', { ascending: false });
       
+      // Apply filters
       switch (filter) {
         case 'published':
           query = query.eq('is_published', true);
@@ -46,53 +85,113 @@ const ScholarshipsList = () => {
       }
       
       const { data, error } = await query;
-      if (error) throw error;
-      return data;
-    }
+      
+      if (error) {
+        throw new Error(error.message);
+      }
+      
+      return data as unknown as Scholarship[];
+    },
+    retry: 2, // Retry failed queries twice
   });
 
+  // Delete mutation with proper typing
   const deleteScholarship = useMutation({
     mutationFn: async (scholarshipId: string) => {
-      const { error } = await supabase.from('scholarships').delete().eq('id', scholarshipId);
-      if (error) throw error;
+      const { error } = await supabase
+        .from('scholarships')
+        .delete()
+        .eq('id', scholarshipId);
+      
+      if (error) {
+        throw new Error(error.message);
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-scholarships'] });
-      toast({ title: 'Scholarship deleted successfully' });
+      toast({ 
+        title: 'Success', 
+        description: 'Scholarship deleted successfully',
+      });
     },
-    onError: (error) => {
-      toast({ title: 'Error deleting scholarship', description: error.message, variant: 'destructive' });
+    onError: (error: Error) => {
+      toast({ 
+        title: 'Error', 
+        description: error.message,
+        variant: 'destructive',
+      });
     }
   });
 
+  // Toggle published status with proper typing
   const togglePublished = useMutation({
-    mutationFn: async ({ scholarshipId, isPublished }: { scholarshipId: string; isPublished: boolean }) => {
+    mutationFn: async ({ 
+      scholarshipId, 
+      isPublished 
+    }: { 
+      scholarshipId: string; 
+      isPublished: boolean 
+    }) => {
       const { error } = await supabase
         .from('scholarships')
         .update({ is_published: isPublished })
         .eq('id', scholarshipId);
-      if (error) throw error;
+      
+      if (error) {
+        throw new Error(error.message);
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-scholarships'] });
-      toast({ title: 'Scholarship updated successfully' });
+      toast({
+        title: 'Success',
+        description: 'Publication status updated',
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: 'Error',
+        description: error.message,
+        variant: 'destructive',
+      });
     }
   });
 
+  // Toggle featured status with proper typing
   const toggleFeatured = useMutation({
-    mutationFn: async ({ scholarshipId, isFeatured }: { scholarshipId: string; isFeatured: boolean }) => {
+    mutationFn: async ({ 
+      scholarshipId, 
+      isFeatured 
+    }: { 
+      scholarshipId: string; 
+      isFeatured: boolean 
+    }) => {
       const { error } = await supabase
         .from('scholarships')
         .update({ is_featured: isFeatured })
         .eq('id', scholarshipId);
-      if (error) throw error;
+      
+      if (error) {
+        throw new Error(error.message);
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-scholarships'] });
-      toast({ title: 'Scholarship updated successfully' });
+      toast({
+        title: 'Success',
+        description: 'Featured status updated',
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: 'Error',
+        description: error.message,
+        variant: 'destructive',
+      });
     }
   });
 
+  // Scholarship type badge colors
   const getScholarshipTypeColor = (type: string) => {
     const colors = {
       'merit': 'bg-blue-100 text-blue-800',
@@ -104,6 +203,7 @@ const ScholarshipsList = () => {
     return colors[type as keyof typeof colors] || 'bg-gray-100 text-gray-800';
   };
 
+  // Loading state
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -121,6 +221,17 @@ const ScholarshipsList = () => {
     );
   }
 
+  // Error state
+  if (error) {
+    return (
+      <Card>
+        <CardContent className="p-6 text-center">
+          <p className="text-red-500">Error loading scholarships: {error.message}</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -133,7 +244,7 @@ const ScholarshipsList = () => {
         </Link>
       </div>
 
-      <Tabs value={filter} onValueChange={setFilter} className="w-full">
+      <Tabs value={filter} onValueChange={(value) => setFilter(value as ScholarshipFilter)}>
         <TabsList>
           <TabsTrigger value="all">All Scholarships</TabsTrigger>
           <TabsTrigger value="active">Active</TabsTrigger>
@@ -147,7 +258,7 @@ const ScholarshipsList = () => {
           {scholarships?.length === 0 ? (
             <Card>
               <CardContent className="p-6 text-center">
-                <p className="text-gray-500">No scholarships found.</p>
+                <p className="text-gray-500">No scholarships found matching your criteria.</p>
               </CardContent>
             </Card>
           ) : (
@@ -155,9 +266,9 @@ const ScholarshipsList = () => {
               {scholarships?.map((scholarship) => (
                 <Card key={scholarship.id}>
                   <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
                           <h3 className="text-lg font-semibold">{scholarship.title}</h3>
                           <Badge className={getScholarshipTypeColor(scholarship.scholarship_type)}>
                             {scholarship.scholarship_type}
@@ -194,14 +305,18 @@ const ScholarshipsList = () => {
                           )}
                         </div>
 
-                        <div className="flex items-center gap-4 mt-4">
+                        <div className="flex flex-wrap items-center gap-4 mt-4">
                           <div className="flex items-center gap-2">
                             <label className="text-sm">Published:</label>
                             <Switch
                               checked={scholarship.is_published}
                               onCheckedChange={(checked) =>
-                                togglePublished.mutate({ scholarshipId: scholarship.id, isPublished: checked })
+                                togglePublished.mutate({ 
+                                  scholarshipId: scholarship.id, 
+                                  isPublished: checked 
+                                })
                               }
+                              disabled={togglePublished.isPending}
                             />
                           </div>
                           <div className="flex items-center gap-2">
@@ -209,8 +324,12 @@ const ScholarshipsList = () => {
                             <Switch
                               checked={scholarship.is_featured}
                               onCheckedChange={(checked) =>
-                                toggleFeatured.mutate({ scholarshipId: scholarship.id, isFeatured: checked })
+                                toggleFeatured.mutate({ 
+                                  scholarshipId: scholarship.id, 
+                                  isFeatured: checked 
+                                })
                               }
+                              disabled={toggleFeatured.isPending}
                             />
                           </div>
                         </div>
@@ -230,7 +349,11 @@ const ScholarshipsList = () => {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => deleteScholarship.mutate(scholarship.id)}
+                          onClick={() => {
+                            if (confirm('Are you sure you want to delete this scholarship?')) {
+                              deleteScholarship.mutate(scholarship.id);
+                            }
+                          }}
                           disabled={deleteScholarship.isPending}
                         >
                           <Trash2 className="h-4 w-4" />

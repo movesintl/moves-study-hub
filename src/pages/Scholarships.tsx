@@ -11,21 +11,58 @@ import { Award, MapPin, DollarSign, Calendar, ExternalLink, Search, Filter } fro
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
+interface University {
+  id: string;
+  name: string;
+}
+
+interface Course {
+  id: string;
+  title: string;
+}
+
+interface Scholarship {
+  id: string;
+  title: string;
+  slug: string;
+  short_description: string;
+  scholarship_type: string;
+  scholarship_amount?: string;
+  currency?: string;
+  destination_country?: string;
+  deadline?: string;
+  featured_image_url?: string;
+  is_featured: boolean;
+  is_published: boolean;
+  created_at: string;
+  university_id?: string;
+  course_id?: string;
+  application_link?: string;
+  universities?: University; // Changed from university to match Supabase join
+  courses?: Course; // Changed from course to match Supabase join
+}
+
 const Scholarships = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [countryFilter, setCountryFilter] = useState('all');
 
-  const { data: scholarships, isLoading, error } = useQuery({
+  // Fetch scholarships
+  const { 
+    data: scholarships, 
+    isLoading, 
+    error 
+  } = useQuery<Scholarship[], Error>({
     queryKey: ['scholarships', filter, searchTerm, typeFilter, countryFilter],
     queryFn: async () => {
-      console.log('Fetching scholarships with filter:', filter);
-
-      // First, try a simple query without joins
       let query = supabase
         .from('scholarships')
-        .select('*')
+        .select(`
+          *,
+          universities:university_id (id, name),
+          courses:course_id (id, title)
+        `)
         .eq('is_published', true)
         .order('is_featured', { ascending: false })
         .order('created_at', { ascending: false });
@@ -57,67 +94,25 @@ const Scholarships = () => {
           break;
       }
 
-      const { data: scholarshipData, error: scholarshipError } = await query;
-      console.log('Scholarships query result:', { data: scholarshipData, error: scholarshipError });
+      const { data, error: scholarshipError } = await query;
 
       if (scholarshipError) {
-        console.error('Scholarships query error:', scholarshipError);
-        throw scholarshipError;
+        throw new Error(scholarshipError.message);
       }
 
-      // If we have scholarships, fetch related data separately
-      if (scholarshipData && scholarshipData.length > 0) {
-        // Get university data
-        const universityIds = scholarshipData
-          .map(s => s.university_id)
-          .filter(Boolean);
-
-        // Get course data  
-        const courseIds = scholarshipData
-          .map(s => s.course_id)
-          .filter(Boolean);
-
-        let universities = [];
-        let courses = [];
-
-        if (universityIds.length > 0) {
-          const { data: universityData } = await supabase
-            .from('universities')
-            .select('id, name')
-            .in('id', universityIds);
-          universities = universityData || [];
-        }
-
-        if (courseIds.length > 0) {
-          const { data: courseData } = await supabase
-            .from('courses')
-            .select('id, title')
-            .in('id', courseIds);
-          courses = courseData || [];
-        }
-
-        // Combine the data
-        const combinedData = scholarshipData.map(scholarship => ({
-          ...scholarship,
-          universities: universities.find(u => u.id === scholarship.university_id) || null,
-          courses: courses.find(c => c.id === scholarship.course_id) || null
-        }));
-
-        console.log('Combined scholarship data:', combinedData);
-        return combinedData;
-      }
-
-      return scholarshipData || [];
+      return data || [];
     }
   });
 
-  console.log('Scholarships component render:', { scholarships, isLoading, error });
+  // Debugging - log the raw data
+  React.useEffect(() => {
+    if (!isLoading && scholarships) {
+      console.log("Raw scholarships data:", scholarships);
+    }
+  }, [scholarships, isLoading]);
 
-  if (error) {
-    console.error('Scholarship query error:', error);
-  }
-
-  const { data: countries } = useQuery({
+  // Fetch countries
+  const { data: countries } = useQuery<string[], Error>({
     queryKey: ['scholarship-countries'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -126,7 +121,7 @@ const Scholarships = () => {
         .not('destination_country', 'is', null)
         .eq('is_published', true);
 
-      if (error) throw error;
+      if (error) throw new Error(error.message);
 
       const uniqueCountries = [...new Set(data.map(item => item.destination_country))].filter(Boolean);
       return uniqueCountries;
@@ -145,6 +140,7 @@ const Scholarships = () => {
   };
 
   const isDeadlineSoon = (deadline: string) => {
+    if (!deadline) return false;
     const now = new Date();
     const deadlineDate = new Date(deadline);
     const diffTime = deadlineDate.getTime() - now.getTime();
@@ -171,6 +167,18 @@ const Scholarships = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-12">
+          <div className="text-center text-red-500">
+            <p>Error loading scholarships: {error.message}</p>
           </div>
         </div>
       </div>
@@ -246,102 +254,100 @@ const Scholarships = () => {
             </TabsList>
           </Tabs>
         </div>
-        <Tabs>
-          <TabsContent value={filter}>
-            {scholarships?.length === 0 ? (
-              <div className="text-center py-12">
-                <Award className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">No scholarships found</h3>
-                <p className="text-gray-500">Try adjusting your search or filters</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {scholarships?.map((scholarship) => (
-                  <Card key={scholarship.id} className="group hover:shadow-lg transition-shadow">
-                    {scholarship.featured_image_url && (
-                      <div className="aspect-video overflow-hidden rounded-t-lg">
-                        <img
-                          src={scholarship.featured_image_url}
-                          alt={scholarship.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
+
+        {/* Scholarships List */}
+        {scholarships?.length === 0 ? (
+          <div className="text-center py-12">
+            <Award className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-600 mb-2">No scholarships found</h3>
+            <p className="text-gray-500">Try adjusting your search or filters</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {scholarships?.map((scholarship) => (
+              <Card key={scholarship.id} className="group hover:shadow-lg transition-shadow">
+                {scholarship.featured_image_url && (
+                  <div className="aspect-video overflow-hidden rounded-t-lg">
+                    <img
+                      src={scholarship.featured_image_url}
+                      alt={scholarship.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex flex-wrap gap-2">
+                      <Badge className={getScholarshipTypeColor(scholarship.scholarship_type)}>
+                        {scholarship.scholarship_type}
+                      </Badge>
+                      {scholarship.is_featured && (
+                        <Badge variant="secondary">Featured</Badge>
+                      )}
+                      {scholarship.deadline && isDeadlineSoon(scholarship.deadline) && (
+                        <Badge variant="destructive">Deadline Soon</Badge>
+                      )}
+                    </div>
+                  </div>
+
+                  <h3 className="text-lg font-semibold mb-2 line-clamp-2">
+                    {scholarship.title}
+                  </h3>
+
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                    {scholarship.short_description}
+                  </p>
+
+                  <div className="space-y-2 text-sm text-gray-600 mb-4">
+                    {scholarship.scholarship_amount && (
+                      <div className="flex items-center gap-2">
+                        <DollarSign className="h-4 w-4 text-primary" />
+                        <span>{scholarship.scholarship_amount} {scholarship.currency}</span>
                       </div>
                     )}
 
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex flex-wrap gap-2">
-                          <Badge className={getScholarshipTypeColor(scholarship.scholarship_type)}>
-                            {scholarship.scholarship_type}
-                          </Badge>
-                          {scholarship.is_featured && (
-                            <Badge variant="secondary">Featured</Badge>
-                          )}
-                          {scholarship.deadline && isDeadlineSoon(scholarship.deadline) && (
-                            <Badge variant="destructive">Deadline Soon</Badge>
-                          )}
-                        </div>
+                    {scholarship.universities?.name && (
+                      <div className="flex items-center gap-2">
+                        <Award className="h-4 w-4 text-primary" />
+                        <span className="truncate">{scholarship.universities.name}</span>
                       </div>
+                    )}
 
-                      <h3 className="text-lg font-semibold mb-2 line-clamp-2">
-                        {scholarship.title}
-                      </h3>
-
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                        {scholarship.short_description}
-                      </p>
-
-                      <div className="space-y-2 text-sm text-gray-600 mb-4">
-                        {scholarship.scholarship_amount && (
-                          <div className="flex items-center gap-2">
-                            <DollarSign className="h-4 w-4 text-primary" />
-                            <span>{scholarship.scholarship_amount} {scholarship.currency}</span>
-                          </div>
-                        )}
-
-                        {(scholarship as any).universities?.name && (
-                          <div className="flex items-center gap-2">
-                            <Award className="h-4 w-4 text-primary" />
-                            <span className="truncate">{(scholarship as any).universities.name}</span>
-                          </div>
-                        )}
-
-                        {scholarship.destination_country && (
-                          <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4 text-primary" />
-                            <span>{scholarship.destination_country}</span>
-                          </div>
-                        )}
-
-                        {scholarship.deadline && (
-                          <div className="flex items-center gap-2">
-                            <Calendar className="h-4 w-4 text-primary" />
-                            <span>Deadline: {format(new Date(scholarship.deadline), 'MMM dd, yyyy')}</span>
-                          </div>
-                        )}
+                    {scholarship.destination_country && (
+                      <div className="flex items-center gap-2">
+                        <MapPin className="h-4 w-4 text-primary" />
+                        <span>{scholarship.destination_country}</span>
                       </div>
+                    )}
 
-                      <div className="flex gap-2">
-                        <Link to={`/scholarships/${scholarship.slug}`} className="flex-1">
-                          <Button variant="outline" className="w-full">
-                            Learn More
-                          </Button>
-                        </Link>
-                        {scholarship.application_link && (
-                          <Button size="sm" variant="default" asChild>
-                            <a href={scholarship.application_link} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="h-4 w-4" />
-                            </a>
-                          </Button>
-                        )}
+                    {scholarship.deadline && (
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4 text-primary" />
+                        <span>Deadline: {format(new Date(scholarship.deadline), 'MMM dd, yyyy')}</span>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
+                    )}
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Link to={`/scholarships/${scholarship.slug}`} className="flex-1">
+                      <Button variant="outline" className="w-full">
+                        Learn More
+                      </Button>
+                    </Link>
+                    {scholarship.application_link && (
+                      <Button size="sm" variant="default" asChild>
+                        <a href={scholarship.application_link} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -246,7 +246,7 @@ const ScholarshipDetails = () => {
         </div>
       </section>
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8 lg:py-12">
+      <div className="container px-4 py-8 lg:py-12 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
           {/* Main Content */}
           <div className="xl:col-span-3 space-y-8">

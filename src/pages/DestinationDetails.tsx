@@ -21,11 +21,11 @@ const MoreInformationSection = ({ content }: { content: string }) => {
   
   return (
     <section>
-      <div className="text-left mb-1">
+      <div className="text-left mb-1 max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold mb-0">More Information</h2>
       </div>
       <div 
-        className="prose prose-lg max-w-none mt-0"
+        className="prose prose-lg max-w-6xl mx-auto mt-0"
         dangerouslySetInnerHTML={{ __html: content }}
       />
     </section>

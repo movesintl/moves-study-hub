@@ -46,15 +46,14 @@ export const UniversityGrid = ({ universities }: UniversityGridProps) => {
                   {/* Gradient overlay for depth */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-black/5 pointer-events-none"></div>
 
-                  {/* Featured badge */}
-                  {university.featured && (
+                  {/* {university.featured && (
                     <div className="absolute top-2 left-2 z-20">
                       <div className="flex items-center gap-1 bg-gradient-to-r from-[#fa8500] to-[#023047] text-white px-2 py-0.5 rounded-full text-xs font-semibold shadow-lg">
                         <Sparkles className="h-2.5 w-2.5" />
                         Featured
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   {/* University logo section */}
                   <div className="relative h-28 bg-gradient-to-br from-slate-100 via-[#023047]/5 to-[#fa8500]/10 flex items-center justify-center p-6">
@@ -71,14 +70,14 @@ export const UniversityGrid = ({ universities }: UniversityGridProps) => {
                     )}
                   </div>
 
-                  {/* Save Button */}
+                  {/* Save Button
                   <Button
                     variant="ghost"
                     size="sm"
                     className="absolute top-2 right-2 z-20 bg-white/95 backdrop-blur-sm hover:bg-white shadow-lg rounded-full h-8 w-8 p-0 border-0 transition-all duration-300 hover:scale-110"
                   >
                     <Heart className="h-3.5 w-3.5 text-gray-400 hover:text-red-500" />
-                  </Button>
+                  </Button> */}
 
                   {/* Content Section */}
                   <div className="p-4 space-y-3 relative z-10">
@@ -141,9 +140,6 @@ export const UniversityGrid = ({ universities }: UniversityGridProps) => {
           ))}
         </CarouselContent>
 
-        {/* Navigation buttons */}
-        <CarouselPrevious className="hidden md:flex -left-6 w-12 h-12 bg-white/90 backdrop-blur-sm border-2 border-white rounded-2xl shadow-xl hover:bg-white hover:shadow-2xl transition-all text-primary hover:text-primary duration-300 hover:scale-110" />
-        <CarouselNext className="hidden md:flex -right-6 w-12 h-12 bg-white/90 backdrop-blur-sm border-2 border-white rounded-2xl shadow-xl hover:bg-white hover:shadow-2xl transition-all text-primary hover:text-primary duration-300 hover:scale-110" />
       </Carousel>
     </div>
   );

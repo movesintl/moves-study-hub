@@ -71,12 +71,12 @@ const ServiceDetails = () => {
             <div className="space-y-6 lg:space-y-8">
               {/* Breadcrumb Navigation */}
               <nav className="mb-8 flex items-center text-sm text-gray-300">
-                 <div className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 cursor-pointer group">
-                                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-white/40 transition-all duration-300">
-                                    <Home className="h-3 w-3 text-white" />
-                                  </div>
-                                  <span>Home</span>
-                                </div>
+                <div className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 cursor-pointer group">
+                  <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-white/40 transition-all duration-300">
+                    <Home className="h-3 w-3 text-white" />
+                  </div>
+                  <span>Home</span>
+                </div>
                 <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
                 <span className="hover:text-white transition-colors cursor-pointer">Service</span>
                 <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
@@ -153,19 +153,19 @@ const ServiceDetails = () => {
             </div>
 
             {/* Right Column - Hero Image */}
-            <div className="relative lg:ml-8">
+            <div className="relative lg:ml-8 ">
               {service.feature_image_url ? (
                 <div className="relative">
                   <img
                     src={service.icon_url}
                     alt={service.feature_image_alt || service.title}
-                    className="w-full h-[300px] lg:h-[400px] object-cover rounded-2xl shadow-2xl"
+                    className="w-full h-full object-contain  rounded-2xl shadow-2xl"
                   />
                   {/* Optional overlay for better image integration */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent rounded-2xl"></div>
                 </div>
               ) : (
-                <div className="w-full h-[300px] lg:h-[400px] bg-gradient-to-br from-orange-500/20 to-slate-600/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/10">
+                <div className="w-full h-full bg-gradient-to-br from-orange-500/20 to-slate-600/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/10">
                   {service.icon_url ? (
                     <img
                       src={service.feature_image_url}

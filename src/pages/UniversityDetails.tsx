@@ -171,140 +171,135 @@ const UniversityDetails = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Dynamic Hero Section */}
-     <section className="relative py-10 bg-primary overflow-hidden min-h-[500px]">
-  {/* Background overlay for better text contrast */}
-  <div className="absolute inset-0 opacity-20">
-    <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.1)_1px,transparent_0)] bg-[size:24px_24px]"></div>
-  </div>
-
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-    {/* Main Hero Content */}
-    <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[400px] py-8">
-      {/* Left Column - Text Content */}
-      <div className="space-y-6 lg:space-y-8">
-        {/* Breadcrumb Navigation */}
-        <nav className="mb-8 flex items-center text-sm text-gray-300">
-          <div className="flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 cursor-pointer group">
-            <div className="p-1.5 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-white/40 transition-all duration-300">
-              <Home className="h-3 w-3 text-white" />
-            </div>
-            <span>Home</span>
-          </div>
-          <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
-          <span className="hover:text-white transition-colors cursor-pointer">Universities</span>
-          <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
-          <span className="text-[#fa8500] font-medium">{university.name}</span>
-        </nav>
-
-        {/* Badges */}
-        <div className="flex flex-wrap gap-3">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300">
-            <Building2 className="h-4 w-4" />
-            {university.institution_type || 'University'}
-          </div>
-          {university.featured && (
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full text-sm font-medium text-white border border-amber-400/30 hover:border-amber-400/50 transition-all duration-300">
-              <Star className="h-4 w-4" />
-              Featured Institution
-            </div>
-          )}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-white border border-white/20 hover:border-white/30 transition-all duration-300">
-            <CheckCircle className="h-4 w-4 text-emerald-400" />
-            Verified
-          </div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-accent/5 to-background">
+        <div className="absolute inset-0 opacity-30">
+          <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.02)_1px,transparent_0)] bg-[size:24px_24px]"></div>
         </div>
 
-        {/* University Name & Details */}
-        <div className="space-y-4">
-          <h1 className="text-5xl lg:text-7xl font-black leading-tight">
-            {university.name.split(' ')[0] && (
-              <span className="block text-white drop-shadow-lg">
-                {university.name.split(' ')[0]}
-                <br />
-              </span>
-            )}
-            {university.name.split(' ').length > 1 && (
-              <span className="block bg-gradient-to-r from-accent via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
-                {university.name.split(' ').slice(1).join(' ')}
-              </span>
-            )}
-          </h1>
+        <div className="relative">
+          {/* Navigation Bar */}
+          <div className="container mx-auto max-w-7xl px-4 py-16">
+            <div className="flex items-center justify-between">
+              {/* Breadcrumb Navigation */}
+              <nav className="mb-8 flex items-center text-sm text-gray-300">
+                <div className="flex items-center gap-2 text-primary/70 hover:text-primary transition-all duration-300 cursor-pointer group">
+                  <div className="p-1.5 bg-primary/10 rounded-lg backdrop-blur-sm border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
+                    <Home className="h-3 w-3 text-primary" />
+                  </div>
+                  <span>Home</span>
+                </div>
+                <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
+                <span className="hover:text-primary/70 transition-colors cursor-pointer text-primary">Universities</span>
+                <ChevronRight className="h-4 w-4 mx-2 text-gray-500" />
+                <span className="text-[#fa8500] font-medium">{university.name}</span>
+              </nav>
+             
+            </div>
+          </div>
 
-          {university.location && (
-            <div className="flex flex-wrap items-center gap-6 text-lg text-white/90">
-              <div className="flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-accent" />
-                <span>{university.location}</span>
-                {university.country && (
-                  <>
-                    <span className="mx-2">•</span>
-                    <span className="font-medium">{university.country}</span>
-                  </>
+          {/* Hero Content */}
+          <div className="container mx-auto max-w-7xl px-4 pb-16">
+            <div className="grid lg:grid-cols-12 gap-8 items-center">
+              {/* University Information */}
+              <div className="lg:col-span-8 space-y-6">
+                {/* Badges */}
+                <div className="flex flex-wrap gap-3">
+                  <Badge className="bg-primary/5 text-primary border-primary/20 px-4 py-2 text-sm hover:text-white">
+                    <Building2 className="h-4 w-4 mr-2" />
+                    {university.institution_type || 'University'}
+                  </Badge>
+                  {university.featured && (
+                    <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2">
+                      <Star className="h-4 w-4 mr-1" />
+                      Featured Institution
+                    </Badge>
+                  )}
+                  <Badge variant="outline" className="px-4 py-2">
+                    <CheckCircle className="h-4 w-4 mr-1 text-green-600" />
+                    Verified
+                  </Badge>
+                </div>
+
+                {/* University Name & Details */}
+                <div className="space-y-4">
+                  <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
+                    {university.name}
+                  </h1>
+
+                  {university.location && (
+                    <div className="flex flex-wrap items-center gap-6 text-lg text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="h-5 w-5 text-primary" />
+                        <span>{university.location}</span>
+                        {university.country && (
+                          <>
+                            <span className="mx-2">•</span>
+                            <span className="font-medium">{university.country}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Quick Action Buttons */}
+                <div className="flex flex-wrap gap-4">
+                <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
+                    <Calendar className="h-5 w-5 mr-2" />
+                    Book Consultation
+                  </Button>
+
+                
+
+                  {university.website_url && (
+                    <Button size="lg" variant="ghost" asChild className="px-6">
+                      <a href={university.website_url} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-5 w-5 mr-2" />
+                        Official Website
+                      </a>
+                    </Button>
+                  )}
+                  
+                </div>
+                {/* Quick Stats Grid */}
+                <div className="grid grid-cols-2 gap-3 max-w-md">
+                  {stats.map((stat, index) => (
+                    <Card key={index} className="bg-card/50 backdrop-blur border-border/50 hover:shadow-md transition-all">
+                      <CardContent className="p-4 text-center">
+                        <stat.icon className={`h-5 w-5 mx-auto mb-2 ${stat.color}`} />
+                        <div className="text-lg font-bold text-foreground">{stat.value}</div>
+                        <div className="text-xs text-muted-foreground">{stat.label}</div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* University Logo & Quick Stats moved here */}
+              <div className="lg:col-span-4 space-y-6">
+                {university.logo_url && (
+                  <div className="flex justify-center lg:justify-end">
+                    <div className="relative group">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300"></div>
+                      <Card className="relative bg-card/80 backdrop-blur border-0 shadow-2xl">
+                        <CardContent className="p-8">
+                          <img
+                            src={university.logo_url}
+                            alt={university.name}
+                            className="h-24 w-24 lg:h-32 lg:w-32 object-contain mx-auto"
+                          />
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
                 )}
-              </div>
-            </div>
-          )}
-        </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 pt-4">
-          <Button size="lg" className="bg-accent hover:bg-orange-500 text-white text-lg px-8 py-6 rounded-lg">
-            <Calendar className="h-5 w-5 mr-2" />
-            Book Consultation
-          </Button>
-          {university.website_url && (
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 bg-primary hover:scale-105 border-white/30 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white hover:text-white text-lg px-8 py-6 transition-all duration-300"
-              asChild
-            >
-              <a href={university.website_url} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-5 w-5 mr-2" />
-                Official Website
-              </a>
-            </Button>
-          )}
-        </div>
-
-        {/* Trust Indicators */}
-        <div className="flex flex-wrap items-center gap-8 pt-4">
-          {stats.map((stat, index) => (
-            <div key={index} className="flex items-center gap-3 group">
-              <div className={`p-2 ${stat.color}/20 backdrop-blur-sm rounded-lg border ${stat.color}/30 group-hover:border-${stat.color}/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-${stat.color}/20`}>
-                <stat.icon className={`h-4 w-4 ${stat.color}`} />
+                
               </div>
-              <div>
-                <div className="text-white font-medium">{stat.value}</div>
-                <div className="text-white/70 text-sm">{stat.label}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Right Column - University Logo */}
-      <div className="relative lg:ml-8">
-        {university.logo_url ? (
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-2xl transform rotate-3"></div>
-            <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20">
-              <img
-                src={university.logo_url}
-                alt={university.name}
-                className="w-full h-full max-h-64 object-contain mx-auto"
-              />
             </div>
           </div>
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-orange-500/20 to-slate-600/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/10">
-            <Building2 className="h-24 w-24 text-white/60" />
-          </div>
-        )}
-      </div>
-    </div>
-  </div>
-</section>
+        </div>
+      </section>
 
       {/* Enhanced Content Section */}
       <section className="py-8">

@@ -202,18 +202,7 @@ const ComingSoon = () => {
           </Card>
         </div>
 
-        {/* Enhanced Navigation */}
-        <div className="animate-fade-in delay-700">
-          <Link to="/">
-            <Button 
-              variant="outline" 
-              className="bg-white/10 border-white/40 text-white hover:bg-white/20 hover:border-white/60 h-12 px-8 text-lg font-medium hover-scale backdrop-blur-sm"
-            >
-              <ArrowLeft className="h-5 w-5 mr-3" />
-              Return to Home
-            </Button>
-          </Link>
-        </div>
+       
       </div>
     </div>
   );

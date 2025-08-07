@@ -95,8 +95,9 @@ function App() {
             <Routes>
               <Route path="/auth" element={<Auth />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
-              <Route path="/coming-soon" element={<ComingSoon />} />
-              <Route path="/" element={<Layout />}>
+              {/* <Route path="/" element={<Layout />}> */}
+              <Route path="/" element={<ComingSoon />}>
+  
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
                 <Route path="blogs" element={<Blogs />} />

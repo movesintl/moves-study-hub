@@ -80,6 +80,7 @@ import CareerForm from '@/pages/admin/careers/CareerForm';
 import Careers from '@/pages/Careers';
 import CareerDetails from '@/pages/CareerDetails';
 import Reviews from '@/pages/Reviews';
+import ComingSoon from '@/pages/ComingSoon';
 import AdminNotificationsPage from '@/pages/admin/notifications/NotificationsPage';
 import StudentNotificationsPage from '@/pages/student/NotificationsPage';
 
@@ -94,6 +95,7 @@ function App() {
             <Routes>
               <Route path="/auth" element={<Auth />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
+              <Route path="/coming-soon" element={<ComingSoon />} />
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />

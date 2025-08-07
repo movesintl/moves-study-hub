@@ -262,7 +262,7 @@ const UniversityDetails = () => {
                   
                 </div>
                 {/* Quick Stats Grid */}
-                <div className="grid grid-cols-2 gap-3 max-w-md">
+                <div className="grid grid-cols-4 gap-3 max-w-lg">
                   {stats.map((stat, index) => (
                     <Card key={index} className="bg-card/50 backdrop-blur border-border/50 hover:shadow-md transition-all">
                       <CardContent className="p-4 text-center">

@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { MapPin, GraduationCap, ExternalLink, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { MapPin, GraduationCap, ExternalLink, ChevronLeft, ChevronRight, ArrowRight, Building2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface University {
@@ -15,6 +15,7 @@ interface University {
   website_url: string | null;
   logo_url: string | null;
   overview_content: string | null;
+  courses?: Array<{ count: number }>;
   slug: string | null;
   featured: boolean;
 }
@@ -29,7 +30,7 @@ const FeaturedUniversities = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('universities')
-        .select('*')
+        .select('*,  courses:courses(count)')
         .eq('featured', true)
         .order('name');
 
@@ -92,94 +93,119 @@ const FeaturedUniversities = () => {
             </div>
           </div>
         </div>
+    {/* univertisites */}
+       <div className="relative">
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-6 py-4">
+          {universities.map((university) => (
+            <CarouselItem key={university.id} className="pl-6 basis-full md:basis-1/2 lg:basis-1/3">
+              <div className="h-full">
+                <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 rounded-xl h-full">
+                  {/* Gradient overlay for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-black/5 pointer-events-none"></div>
 
-        {/* Universities Carousel */}
-        <div className="relative">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-              skipSnaps: false,
-              dragFree: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {universities.map((university, index) => (
-                <CarouselItem
-                  key={university.id}
-                  // Changed basis to wider values - adjust these as needed
-                  className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
-                >
-                  <div className="group h-full" style={{ animationDelay: `${index * 100}ms` }}>
-                    {/* Changed card to use flex-1 for better height control */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full flex-1 overflow-hidden">
-                      {/* Card Content - removed fixed height */}
-                      <div className="p-6 h-full flex flex-col items-center text-center">
-                        {/* University Logo */}
-                        <div className="mb-6 relative">
-                          <div className="w-24 h-24 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden shadow-sm">
-                            {university.logo_url ? (
-                              <img
-                                src={university.logo_url}
-                                alt={`${university.name} logo`}
-                                className="w-20 h-20 object-contain"
-                              />
-                            ) : (
-                              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                                <GraduationCap className="w-10 h-10 text-white" />
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* University Name */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight line-clamp-2 text-center">
-                          {university.name}
-                        </h3>
-
-                        {/* Location */}
-                        <p className="text-gray-600 text-sm mb-6 leading-relaxed line-clamp-2 text-center">
-                          {university.location || `${university.country || 'International'}`}
-                        </p>
-
-                        {/* Spacer to push button to bottom */}
-                        <div className="flex-grow"></div>
-
-                        {/* View Details Button - added min-width and better padding */}
-                        <Button
-                          asChild
-                          className="items-center gap-2 px-4 text-white py-2.5 bg-accent border border-gray-200 rounded-lg hover:bg-accent/90
-                           hover:border-gray-300 hover:shadow-2xl hover:shadow-accent/25 transition-all duration-200 text-sm font-medium w-full 
-                           justify-center min-w-[180px] hover:scale-105"
-                        >
-                          <Link to={`/universities/${university.slug || university.id}`}>
-                            <ExternalLink className="w-4 h-4" />
-                            View Details
-                          </Link>
-                        </Button>
+                  {/* {university.featured && (
+                    <div className="absolute top-2 left-2 z-20">
+                      <div className="flex items-center gap-1 bg-gradient-to-r from-[#fa8500] to-[#023047] text-white px-2 py-0.5 rounded-full text-xs font-semibold shadow-lg">
+                        <Sparkles className="h-2.5 w-2.5" />
+                        Featured
                       </div>
                     </div>
+                  )} */}
+
+                  {/* University logo section */}
+                  <div className="relative h-28 bg-gradient-to-br from-slate-100 via-[#023047]/5 to-[#fa8500]/10 flex items-center justify-center p-6">
+                    {university.logo_url ? (
+                      <img
+                        src={university.logo_url}
+                        alt={university.name}
+                        className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="w-20 h-20 bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-lg flex items-center justify-center">
+                        <Building2 className="h-10 w-10 text-primary" />
+                      </div>
+                    )}
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
 
-          </Carousel>
-          {/* Dots Indicator */}
-          {universities.length > 6 && (
+                  {/* Save Button
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="absolute top-2 right-2 z-20 bg-white/95 backdrop-blur-sm hover:bg-white shadow-lg rounded-full h-8 w-8 p-0 border-0 transition-all duration-300 hover:scale-110"
+                  >
+                    <Heart className="h-3.5 w-3.5 text-gray-400 hover:text-red-500" />
+                  </Button> */}
 
-            <div className="mt-4 bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
-              {universities.map((_, idx) => (
-                <button
-                  key={idx}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-primary/90 w-5' : 'bg-gray-200 hover:bg-gray-300'}`}
-                  aria-label={`Go to university ${idx + 1}`}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+                  {/* Content Section */}
+                  <div className="p-4 space-y-3 relative z-10">
+                    {/* Title and Location */}
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors duration-300">
+                        {university.name}
+                      </h3>
+                      <div className="flex items-center text-gray-600">
+                        <MapPin className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                        <span className="text-sm font-medium">
+                          {university.location}, {university.country}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Programs count */}
+                    <div className="flex items-center justify-between p-2.5 bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg border border-gray-100">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-md flex items-center justify-center">
+                          <GraduationCap className="h-3 w-3 text-white" />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">Programs</span>
+                      </div>
+                      <span className="text-sm font-bold text-gray-900 bg-white px-2 py-0.5 rounded-md shadow-sm">
+                        {university.courses?.[0]?.count || 0}
+                      </span>
+                    </div>
+
+                    {/* Separator with gradient */}
+                    <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-2 pt-2">
+                      <Button
+                        variant="outline"
+                        className="flex-1 h-10 font-semibold border-2 border-orange-200 text-orange-600 hover:bg-orange-500 hover:border-orange-500 hover:text-white transition-all duration-300 rounded-xl shadow-sm hover:shadow-md"
+                        asChild
+                      >
+                        <Link to={`/universities/${university.slug || university.id}`}>
+                          View Details
+                        </Link>
+                      </Button>
+                      {university.website_url && (
+                        <Button
+                          className="flex-1 h-10 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                          asChild
+                        >
+                          <a href={university.website_url} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            Website
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+
+      </Carousel>
+    </div>
 
         {/* Enhanced Call to Action */}
         <div className="text-center mt-16">
@@ -193,3 +219,18 @@ const FeaturedUniversities = () => {
 };
 
 export default FeaturedUniversities;
+
+
+//  {/* Dots Indicator */}
+//           {universities.length > 6 && (
+
+//             <div className="mt-4 bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
+//               {universities.map((_, idx) => (
+//                 <button
+//                   key={idx}
+//                   className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-primary/90 w-5' : 'bg-gray-200 hover:bg-gray-300'}`}
+//                   aria-label={`Go to university ${idx + 1}`}
+//                 />
+//               ))}
+//             </div>
+//           )}

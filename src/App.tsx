@@ -95,6 +95,7 @@ function App() {
             <Routes>
               <Route path="/auth" element={<Auth />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
+              <Route path="/coming-soon" element={<ComingSoon />} />
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
@@ -122,7 +123,6 @@ function App() {
                 <Route path="careers" element={<Careers />} />
                 <Route path="careers/:slug" element={<CareerDetails />} />
                 <Route path="reviews" element={<Reviews />} />
-                <Route path="coming-soon" element={<ComingSoon />} />
                 <Route path="staff/:id" element={<StaffProfile />} />
                 <Route path="pages/:slug" element={<PageView />} />
               </Route>

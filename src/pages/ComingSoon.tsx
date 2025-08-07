@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Mail, ArrowLeft, Sparkles, Globe, BookOpen } from 'lucide-react';
+import { Clock, Mail, ArrowLeft, Sparkles, Globe, BookOpen, Zap, Star, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -15,12 +15,14 @@ const ComingSoon = () => {
 
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Set target date (30 days from now)
   const targetDate = new Date();
   targetDate.setDate(targetDate.getDate() + 30);
 
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate.getTime() - now;
@@ -41,131 +43,176 @@ const ComingSoon = () => {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      // Here you would typically send the email to your backend
       setIsSubscribed(true);
       setEmail('');
     }
   };
 
+  const floatingIcons = [
+    { Icon: Star, delay: 0, x: '10%', y: '20%' },
+    { Icon: Zap, delay: 1000, x: '85%', y: '15%' },
+    { Icon: Rocket, delay: 2000, x: '15%', y: '70%' },
+    { Icon: Globe, delay: 3000, x: '80%', y: '75%' },
+    { Icon: BookOpen, delay: 1500, x: '90%', y: '45%' },
+    { Icon: Sparkles, delay: 2500, x: '5%', y: '50%' }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-brand relative overflow-hidden">
-      {/* Animated background elements */}
+      {/* Enhanced animated background */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-60 right-20 w-48 h-48 bg-primary/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-40 left-1/3 w-24 h-24 bg-accent/20 rounded-full blur-lg animate-pulse delay-500"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-accent/5"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl animate-pulse opacity-60"></div>
+        <div className="absolute top-60 right-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse delay-1000 opacity-40"></div>
+        <div className="absolute bottom-40 left-1/3 w-48 h-48 bg-accent/30 rounded-full blur-2xl animate-pulse delay-500 opacity-50"></div>
+        <div className="absolute bottom-20 right-10 w-64 h-64 bg-primary/15 rounded-full blur-2xl animate-pulse delay-2000 opacity-30"></div>
       </div>
 
+      {/* Floating animated icons */}
+      {mounted && floatingIcons.map(({ Icon, delay, x, y }, index) => (
+        <div
+          key={index}
+          className="absolute animate-pulse opacity-20"
+          style={{
+            left: x,
+            top: y,
+            animationDelay: `${delay}ms`,
+            animationDuration: '4s'
+          }}
+        >
+          <Icon className="h-8 w-8 text-white" />
+        </div>
+      ))}
+
       <div className="relative z-10 container mx-auto px-4 py-12 min-h-screen flex flex-col justify-center items-center text-center">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-center mb-6">
-            <Sparkles className="h-8 w-8 text-accent mr-3 animate-pulse" />
-            <h1 className="text-4xl md:text-6xl font-bold text-white">Coming Soon</h1>
-            <Sparkles className="h-8 w-8 text-accent ml-3 animate-pulse" />
+        {/* Enhanced Header with animations */}
+        <div className="mb-12 animate-fade-in">
+          <div className="flex items-center justify-center mb-8">
+            <div className="relative">
+              <Sparkles className="h-12 w-12 text-accent mr-4 animate-pulse" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-ping"></div>
+            </div>
+            <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tight bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text">
+              Coming Soon
+            </h1>
+            <div className="relative">
+              <Sparkles className="h-12 w-12 text-accent ml-4 animate-pulse" />
+              <div className="absolute -top-1 -left-1 w-3 h-3 bg-accent rounded-full animate-ping delay-500"></div>
+            </div>
           </div>
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
-            We're working on something amazing for you. Stay tuned for updates!
+          <p className="text-xl md:text-3xl text-white/90 max-w-3xl mx-auto leading-relaxed font-light">
+            We're crafting something <span className="font-semibold text-accent">extraordinary</span> for your educational journey
           </p>
         </div>
 
-        {/* Countdown Timer */}
-        <div className="mb-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            {Object.entries(timeLeft).map(([unit, value]) => (
-              <Card key={unit} className="glass border-white/20 p-6 text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-                  {value.toString().padStart(2, '0')}
-                </div>
-                <div className="text-white/70 text-sm uppercase tracking-wider">
-                  {unit}
+        {/* Enhanced Countdown Timer */}
+        <div className="mb-16 animate-scale-in">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+            {Object.entries(timeLeft).map(([unit, value], index) => (
+              <Card key={unit} className="glass border-white/30 p-8 text-center hover-scale relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-lg"></div>
+                <div className="relative z-10">
+                  <div className="text-4xl md:text-6xl font-bold text-white mb-3 group-hover:text-accent transition-colors duration-300">
+                    {value.toString().padStart(2, '0')}
+                  </div>
+                  <div className="text-white/80 text-sm uppercase tracking-widest font-medium">
+                    {unit}
+                  </div>
                 </div>
               </Card>
             ))}
           </div>
-          <div className="flex items-center justify-center text-white/70">
-            <Clock className="h-5 w-5 mr-2" />
-            <span>Launch countdown</span>
+          <div className="flex items-center justify-center text-white/80">
+            <Clock className="h-6 w-6 mr-3 animate-pulse" />
+            <span className="text-lg font-medium">Launch countdown in progress</span>
           </div>
         </div>
 
-        {/* Email Subscription */}
-        <div className="mb-12 w-full max-w-md">
+        {/* Enhanced Email Subscription */}
+        <div className="mb-16 w-full max-w-lg animate-fade-in delay-300">
           {!isSubscribed ? (
-            <form onSubmit={handleSubscribe} className="space-y-4">
-              <div className="text-white mb-4">
-                <h3 className="text-xl font-semibold mb-2">Get Notified</h3>
-                <p className="text-white/80">Be the first to know when we launch!</p>
+            <form onSubmit={handleSubscribe} className="space-y-6">
+              <div className="text-white mb-6">
+                <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-white/80 bg-clip-text">
+                  Get Exclusive Access
+                </h3>
+                <p className="text-white/80 text-lg">Be among the first to experience the future of education!</p>
               </div>
-              <div className="flex gap-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="flex-1 bg-white/10 border-white/20 text-white placeholder-white/60 focus:border-accent"
-                />
-                <Button 
-                  type="submit" 
-                  className="bg-accent hover:bg-accent/90 text-white px-6"
-                >
-                  <Mail className="h-4 w-4" />
-                </Button>
+              <div className="relative">
+                <div className="flex gap-3">
+                  <div className="relative flex-1">
+                    <Input
+                      type="email"
+                      placeholder="Enter your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="h-14 bg-white/10 border-white/30 text-white placeholder-white/60 focus:border-accent focus:bg-white/15 text-lg pr-4 backdrop-blur-sm"
+                    />
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="h-14 bg-accent hover:bg-accent/90 text-white px-8 font-semibold text-lg shadow-elegant hover-scale"
+                  >
+                    <Mail className="h-5 w-5 mr-2" />
+                    Notify Me
+                  </Button>
+                </div>
               </div>
             </form>
           ) : (
-            <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4 text-white">
-              <div className="flex items-center justify-center mb-2">
-                <Mail className="h-5 w-5 mr-2" />
-                <span className="font-semibold">Thank you!</span>
+            <div className="bg-green-500/20 border border-green-400/40 rounded-xl p-8 text-white backdrop-blur-sm animate-scale-in">
+              <div className="flex items-center justify-center mb-4">
+                <div className="relative">
+                  <Mail className="h-8 w-8 mr-3 text-green-400" />
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
+                </div>
+                <span className="text-2xl font-bold">Thank You!</span>
               </div>
-              <p className="text-sm text-white/90">We'll notify you when we launch.</p>
+              <p className="text-lg text-green-100">You're now on our exclusive launch list. Get ready for something amazing!</p>
             </div>
           )}
         </div>
 
-        {/* Feature Preview */}
-        <div className="mb-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
-          <Card className="glass border-white/20 p-6 text-center">
-            <Globe className="h-12 w-12 text-accent mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-white mb-2">Global Reach</h3>
-            <p className="text-white/70 text-sm">Connect with opportunities worldwide</p>
+        {/* Enhanced Feature Preview */}
+        <div className="mb-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl animate-fade-in delay-500">
+          <Card className="glass border-white/30 p-8 text-center hover-scale group relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <Globe className="h-16 w-16 text-accent mx-auto mb-6 group-hover:scale-110 transition-transform duration-300" />
+              <h3 className="text-xl font-bold text-white mb-3">Global Network</h3>
+              <p className="text-white/80 leading-relaxed">Connect with prestigious institutions and opportunities worldwide</p>
+            </div>
           </Card>
-          <Card className="glass border-white/20 p-6 text-center">
-            <BookOpen className="h-12 w-12 text-accent mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-white mb-2">Expert Guidance</h3>
-            <p className="text-white/70 text-sm">Professional educational consulting</p>
+          <Card className="glass border-white/30 p-8 text-center hover-scale group relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <BookOpen className="h-16 w-16 text-accent mx-auto mb-6 group-hover:scale-110 transition-transform duration-300" />
+              <h3 className="text-xl font-bold text-white mb-3">Expert Guidance</h3>
+              <p className="text-white/80 leading-relaxed">Personalized counseling from certified education experts</p>
+            </div>
           </Card>
-          <Card className="glass border-white/20 p-6 text-center">
-            <Sparkles className="h-12 w-12 text-accent mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-white mb-2">Premium Experience</h3>
-            <p className="text-white/70 text-sm">Cutting-edge platform features</p>
+          <Card className="glass border-white/30 p-8 text-center hover-scale group relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <Sparkles className="h-16 w-16 text-accent mx-auto mb-6 group-hover:scale-110 transition-transform duration-300" />
+              <h3 className="text-xl font-bold text-white mb-3">Premium Experience</h3>
+              <p className="text-white/80 leading-relaxed">Next-generation platform with AI-powered recommendations</p>
+            </div>
           </Card>
         </div>
 
-        {/* Navigation */}
-        <div className="space-y-4">
+        {/* Enhanced Navigation */}
+        <div className="animate-fade-in delay-700">
           <Link to="/">
             <Button 
               variant="outline" 
-              className="bg-white/10 border-white/30 text-white hover:bg-white/20 hover:border-white/50"
+              className="bg-white/10 border-white/40 text-white hover:bg-white/20 hover:border-white/60 h-12 px-8 text-lg font-medium hover-scale backdrop-blur-sm"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Home
+              <ArrowLeft className="h-5 w-5 mr-3" />
+              Return to Home
             </Button>
           </Link>
-          <div className="flex flex-wrap gap-4 justify-center text-sm">
-            <Link to="/about" className="text-white/70 hover:text-white transition-colors">
-              About Us
-            </Link>
-            <Link to="/contact" className="text-white/70 hover:text-white transition-colors">
-              Contact
-            </Link>
-            <Link to="/services" className="text-white/70 hover:text-white transition-colors">
-              Services
-            </Link>
-          </div>
         </div>
       </div>
     </div>

@@ -80,6 +80,7 @@ import CareerForm from '@/pages/admin/careers/CareerForm';
 import Careers from '@/pages/Careers';
 import CareerDetails from '@/pages/CareerDetails';
 import Reviews from '@/pages/Reviews';
+import ComingSoon from '@/pages/ComingSoon';
 import AdminNotificationsPage from '@/pages/admin/notifications/NotificationsPage';
 import StudentNotificationsPage from '@/pages/student/NotificationsPage';
 
@@ -121,6 +122,7 @@ function App() {
                 <Route path="careers" element={<Careers />} />
                 <Route path="careers/:slug" element={<CareerDetails />} />
                 <Route path="reviews" element={<Reviews />} />
+                <Route path="coming-soon" element={<ComingSoon />} />
                 <Route path="staff/:id" element={<StaffProfile />} />
                 <Route path="pages/:slug" element={<PageView />} />
               </Route>

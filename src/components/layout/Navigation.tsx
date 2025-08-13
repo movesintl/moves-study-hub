@@ -83,12 +83,12 @@ const Navigation = () => {
     {
       name: 'Destinations',
       path: '/destinations',
-      submenu: destinationSubmenu
+      hasMegaMenu: true
     },
     {
       name: 'Services',
       path: '/services',
-      submenu: servicesSubmenu
+      hasMegaMenu: true
     }
   ];
   const secondaryMenuItems = [

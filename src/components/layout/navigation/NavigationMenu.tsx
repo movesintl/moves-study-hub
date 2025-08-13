@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
+import MegaMenuContainer from './MegaMenuContainer';
+import DestinationMegaMenu from './DestinationMegaMenu';
+import ServiceMegaMenu from './ServiceMegaMenu';
 
 interface NavigationItem {
   name: string;
@@ -11,6 +14,7 @@ interface NavigationItem {
     path: string;
   }>;
   isButton?: boolean;
+  hasMegaMenu?: boolean;
 }
 
 interface NavigationMenuProps {
@@ -58,17 +62,53 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ items }) => {
     setOpenDropdown(null);
   };
 
+  const renderMegaMenu = (itemName: string) => {
+    switch (itemName.toLowerCase()) {
+      case 'destinations':
+        return <DestinationMegaMenu />;
+      case 'services':
+        return <ServiceMegaMenu />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="hidden md:flex  items-center space-x-6">
       {items.map((item) => (
         <div key={item.name} className="relative">
-          {item.submenu && item.submenu.length > 0 ? (
+          {item.hasMegaMenu ? (
             <div
               className="relative"
               onMouseEnter={() => handleMouseEnter(item.name)}
               onMouseLeave={handleMouseLeave}
             >
-              <button className={`flex items-center text-gray-700 hover:text-primary transition-all duration-300 font-medium px-3 py-2 rounded-md hover:bg-gray-50 group ${
+              <button className={`flex items-center text-muted-foreground hover:text-primary transition-all duration-300 font-medium px-3 py-2 rounded-md hover:bg-muted/50 group ${
+                isParentActive(item) ? 'text-primary font-semibold' : ''
+              }`}>
+                {item.name}
+                <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-300 ${
+                  openDropdown === item.name ? 'rotate-180' : ''
+                }`} />
+              </button>
+              
+              {/* Active indicator for parent menu item */}
+              {isParentActive(item) && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary animate-fade-in"></div>
+              )}
+              
+              {/* Mega Menu */}
+              <MegaMenuContainer isOpen={openDropdown === item.name}>
+                {renderMegaMenu(item.name)}
+              </MegaMenuContainer>
+            </div>
+          ) : item.submenu && item.submenu.length > 0 ? (
+            <div
+              className="relative"
+              onMouseEnter={() => handleMouseEnter(item.name)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <button className={`flex items-center text-muted-foreground hover:text-primary transition-all duration-300 font-medium px-3 py-2 rounded-md hover:bg-muted/50 group ${
                 isParentActive(item) ? 'text-primary font-semibold' : ''
               }`}>
                 {item.name}
@@ -83,13 +123,13 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ items }) => {
               )}
               
               {/* Dropdown Menu */}
-              <div className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-2xl border border-gray-200 z-[9999] transition-all duration-300 transform backdrop-blur-sm ${
+              <div className={`absolute top-full left-0 mt-2 w-64 bg-card rounded-lg shadow-elegant border border-border z-[9999] transition-all duration-300 transform backdrop-blur-sm ${
                 openDropdown === item.name 
                   ? 'opacity-100 translate-y-0 visible' 
                   : 'opacity-0 -translate-y-2 invisible'
-              }`} style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}>
+              }`}>
                 {/* Arrow pointing up */}
-                <div className="absolute -top-2 left-6 w-4 h-4 bg-white border-l border-t border-gray-200 transform rotate-45" style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}></div>
+                <div className="absolute -top-2 left-6 w-4 h-4 bg-card border-l border-t border-border transform rotate-45"></div>
                 
                 <div className="py-2">
                   {item.submenu.map((subItem, index) => (
@@ -98,8 +138,8 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ items }) => {
                       to={subItem.path}
                       className={`block px-4 py-3 text-sm transition-all duration-200 hover:translate-x-1 ${
                         isActive(subItem.path)
-                          ? 'bg-gradient-to-r from-primary/10 to-accent/10 text-primary font-medium border-r-2 border-primary'
-                          : 'text-gray-700 hover:bg-gradient-to-r hover:from-primary/5 hover:to-accent/5 hover:text-primary'
+                          ? 'bg-gradient-primary text-primary-foreground font-medium border-r-2 border-primary'
+                          : 'text-card-foreground hover:bg-muted hover:text-primary'
                       } ${
                         index === 0 ? 'rounded-t-lg' : ''
                       } ${
@@ -121,14 +161,14 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ items }) => {
           ) : item.isButton ? (
             <Link
               to={item.path}
-              className="bg-[#fa8500] hover:bg-[#fa8500]/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:scale-105 shadow-soft hover:shadow-elegant"
             >
               {item.name}
             </Link>
           ) : (
             <Link
               to={item.path}
-              className={`text-gray-700 hover:text-primary transition-all duration-300 px-3 py-2 rounded-md text-sm font-medium relative overflow-hidden group ${
+              className={`text-muted-foreground hover:text-primary transition-all duration-300 px-3 py-2 rounded-md text-sm font-medium relative overflow-hidden group ${
                 isActive(item.path)
                   ? 'text-primary font-semibold'
                   : ''
@@ -139,7 +179,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ items }) => {
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary animate-fade-in"></div>
               )}
               {/* Hover effect background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+              <div className="absolute inset-0 bg-gradient-subtle transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
             </Link>
           )}
         </div>

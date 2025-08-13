@@ -8,7 +8,8 @@ interface StaffMember {
   position: string;
   image: string;
   alt: string;
-  role: 'leader' | 'counselor' | 'team_member'; 
+  role: 'manager' | 'supervisor' | 'counselor' | 'team_member'; 
+  display_order: number;
 }
 
 const LeadershipTeam = () => {
@@ -34,11 +35,14 @@ const LeadershipTeam = () => {
           position: member.designation,
           image: member.profile_image_url || '/default-profile.png',
           alt: `${member.name}'s profile picture`,
-          role: member.designation.toLowerCase().includes('leader')
-            ? 'leader'
-            : member.designation.toLowerCase().includes('counselor')
+          role: member.display_order === 1 
+            ? 'manager'
+            : member.display_order === 2
+            ? 'supervisor'
+            : member.display_order === 3
             ? 'counselor'
             : 'team_member',
+          display_order: member.display_order
         }));
 
         setStaffMembers(mappedData);
@@ -56,25 +60,49 @@ const LeadershipTeam = () => {
   if (loading) return <div className="text-center py-16">Loading team members...</div>;
   if (error) return <div className="text-center py-16 text-red-500">Error: {error}</div>;
 
-  const leaders = staffMembers.filter((member) => member.role === 'leader');
+  const managers = staffMembers.filter((member) => member.role === 'manager');
+  const supervisors = staffMembers.filter((member) => member.role === 'supervisor');
   const counselors = staffMembers.filter((member) => member.role === 'counselor');
   const teamMembers = staffMembers.filter((member) => member.role === 'team_member');
 
-  const renderLeaderCard = (leader: StaffMember) => (
-    <Link to={`/staff/${leader.id}`} key={leader.id}>
+  // For UI consistency, we'll render managers in the same way as leaders were rendered
+  const renderManagerCard = (manager: StaffMember) => (
+    <Link to={`/staff/${manager.id}`} key={manager.id}>
       <div className="group bg-white rounded-2xl border-gray-100 shadow-lg border-[1px] cursor-pointer hover:shadow-xl transition-all duration-300">
         <div className="relative overflow-hidden">
           <div className="flex items-center justify-center w-[300px] h-[300px]">
             <img
-              src={leader.image}
-              alt={leader.alt}
+              src={manager.image}
+              alt={manager.alt}
               className="w-full h-full object-cover rounded-t-2xl group-hover:scale-105 transition-transform duration-300"
             />
           </div>
         </div>
         <div className="p-6 text-center">
           <h5 className="text-xl font-semibold text-primary mb-2 group-hover:text-orange-500 transition-colors duration-300">
-            {leader.name}
+            {manager.name}
+          </h5>
+        </div>
+      </div>
+    </Link>
+  );
+
+  // For UI consistency, we'll render supervisors in the same way as leaders were rendered
+  const renderSupervisorCard = (supervisor: StaffMember) => (
+    <Link to={`/staff/${supervisor.id}`} key={supervisor.id}>
+      <div className="group bg-white rounded-2xl border-gray-100 shadow-lg border-[1px] cursor-pointer hover:shadow-xl transition-all duration-300">
+        <div className="relative overflow-hidden">
+          <div className="flex items-center justify-center w-[300px] h-[300px]">
+            <img
+              src={supervisor.image}
+              alt={supervisor.alt}
+              className="w-full h-full object-cover rounded-t-2xl group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        </div>
+        <div className="p-6 text-center">
+          <h5 className="text-xl font-semibold text-primary mb-2 group-hover:text-orange-500 transition-colors duration-300">
+            {supervisor.name}
           </h5>
         </div>
       </div>
@@ -102,7 +130,7 @@ const LeadershipTeam = () => {
 
   const renderMemberCard = (member: StaffMember) => (
     <Link to={`/staff/${member.id}`} key={member.id}>
-      <div className="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 cursor-pointer hover:shadow-xl">
+      <div className="group h-full bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 cursor-pointer hover:shadow-xl">
         {/* Square Image Container */}
         <div className="w-full aspect-square bg-gray-100">
           <img
@@ -122,22 +150,33 @@ const LeadershipTeam = () => {
     </Link>
   );
 
+
   return (
     <div className="py-16 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            Our Leadership Team
-          </h2>
-          <div className="w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
-        </div>
+        
 
-        {/* Leaders Section */}
-        {leaders.length > 0 && (
+        {/* Managers Section */}
+        {managers.length > 0 && (
           <div className="mb-16">
+            <h5 className="text-4xl font-bold text-primary mb-8 text-center">
+              Our Managers
+            </h5>
             <div className="grid sm:max-w-[630px] mx-auto grid-cols-1 sm:grid-cols-2 gap-[30px]">
-              {leaders.map(renderLeaderCard)}
+              {managers.map(renderManagerCard)}
+            </div>
+          </div>
+        )}
+
+        {/* Supervisors Section */}
+        {supervisors.length > 0 && (
+          <div className="mb-16">
+            <h5 className="text-4xl font-bold text-primary mb-8 text-center">
+              Our Supervisors
+            </h5>
+            <div className="grid sm:max-w-[630px] mx-auto grid-cols-1 sm:grid-cols-2 gap-[30px]">
+              {supervisors.map(renderSupervisorCard)}
             </div>
           </div>
         )}
@@ -148,7 +187,7 @@ const LeadershipTeam = () => {
             <h5 className="text-4xl font-bold text-primary mb-8 text-center">
               Our Counselors
             </h5>
-            <div className="grid  lg:max-w-[960px] mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
+            <div className="grid lg:max-w-[960px] mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
               {counselors.map(renderCounselorCard)}
             </div>
           </div>
@@ -160,13 +199,11 @@ const LeadershipTeam = () => {
             <h5 className="text-4xl font-bold text-primary mb-8 text-center">
               Team Members
             </h5>
-            <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
               {teamMembers.map(renderMemberCard)}
             </div>
           </div>
         )}
-
-       
       </div>
     </div>
   );

@@ -197,6 +197,8 @@ const About = () => {
             JSON.parse(aboutPageData.content).team_subtitle :
             "Experts, Visionaries and ACHIEVERS"}
         </p>
+                  <div className="w-24 h-1 bg-orange-600 mt-4 mx-auto rounded-full"></div>
+
       </div>
       <LeadershipTeam />
       <StickyProfileComponent />

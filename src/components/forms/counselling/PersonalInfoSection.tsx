@@ -73,7 +73,7 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
           <div className="flex gap-2">
             <div className="w-20">
               <Input
-                value="+61 AU"
+                value="+880"
                 readOnly
                 className="h-10 border-gray-200 bg-gray-50 text-center rounded-lg font-medium text-xs"
               />

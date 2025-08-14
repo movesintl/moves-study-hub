@@ -82,9 +82,8 @@ export const StudyPreferencesSection: React.FC<
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Phone Call">Phone Call</SelectItem>
-              <SelectItem value="Video Call">Video Call</SelectItem>
+              <SelectItem value="Video Call">Zoom Session</SelectItem>
               <SelectItem value="In-Person">In-Person</SelectItem>
-              <SelectItem value="Email">Email</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -99,11 +98,7 @@ export const StudyPreferencesSection: React.FC<
               <SelectValue placeholder="Nearest Moves International Office *" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Sydney">Sydney</SelectItem>
-              <SelectItem value="Melbourne">Melbourne</SelectItem>
-              <SelectItem value="Brisbane">Brisbane</SelectItem>
-              <SelectItem value="Perth">Perth</SelectItem>
-              <SelectItem value="Adelaide">Adelaide</SelectItem>
+              <SelectItem value="Sydney">Dhaka Office</SelectItem>
               <SelectItem value="Online">Online</SelectItem>
             </SelectContent>
           </Select>

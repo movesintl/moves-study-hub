@@ -73,6 +73,7 @@ const ContactForm = () => {
           window.grecaptcha.execute('6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn', { 
             action: 'submit' 
           }).then(resolve).catch(reject);
+          
         });
       } catch (error) {
         reject(error);
@@ -137,13 +138,24 @@ const ContactForm = () => {
         message: data.message,
       };
 
-      const { data: insertedData, error } = await supabase
-        .from('contact_submissions')
-        .insert([contactData])
-        .select('id')
-        .single();
+       const { data: insertedData, error } = await supabase
+      .from('contact_submissions')
+      .insert([contactData])
+      .select('id')
+      .single();
 
-      if (error) throw error;
+    if (error) {
+      // Handle specific RLS error
+      if (error.code === '42501') {
+        toast({
+          title: "Permission Denied",
+          description: "Failed to submit due to security restrictions.",
+          variant: "destructive",
+        });
+        return;
+      }
+      throw error;
+    }
 
       await logEvent({
         action: 'contact_submission_created',

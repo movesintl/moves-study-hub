@@ -1,9 +1,7 @@
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,6 +11,16 @@ import { supabase } from '@/integrations/supabase/client';
 import { Send } from 'lucide-react';
 import { useRateLimit } from '@/hooks/useRateLimit';
 import { useAuditLog } from '@/hooks/useAuditLog';
+
+// Add TypeScript declaration for grecaptcha
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -26,8 +34,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const { toast } = useToast();
   const { checkRateLimit } = useRateLimit();
   const { logEvent } = useAuditLog();
@@ -41,22 +48,56 @@ const ContactForm = () => {
     resolver: zodResolver(contactSchema),
   });
 
+  // Load reCAPTCHA script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => setRecaptchaLoaded(true);
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const getRecaptchaToken = async (): Promise<string> => {
+    if (!window.grecaptcha) {
+      throw new Error('reCAPTCHA not loaded');
+    }
+
+    return new Promise((resolve, reject) => {
+      try {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.execute('6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn', { 
+            action: 'submit' 
+          }).then(resolve).catch(reject);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     
     try {
-      // Verify reCAPTCHA
-      if (!recaptchaToken) {
+      if (!recaptchaLoaded) {
         toast({
-          title: "reCAPTCHA Required",
-          description: "Please complete the reCAPTCHA verification.",
+          title: "Loading Security Check",
+          description: "Please wait while we load security verification",
           variant: "destructive",
         });
         setIsSubmitting(false);
         return;
       }
 
-      // Check rate limit (max 5 contact submissions per hour)
+      // Get reCAPTCHA token
+      const token = await getRecaptchaToken();
+
+      // Check rate limit
       const rateLimitAllowed = await checkRateLimit({
         action: 'contact_submission',
         maxRequests: 5,
@@ -75,17 +116,15 @@ const ContactForm = () => {
 
       // Verify reCAPTCHA with server
       const { data: verificationResult, error: verificationError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: recaptchaToken }
+        body: { token }
       });
 
       if (verificationError || !verificationResult?.success) {
         toast({
           title: "Verification Failed",
-          description: "reCAPTCHA verification failed. Please try again.",
+          description: "Security verification failed. Please try again.",
           variant: "destructive",
         });
-        recaptchaRef.current?.reset();
-        setRecaptchaToken(null);
         setIsSubmitting(false);
         return;
       }
@@ -106,7 +145,6 @@ const ContactForm = () => {
 
       if (error) throw error;
 
-      // Log the contact submission event
       await logEvent({
         action: 'contact_submission_created',
         tableName: 'contact_submissions',
@@ -120,8 +158,6 @@ const ContactForm = () => {
       });
 
       reset();
-      recaptchaRef.current?.reset();
-      setRecaptchaToken(null);
     } catch (error: any) {
       console.error('Contact form submission error:', error);
       toast({
@@ -204,17 +240,9 @@ const ContactForm = () => {
         )}
       </div>
 
-      <div className="flex justify-center">
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey="6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn"
-          onChange={setRecaptchaToken}
-          theme="dark"
-        />
-      </div>
       <Button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !recaptchaLoaded}
         className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white py-3 text-lg font-semibold transition-all duration-200"
       >
         {isSubmitting ? (

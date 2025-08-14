@@ -28,14 +28,17 @@ const HowItWorksDisplay: React.FC<HowItWorksDisplayProps> = ({
     <section className="py-20  bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-12 relative">
         {/* Left Column - Full height image */}
-        <div className="lg:sticky lg:top-20 mt-0 lg:flex">
+        <div className="sticky top-20 block w-full mt-0 h-screen">
+      
+
           {featureImageUrl && (
             <img
               src={featureImageUrl}
               alt={title || "How it works"}
               className="object-contain w-full  rounded-2xl "
-            />
-          )}
+              />
+            )}
+        
         </div>
 
         {/* Right Column - Content */}

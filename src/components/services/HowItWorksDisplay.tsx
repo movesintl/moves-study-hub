@@ -33,7 +33,7 @@ const HowItWorksDisplay: React.FC<HowItWorksDisplayProps> = ({
             <img
               src={featureImageUrl}
               alt={title || "How it works"}
-              className="object-contain w-full max-h-[80vh] rounded-2xl "
+              className="object-contain w-full  rounded-2xl "
             />
           )}
         </div>

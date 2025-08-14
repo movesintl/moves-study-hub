@@ -4,9 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import PublicFileBrowser from '@/components/admin/PublicFileBrowser';
 
 const MediaLibrary = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -202,7 +204,7 @@ const MediaLibrary = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">Media Library</h1>
-          <p className="text-gray-600">Manage your images, documents, and videos</p>
+          <p className="text-gray-600">Manage your uploaded files and browse public assets</p>
         </div>
         <div className="flex items-center space-x-4">
           <input
@@ -223,100 +225,113 @@ const MediaLibrary = () => {
         </div>
       </div>
 
-      <div className="flex items-center space-x-4">
-        <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-          <Input
-            placeholder="Search files..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
-        </div>
-        <Select value={selectedFolder} onValueChange={setSelectedFolder}>
-          <SelectTrigger className="w-48">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Folders</SelectItem>
-            {folders.map((folder) => (
-              <SelectItem key={folder} value={folder}>{folder}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <Tabs defaultValue="uploaded" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="uploaded">Uploaded Media</TabsTrigger>
+          <TabsTrigger value="public">Public Files</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="uploaded" className="space-y-4">
+          <div className="flex items-center space-x-4">
+            <div className="relative flex-1 max-w-sm">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Input
+                placeholder="Search uploaded files..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <Select value={selectedFolder} onValueChange={setSelectedFolder}>
+              <SelectTrigger className="w-48">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Folders</SelectItem>
+                {folders.map((folder) => (
+                  <SelectItem key={folder} value={folder}>{folder}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-      {isLoading ? (
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {[...Array(12)].map((_, i) => (
-            <div key={i} className="aspect-square bg-gray-200 rounded animate-pulse"></div>
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {filteredFiles.map((file) => (
-            <Card key={file.id} className="relative group">
-              <CardContent className="p-4">
-                <div className="aspect-square flex items-center justify-center bg-gray-50 rounded mb-3">
-                  {file.file_type === 'image' ? (
-                    <img
-                      src={file.file_url}
-                      alt={file.filename}
-                      className="w-full h-full object-cover rounded"
-                    />
-                  ) : (
-                    getFileIcon(file.file_type)
-                  )}
-                </div>
-                <div className="space-y-1">
-                  <p className="text-sm font-medium truncate">{file.filename}</p>
-                  <div className="flex items-center justify-between text-xs text-gray-500">
-                    <span>{file.folder}</span>
-                    <span>{(file.file_size / 1024).toFixed(0)}KB</span>
-                  </div>
-                </div>
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="bg-blue-500 text-white hover:bg-blue-600 h-8 w-8 p-0"
-                    onClick={() => copyToClipboard(file.file_url)}
-                  >
-                    {copiedUrl === file.file_url ? (
-                      <Check className="h-3 w-3" />
-                    ) : (
-                      <Copy className="h-3 w-3" />
-                    )}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="bg-red-500 text-white hover:bg-red-600 h-8 w-8 p-0"
-                    onClick={() => deleteFile(file)}
-                  >
-                    <Trash2 className="h-3 w-3" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+          {isLoading ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className="aspect-square bg-gray-200 rounded animate-pulse"></div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {filteredFiles.map((file) => (
+                <Card key={file.id} className="relative group">
+                  <CardContent className="p-4">
+                    <div className="aspect-square flex items-center justify-center bg-gray-50 rounded mb-3">
+                      {file.file_type === 'image' ? (
+                        <img
+                          src={file.file_url}
+                          alt={file.filename}
+                          className="w-full h-full object-cover rounded"
+                        />
+                      ) : (
+                        getFileIcon(file.file_type)
+                      )}
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium truncate">{file.filename}</p>
+                      <div className="flex items-center justify-between text-xs text-gray-500">
+                        <span>{file.folder}</span>
+                        <span>{(file.file_size / 1024).toFixed(0)}KB</span>
+                      </div>
+                    </div>
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="bg-blue-500 text-white hover:bg-blue-600 h-8 w-8 p-0"
+                        onClick={() => copyToClipboard(file.file_url)}
+                      >
+                        {copiedUrl === file.file_url ? (
+                          <Check className="h-3 w-3" />
+                        ) : (
+                          <Copy className="h-3 w-3" />
+                        )}
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="bg-red-500 text-white hover:bg-red-600 h-8 w-8 p-0"
+                        onClick={() => deleteFile(file)}
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
 
-      {filteredFiles.length === 0 && !isLoading && (
-        <div className="text-center py-12">
-          <Folder className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500">No files found.</p>
-          <label htmlFor="file-upload">
-            <Button className="mt-4" asChild>
-              <span className="cursor-pointer">
-                <Upload className="mr-2 h-4 w-4" />
-                Upload First File
-              </span>
-            </Button>
-          </label>
-        </div>
-      )}
+          {filteredFiles.length === 0 && !isLoading && (
+            <div className="text-center py-12">
+              <Folder className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">No uploaded files found.</p>
+              <label htmlFor="file-upload">
+                <Button className="mt-4" asChild>
+                  <span className="cursor-pointer">
+                    <Upload className="mr-2 h-4 w-4" />
+                    Upload First File
+                  </span>
+                </Button>
+              </label>
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="public" className="space-y-4">
+          <PublicFileBrowser />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

@@ -13,7 +13,7 @@ export default function StickyProfileComponent() {
             {/* Profile Image */}
             <div className="w-[80px] h-[80px] rounded-full overflow-hidden bg-gray-300">
               <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                src="https://movesinternational.com.bd/team/SHAHNAZ_AKTER.jpg"
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
@@ -21,7 +21,7 @@ export default function StickyProfileComponent() {
 
             {/* Name and supporting text */}
             <div>
-              <h2 className="text-sm mb-0 md:text-base font-medium text-black">Upendra Sir</h2>
+              <h2 className="text-sm mb-0 md:text-base font-medium text-black">Shahnaz Aktar</h2>
               <p className="text-sm mb-0 text-gray-500">Counselor</p>
             </div>
           </div>
@@ -29,7 +29,7 @@ export default function StickyProfileComponent() {
           {/* Right side - Phone button */}
           <button className="flex items-center space-x-1 md:space-x-2 bg-orange-100 hover:bg-orange-200 text-orange-600 px-4 py-2 rounded-lg transition-colors">
             <Phone size={18} />
-            <span className="font-medium">+61 402 830 739</span>
+            <span className="font-medium">+880 133 879 4188</span>
           </button>
         </div>
       </div>

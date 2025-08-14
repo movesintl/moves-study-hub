@@ -145,15 +145,7 @@ const ContactForm = () => {
       .single();
 
     if (error) {
-      // Handle specific RLS error
-      if (error.code === '42501') {
-        toast({
-          title: "Permission Denied",
-          description: "Failed to submit due to security restrictions.",
-          variant: "destructive",
-        });
-        return;
-      }
+      
       throw error;
     }
 

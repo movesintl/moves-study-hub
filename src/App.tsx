@@ -80,7 +80,6 @@ import CareerForm from '@/pages/admin/careers/CareerForm';
 import Careers from '@/pages/Careers';
 import CareerDetails from '@/pages/CareerDetails';
 import Reviews from '@/pages/Reviews';
-import ComingSoon from '@/pages/ComingSoon';
 import AdminNotificationsPage from '@/pages/admin/notifications/NotificationsPage';
 import StudentNotificationsPage from '@/pages/student/NotificationsPage';
 

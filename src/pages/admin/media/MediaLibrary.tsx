@@ -226,9 +226,9 @@ const MediaLibrary = () => {
       </div>
 
       <Tabs defaultValue="uploaded" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="uploaded">Uploaded Media</TabsTrigger>
-          <TabsTrigger value="public">Public Files</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 bg-muted p-1 rounded-lg">
+          <TabsTrigger value="uploaded" className="data-[state=active]:bg-background">Uploaded Media</TabsTrigger>
+          <TabsTrigger value="public" className="data-[state=active]:bg-background">Public Files</TabsTrigger>
         </TabsList>
         
         <TabsContent value="uploaded" className="space-y-4">

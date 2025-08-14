@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Image, Link, Check } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import PublicFileBrowser from '@/components/admin/PublicFileBrowser';
 
 interface MediaSelectorProps {
   value: string;
@@ -76,8 +77,9 @@ const MediaSelector = ({ value, onChange, label, placeholder, accept = "image/*"
               <DialogTitle>Select Image</DialogTitle>
             </DialogHeader>
             <Tabs defaultValue="media">
-              <TabsList>
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="media">Media Library</TabsTrigger>
+                <TabsTrigger value="public">Public Files</TabsTrigger>
                 <TabsTrigger value="url">URL</TabsTrigger>
               </TabsList>
               
@@ -130,6 +132,16 @@ const MediaSelector = ({ value, onChange, label, placeholder, accept = "image/*"
                     Select Image
                   </Button>
                 </div>
+              </TabsContent>
+
+              <TabsContent value="public" className="space-y-4">
+                <PublicFileBrowser 
+                  onFileSelect={(filePath) => {
+                    onChange(filePath);
+                    setIsOpen(false);
+                  }}
+                  showSelection={true}
+                />
               </TabsContent>
               
               <TabsContent value="url" className="space-y-4">

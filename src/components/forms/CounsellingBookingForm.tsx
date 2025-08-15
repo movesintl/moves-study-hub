@@ -110,6 +110,33 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
             studyLevels={studyLevels}
           />
           <SchedulingSection formData={formData} onInputChange={handleInputChange} />
+          <label>
+  <input
+    type="checkbox"
+    checked={formData.agrees_to_terms}
+    onChange={(e) => handleInputChange('agrees_to_terms', e.target.checked)}
+  />
+  I agree to the Terms and Conditions
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    checked={formData.agrees_to_contact}
+    onChange={(e) => handleInputChange('agrees_to_contact', e.target.checked)}
+  />
+  I agree to be contacted
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    checked={formData.agrees_to_marketing}
+    onChange={(e) => handleInputChange('agrees_to_marketing', e.target.checked)}
+  />
+  I agree to receive marketing communications
+</label>
+
           <Button
             type="submit"
             disabled={loading || !recaptchaLoaded}

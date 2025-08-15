@@ -20,9 +20,6 @@ interface FormData {
   preferred_date: string;
   preferred_time: string;
   message: string;
-  agrees_to_terms: boolean;
-  agrees_to_contact: boolean;
-  agrees_to_marketing: boolean;
 }
 
 export const useCounsellingBookingForm = (
@@ -46,9 +43,6 @@ export const useCounsellingBookingForm = (
     preferred_date: '',
     preferred_time: '',
     message: '',
-    agrees_to_terms: false,
-    agrees_to_contact: false,
-    agrees_to_marketing: false,
   });
 
   // Fetch destinations
@@ -144,14 +138,7 @@ export const useCounsellingBookingForm = (
       return;
     }
 
-    if (!formData.agrees_to_terms || !formData.agrees_to_contact) {
-      toast({
-        title: 'Agreement Required',
-        description: 'You must agree to the required terms and contact consent.',
-        variant: 'destructive',
-      });
-      return;
-    }
+ 
 
     setLoading(true);
     try {
@@ -185,9 +172,6 @@ export const useCounsellingBookingForm = (
               work_experience: validation.sanitizedData.work_experience,
               message: validation.sanitizedData.message,
               preferred_date: formData.preferred_date || null,
-              agrees_to_terms: formData.agrees_to_terms,
-              agrees_to_contact: formData.agrees_to_contact,
-              agrees_to_marketing: formData.agrees_to_marketing,
               status: 'pending'
             };
        console.log('Submitting booking data:', bookingData);
@@ -201,24 +185,8 @@ export const useCounsellingBookingForm = (
         throw error;
       }
 
-      // If user agreed to marketing, add them to marketing_consents table
-      if (formData.agrees_to_marketing) {
-        const marketingData = {
-          student_email: validation.sanitizedData.student_email,
-          student_name: validation.sanitizedData.student_name,
-          student_phone: validation.sanitizedData.student_phone || null,
-          source: 'counselling_form'
-        };
+    
 
-        const { error: marketingError } = await supabase
-          .from('marketing_consents')
-          .insert([marketingData]);
-
-        if (marketingError) {
-          console.error('Marketing consent error:', marketingError);
-          // Don't throw error here, as the main booking was successful
-        }
-      }
 
       toast({
         title: 'Success!',
@@ -238,10 +206,7 @@ export const useCounsellingBookingForm = (
         preferred_date: '',
         preferred_time: '',
         message: '',
-        agrees_to_terms: false,
-        agrees_to_contact: false,
-        agrees_to_marketing: false,
-      });
+            });
       onSuccess?.();
     } catch (error) {
       console.error('Error submitting booking:', error);

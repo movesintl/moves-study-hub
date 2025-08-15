@@ -5,38 +5,36 @@ import ContactForm from '@/components/contact/ContactForm';
 const Contact = () => {
   const [activeOffice, setActiveOffice] = useState(0);
 
-  const nepalOffice = {
-    country: "Nepal",
-    address: "Education Hub Building, Kathmandu 44600, Nepal",
-    phone: "+977 1 234 5678",
-    email: "nepal@studyabroad.com",
-    flag: "🇳🇵"
-  };
-
+  const bangladeshOffice = {
+  country: "Bangladesh",
+  address: "Mir Noor Square, House-43, Road - 02, Dhanmondi R/A, Dhaka",
+  phone: "(+88) 013 3879 4188",
+  email: "infobd@mieducation.com.au",
+  flag: "🇧🇩"
+};
   const otherOffices = [
-    {
-      country: "Bangladesh",
-      address: "Study Center, Dhaka 1000, Bangladesh", 
-      phone: "+880 2 1234 5678",
-      email: "bangladesh@studyabroad.com",
-      flag: "🇧🇩"
-    },
-    {
-      country: "Australia - Sydney",
-      address: "Level 15, 123 Pitt Street, Sydney NSW 2000",
-      phone: "+61 2 1234 5678",
-      email: "sydney@studyabroad.com",
-      flag: "🇦🇺"
-    },
-    {
-      country: "Australia - Wollongong",
-      address: "Suite 8, 45 Crown Street, Wollongong NSW 2500",
-      phone: "+61 2 8765 4321", 
-      email: "wollongong@studyabroad.com",
-      flag: "🇦🇺"
-    }
-  ];
-
+  {
+    country: "Australia - Sydney",
+    address: "Level 2, 251 Elizabeth St, Sydney NSW 2000",
+    phone: "(02) 8068 9051",
+    email: "info@mieducation.com.au",
+    flag: "🇦🇺"
+  },
+  {
+    country: "Australia - Wollongong",
+    address: "Suite 9B, Level 2, 175 Keira St, Wollongong NSW 2500",
+    phone: "+61 422 979 979",
+    email: "rajib@mieducation.com.au",
+    flag: "🇦🇺"
+  },
+  {
+    country: "Nepal",
+    address: "1st Floor, D&C Building, New Baneshwor, Ward-31, KMC, Nepal",
+    phone: "(+977) 9860 0121 105",
+    email: "infonp@mieducation.com.au",
+    flag: "🇳🇵"
+  }
+];
   const features = [
     { icon: Globe, title: "Global Presence", description: "Offices worldwide to serve you better" },
     { icon: Users, title: "Expert Team", description: "Dedicated counselors for personalized guidance" },
@@ -164,10 +162,10 @@ const Contact = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div>
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="text-6xl">{nepalOffice.flag}</div>
+                      <div className="text-6xl">{bangladeshOffice.flag}</div>
                       <div>
                         <h3 className="text-3xl font-bold text-foreground">Headquarters</h3>
-                        <p className="text-muted-foreground">{nepalOffice.country}</p>
+                        <p className="text-muted-foreground">{bangladeshOffice.country}</p>
                       </div>
                     </div>
                     
@@ -178,7 +176,7 @@ const Contact = () => {
                         </div>
                         <div>
                           <p className="text-foreground font-medium">Address</p>
-                          <p className="text-muted-foreground">{nepalOffice.address}</p>
+                          <p className="text-muted-foreground">{bangladeshOffice.address}</p>
                         </div>
                       </div>
                       
@@ -188,7 +186,7 @@ const Contact = () => {
                         </div>
                         <div>
                           <p className="text-foreground font-medium">Phone</p>
-                          <p className="text-muted-foreground">{nepalOffice.phone}</p>
+                          <p className="text-muted-foreground">{bangladeshOffice.phone}</p>
                         </div>
                       </div>
                       
@@ -198,7 +196,7 @@ const Contact = () => {
                         </div>
                         <div>
                           <p className="text-foreground font-medium">Email</p>
-                          <p className="text-muted-foreground">{nepalOffice.email}</p>
+                          <p className="text-muted-foreground">{bangladeshOffice.email}</p>
                         </div>
                       </div>
                     </div>
@@ -237,7 +235,7 @@ const Contact = () => {
                 className="group relative cursor-pointer"
                 onMouseEnter={() => setActiveOffice(index)}
               >
-                <div className={`relative backdrop-blur-xl rounded-3xl p-8 border transition-all duration-300 hover-scale bg-background ${
+                <div className={`relative backdrop-blur-xl flex-col flex justify-between h-full rounded-3xl p-8 border transition-all duration-300 hover-scale bg-background ${
                   activeOffice === index 
                     ? 'border-primary/50' 
                     : 'border-border hover:border-primary/30'

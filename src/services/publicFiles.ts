@@ -42,7 +42,7 @@ export const isPreviewable = (filename: string): boolean => {
 export const getPublicFileUrl = (relativePath: string): string => {
   // Remove leading slash if present
   const cleanPath = relativePath.startsWith('/') ? relativePath.substring(1) : relativePath;
-  return `/${cleanPath}`;
+  return `http://movesinternational.com.bd/${cleanPath}`;
 };
 
 // Get different path formats for copying

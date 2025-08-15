@@ -52,7 +52,7 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
           <div className="flex justify-center">
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey="6Lf8pKUqAAAAABQWZkF_HN_7TYn5N0nNdHMYrXR0"
+              sitekey="6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn"
               onChange={setRecaptchaToken}
               theme="light"
             />

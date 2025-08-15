@@ -1,13 +1,22 @@
-import React, { useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { useCounsellingBookingForm } from '@/hooks/useCounsellingBookingForm';
 import { PersonalInfoSection } from './counselling/PersonalInfoSection';
 import { StudyPreferencesSection } from './counselling/StudyPreferencesSection';
 import { SchedulingSection } from './counselling/SchedulingSection';
 import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+
+// Type declaration for grecaptcha
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
 
 interface CounsellingBookingFormProps {
   defaultDestination?: string;
@@ -16,21 +25,78 @@ interface CounsellingBookingFormProps {
 
 const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBookingFormProps) => {
   const { user } = useAuth();
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const { toast } = useToast();
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const {
     formData,
     loading,
     destinations,
     studyLevels,
     handleInputChange,
-    handleSubmit,
-  } = useCounsellingBookingForm(defaultDestination, onSuccess, recaptchaToken, recaptchaRef);
+    handleSubmit: originalHandleSubmit,
+  } = useCounsellingBookingForm(defaultDestination, onSuccess);
 
   // For development/testing
   const RECAPTCHA_SITE_KEY = process.env.NODE_ENV === 'development'
     ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // Test key
-    : '6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn'; // Production key
+    : 'YOUR_V3_SITE_KEY'; // Replace with your actual v3 site key
+
+  // Load reCAPTCHA script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => setRecaptchaLoaded(true);
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [RECAPTCHA_SITE_KEY]);
+
+  const getRecaptchaToken = async (): Promise<string> => {
+    if (!window.grecaptcha) {
+      throw new Error('reCAPTCHA not loaded');
+    }
+
+    return new Promise((resolve, reject) => {
+      try {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { 
+            action: 'counselling_booking' 
+          }).then(resolve).catch(reject);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      if (!recaptchaLoaded) {
+        toast({
+          title: "Security Check",
+          description: "Please wait while we load security verification",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const token = await getRecaptchaToken();
+      await originalHandleSubmit(e, token);
+    } catch (error) {
+      console.error('reCAPTCHA error:', error);
+      toast({
+        title: "Verification Failed",
+        description: "Please complete the security check",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200/50 hover:shadow-3xl transition-all duration-300 ease-out hover:ring-gray-300/50">
@@ -53,21 +119,19 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
             onInputChange={handleInputChange}
           />
 
-          <div className="flex justify-center">
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={RECAPTCHA_SITE_KEY}
-              onChange={setRecaptchaToken}
-              theme="light"
-            />
-          </div>
-
           <Button 
             type="submit" 
-            disabled={loading || !recaptchaToken}
+            disabled={loading || !recaptchaLoaded}
             className="w-full h-12 text-lg bg-accent hover:bg-accent/90"
           >
-            {loading ? 'Submitting...' : 'Book Free Counselling'}
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
+                Submitting...
+              </span>
+            ) : (
+              'Book Free Counselling'
+            )}
           </Button>
         </form>
       </CardContent>

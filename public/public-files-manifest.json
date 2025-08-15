@@ -1,0 +1,22 @@
+[
+  {
+    "name": "favicon.ico",
+    "path": "/favicon.ico",
+    "relativePath": "favicon.ico",
+    "type": "image",
+    "size": 1024,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "placeholder.svg",
+    "path": "/placeholder.svg", 
+    "relativePath": "placeholder.svg",
+    "type": "image",
+    "size": 2048,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2024-01-01T00:00:00.000Z"
+  }
+]

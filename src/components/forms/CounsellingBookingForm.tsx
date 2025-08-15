@@ -13,7 +13,6 @@ declare global {
     grecaptcha: {
       ready: (callback: () => void) => void;
       execute: (siteKey: string, options: { action: string }) => Promise<string>;
-      enterprise?: any;
     };
   }
 }
@@ -38,8 +37,8 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
 
   // Use environment variables in production
   const RECAPTCHA_SITE_KEY = process.env.NODE_ENV === 'development'
-    ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // v3 TEST key - works everywhere
-    : 'YOUR_ACTUAL_V3_SITE_KEY'; // Replace with your real v3 key
+    ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // v3 TEST key
+    : '6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn'; // Your actual v3 key
 
   useEffect(() => {
     // Skip if already loaded
@@ -53,7 +52,6 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
     script.async = true;
     script.defer = true;
     script.onload = () => {
-      // Double-check grecaptcha is available
       if (window.grecaptcha) {
         setRecaptchaLoaded(true);
       } else {
@@ -123,7 +121,6 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
     <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200/50 hover:shadow-3xl transition-all duration-300 ease-out hover:ring-gray-300/50">
       <CardContent className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Your form sections remain the same */}
           <PersonalInfoSection
             formData={formData}
             onInputChange={handleInputChange}

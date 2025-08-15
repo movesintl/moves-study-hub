@@ -84,7 +84,7 @@ export const useCounsellingBookingForm = (
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent, token: string) => {
     e.preventDefault();
     
     // Verify reCAPTCHA

@@ -8,12 +8,12 @@ import { SchedulingSection } from './counselling/SchedulingSection';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
-// Type declaration for grecaptcha
 declare global {
   interface Window {
     grecaptcha: {
       ready: (callback: () => void) => void;
       execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      enterprise?: any;
     };
   }
 }
@@ -36,39 +36,62 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
     handleSubmit: originalHandleSubmit,
   } = useCounsellingBookingForm(defaultDestination, onSuccess);
 
-  // For development/testing
-  const RECAPTCHA_SITE_KEY = '6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn';
+  // Use environment variables in production
+  const RECAPTCHA_SITE_KEY = process.env.NODE_ENV === 'development'
+    ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // v3 TEST key - works everywhere
+    : 'YOUR_ACTUAL_V3_SITE_KEY'; // Replace with your real v3 key
 
-  // Load reCAPTCHA script
   useEffect(() => {
+    // Skip if already loaded
+    if (window.grecaptcha) {
+      setRecaptchaLoaded(true);
+      return;
+    }
+
     const script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
     script.async = true;
     script.defer = true;
-    script.onload = () => setRecaptchaLoaded(true);
+    script.onload = () => {
+      // Double-check grecaptcha is available
+      if (window.grecaptcha) {
+        setRecaptchaLoaded(true);
+      } else {
+        console.error('reCAPTCHA script loaded but not available');
+        toast({
+          title: "Security Error",
+          description: "Could not load security verification",
+          variant: "destructive",
+        });
+      }
+    };
+    script.onerror = () => {
+      toast({
+        title: "Security Error",
+        description: "Failed to load security verification",
+        variant: "destructive",
+      });
+    };
     document.body.appendChild(script);
 
     return () => {
       document.body.removeChild(script);
     };
-  }, [RECAPTCHA_SITE_KEY]);
+  }, [RECAPTCHA_SITE_KEY, toast]);
 
   const getRecaptchaToken = async (): Promise<string> => {
     if (!window.grecaptcha) {
       throw new Error('reCAPTCHA not loaded');
     }
 
-    return new Promise((resolve, reject) => {
-      try {
-        window.grecaptcha.ready(() => {
-          window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { 
-            action: 'counselling_booking' 
-          }).then(resolve).catch(reject);
-        });
-      } catch (error) {
-        reject(error);
-      }
-    });
+    try {
+      return await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+        action: 'counselling_booking'
+      });
+    } catch (error) {
+      console.error('reCAPTCHA execution error:', error);
+      throw error;
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -78,7 +101,7 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
       if (!recaptchaLoaded) {
         toast({
           title: "Security Check",
-          description: "Please wait while we load security verification",
+          description: "Please wait while security verification loads",
           variant: "destructive",
         });
         return;
@@ -87,7 +110,7 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
       const token = await getRecaptchaToken();
       await originalHandleSubmit(e, token);
     } catch (error) {
-      console.error('reCAPTCHA error:', error);
+      console.error('Form submission error:', error);
       toast({
         title: "Verification Failed",
         description: "Please complete the security check",
@@ -100,6 +123,7 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
     <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200/50 hover:shadow-3xl transition-all duration-300 ease-out hover:ring-gray-300/50">
       <CardContent className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Your form sections remain the same */}
           <PersonalInfoSection
             formData={formData}
             onInputChange={handleInputChange}

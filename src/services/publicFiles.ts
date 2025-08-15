@@ -48,14 +48,11 @@ export const getPublicFileUrl = (relativePath: string): string => {
 // Get different path formats for copying
 export const getPathFormats = (relativePath: string) => {
   const webPath = getPublicFileUrl(relativePath);
-  const absolutePath = `${window.location.origin}${webPath}`;
   const codePath = `./public/${relativePath}`;
   
   return {
     web: webPath,
-    absolute: absolutePath,
-    code: codePath,
-    import: relativePath.startsWith('assets/') ? `@/${relativePath}` : webPath
+    code: codePath
   };
 };
 

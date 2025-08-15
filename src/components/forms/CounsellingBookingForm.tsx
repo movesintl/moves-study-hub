@@ -37,9 +37,7 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
   } = useCounsellingBookingForm(defaultDestination, onSuccess);
 
   // For development/testing
-  const RECAPTCHA_SITE_KEY = process.env.NODE_ENV === 'development'
-    ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // Test key
-    : 'YOUR_V3_SITE_KEY'; // Replace with your actual v3 site key
+  const RECAPTCHA_SITE_KEY = '6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn';
 
   // Load reCAPTCHA script
   useEffect(() => {

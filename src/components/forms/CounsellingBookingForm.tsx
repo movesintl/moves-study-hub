@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Button } from '@/components/ui/button';
@@ -28,6 +27,11 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
     handleSubmit,
   } = useCounsellingBookingForm(defaultDestination, onSuccess, recaptchaToken, recaptchaRef);
 
+  // For development/testing
+  const RECAPTCHA_SITE_KEY = process.env.NODE_ENV === 'development'
+    ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // Test key
+    : '6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn'; // Production key
+
   return (
     <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200/50 hover:shadow-3xl transition-all duration-300 ease-out hover:ring-gray-300/50">
       <CardContent className="p-8">
@@ -52,13 +56,17 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
           <div className="flex justify-center">
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey="6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn"
+              sitekey={RECAPTCHA_SITE_KEY}
               onChange={setRecaptchaToken}
               theme="light"
             />
           </div>
 
-          <Button type="submit" disabled={loading} className="w-full h-12 text-lg bg-accent hover:bg-accent/90">
+          <Button 
+            type="submit" 
+            disabled={loading || !recaptchaToken}
+            className="w-full h-12 text-lg bg-accent hover:bg-accent/90"
+          >
             {loading ? 'Submitting...' : 'Book Free Counselling'}
           </Button>
         </form>

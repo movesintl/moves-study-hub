@@ -22,52 +22,41 @@ interface CounsellingBookingFormProps {
   onSuccess?: () => void;
 }
 
+const RECAPTCHA_SITE_KEY = '6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn';
+
 const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBookingFormProps) => {
-  const { user } = useAuth();
   const { toast } = useToast();
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
-  const {
-    formData,
-    loading,
-    destinations,
-    studyLevels,
-    handleInputChange,
-    handleSubmit: originalHandleSubmit,
-  } = useCounsellingBookingForm(defaultDestination, onSuccess);
+  const { formData, loading, destinations, studyLevels, handleInputChange, handleSubmit: submitBooking } =
+    useCounsellingBookingForm(defaultDestination, onSuccess);
 
-  // Use environment variables in production
-  const RECAPTCHA_SITE_KEY = process.env.NODE_ENV === 'development'
-    ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // v3 TEST key
-    : '6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn'; // Your actual v3 key
-
+  // Load reCAPTCHA script
   useEffect(() => {
-    // Skip if already loaded
     if (window.grecaptcha) {
       setRecaptchaLoaded(true);
       return;
     }
 
     const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.src = `https://www.recaptcha.net/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
     script.async = true;
     script.defer = true;
     script.onload = () => {
       if (window.grecaptcha) {
         setRecaptchaLoaded(true);
       } else {
-        console.error('reCAPTCHA script loaded but not available');
         toast({
-          title: "Security Error",
-          description: "Could not load security verification",
-          variant: "destructive",
+          title: 'Security Error',
+          description: 'Could not load security verification',
+          variant: 'destructive',
         });
       }
     };
     script.onerror = () => {
       toast({
-        title: "Security Error",
-        description: "Failed to load security verification",
-        variant: "destructive",
+        title: 'Security Error',
+        description: 'Failed to load security verification',
+        variant: 'destructive',
       });
     };
     document.body.appendChild(script);
@@ -75,44 +64,36 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
     return () => {
       document.body.removeChild(script);
     };
-  }, [RECAPTCHA_SITE_KEY, toast]);
+  }, [toast]);
 
   const getRecaptchaToken = async (): Promise<string> => {
     if (!window.grecaptcha) {
       throw new Error('reCAPTCHA not loaded');
     }
-
-    try {
-      return await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {
-        action: 'counselling_booking'
-      });
-    } catch (error) {
-      console.error('reCAPTCHA execution error:', error);
-      throw error;
-    }
+    return await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'counselling_booking' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    try {
-      if (!recaptchaLoaded) {
-        toast({
-          title: "Security Check",
-          description: "Please wait while security verification loads",
-          variant: "destructive",
-        });
-        return;
-      }
 
-      const token = await getRecaptchaToken();
-      await originalHandleSubmit(e, token);
-    } catch (error) {
-      console.error('Form submission error:', error);
+    if (!recaptchaLoaded) {
       toast({
-        title: "Verification Failed",
-        description: "Please complete the security check",
-        variant: "destructive",
+        title: 'Security Check',
+        description: 'Please wait while security verification loads',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    try {
+      const token = await getRecaptchaToken();
+      await submitBooking(e, token); // Pass token directly to hook
+    } catch (error) {
+      console.error('reCAPTCHA error:', error);
+      toast({
+        title: 'Verification Failed',
+        description: 'Please complete the security check',
+        variant: 'destructive',
       });
     }
   };
@@ -121,25 +102,16 @@ const CounsellingBookingForm = ({ defaultDestination, onSuccess }: CounsellingBo
     <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm ring-1 ring-gray-200/50 hover:shadow-3xl transition-all duration-300 ease-out hover:ring-gray-300/50">
       <CardContent className="p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <PersonalInfoSection
-            formData={formData}
-            onInputChange={handleInputChange}
-          />
-
+          <PersonalInfoSection formData={formData} onInputChange={handleInputChange} />
           <StudyPreferencesSection
             formData={formData}
             onInputChange={handleInputChange}
             destinations={destinations}
             studyLevels={studyLevels}
           />
-
-          <SchedulingSection
-            formData={formData}
-            onInputChange={handleInputChange}
-          />
-
-          <Button 
-            type="submit" 
+          <SchedulingSection formData={formData} onInputChange={handleInputChange} />
+          <Button
+            type="submit"
             disabled={loading || !recaptchaLoaded}
             className="w-full h-12 text-lg bg-accent hover:bg-accent/90"
           >

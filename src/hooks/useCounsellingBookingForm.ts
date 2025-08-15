@@ -26,16 +26,13 @@ interface FormData {
 }
 
 export const useCounsellingBookingForm = (
-  defaultDestination?: string, 
-  onSuccess?: () => void,
-  recaptchaToken?: string | null,
-  recaptchaRef?: RefObject<ReCAPTCHA>
+  defaultDestination?: string,
+  onSuccess?: () => void
 ) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const { validateForm, checkFormRateLimit } = useSecurityValidation();
-
   const [formData, setFormData] = useState<FormData>({
     student_name: '',
     student_email: user?.email || '',
@@ -86,29 +83,27 @@ export const useCounsellingBookingForm = (
 
   const handleSubmit = async (e: React.FormEvent, token: string) => {
     e.preventDefault();
-    
-    // Verify reCAPTCHA
-    if (!recaptchaToken) {
+
+    if (!token) {
       toast({
-        title: "reCAPTCHA Required",
-        description: "Please complete the reCAPTCHA verification.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    // Check rate limiting
-    const rateLimitOk = await checkFormRateLimit('counselling_booking');
-    if (!rateLimitOk) {
-      toast({
-        title: "Rate Limit Exceeded",
-        description: "Too many submissions. Please wait before trying again.",
-        variant: "destructive",
+        title: 'reCAPTCHA Required',
+        description: 'Please complete the reCAPTCHA verification.',
+        variant: 'destructive',
       });
       return;
     }
 
-    // Comprehensive validation
+    const rateLimitOk = await checkFormRateLimit('counselling_booking');
+    if (!rateLimitOk) {
+      toast({
+        title: 'Rate Limit Exceeded',
+        description: 'Too many submissions. Please wait before trying again.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+        // Comprehensive validation
     const validationRules = {
       student_name: { required: true, minLength: 2, maxLength: 100, type: 'text' as const },
       student_email: { required: true, type: 'email' as const },
@@ -139,67 +134,63 @@ export const useCounsellingBookingForm = (
     };
 
     const validation = validateForm(formDataForValidation, validationRules);
-    
     if (!validation.isValid) {
       const firstError = Object.values(validation.errors)[0];
       toast({
-        title: "Validation Error",
+        title: 'Validation Error',
         description: firstError,
-        variant: "destructive",
+        variant: 'destructive',
       });
       return;
     }
 
-    // Check required agreements
     if (!formData.agrees_to_terms || !formData.agrees_to_contact) {
       toast({
-        title: "Agreement Required",
-        description: "You must agree to the required terms and contact consent.",
-        variant: "destructive",
+        title: 'Agreement Required',
+        description: 'You must agree to the required terms and contact consent.',
+        variant: 'destructive',
       });
       return;
     }
 
     setLoading(true);
-
     try {
-      // Verify reCAPTCHA with server
-      const { data: verificationResult, error: verificationError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: recaptchaToken }
-      });
+      const { data: verificationResult, error: verificationError } = await supabase.functions.invoke(
+        'verify-recaptcha',
+        { body: { token } }
+      );
 
       if (verificationError || !verificationResult?.success) {
         toast({
-          title: "Verification Failed",
-          description: "reCAPTCHA verification failed. Please try again.",
-          variant: "destructive",
+          title: 'Verification Failed',
+          description: 'reCAPTCHA verification failed. Please try again.',
+          variant: 'destructive',
         });
-        recaptchaRef?.current?.reset();
         setLoading(false);
         return;
       }
 
-      // Prepare data for counselling_bookings table with sanitized values
-      const bookingData = {
-        student_name: validation.sanitizedData.student_name,
-        student_email: validation.sanitizedData.student_email,
-        student_phone: validation.sanitizedData.student_phone,
-        preferred_destination: validation.sanitizedData.preferred_destination,
-        study_level: validation.sanitizedData.study_level,
-        preferred_time: validation.sanitizedData.preferred_time,
-        course_interest: validation.sanitizedData.course_interest,
-        current_education_level: validation.sanitizedData.current_education_level,
-        english_test_score: validation.sanitizedData.english_test_score,
-        work_experience: validation.sanitizedData.work_experience,
-        message: validation.sanitizedData.message,
-        preferred_date: formData.preferred_date || null,
-        agrees_to_terms: formData.agrees_to_terms,
-        agrees_to_contact: formData.agrees_to_contact,
-        agrees_to_marketing: formData.agrees_to_marketing,
-        status: 'pending'
-      };
-
-      console.log('Submitting booking data:', bookingData);
+      // insert booking + optional marketing consent (unchanged)...
+       // Prepare data for counselling_bookings table with sanitized values
+            const bookingData = {
+              student_name: validation.sanitizedData.student_name,
+              student_email: validation.sanitizedData.student_email,
+              student_phone: validation.sanitizedData.student_phone,
+              preferred_destination: validation.sanitizedData.preferred_destination,
+              study_level: validation.sanitizedData.study_level,
+              preferred_time: validation.sanitizedData.preferred_time,
+              course_interest: validation.sanitizedData.course_interest,
+              current_education_level: validation.sanitizedData.current_education_level,
+              english_test_score: validation.sanitizedData.english_test_score,
+              work_experience: validation.sanitizedData.work_experience,
+              message: validation.sanitizedData.message,
+              preferred_date: formData.preferred_date || null,
+              agrees_to_terms: formData.agrees_to_terms,
+              agrees_to_contact: formData.agrees_to_contact,
+              agrees_to_marketing: formData.agrees_to_marketing,
+              status: 'pending'
+            };
+       console.log('Submitting booking data:', bookingData);
 
       const { error } = await supabase
         .from('counselling_bookings')
@@ -230,12 +221,11 @@ export const useCounsellingBookingForm = (
       }
 
       toast({
-        title: "Success!",
+        title: 'Success!',
         description: "Your counselling request has been submitted successfully. We'll contact you within 24 hours.",
       });
 
-      // Reset form
-      setFormData({
+ setFormData({
         student_name: '',
         student_email: user?.email || '',
         student_phone: '',
@@ -252,29 +242,18 @@ export const useCounsellingBookingForm = (
         agrees_to_contact: false,
         agrees_to_marketing: false,
       });
-
-      // Reset reCAPTCHA
-      recaptchaRef?.current?.reset();
-
       onSuccess?.();
     } catch (error) {
       console.error('Error submitting booking:', error);
       toast({
-        title: "Error",
-        description: "Failed to submit your request. Please try again.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to submit your request. Please try again.',
+        variant: 'destructive',
       });
     } finally {
       setLoading(false);
     }
   };
 
-  return {
-    formData,
-    loading,
-    destinations,
-    studyLevels,
-    handleInputChange,
-    handleSubmit,
-  };
+  return { formData, loading, destinations, studyLevels, handleInputChange, handleSubmit };
 };

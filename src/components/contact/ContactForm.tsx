@@ -48,19 +48,41 @@ const ContactForm = () => {
     resolver: zodResolver(contactSchema),
   });
 
-  // Load reCAPTCHA script
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => setRecaptchaLoaded(true);
-    document.body.appendChild(script);
+// ContactForm useEffect
+useEffect(() => {
+  if (window.grecaptcha) {
+    setRecaptchaLoaded(true);
+    return;
+  }
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  const script = document.createElement('script');
+  script.src = `https://www.recaptcha.net/recaptcha/api.js?render=6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn`;
+  script.async = true;
+  script.defer = true;
+  script.onload = () => {
+    if (window.grecaptcha) {
+      setRecaptchaLoaded(true);
+    } else {
+      toast({
+        title: 'Security Error',
+        description: 'Could not load security verification',
+        variant: 'destructive',
+      });
+    }
+  };
+  script.onerror = () => {
+    toast({
+      title: 'Security Error',
+      description: 'Failed to load security verification',
+      variant: 'destructive',
+    });
+  };
+  document.body.appendChild(script);
+
+  return () => {
+    document.body.removeChild(script);
+  };
+}, [toast]);
 
   const getRecaptchaToken = async (): Promise<string> => {
     if (!window.grecaptcha) {

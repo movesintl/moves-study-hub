@@ -138,29 +138,28 @@ const onSubmit = async (data: ContactFormData) => {
     const token = await getRecaptchaToken();
 
     // Get current session from Supabase v2
-    const {
-      data: { session },
-      error: sessionError,
-    } = await supabase.auth.getSession();
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
 
-    if (sessionError || !session?.access_token) {
-      toast({
-        title: "Authentication Error",
-        description: "You must be signed in to submit this form.",
-        variant: "destructive",
-      });
-      setIsSubmitting(false);
-      return;
-    }
+    if (sessionError) throw sessionError;
 
-    // Verify reCAPTCHA with server
+    const session = sessionData?.session ?? null; // v2 returns data.session
+
+    // Optional: only require login if your RLS policy needs auth
+    // If anon inserts are allowed, you can skip session check
+    // if (!session?.access_token) {
+    //   toast({ title: "Authentication Error", description: "Sign in first", variant: "destructive" });
+    //   setIsSubmitting(false);
+    //   return;
+    // }
+
+    // Verify reCAPTCHA with server (optional, can skip for anon)
     const { data: verificationResult, error: verificationError } = await supabase.functions.invoke(
       "verify-recaptcha",
       {
         body: { token },
-        headers: {
-          Authorization: `Bearer ${session.access_token}`,
-        },
+        headers: session?.access_token
+          ? { Authorization: `Bearer ${session.access_token}` }
+          : undefined,
       }
     );
 
@@ -200,7 +199,7 @@ const onSubmit = async (data: ContactFormData) => {
       message: data.message,
     };
 
-    // Insert into contact_submissions
+    // Insert into contact_submissions (anon + auth allowed)
     const { data: insertedData, error: insertError } = await supabase
       .from("contact_submissions")
       .insert([contactData])
@@ -209,7 +208,7 @@ const onSubmit = async (data: ContactFormData) => {
 
     if (insertError) throw insertError;
 
-    // Log the event
+    // Log the event (optional)
     await logEvent({
       action: "contact_submission_created",
       tableName: "contact_submissions",

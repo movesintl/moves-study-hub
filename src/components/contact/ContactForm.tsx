@@ -32,7 +32,7 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-const ContactForm = async () => {
+const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const { toast } = useToast();
@@ -48,11 +48,11 @@ const ContactForm = async () => {
     resolver: zodResolver(contactSchema),
   });
 // Check rate limit
-const rateLimitAllowed = await checkRateLimit({
+const rateLimitAllowed = async ()  => { await checkRateLimit({
   action: 'contact_submission',
   maxRequests: 5,
   windowMinutes: 60
-});
+});}
 
 if (!rateLimitAllowed) {
   toast({
@@ -118,99 +118,123 @@ useEffect(() => {
       }
     });
   };
+  
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    
-    try {
-      if (!recaptchaLoaded) {
-        toast({
-          title: "Loading Security Check",
-          description: "Please wait while we load security verification",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
+const onSubmit = async (data: ContactFormData) => {
+  setIsSubmitting(true);
 
-      // Get reCAPTCHA token
-      const token = await getRecaptchaToken();
-
-      // Check rate limit
-      const rateLimitAllowed = await checkRateLimit({
-        action: 'contact_submission',
-        maxRequests: 5,
-        windowMinutes: 60
-      });
-
-      if (!rateLimitAllowed) {
-        toast({
-          title: "Rate limit exceeded",
-          description: "You can only submit 5 contact forms per hour. Please try again later.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Verify reCAPTCHA with server
-      const { data: verificationResult, error: verificationError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token }
-      });
-
-      if (verificationError || !verificationResult?.success) {
-        toast({
-          title: "Verification Failed",
-          description: "Security verification failed. Please try again.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      const contactData = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone || null,
-        subject: data.subject,
-        message: data.message,
-      };
-
-       const { data: insertedData, error } = await supabase
-      .from('contact_submissions')
-      .insert([contactData])
-      .select('id')
-      .single();
-
-    if (error) {
-      
-      throw error;
-    }
-
-      await logEvent({
-        action: 'contact_submission_created',
-        tableName: 'contact_submissions',
-        recordId: insertedData?.id,
-        newValues: contactData
-      });
-
+  try {
+    if (!recaptchaLoaded) {
       toast({
-        title: "Message Sent Successfully!",
-        description: "Thank you for contacting us. We'll get back to you within 24 hours.",
-      });
-
-      reset();
-    } catch (error: any) {
-      console.error('Contact form submission error:', error);
-      toast({
-        title: "Error",
-        description: "Failed to send your message. Please try again or contact us directly.",
+        title: "Loading Security Check",
+        description: "Please wait while we load security verification",
         variant: "destructive",
       });
-    } finally {
       setIsSubmitting(false);
+      return;
     }
-  };
+
+    // Get reCAPTCHA token
+    const token = await getRecaptchaToken();
+
+    // Get current session from Supabase v2
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+
+    if (sessionError || !session?.access_token) {
+      toast({
+        title: "Authentication Error",
+        description: "You must be signed in to submit this form.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Verify reCAPTCHA with server
+    const { data: verificationResult, error: verificationError } = await supabase.functions.invoke(
+      "verify-recaptcha",
+      {
+        body: { token },
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      }
+    );
+
+    if (verificationError || !verificationResult?.success) {
+      toast({
+        title: "Verification Failed",
+        description: "Security verification failed. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Rate limit check
+    const rateLimitAllowed = await checkRateLimit({
+      action: "contact_submission",
+      maxRequests: 5,
+      windowMinutes: 60,
+    });
+
+    if (!rateLimitAllowed) {
+      toast({
+        title: "Rate limit exceeded",
+        description: "You can only submit 5 contact forms per hour. Please try again later.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Prepare contact data
+    const contactData = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone || null,
+      subject: data.subject,
+      message: data.message,
+    };
+
+    // Insert into contact_submissions
+    const { data: insertedData, error: insertError } = await supabase
+      .from("contact_submissions")
+      .insert([contactData])
+      .select("id")
+      .single();
+
+    if (insertError) throw insertError;
+
+    // Log the event
+    await logEvent({
+      action: "contact_submission_created",
+      tableName: "contact_submissions",
+      recordId: insertedData?.id,
+      newValues: contactData,
+    });
+
+    toast({
+      title: "Message Sent Successfully!",
+      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+    });
+
+    reset();
+  } catch (error: any) {
+    console.error("Contact form submission error:", error);
+    toast({
+      title: "Error",
+      description: "Failed to send your message. Please try again or contact us directly.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

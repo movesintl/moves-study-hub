@@ -32,7 +32,7 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-const ContactForm = () => {
+const ContactForm = async () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const { toast } = useToast();
@@ -47,6 +47,22 @@ const ContactForm = () => {
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
+// Check rate limit
+const rateLimitAllowed = await checkRateLimit({
+  action: 'contact_submission',
+  maxRequests: 5,
+  windowMinutes: 60
+});
+
+if (!rateLimitAllowed) {
+  toast({
+    title: "Rate limit exceeded",
+    description: "You can only submit 5 contact forms per hour. Please try again later.",
+    variant: "destructive",
+  });
+  setIsSubmitting(false);
+  return;
+}
 
 // ContactForm useEffect
 useEffect(() => {

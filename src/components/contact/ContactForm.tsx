@@ -139,10 +139,12 @@ const onSubmit = async (data: ContactFormData) => {
 
     // Get current session from Supabase v2
     const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-
+    
+    
     if (sessionError) throw sessionError;
-
+    
     const session = sessionData?.session ?? null; // v2 returns data.session
+
 
     // Optional: only require login if your RLS policy needs auth
     // If anon inserts are allowed, you can skip session check

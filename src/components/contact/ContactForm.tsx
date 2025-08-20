@@ -198,13 +198,15 @@ const onSubmit = async (data: ContactFormData) => {
       subject: data.subject,
       message: data.message,
     };
-
+    console.log("Contact data:", contactData);
+    
     // Insert into contact_submissions (anon + auth allowed)
     const { data: insertedData, error: insertError } = await supabase
       .from("contact_submissions")
       .insert([contactData])
       .select("id")
       .single();
+
 
     if (insertError) throw insertError;
 

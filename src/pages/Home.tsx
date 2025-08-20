@@ -12,6 +12,7 @@ import HighQuality from "@/components/common/HighQuality";
 import StickyProfileComponent from "@/components/common/StickyProfile";
 import FloatingStats from "@/components/common/FloatingStats";
 
+
 const Home = () => {
   return (
     <div className="min-h-screen">

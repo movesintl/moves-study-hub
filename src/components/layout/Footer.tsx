@@ -29,7 +29,7 @@ Moves International is Australia's leading education and migration services prov
                 <Phone className="h-5 w-5 mr-3 text-accent flex-shrink-0" />
                 <div>
                   <span className="text-gray-200 block">(+88) 013 3879 4188</span>
-                  <span className="text-sm text-gray-300">Mon-Fri 9AM-6PM EST</span>
+<span className="text-sm text-gray-300">Sun-Thu 9AM-6PM BST</span>
                 </div>
               </div>
               <div className="flex items-center">

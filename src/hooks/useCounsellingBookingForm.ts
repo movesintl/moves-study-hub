@@ -20,6 +20,9 @@ interface FormData {
   preferred_date: string;
   preferred_time: string;
   message: string;
+  agrees_to_terms?: boolean;
+  agrees_to_contact?: boolean;
+  agrees_to_marketing?: boolean;
 }
 
 export const useCounsellingBookingForm = (
@@ -43,6 +46,9 @@ export const useCounsellingBookingForm = (
     preferred_date: '',
     preferred_time: '',
     message: '',
+    agrees_to_terms: false,
+    agrees_to_contact: false,
+    agrees_to_marketing: false,
   });
 
   // Fetch destinations
@@ -75,7 +81,7 @@ export const useCounsellingBookingForm = (
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent, token: string) => {
+  const handleSubmit = async (e: React.FormEvent, token?: string) => {
     e.preventDefault();
 
     if (!token) {
@@ -206,6 +212,9 @@ export const useCounsellingBookingForm = (
         preferred_date: '',
         preferred_time: '',
         message: '',
+        agrees_to_terms: false,
+        agrees_to_contact: false,
+        agrees_to_marketing: false,
             });
       onSuccess?.();
     } catch (error) {

@@ -82,6 +82,7 @@ import CareerDetails from '@/pages/CareerDetails';
 import Reviews from '@/pages/Reviews';
 import AdminNotificationsPage from '@/pages/admin/notifications/NotificationsPage';
 import StudentNotificationsPage from '@/pages/student/NotificationsPage';
+import Campaign from '@/pages/admin/campaign/Campaign';
 
 const queryClient = new QueryClient();
 
@@ -179,6 +180,11 @@ function App() {
                 <Route path="pages/:id/edit" element={<PageForm />} />
                 <Route path="media" element={<MediaLibrary />} />
                 <Route path="marketing" element={<MarketingConsents />} />
+                <Route path="campaign" element={
+                  <RoleGuard allowedRoles={['admin', 'editor']}>
+                    <Campaign />
+                  </RoleGuard>
+                } />
                 <Route path="users" element={
                   <RoleGuard allowedRoles={['admin']}>
                     <AllUsers />

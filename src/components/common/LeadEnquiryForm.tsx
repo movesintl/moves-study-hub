@@ -68,7 +68,7 @@ const LeadEnquiryForm = () => {
             className="bg-white rounded-2xl border  border-dashed border-gray-400 p-6
 "
           >
-            <form onSubmit={handleSubmit} className="space-y-3">
+            <form onSubmit={(e) => handleSubmit(e)} className="space-y-3">
               <PersonalInfoSection
                 formData={formData}
                 onInputChange={handleInputChange}

@@ -51,6 +51,8 @@
     "embla-carousel-react": "^8.3.0",
     "grapesjs": "^0.22.9",
     "grapesjs-blocks-basic": "^1.0.2",
+    "grapesjs-mjml": "^1.0.7",
+    "grapesjs-preset-newsletter": "^1.0.2",
     "grapesjs-preset-webpage": "^1.0.3",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.462.0",

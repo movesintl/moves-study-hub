@@ -113,16 +113,43 @@ export const useCourseForm = () => {
           return;
         }
 
+        // Auto-sync foreign key IDs if missing
+        const syncedData = { ...data };
+        
+        // Sync study_area_id if missing
+        if (!syncedData.study_area_id && syncedData.study_area) {
+          const matchingArea = studyAreas.find(area => area.name === syncedData.study_area);
+          if (matchingArea) syncedData.study_area_id = matchingArea.id;
+        }
+
+        // Sync study_level_id if missing
+        if (!syncedData.study_level_id && syncedData.level) {
+          const matchingLevel = studyLevels.find(level => level.name === syncedData.level);
+          if (matchingLevel) syncedData.study_level_id = matchingLevel.id;
+        }
+
+        // Sync destination_id if missing
+        if (!syncedData.destination_id && syncedData.country) {
+          const matchingDestination = destinations.find(dest => dest.name === syncedData.country);
+          if (matchingDestination) syncedData.destination_id = matchingDestination.id;
+        }
+
+        // Sync university_id if missing
+        if (!syncedData.university_id && syncedData.university) {
+          const matchingUniversity = universities.find(uni => uni.name === syncedData.university);
+          if (matchingUniversity) syncedData.university_id = matchingUniversity.id;
+        }
+
         setFormData({
-          ...data,
-          intake_dates: data.intake_dates || [],
-          slug: data.slug || ''
+          ...syncedData,
+          intake_dates: syncedData.intake_dates || [],
+          slug: syncedData.slug || ''
         });
       };
 
       fetchCourse();
     }
-  }, [id, isEditing, toast]);
+  }, [id, isEditing, toast, studyAreas, studyLevels, destinations, universities]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

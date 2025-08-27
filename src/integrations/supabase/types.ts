@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -1477,8 +1477,8 @@ export type Database = {
     Functions: {
       check_rate_limit: {
         Args: {
-          p_identifier: string
           p_action: string
+          p_identifier: string
           p_max_requests?: number
           p_window_minutes?: number
         }
@@ -1486,57 +1486,57 @@ export type Database = {
       }
       check_rate_limit_with_lockout: {
         Args: {
-          p_identifier: string
           p_action: string
+          p_identifier: string
+          p_lockout_minutes?: number
+          p_max_failures?: number
           p_max_requests?: number
           p_window_minutes?: number
-          p_max_failures?: number
-          p_lockout_minutes?: number
         }
         Returns: Json
       }
       create_notification: {
         Args: {
-          p_user_id: string
-          p_title: string
-          p_message: string
-          p_type?: string
           p_category?: string
+          p_message: string
           p_reference_id?: string
           p_reference_table?: string
+          p_title: string
+          p_type?: string
+          p_user_id: string
         }
         Returns: string
       }
       detect_suspicious_activity: {
         Args: {
-          p_user_id?: string
           p_ip_address?: unknown
           p_time_window_hours?: number
+          p_user_id?: string
         }
         Returns: Json
       }
       generate_career_slug: {
-        Args: { career_title: string; career_id?: string }
+        Args: { career_id?: string; career_title: string }
         Returns: string
       }
       generate_event_slug: {
-        Args: { event_title: string; event_id?: string }
+        Args: { event_id?: string; event_title: string }
         Returns: string
       }
       generate_scholarship_slug: {
-        Args: { scholarship_title: string; scholarship_id?: string }
+        Args: { scholarship_id?: string; scholarship_title: string }
         Returns: string
       }
       generate_service_slug: {
-        Args: { service_title: string; service_id?: string }
+        Args: { service_id?: string; service_title: string }
         Returns: string
       }
       generate_unique_slug: {
-        Args: { course_title: string; course_id?: string }
+        Args: { course_id?: string; course_title: string }
         Returns: string
       }
       generate_university_slug: {
-        Args: { university_name: string; university_id?: string }
+        Args: { university_id?: string; university_name: string }
         Returns: string
       }
       get_auth_users: {
@@ -1554,42 +1554,46 @@ export type Database = {
       log_audit_event: {
         Args: {
           p_action: string
-          p_table_name?: string
-          p_record_id?: string
-          p_old_values?: Json
           p_new_values?: Json
+          p_old_values?: Json
+          p_record_id?: string
+          p_table_name?: string
         }
         Returns: undefined
       }
       log_auth_event: {
         Args: {
-          p_event_type: string
-          p_user_id?: string
-          p_ip_address?: unknown
-          p_user_agent?: string
-          p_success?: boolean
           p_details?: Json
+          p_event_type: string
+          p_ip_address?: unknown
+          p_success?: boolean
+          p_user_agent?: string
+          p_user_id?: string
         }
         Returns: undefined
       }
       log_security_event: {
-        Args: { event_type: string; user_id: string; details?: Json }
+        Args: { details?: Json; event_type: string; user_id: string }
         Returns: undefined
       }
       notify_admins: {
         Args: {
-          p_title: string
-          p_message: string
-          p_type?: string
           p_category?: string
+          p_message: string
           p_reference_id?: string
           p_reference_table?: string
+          p_title: string
+          p_type?: string
         }
         Returns: undefined
       }
       slugify: {
         Args: { "": string }
         Returns: string
+      }
+      sync_course_foreign_keys: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
     }
     Enums: {

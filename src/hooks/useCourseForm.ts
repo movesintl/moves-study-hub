@@ -113,31 +113,55 @@ export const useCourseForm = () => {
           return;
         }
 
-        // Auto-sync foreign key IDs if missing
+        // Create a mapping function for study areas
+        const mapStudyArea = (studyAreaText: string) => {
+          const text = studyAreaText?.toLowerCase() || '';
+          if (text.includes('business')) return studyAreas.find(area => area.name.toLowerCase().includes('business'));
+          if (text.includes('cyber') || text.includes('it') || text.includes('computer')) 
+            return studyAreas.find(area => area.name.toLowerCase().includes('computer') || area.name.toLowerCase().includes('it'));
+          if (text.includes('health') || text.includes('medicine')) 
+            return studyAreas.find(area => area.name.toLowerCase().includes('health') || area.name.toLowerCase().includes('medicine'));
+          if (text.includes('engineering') || text.includes('trade')) 
+            return studyAreas.find(area => area.name.toLowerCase().includes('engineering') || area.name.toLowerCase().includes('trade'));
+          if (text.includes('education')) 
+            return studyAreas.find(area => area.name.toLowerCase().includes('business')); // Default fallback
+          return studyAreas.find(area => area.name === studyAreaText);
+        };
+
+        // Auto-sync foreign key IDs if missing and reference data is available
         const syncedData = { ...data };
         
         // Sync study_area_id if missing
-        if (!syncedData.study_area_id && syncedData.study_area) {
-          const matchingArea = studyAreas.find(area => area.name === syncedData.study_area);
-          if (matchingArea) syncedData.study_area_id = matchingArea.id;
+        if (!syncedData.study_area_id && syncedData.study_area && studyAreas.length > 0) {
+          const matchingArea = mapStudyArea(syncedData.study_area);
+          if (matchingArea) {
+            syncedData.study_area_id = matchingArea.id;
+            syncedData.study_area = matchingArea.name; // Also update the text to match
+          }
         }
 
         // Sync study_level_id if missing
-        if (!syncedData.study_level_id && syncedData.level) {
+        if (!syncedData.study_level_id && syncedData.level && studyLevels.length > 0) {
           const matchingLevel = studyLevels.find(level => level.name === syncedData.level);
-          if (matchingLevel) syncedData.study_level_id = matchingLevel.id;
+          if (matchingLevel) {
+            syncedData.study_level_id = matchingLevel.id;
+          }
         }
 
         // Sync destination_id if missing
-        if (!syncedData.destination_id && syncedData.country) {
+        if (!syncedData.destination_id && syncedData.country && destinations.length > 0) {
           const matchingDestination = destinations.find(dest => dest.name === syncedData.country);
-          if (matchingDestination) syncedData.destination_id = matchingDestination.id;
+          if (matchingDestination) {
+            syncedData.destination_id = matchingDestination.id;
+          }
         }
 
         // Sync university_id if missing
-        if (!syncedData.university_id && syncedData.university) {
+        if (!syncedData.university_id && syncedData.university && universities.length > 0) {
           const matchingUniversity = universities.find(uni => uni.name === syncedData.university);
-          if (matchingUniversity) syncedData.university_id = matchingUniversity.id;
+          if (matchingUniversity) {
+            syncedData.university_id = matchingUniversity.id;
+          }
         }
 
         setFormData({
@@ -147,7 +171,10 @@ export const useCourseForm = () => {
         });
       };
 
-      fetchCourse();
+      // Only fetch if we have the reference data loaded
+      if (studyAreas.length > 0 && studyLevels.length > 0 && destinations.length > 0 && universities.length > 0) {
+        fetchCourse();
+      }
     }
   }, [id, isEditing, toast, studyAreas, studyLevels, destinations, universities]);
 

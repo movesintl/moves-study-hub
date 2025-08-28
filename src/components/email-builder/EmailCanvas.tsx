@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import 'grapesjs-preset-newsletter';
@@ -19,44 +19,25 @@ const EmailCanvas: React.FC<EmailCanvasProps> = ({
   const [editor, setEditor] = useState<any>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
+  // Initialize editor once
   useEffect(() => {
     if (!editorRef.current || isInitialized) return;
 
+    console.log('Initializing GrapesJS editor...');
+    
     const grapesEditor = grapesjs.init({
       container: editorRef.current,
       height: '100%',
       width: 'auto',
       storageManager: false,
-      plugins: ['grapesjs-preset-newsletter'],
+      fromElement: false,
+      plugins: ['grapesjs-preset-newsletter', 'grapesjs-blocks-basic'],
       pluginsOpts: {
         'grapesjs-preset-newsletter': {
           modalTitleImport: 'Import template',
           modalTitleExport: 'Export template',
           codeViewerTheme: 'hopscotch',
-          defaultTemplate: initialContent || `
-            <div style="margin: 0 auto; max-width: 600px; font-family: Arial, sans-serif;">
-              <div style="background-color: #f8f9fa; padding: 20px; text-align: center;">
-                <h1 style="color: #333; margin: 0;">Your Email Title</h1>
-              </div>
-              <div style="padding: 30px 20px;">
-                <p style="color: #666; line-height: 1.6; margin: 0 0 20px 0;">
-                  Start building your email campaign here. Drag and drop elements from the sidebar to create your perfect email.
-                </p>
-                <div style="text-align: center; margin: 30px 0;">
-                  <a href="#" style="background-color: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">
-                    Call to Action
-                  </a>
-                </div>
-              </div>
-              <div style="background-color: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; color: #666;">
-                <p style="margin: 0;">© 2024 Your Company. All rights reserved.</p>
-                <p style="margin: 5px 0 0 0;">
-                  <a href="#" style="color: #007bff;">Unsubscribe</a> | 
-                  <a href="#" style="color: #007bff;">Update Preferences</a>
-                </p>
-              </div>
-            </div>
-          `
+          defaultTemplate: getDefaultTemplate()
         }
       },
       canvas: {
@@ -141,52 +122,20 @@ const EmailCanvas: React.FC<EmailCanvasProps> = ({
       }
     });
 
-    // Add custom email blocks
-    grapesEditor.BlockManager.add('personalization-token', {
-      label: 'Name Token',
-      category: 'Personalization',
-      content: '<span style="background-color: #e3f2fd; padding: 2px 6px; border-radius: 3px; font-size: 14px;">{{FirstName}}</span>',
-      attributes: { class: 'fa fa-user' }
-    });
-
-    grapesEditor.BlockManager.add('email-token', {
-      label: 'Email Token',
-      category: 'Personalization',
-      content: '<span style="background-color: #e8f5e8; padding: 2px 6px; border-radius: 3px; font-size: 14px;">{{Email}}</span>',
-      attributes: { class: 'fa fa-envelope' }
-    });
-
-    grapesEditor.BlockManager.add('unsubscribe-link', {
-      label: 'Unsubscribe Link',
-      category: 'Compliance',
-      content: '<a href="{{UnsubscribeURL}}" style="color: #666; text-decoration: underline; font-size: 12px;">Unsubscribe</a>',
-      attributes: { class: 'fa fa-unlink' }
-    });
-
-    grapesEditor.BlockManager.add('social-links', {
-      label: 'Social Links',
-      category: 'Social',
-      content: `
-        <div style="text-align: center; margin: 20px 0;">
-          <a href="#" style="display: inline-block; margin: 0 10px;">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTI0IDEyLjA3M0MyNCA1LjQwNSAxOC42MjcgMCAxMi4wNzMgMEM1LjQwNSAwIDAgNS40MDUgMCAxMi4wNzNDMCAyMS4yIDIuNzkgMjIuNSA2IDIyLjVWMTQuNzVIMi4zVjEyLjA3M0g2VjkuNDA1QzYgNi4xNCA3LjcgNSAxMC43IDVIMTMuNVY3LjY0SDE1VjEwLjI3SDE2LjMwN1YxMi4wNzNIMTYuNTU1VjE0Ljc1SDE4VjIyLjVDMjEuMTkgMjIuNSAyNCAyMS4xOTUgMjQgMTIuMDczWiIgZmlsbD0iIzE4NzdGMiIvPgo8L3N2Zz4K" alt="Facebook" style="width: 24px; height: 24px;" />
-          </a>
-          <a href="#" style="display: inline-block; margin: 0 10px;">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIzLjk1MyA0LjU3QTEwIDEwIDAgMDEyMS40NDQgNC44ODNBNy44NzQgNy44NzQgMCAwMDIzLjMzNyAzLjYwOEExNS43MTggMTUuNzE4IDAgMDEyMS43NDcgNi4zNzNBNy44NzUgNy44NzUgMCAwMTEzLjgyMyA4LjQ4NEE3Ljg3NSA3Ljg3NSAwIDEgMSAxMy44MjMgOC40ODRDNi41ODIgMTEuMSAzLjkgMTYuNiAwIDI0QzEuNSAyMS4zIDQuNSAxOS44IDguNCAxOC42QzEzLjIgMTYuOSAxNi45IDE0LjEgMTguNyA5LjMiIGZpbGw9IiMxREE1RjIiLz4KPC9zdmc+" alt="Twitter" style="width: 24px; height: 24px;" />
-          </a>
-          <a href="#" style="display: inline-block; margin: 0 10px;">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiByeD0iNSIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyKSIvPgo8cGF0aCBkPSJNMTUgMTJBNCA0IDAgMSAxIDcgMTJBNCA0IDAgMCAxIDE1IDEyWiIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSI2IiByPSIyIiBmaWxsPSJ3aGl0ZSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyIiB4MT0iMjEiIHkxPSIyMSIgeDI9IjIiIHkyPSIyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiNGRkRCMDAiLz4KPHN0b3Agb2Zmc2V0PSIwLjUiIHN0b3AtY29sb3I9IiNGRjAwMDAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkY0MDgwIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+" alt="Instagram" style="width: 24px; height: 24px;" />
-          </a>
-        </div>
-      `,
-      attributes: { class: 'fa fa-share-alt' }
-    });
+    // Add comprehensive email blocks
+    addEmailBlocks(grapesEditor);
 
     // Listen for content changes
     grapesEditor.on('component:update', () => {
       const html = grapesEditor.getHtml();
       onContentChange?.(html);
     });
+
+    // Initialize with content if provided
+    if (initialContent) {
+      console.log('Setting initial content:', initialContent.substring(0, 100) + '...');
+      grapesEditor.setComponents(initialContent);
+    }
 
     setEditor(grapesEditor);
     setIsInitialized(true);
@@ -196,7 +145,20 @@ const EmailCanvas: React.FC<EmailCanvasProps> = ({
         grapesEditor.destroy();
       }
     };
-  }, [isInitialized, initialContent, onContentChange]);
+  }, [isInitialized, onContentChange]);
+
+  // Update content when initialContent changes
+  useEffect(() => {
+    if (editor && initialContent) {
+      console.log('Updating editor content with new template...');
+      editor.setComponents(initialContent);
+      // Also set any CSS if it's inline in the content
+      const cssMatch = initialContent.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+      if (cssMatch) {
+        editor.setStyle(cssMatch[1]);
+      }
+    }
+  }, [editor, initialContent]);
 
   const handleSave = () => {
     if (!editor) return;
@@ -236,6 +198,148 @@ const EmailCanvas: React.FC<EmailCanvasProps> = ({
     }
   };
 
+  // Helper functions
+  const getDefaultTemplate = useCallback(() => {
+    return `
+      <div style="margin: 0 auto; max-width: 600px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #ffffff;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center;">
+          <h1 style="margin: 0; font-size: 28px; font-weight: 300;">Welcome to Moves International</h1>
+          <p style="margin: 10px 0 0 0; opacity: 0.9;">Your trusted partner in international education</p>
+        </div>
+        <div style="padding: 40px 30px;">
+          <h2 style="color: #333; margin-top: 0; font-size: 24px;">Start Building Your Email</h2>
+          <p style="color: #666; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
+            Drag and drop elements from the sidebar to create your perfect email campaign. You can add text, images, buttons, and more.
+          </p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="#" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+              Get Started
+            </a>
+          </div>
+        </div>
+        <div style="background-color: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid #eee;">
+          <p style="color: #999; font-size: 14px; margin: 5px 0;">© 2024 Moves International. All rights reserved.</p>
+          <p style="color: #999; font-size: 14px; margin: 5px 0;">
+            <a href="#" style="color: #667eea;">Unsubscribe</a> | <a href="#" style="color: #667eea;">Update Preferences</a>
+          </p>
+        </div>
+      </div>
+    `;
+  }, []);
+
+  const addEmailBlocks = useCallback((editor: any) => {
+    // Personalization blocks
+    editor.BlockManager.add('name-token', {
+      label: 'Name Token',
+      category: 'Personalization',
+      content: '<span style="background-color: #e3f2fd; padding: 4px 8px; border-radius: 4px; font-size: 14px; color: #1976d2;">{{recipientName}}</span>',
+      attributes: { class: 'fa fa-user' }
+    });
+
+    editor.BlockManager.add('email-token', {
+      label: 'Email Token', 
+      category: 'Personalization',
+      content: '<span style="background-color: #e8f5e8; padding: 4px 8px; border-radius: 4px; font-size: 14px; color: #388e3c;">{{email}}</span>',
+      attributes: { class: 'fa fa-envelope' }
+    });
+
+    // Content blocks
+    editor.BlockManager.add('email-header', {
+      label: 'Email Header',
+      category: 'Layout',
+      content: `
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center;">
+          <h1 style="margin: 0; font-size: 28px; font-weight: 300;">Your Company Name</h1>
+          <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 16px;">Tagline or description</p>
+        </div>
+      `,
+      attributes: { class: 'fa fa-header' }
+    });
+
+    editor.BlockManager.add('text-section', {
+      label: 'Text Section',
+      category: 'Content',
+      content: `
+        <div style="padding: 30px;">
+          <h2 style="color: #333; margin-top: 0; font-size: 24px; margin-bottom: 15px;">Section Title</h2>
+          <p style="color: #666; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
+            Add your content here. You can edit this text and style it however you like.
+          </p>
+        </div>
+      `,
+      attributes: { class: 'fa fa-paragraph' }
+    });
+
+    editor.BlockManager.add('cta-button', {
+      label: 'Call to Action',
+      category: 'Content',
+      content: `
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="#" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
+            Click Here
+          </a>
+        </div>
+      `,
+      attributes: { class: 'fa fa-hand-pointer-o' }
+    });
+
+    editor.BlockManager.add('image-block', {
+      label: 'Image Block',
+      category: 'Content',
+      content: `
+        <div style="text-align: center; margin: 20px 0;">
+          <img src="https://via.placeholder.com/400x200/667eea/ffffff?text=Your+Image" alt="Image" style="max-width: 100%; height: auto; border-radius: 8px;" />
+        </div>
+      `,
+      attributes: { class: 'fa fa-image' }
+    });
+
+    editor.BlockManager.add('footer-block', {
+      label: 'Email Footer',
+      category: 'Layout',
+      content: `
+        <div style="background-color: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid #eee;">
+          <p style="color: #999; font-size: 14px; margin: 5px 0;"><strong>Your Company Name</strong></p>
+          <p style="color: #999; font-size: 14px; margin: 5px 0;">Address Line 1, City, Country</p>
+          <p style="color: #999; font-size: 12px; margin: 15px 0 5px 0;">
+            <a href="#" style="color: #667eea; text-decoration: none;">Unsubscribe</a> | 
+            <a href="#" style="color: #667eea; text-decoration: none;">Update Preferences</a>
+          </p>
+        </div>
+      `,
+      attributes: { class: 'fa fa-footer' }
+    });
+
+    // Social and compliance
+    editor.BlockManager.add('social-links', {
+      label: 'Social Links',
+      category: 'Social',
+      content: `
+        <div style="text-align: center; margin: 20px 0;">
+          <a href="#" style="display: inline-block; margin: 0 10px; text-decoration: none;">
+            <div style="display: inline-block; width: 40px; height: 40px; background-color: #3b5998; border-radius: 50%; line-height: 40px; text-align: center; color: white; font-weight: bold;">f</div>
+          </a>
+          <a href="#" style="display: inline-block; margin: 0 10px; text-decoration: none;">
+            <div style="display: inline-block; width: 40px; height: 40px; background-color: #1da1f2; border-radius: 50%; line-height: 40px; text-align: center; color: white; font-weight: bold;">t</div>
+          </a>
+          <a href="#" style="display: inline-block; margin: 0 10px; text-decoration: none;">
+            <div style="display: inline-block; width: 40px; height: 40px; background-color: #0077b5; border-radius: 50%; line-height: 40px; text-align: center; color: white; font-weight: bold;">in</div>
+          </a>
+        </div>
+      `,
+      attributes: { class: 'fa fa-share-alt' }
+    });
+
+    editor.BlockManager.add('unsubscribe-link', {
+      label: 'Unsubscribe Link',
+      category: 'Compliance',
+      content: '<div style="text-align: center; margin: 20px 0;"><a href="#" style="color: #666; text-decoration: underline; font-size: 12px;">Unsubscribe from this list</a></div>',
+      attributes: { class: 'fa fa-unlink' }
+    });
+
+    console.log('Added custom email blocks to GrapesJS');
+  }, []);
+
   return (
     <div className="h-full w-full flex flex-col">
       {/* Toolbar */}
@@ -254,6 +358,9 @@ const EmailCanvas: React.FC<EmailCanvasProps> = ({
             Save Campaign
           </button>
         </div>
+        {!isInitialized && (
+          <div className="text-sm text-muted-foreground">Loading editor...</div>
+        )}
       </div>
 
       {/* Editor Layout */}

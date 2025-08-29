@@ -34,7 +34,7 @@ Moves International is Australia's leading education and migration services prov
               </div>
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-accent flex-shrink-0" />
-                <span className="text-gray-200">info@movesinternational.com.au</span>
+                <span className="text-gray-200">info@movesinternational.com.bd</span>
               </div>
               <div className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 text-accent mt-1 flex-shrink-0" />

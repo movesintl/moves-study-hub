@@ -9,7 +9,7 @@ const Contact = () => {
   country: "Bangladesh",
   address: "Mir Noor Square, House-43, Road - 02, Dhanmondi R/A, Dhaka",
   phone: "(+88) 013 3879 4188",
-  email: "infobd@mieducation.com.au",
+  email: "infobd@mieducation.com.bd",
   flag: "🇧🇩"
 };
   const otherOffices = [
@@ -31,7 +31,7 @@ const Contact = () => {
     country: "Nepal",
     address: "1st Floor, D&C Building, New Baneshwor, Ward-31, KMC, Nepal",
     phone: "(+977) 9860 0121 105",
-    email: "infonp@mieducation.com.au",
+    email: "infonp@mieducation.com.np",
     flag: "🇳🇵"
   }
 ];

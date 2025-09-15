@@ -39,7 +39,7 @@ const CounsellingPopup = () => {
           <X className="w-5 h-5 text-gray-600 group-hover:text-gray-800 transition-colors" />
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] max-h-[80vh]">
           {/* Left Column - Hero Content */}
           <div className="relative bg-gradient-to-br from-[#023047] via-[#034a6b] to-[#023047] p-6 lg:p-8 flex flex-col justify-center overflow-hidden">
             {/* Animated Background Elements */}

@@ -68,7 +68,7 @@ const LeadEnquiryForm = () => {
             className="bg-white rounded-2xl border  border-dashed border-gray-400 p-6
 "
           >
-            <form onSubmit={handleSubmit} className="space-y-3">
+            <form onSubmit={(e) => handleSubmit(e)} className="space-y-3">
               <PersonalInfoSection
                 formData={formData}
                 onInputChange={handleInputChange}
@@ -186,7 +186,7 @@ const LeadEnquiryForm = () => {
                 <div className="w-full h-48 bg-gray-300 rounded-t-xl"></div>
                 <div className="flex items-center justify-between p-5 bg-white">
                   <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                  <ChevronRight className="text-gray-300" />
+                  <ChevronRight className="text-gray-300 " />
                 </div>
               </div>
             ))
@@ -197,17 +197,19 @@ const LeadEnquiryForm = () => {
                 key={service.id}
                 className="shadow-[0_1.5px_3px_rgba(0,0,0,0.1)] rounded-md overflow-hidden"
               >
+                <a href={`/services/${service.slug}`}>
                 <img
                   src={service.icon_url}
                   alt={service.title}
                   className="rounded-t-xl shadow-xl w-full object-cover"
-                />
+                  />
                 <div className="flex items-center font-bold justify-between p-5 bg-white">
                   <p>{service.title}</p>
                 <a href={`/services/${service.slug}`} className="hover:cursor-pointer">
                   <ChevronRight />
                 </a>
                 </div>
+                  </a>
               </div>
             ))
           )}

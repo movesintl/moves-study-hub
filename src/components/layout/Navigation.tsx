@@ -83,12 +83,12 @@ const Navigation = () => {
     {
       name: 'Destinations',
       path: '/destinations',
-      submenu: destinationSubmenu
+      hasMegaMenu: true
     },
     {
       name: 'Services',
       path: '/services',
-      submenu: servicesSubmenu
+      hasMegaMenu: true
     }
   ];
   const secondaryMenuItems = [
@@ -97,18 +97,23 @@ const Navigation = () => {
     { name: 'Contact', path: '/contact' },
     {
       name: 'Our Offices',
-      submenu: [
-        {
-          name: 'Bangladesh Office',
-          path: 'https://www.movesinternational.com.bd',
-          external: true
-        },
-        {
-          name: 'Australian Office',
-          path: 'https://www.movesinternational.com.au',
-          external: true
-        }
-      ]
+     submenu: [
+  {
+    name: 'Sydney Office',
+    path: 'https://www.mieducation.com.au',
+    external: true
+  },
+  {
+    name: 'Wollongong Office', 
+    path: 'https://www.mieducation.com.au',
+    external: true
+  },
+  {
+    name: 'Nepal Office',
+    path: 'https://www.mieducation.com.au',
+    external: true
+  }
+]
     }
   ];
   // ... rest of your component code

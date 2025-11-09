@@ -28,19 +28,19 @@ Moves International is Australia's leading education and migration services prov
               <div className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-accent flex-shrink-0" />
                 <div>
-                  <span className="text-gray-200 block">+1 (555) 123-4567</span>
-                  <span className="text-sm text-gray-300">Mon-Fri 9AM-6PM EST</span>
+                  <span className="text-gray-200 block">(+88) 013 3879 4188</span>
+<span className="text-sm text-gray-300">Sun-Thu 9AM-6PM BST</span>
                 </div>
               </div>
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-accent flex-shrink-0" />
-                <span className="text-gray-200">info@movesinternational.com</span>
+                <span className="text-gray-200">info@movesinternational.com.bd</span>
               </div>
               <div className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 text-accent mt-1 flex-shrink-0" />
                 <span className="text-gray-200">
-                  Level 15, 123 Collins Street<br />
-                  Melbourne, VIC 3000, Australia
+                  Mir Noor Square, House-43, Road - 02,<br />
+                  Dhanmondi R/A, Dhaka
                 </span>
               </div>
             </div>

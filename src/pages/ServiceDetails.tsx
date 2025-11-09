@@ -213,12 +213,10 @@ const ServiceDetails = () => {
         </div>
       </div>
 
-      {/* Keep Reading */}
-      {service.title === "Application Assistant" && (
+   
         <div className="mb-0">
           <KeepReading />
-        </div>
-      )}
+     </div>
       {/* How It Works Section */}
       <HowItWorksDisplay
         title={service.how_it_works_title}

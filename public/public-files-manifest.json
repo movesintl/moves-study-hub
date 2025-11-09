@@ -1,0 +1,4292 @@
+[
+  {
+    "name": "bg.svg",
+    "path": "/bg.svg",
+    "relativePath": "bg.svg",
+    "type": "image",
+    "size": 954,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.504Z"
+  },
+  {
+    "name": "blue_search.svg",
+    "path": "/blue_search.svg",
+    "relativePath": "blue_search.svg",
+    "type": "image",
+    "size": 7727,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.505Z"
+  },
+  {
+    "name": "favicon.ico",
+    "path": "/favicon.ico",
+    "relativePath": "favicon.ico",
+    "type": "image",
+    "size": 7645,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.505Z"
+  },
+  {
+    "name": "get-better-about-us.png",
+    "path": "/get-better-about-us.png",
+    "relativePath": "get-better-about-us.png",
+    "type": "image",
+    "size": 1291277,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-15T00:54:28.616Z"
+  },
+  {
+    "name": "green_filter.svg",
+    "path": "/green_filter.svg",
+    "relativePath": "green_filter.svg",
+    "type": "image",
+    "size": 14509,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.505Z"
+  },
+  {
+    "name": "hero_image.png",
+    "path": "/hero_image.png",
+    "relativePath": "hero_image.png",
+    "type": "image",
+    "size": 992103,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-15T00:54:25.053Z"
+  },
+  {
+    "name": "Classroom-Training.png",
+    "path": "/icons/Classroom-Training.png",
+    "relativePath": "icons/Classroom-Training.png",
+    "type": "image",
+    "size": 2426,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.620Z"
+  },
+  {
+    "name": "Employability-Enhancement.png",
+    "path": "/icons/Employability-Enhancement.png",
+    "relativePath": "icons/Employability-Enhancement.png",
+    "type": "image",
+    "size": 2690,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.621Z"
+  },
+  {
+    "name": "Extensive-Training.png",
+    "path": "/icons/Extensive-Training.png",
+    "relativePath": "icons/Extensive-Training.png",
+    "type": "image",
+    "size": 2111,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.622Z"
+  },
+  {
+    "name": "Industry-Specific-Training.png",
+    "path": "/icons/Industry-Specific-Training.png",
+    "relativePath": "icons/Industry-Specific-Training.png",
+    "type": "image",
+    "size": 3276,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.623Z"
+  },
+  {
+    "name": "Internship-Placement.png",
+    "path": "/icons/Internship-Placement.png",
+    "relativePath": "icons/Internship-Placement.png",
+    "type": "image",
+    "size": 2257,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.624Z"
+  },
+  {
+    "name": "Migration-Points.png",
+    "path": "/icons/Migration-Points.png",
+    "relativePath": "icons/Migration-Points.png",
+    "type": "image",
+    "size": 3619,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.624Z"
+  },
+  {
+    "name": "Program-Structure-and-Duration.png",
+    "path": "/icons/Program-Structure-and-Duration.png",
+    "relativePath": "icons/Program-Structure-and-Duration.png",
+    "type": "image",
+    "size": 1782,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.625Z"
+  },
+  {
+    "name": "Real-World-Internship.png",
+    "path": "/icons/Real-World-Internship.png",
+    "relativePath": "icons/Real-World-Internship.png",
+    "type": "image",
+    "size": 2148,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.626Z"
+  },
+  {
+    "name": "Skill-Development.png",
+    "path": "/icons/Skill-Development.png",
+    "relativePath": "icons/Skill-Development.png",
+    "type": "image",
+    "size": 2847,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.627Z"
+  },
+  {
+    "name": "Study-plan.png",
+    "path": "/icons/Study-plan.png",
+    "relativePath": "icons/Study-plan.png",
+    "type": "image",
+    "size": 1174,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.628Z"
+  },
+  {
+    "name": "accounting.png",
+    "path": "/icons/accounting.png",
+    "relativePath": "icons/accounting.png",
+    "type": "image",
+    "size": 1989,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.629Z"
+  },
+  {
+    "name": "achievement.png",
+    "path": "/icons/achievement.png",
+    "relativePath": "icons/achievement.png",
+    "type": "image",
+    "size": 1436,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.630Z"
+  },
+  {
+    "name": "admission-requirements.png",
+    "path": "/icons/admission-requirements.png",
+    "relativePath": "icons/admission-requirements.png",
+    "type": "image",
+    "size": 1923,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.631Z"
+  },
+  {
+    "name": "affordable.png",
+    "path": "/icons/affordable.png",
+    "relativePath": "icons/affordable.png",
+    "type": "image",
+    "size": 2251,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.632Z"
+  },
+  {
+    "name": "application-process.png",
+    "path": "/icons/application-process.png",
+    "relativePath": "icons/application-process.png",
+    "type": "image",
+    "size": 3819,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.633Z"
+  },
+  {
+    "name": "australia.png",
+    "path": "/icons/australia.png",
+    "relativePath": "icons/australia.png",
+    "type": "image",
+    "size": 5866,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.634Z"
+  },
+  {
+    "name": "avatar-sm.png",
+    "path": "/icons/avatar-sm.png",
+    "relativePath": "icons/avatar-sm.png",
+    "type": "image",
+    "size": 1291,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.634Z"
+  },
+  {
+    "name": "bangladesh.png",
+    "path": "/icons/bangladesh.png",
+    "relativePath": "icons/bangladesh.png",
+    "type": "image",
+    "size": 1558,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.635Z"
+  },
+  {
+    "name": "book-a-consultation.png",
+    "path": "/icons/book-a-consultation.png",
+    "relativePath": "icons/book-a-consultation.png",
+    "type": "image",
+    "size": 2518,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.636Z"
+  },
+  {
+    "name": "bussiness-man.png",
+    "path": "/icons/bussiness-man.png",
+    "relativePath": "icons/bussiness-man.png",
+    "type": "image",
+    "size": 2088,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.637Z"
+  },
+  {
+    "name": "calendar.png",
+    "path": "/icons/calendar.png",
+    "relativePath": "icons/calendar.png",
+    "type": "image",
+    "size": 886,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.637Z"
+  },
+  {
+    "name": "calender-outline.png",
+    "path": "/icons/calender-outline.png",
+    "relativePath": "icons/calender-outline.png",
+    "type": "image",
+    "size": 1047,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.638Z"
+  },
+  {
+    "name": "career-changers.png",
+    "path": "/icons/career-changers.png",
+    "relativePath": "icons/career-changers.png",
+    "type": "image",
+    "size": 1353,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.638Z"
+  },
+  {
+    "name": "career-guidance.png",
+    "path": "/icons/career-guidance.png",
+    "relativePath": "icons/career-guidance.png",
+    "type": "image",
+    "size": 2421,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.639Z"
+  },
+  {
+    "name": "career.png",
+    "path": "/icons/career.png",
+    "relativePath": "icons/career.png",
+    "type": "image",
+    "size": 742,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.639Z"
+  },
+  {
+    "name": "certificate.png",
+    "path": "/icons/certificate.png",
+    "relativePath": "icons/certificate.png",
+    "type": "image",
+    "size": 1905,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.640Z"
+  },
+  {
+    "name": "clock-outline.png",
+    "path": "/icons/clock-outline.png",
+    "relativePath": "icons/clock-outline.png",
+    "type": "image",
+    "size": 1094,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.640Z"
+  },
+  {
+    "name": "clock.png",
+    "path": "/icons/clock.png",
+    "relativePath": "icons/clock.png",
+    "type": "image",
+    "size": 1561,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.641Z"
+  },
+  {
+    "name": "Flexible-work-options.png",
+    "path": "/icons/course/Flexible-work-options.png",
+    "relativePath": "icons/course/Flexible-work-options.png",
+    "type": "image",
+    "size": 1595,
+    "folder": "icons/course",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.642Z"
+  },
+  {
+    "name": "High-demand.png",
+    "path": "/icons/course/High-demand.png",
+    "relativePath": "icons/course/High-demand.png",
+    "type": "image",
+    "size": 2876,
+    "folder": "icons/course",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.643Z"
+  },
+  {
+    "name": "Multicultural-environment.png",
+    "path": "/icons/course/Multicultural-environment.png",
+    "relativePath": "icons/course/Multicultural-environment.png",
+    "type": "image",
+    "size": 3369,
+    "folder": "icons/course",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.644Z"
+  },
+  {
+    "name": "Pathway.png",
+    "path": "/icons/course/Pathway.png",
+    "relativePath": "icons/course/Pathway.png",
+    "type": "image",
+    "size": 1978,
+    "folder": "icons/course",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.644Z"
+  },
+  {
+    "name": "Stable-and-rewarding-career.png",
+    "path": "/icons/course/Stable-and-rewarding-career.png",
+    "relativePath": "icons/course/Stable-and-rewarding-career.png",
+    "type": "image",
+    "size": 4383,
+    "folder": "icons/course",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.645Z"
+  },
+  {
+    "name": "Variety-of-specializations.png",
+    "path": "/icons/course/Variety-of-specializations.png",
+    "relativePath": "icons/course/Variety-of-specializations.png",
+    "type": "image",
+    "size": 1766,
+    "folder": "icons/course",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.646Z"
+  },
+  {
+    "name": "World-class-education.png",
+    "path": "/icons/course/World-class-education.png",
+    "relativePath": "icons/course/World-class-education.png",
+    "type": "image",
+    "size": 3356,
+    "folder": "icons/course",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.646Z"
+  },
+  {
+    "name": "course-info.jpg",
+    "path": "/icons/course-info.jpg",
+    "relativePath": "icons/course-info.jpg",
+    "type": "image",
+    "size": 163810,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.649Z"
+  },
+  {
+    "name": "course-selection.png",
+    "path": "/icons/course-selection.png",
+    "relativePath": "icons/course-selection.png",
+    "type": "image",
+    "size": 2198,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.649Z"
+  },
+  {
+    "name": "engage.png",
+    "path": "/icons/engage.png",
+    "relativePath": "icons/engage.png",
+    "type": "image",
+    "size": 2259,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.650Z"
+  },
+  {
+    "name": "enrolment-procedure.png",
+    "path": "/icons/enrolment-procedure.png",
+    "relativePath": "icons/enrolment-procedure.png",
+    "type": "image",
+    "size": 2533,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.650Z"
+  },
+  {
+    "name": "event-detail-location.png",
+    "path": "/icons/event-detail-location.png",
+    "relativePath": "icons/event-detail-location.png",
+    "type": "image",
+    "size": 481,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.651Z"
+  },
+  {
+    "name": "evidence-review.png",
+    "path": "/icons/evidence-review.png",
+    "relativePath": "icons/evidence-review.png",
+    "type": "image",
+    "size": 1410,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.651Z"
+  },
+  {
+    "name": "flag.png",
+    "path": "/icons/flag.png",
+    "relativePath": "icons/flag.png",
+    "type": "image",
+    "size": 324,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.652Z"
+  },
+  {
+    "name": "fundamental.png",
+    "path": "/icons/fundamental.png",
+    "relativePath": "icons/fundamental.png",
+    "type": "image",
+    "size": 1920,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.653Z"
+  },
+  {
+    "name": "high-demand.png",
+    "path": "/icons/high-demand.png",
+    "relativePath": "icons/high-demand.png",
+    "type": "image",
+    "size": 1633,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.653Z"
+  },
+  {
+    "name": "internship.png",
+    "path": "/icons/internship.png",
+    "relativePath": "icons/internship.png",
+    "type": "image",
+    "size": 2312,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.654Z"
+  },
+  {
+    "name": "language.png",
+    "path": "/icons/language.png",
+    "relativePath": "icons/language.png",
+    "type": "image",
+    "size": 2756,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.655Z"
+  },
+  {
+    "name": "lifelong-learners.png",
+    "path": "/icons/lifelong-learners.png",
+    "relativePath": "icons/lifelong-learners.png",
+    "type": "image",
+    "size": 1868,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.655Z"
+  },
+  {
+    "name": "list-icon.svg",
+    "path": "/icons/list-icon.svg",
+    "relativePath": "icons/list-icon.svg",
+    "type": "image",
+    "size": 323,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.656Z"
+  },
+  {
+    "name": "loadge-liaise.png",
+    "path": "/icons/loadge-liaise.png",
+    "relativePath": "icons/loadge-liaise.png",
+    "type": "image",
+    "size": 2567,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.657Z"
+  },
+  {
+    "name": "location.png",
+    "path": "/icons/location.png",
+    "relativePath": "icons/location.png",
+    "type": "image",
+    "size": 1310,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.658Z"
+  },
+  {
+    "name": "15.png",
+    "path": "/icons/migration/15.png",
+    "relativePath": "icons/migration/15.png",
+    "type": "image",
+    "size": 9080,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.660Z"
+  },
+  {
+    "name": "Explore-Australia.png",
+    "path": "/icons/migration/Explore-Australia.png",
+    "relativePath": "icons/migration/Explore-Australia.png",
+    "type": "image",
+    "size": 3193,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.660Z"
+  },
+  {
+    "name": "Fast-and-flexible.png",
+    "path": "/icons/migration/Fast-and-flexible.png",
+    "relativePath": "icons/migration/Fast-and-flexible.png",
+    "type": "image",
+    "size": 3025,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.661Z"
+  },
+  {
+    "name": "Pasted-20231213-153104 1.png",
+    "path": "/icons/migration/Pasted-20231213-153104 1.png",
+    "relativePath": "icons/migration/Pasted-20231213-153104 1.png",
+    "type": "image",
+    "size": 1589,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.662Z"
+  },
+  {
+    "name": "Pasted-20231214-102353 1.png",
+    "path": "/icons/migration/Pasted-20231214-102353 1.png",
+    "relativePath": "icons/migration/Pasted-20231214-102353 1.png",
+    "type": "image",
+    "size": 1474,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.663Z"
+  },
+  {
+    "name": "Pasted-20231214-144219 1.png",
+    "path": "/icons/migration/Pasted-20231214-144219 1.png",
+    "relativePath": "icons/migration/Pasted-20231214-144219 1.png",
+    "type": "image",
+    "size": 1440,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.664Z"
+  },
+  {
+    "name": "activity-participation.png",
+    "path": "/icons/migration/activity-participation.png",
+    "relativePath": "icons/migration/activity-participation.png",
+    "type": "image",
+    "size": 11418,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.665Z"
+  },
+  {
+    "name": "appeal-process.png",
+    "path": "/icons/migration/appeal-process.png",
+    "relativePath": "icons/migration/appeal-process.png",
+    "type": "image",
+    "size": 5159,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.666Z"
+  },
+  {
+    "name": "await-a-decision.png",
+    "path": "/icons/migration/await-a-decision.png",
+    "relativePath": "icons/migration/await-a-decision.png",
+    "type": "image",
+    "size": 2149,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.667Z"
+  },
+  {
+    "name": "business-opportunities.png",
+    "path": "/icons/migration/business-opportunities.png",
+    "relativePath": "icons/migration/business-opportunities.png",
+    "type": "image",
+    "size": 9959,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.668Z"
+  },
+  {
+    "name": "businss-purpose.png",
+    "path": "/icons/migration/businss-purpose.png",
+    "relativePath": "icons/migration/businss-purpose.png",
+    "type": "image",
+    "size": 3268,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.670Z"
+  },
+  {
+    "name": "career-opportunities.png",
+    "path": "/icons/migration/career-opportunities.png",
+    "relativePath": "icons/migration/career-opportunities.png",
+    "type": "image",
+    "size": 4826,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.671Z"
+  },
+  {
+    "name": "citizenship.png",
+    "path": "/icons/migration/citizenship.png",
+    "relativePath": "icons/migration/citizenship.png",
+    "type": "image",
+    "size": 7682,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.672Z"
+  },
+  {
+    "name": "community-contribution.png",
+    "path": "/icons/migration/community-contribution.png",
+    "relativePath": "icons/migration/community-contribution.png",
+    "type": "image",
+    "size": 6834,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.673Z"
+  },
+  {
+    "name": "community-engagement.png",
+    "path": "/icons/migration/community-engagement.png",
+    "relativePath": "icons/migration/community-engagement.png",
+    "type": "image",
+    "size": 12496,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.675Z"
+  },
+  {
+    "name": "community-support.png",
+    "path": "/icons/migration/community-support.png",
+    "relativePath": "icons/migration/community-support.png",
+    "type": "image",
+    "size": 10826,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.675Z"
+  },
+  {
+    "name": "continuity.png",
+    "path": "/icons/migration/continuity.png",
+    "relativePath": "icons/migration/continuity.png",
+    "type": "image",
+    "size": 8748,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.676Z"
+  },
+  {
+    "name": "easy-travel.png",
+    "path": "/icons/migration/easy-travel.png",
+    "relativePath": "icons/migration/easy-travel.png",
+    "type": "image",
+    "size": 7667,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.677Z"
+  },
+  {
+    "name": "economy.png",
+    "path": "/icons/migration/economy.png",
+    "relativePath": "icons/migration/economy.png",
+    "type": "image",
+    "size": 2961,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.678Z"
+  },
+  {
+    "name": "education.png",
+    "path": "/icons/migration/education.png",
+    "relativePath": "icons/migration/education.png",
+    "type": "image",
+    "size": 10896,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.679Z"
+  },
+  {
+    "name": "eligibility-check.png",
+    "path": "/icons/migration/eligibility-check.png",
+    "relativePath": "icons/migration/eligibility-check.png",
+    "type": "image",
+    "size": 2369,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.680Z"
+  },
+  {
+    "name": "employer-sponsorship.png",
+    "path": "/icons/migration/employer-sponsorship.png",
+    "relativePath": "icons/migration/employer-sponsorship.png",
+    "type": "image",
+    "size": 7305,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.681Z"
+  },
+  {
+    "name": "explore-aus.png",
+    "path": "/icons/migration/explore-aus.png",
+    "relativePath": "icons/migration/explore-aus.png",
+    "type": "image",
+    "size": 2899,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.682Z"
+  },
+  {
+    "name": "explore-opportunities.png",
+    "path": "/icons/migration/explore-opportunities.png",
+    "relativePath": "icons/migration/explore-opportunities.png",
+    "type": "image",
+    "size": 8475,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.683Z"
+  },
+  {
+    "name": "extend-stay.png",
+    "path": "/icons/migration/extend-stay.png",
+    "relativePath": "icons/migration/extend-stay.png",
+    "type": "image",
+    "size": 1161,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.684Z"
+  },
+  {
+    "name": "extend-visa.png",
+    "path": "/icons/migration/extend-visa.png",
+    "relativePath": "icons/migration/extend-visa.png",
+    "type": "image",
+    "size": 7250,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.685Z"
+  },
+  {
+    "name": "extended-validity.png",
+    "path": "/icons/migration/extended-validity.png",
+    "relativePath": "icons/migration/extended-validity.png",
+    "type": "image",
+    "size": 6208,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.685Z"
+  },
+  {
+    "name": "family-accommodation.png",
+    "path": "/icons/migration/family-accommodation.png",
+    "relativePath": "icons/migration/family-accommodation.png",
+    "type": "image",
+    "size": 12242,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.686Z"
+  },
+  {
+    "name": "family-accompaniment.png",
+    "path": "/icons/migration/family-accompaniment.png",
+    "relativePath": "icons/migration/family-accompaniment.png",
+    "type": "image",
+    "size": 8309,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.687Z"
+  },
+  {
+    "name": "family-reunion.png",
+    "path": "/icons/migration/family-reunion.png",
+    "relativePath": "icons/migration/family-reunion.png",
+    "type": "image",
+    "size": 10974,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.689Z"
+  },
+  {
+    "name": "fast-track.png",
+    "path": "/icons/migration/fast-track.png",
+    "relativePath": "icons/migration/fast-track.png",
+    "type": "image",
+    "size": 8536,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.690Z"
+  },
+  {
+    "name": "find-a-sponsor.png",
+    "path": "/icons/migration/find-a-sponsor.png",
+    "relativePath": "icons/migration/find-a-sponsor.png",
+    "type": "image",
+    "size": 2061,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.691Z"
+  },
+  {
+    "name": "find-sponsor.png",
+    "path": "/icons/migration/find-sponsor.png",
+    "relativePath": "icons/migration/find-sponsor.png",
+    "type": "image",
+    "size": 3123,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.691Z"
+  },
+  {
+    "name": "flexibility.png",
+    "path": "/icons/migration/flexibility.png",
+    "relativePath": "icons/migration/flexibility.png",
+    "type": "image",
+    "size": 5920,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.692Z"
+  },
+  {
+    "name": "flexible-usage.png",
+    "path": "/icons/migration/flexible-usage.png",
+    "relativePath": "icons/migration/flexible-usage.png",
+    "type": "image",
+    "size": 6520,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.693Z"
+  },
+  {
+    "name": "gather-documentation.png",
+    "path": "/icons/migration/gather-documentation.png",
+    "relativePath": "icons/migration/gather-documentation.png",
+    "type": "image",
+    "size": 1589,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.694Z"
+  },
+  {
+    "name": "healthcare.png",
+    "path": "/icons/migration/healthcare.png",
+    "relativePath": "icons/migration/healthcare.png",
+    "type": "image",
+    "size": 5661,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.695Z"
+  },
+  {
+    "name": "humanitarian-protection.png",
+    "path": "/icons/migration/humanitarian-protection.png",
+    "relativePath": "icons/migration/humanitarian-protection.png",
+    "type": "image",
+    "size": 9482,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.696Z"
+  },
+  {
+    "name": "immigration-matter.png",
+    "path": "/icons/migration/immigration-matter.png",
+    "relativePath": "icons/migration/immigration-matter.png",
+    "type": "image",
+    "size": 6558,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.697Z"
+  },
+  {
+    "name": "improve-skills.png",
+    "path": "/icons/migration/improve-skills.png",
+    "relativePath": "icons/migration/improve-skills.png",
+    "type": "image",
+    "size": 1595,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.697Z"
+  },
+  {
+    "name": "increase-career-opportunity.png",
+    "path": "/icons/migration/increase-career-opportunity.png",
+    "relativePath": "icons/migration/increase-career-opportunity.png",
+    "type": "image",
+    "size": 3020,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.698Z"
+  },
+  {
+    "name": "internship.png",
+    "path": "/icons/migration/internship.png",
+    "relativePath": "icons/migration/internship.png",
+    "type": "image",
+    "size": 2312,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.699Z"
+  },
+  {
+    "name": "invest.png",
+    "path": "/icons/migration/invest.png",
+    "relativePath": "icons/migration/invest.png",
+    "type": "image",
+    "size": 3401,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.700Z"
+  },
+  {
+    "name": "investment-opportunities.png",
+    "path": "/icons/migration/investment-opportunities.png",
+    "relativePath": "icons/migration/investment-opportunities.png",
+    "type": "image",
+    "size": 6051,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.700Z"
+  },
+  {
+    "name": "leave-australia.png",
+    "path": "/icons/migration/leave-australia.png",
+    "relativePath": "icons/migration/leave-australia.png",
+    "type": "image",
+    "size": 8708,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.701Z"
+  },
+  {
+    "name": "live-indefinitely.png",
+    "path": "/icons/migration/live-indefinitely.png",
+    "relativePath": "icons/migration/live-indefinitely.png",
+    "type": "image",
+    "size": 5425,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.702Z"
+  },
+  {
+    "name": "long-term-stay.png",
+    "path": "/icons/migration/long-term-stay.png",
+    "relativePath": "icons/migration/long-term-stay.png",
+    "type": "image",
+    "size": 7486,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.703Z"
+  },
+  {
+    "name": "marriage.png",
+    "path": "/icons/migration/marriage.png",
+    "relativePath": "icons/migration/marriage.png",
+    "type": "image",
+    "size": 9700,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.704Z"
+  },
+  {
+    "name": "mi-work-guide.png",
+    "path": "/icons/migration/mi-work-guide.png",
+    "relativePath": "icons/migration/mi-work-guide.png",
+    "type": "image",
+    "size": 584570,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.707Z"
+  },
+  {
+    "name": "multiple-entries.png",
+    "path": "/icons/migration/multiple-entries.png",
+    "relativePath": "icons/migration/multiple-entries.png",
+    "type": "image",
+    "size": 3572,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.708Z"
+  },
+  {
+    "name": "nomination.png",
+    "path": "/icons/migration/nomination.png",
+    "relativePath": "icons/migration/nomination.png",
+    "type": "image",
+    "size": 2560,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.709Z"
+  },
+  {
+    "name": "online-registration.png",
+    "path": "/icons/migration/online-registration.png",
+    "relativePath": "icons/migration/online-registration.png",
+    "type": "image",
+    "size": 1440,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.710Z"
+  },
+  {
+    "name": "pathway-to-pr.png",
+    "path": "/icons/migration/pathway-to-pr.png",
+    "relativePath": "icons/migration/pathway-to-pr.png",
+    "type": "image",
+    "size": 9679,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.711Z"
+  },
+  {
+    "name": "peace-of-mind.png",
+    "path": "/icons/migration/peace-of-mind.png",
+    "relativePath": "icons/migration/peace-of-mind.png",
+    "type": "image",
+    "size": 3792,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.712Z"
+  },
+  {
+    "name": "pr.png",
+    "path": "/icons/migration/pr.png",
+    "relativePath": "icons/migration/pr.png",
+    "type": "image",
+    "size": 2826,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.713Z"
+  },
+  {
+    "name": "process-assistance.png",
+    "path": "/icons/migration/process-assistance.png",
+    "relativePath": "icons/migration/process-assistance.png",
+    "type": "image",
+    "size": 9067,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.714Z"
+  },
+  {
+    "name": "quick-processing.png",
+    "path": "/icons/migration/quick-processing.png",
+    "relativePath": "icons/migration/quick-processing.png",
+    "type": "image",
+    "size": 8076,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.715Z"
+  },
+  {
+    "name": "re-entry.png",
+    "path": "/icons/migration/re-entry.png",
+    "relativePath": "icons/migration/re-entry.png",
+    "type": "image",
+    "size": 3249,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.716Z"
+  },
+  {
+    "name": "regional-opportunities.png",
+    "path": "/icons/migration/regional-opportunities.png",
+    "relativePath": "icons/migration/regional-opportunities.png",
+    "type": "image",
+    "size": 6310,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.717Z"
+  },
+  {
+    "name": "renowned-institutions.png",
+    "path": "/icons/migration/renowned-institutions.png",
+    "relativePath": "icons/migration/renowned-institutions.png",
+    "type": "image",
+    "size": 1504,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.717Z"
+  },
+  {
+    "name": "short-layovers.png",
+    "path": "/icons/migration/short-layovers.png",
+    "relativePath": "icons/migration/short-layovers.png",
+    "type": "image",
+    "size": 6070,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.718Z"
+  },
+  {
+    "name": "short-stays.png",
+    "path": "/icons/migration/short-stays.png",
+    "relativePath": "icons/migration/short-stays.png",
+    "type": "image",
+    "size": 8468,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.719Z"
+  },
+  {
+    "name": "skill-shortages.png",
+    "path": "/icons/migration/skill-shortages.png",
+    "relativePath": "icons/migration/skill-shortages.png",
+    "type": "image",
+    "size": 6467,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.721Z"
+  },
+  {
+    "name": "skills-and-knowledge.png",
+    "path": "/icons/migration/skills-and-knowledge.png",
+    "relativePath": "icons/migration/skills-and-knowledge.png",
+    "type": "image",
+    "size": 2712,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.721Z"
+  },
+  {
+    "name": "skills-based.png",
+    "path": "/icons/migration/skills-based.png",
+    "relativePath": "icons/migration/skills-based.png",
+    "type": "image",
+    "size": 9253,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.722Z"
+  },
+  {
+    "name": "stability.png",
+    "path": "/icons/migration/stability.png",
+    "relativePath": "icons/migration/stability.png",
+    "type": "image",
+    "size": 9627,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.724Z"
+  },
+  {
+    "name": "state-nomination.png",
+    "path": "/icons/migration/state-nomination.png",
+    "relativePath": "icons/migration/state-nomination.png",
+    "type": "image",
+    "size": 6232,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.725Z"
+  },
+  {
+    "name": "streamlined-process.png",
+    "path": "/icons/migration/streamlined-process.png",
+    "relativePath": "icons/migration/streamlined-process.png",
+    "type": "image",
+    "size": 7873,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.726Z"
+  },
+  {
+    "name": "study-rights.png",
+    "path": "/icons/migration/study-rights.png",
+    "relativePath": "icons/migration/study-rights.png",
+    "type": "image",
+    "size": 8425,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.727Z"
+  },
+  {
+    "name": "study.png",
+    "path": "/icons/migration/study.png",
+    "relativePath": "icons/migration/study.png",
+    "type": "image",
+    "size": 8944,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.728Z"
+  },
+  {
+    "name": "support.png",
+    "path": "/icons/migration/support.png",
+    "relativePath": "icons/migration/support.png",
+    "type": "image",
+    "size": 2644,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.730Z"
+  },
+  {
+    "name": "talent-retention.png",
+    "path": "/icons/migration/talent-retention.png",
+    "relativePath": "icons/migration/talent-retention.png",
+    "type": "image",
+    "size": 7650,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.731Z"
+  },
+  {
+    "name": "temporary-protection.png",
+    "path": "/icons/migration/temporary-protection.png",
+    "relativePath": "icons/migration/temporary-protection.png",
+    "type": "image",
+    "size": 5723,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.733Z"
+  },
+  {
+    "name": "temporary-residence.png",
+    "path": "/icons/migration/temporary-residence.png",
+    "relativePath": "icons/migration/temporary-residence.png",
+    "type": "image",
+    "size": 6086,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.734Z"
+  },
+  {
+    "name": "temporary-stay.png",
+    "path": "/icons/migration/temporary-stay.png",
+    "relativePath": "icons/migration/temporary-stay.png",
+    "type": "image",
+    "size": 7180,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.735Z"
+  },
+  {
+    "name": "transition.png",
+    "path": "/icons/migration/transition.png",
+    "relativePath": "icons/migration/transition.png",
+    "type": "image",
+    "size": 6611,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.736Z"
+  },
+  {
+    "name": "travel-facility.png",
+    "path": "/icons/migration/travel-facility.png",
+    "relativePath": "icons/migration/travel-facility.png",
+    "type": "image",
+    "size": 10239,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.737Z"
+  },
+  {
+    "name": "valuable-experience.png",
+    "path": "/icons/migration/valuable-experience.png",
+    "relativePath": "icons/migration/valuable-experience.png",
+    "type": "image",
+    "size": 2379,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.739Z"
+  },
+  {
+    "name": "visa-application.png",
+    "path": "/icons/migration/visa-application.png",
+    "relativePath": "icons/migration/visa-application.png",
+    "type": "image",
+    "size": 1474,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.740Z"
+  },
+  {
+    "name": "visa-requirements.png",
+    "path": "/icons/migration/visa-requirements.png",
+    "relativePath": "icons/migration/visa-requirements.png",
+    "type": "image",
+    "size": 2441,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.741Z"
+  },
+  {
+    "name": "work-opportunities.png",
+    "path": "/icons/migration/work-opportunities.png",
+    "relativePath": "icons/migration/work-opportunities.png",
+    "type": "image",
+    "size": 4663,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.742Z"
+  },
+  {
+    "name": "work-rights.png",
+    "path": "/icons/migration/work-rights.png",
+    "relativePath": "icons/migration/work-rights.png",
+    "type": "image",
+    "size": 6996,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.743Z"
+  },
+  {
+    "name": "young-to-adults.png",
+    "path": "/icons/migration/young-to-adults.png",
+    "relativePath": "icons/migration/young-to-adults.png",
+    "type": "image",
+    "size": 2773,
+    "folder": "icons/migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.744Z"
+  },
+  {
+    "name": "nurse.png",
+    "path": "/icons/nurse.png",
+    "relativePath": "icons/nurse.png",
+    "type": "image",
+    "size": 5586,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.745Z"
+  },
+  {
+    "name": "nursing-logo.png",
+    "path": "/icons/nursing-logo.png",
+    "relativePath": "icons/nursing-logo.png",
+    "type": "image",
+    "size": 487,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.746Z"
+  },
+  {
+    "name": "office-building.png",
+    "path": "/icons/office-building.png",
+    "relativePath": "icons/office-building.png",
+    "type": "image",
+    "size": 732,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.747Z"
+  },
+  {
+    "name": "our-office.png",
+    "path": "/icons/our-office.png",
+    "relativePath": "icons/our-office.png",
+    "type": "image",
+    "size": 12619,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.748Z"
+  },
+  {
+    "name": "overseas-worker.png",
+    "path": "/icons/overseas-worker.png",
+    "relativePath": "icons/overseas-worker.png",
+    "type": "image",
+    "size": 1977,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.749Z"
+  },
+  {
+    "name": "pathway.png",
+    "path": "/icons/pathway.png",
+    "relativePath": "icons/pathway.png",
+    "type": "image",
+    "size": 1712,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.750Z"
+  },
+  {
+    "name": "payment.png",
+    "path": "/icons/payment.png",
+    "relativePath": "icons/payment.png",
+    "type": "image",
+    "size": 1382,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.750Z"
+  },
+  {
+    "name": "perth.png",
+    "path": "/icons/perth.png",
+    "relativePath": "icons/perth.png",
+    "type": "image",
+    "size": 1543,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.751Z"
+  },
+  {
+    "name": "portfolio.png",
+    "path": "/icons/portfolio.png",
+    "relativePath": "icons/portfolio.png",
+    "type": "image",
+    "size": 917,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.752Z"
+  },
+  {
+    "name": "practical.png",
+    "path": "/icons/practical.png",
+    "relativePath": "icons/practical.png",
+    "type": "image",
+    "size": 3448,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.753Z"
+  },
+  {
+    "name": "qualified.png",
+    "path": "/icons/qualified.png",
+    "relativePath": "icons/qualified.png",
+    "type": "image",
+    "size": 1493,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.754Z"
+  },
+  {
+    "name": "rate.png",
+    "path": "/icons/rate.png",
+    "relativePath": "icons/rate.png",
+    "type": "image",
+    "size": 1490,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.755Z"
+  },
+  {
+    "name": "regular-counselling.png",
+    "path": "/icons/regular-counselling.png",
+    "relativePath": "icons/regular-counselling.png",
+    "type": "image",
+    "size": 2304,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.756Z"
+  },
+  {
+    "name": "response.png",
+    "path": "/icons/response.png",
+    "relativePath": "icons/response.png",
+    "type": "image",
+    "size": 2891,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.757Z"
+  },
+  {
+    "name": "rpl-Competency.png",
+    "path": "/icons/rpl-Competency.png",
+    "relativePath": "icons/rpl-Competency.png",
+    "type": "image",
+    "size": 3175,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.758Z"
+  },
+  {
+    "name": "rpl-Evidence.png",
+    "path": "/icons/rpl-Evidence.png",
+    "relativePath": "icons/rpl-Evidence.png",
+    "type": "image",
+    "size": 2412,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.759Z"
+  },
+  {
+    "name": "rpl-Further-Assistance.png",
+    "path": "/icons/rpl-Further-Assistance.png",
+    "relativePath": "icons/rpl-Further-Assistance.png",
+    "type": "image",
+    "size": 2891,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.760Z"
+  },
+  {
+    "name": "rpl-Practical.png",
+    "path": "/icons/rpl-Practical.png",
+    "relativePath": "icons/rpl-Practical.png",
+    "type": "image",
+    "size": 3448,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.761Z"
+  },
+  {
+    "name": "rpl-Qualification.png",
+    "path": "/icons/rpl-Qualification.png",
+    "relativePath": "icons/rpl-Qualification.png",
+    "type": "image",
+    "size": 2777,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.762Z"
+  },
+  {
+    "name": "rpl-Review-Process.png",
+    "path": "/icons/rpl-Review-Process.png",
+    "relativePath": "icons/rpl-Review-Process.png",
+    "type": "image",
+    "size": 2129,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.762Z"
+  },
+  {
+    "name": "rpl-Skills-Assessment.png",
+    "path": "/icons/rpl-Skills-Assessment.png",
+    "relativePath": "icons/rpl-Skills-Assessment.png",
+    "type": "image",
+    "size": 2835,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.763Z"
+  },
+  {
+    "name": "salary.png",
+    "path": "/icons/salary.png",
+    "relativePath": "icons/salary.png",
+    "type": "image",
+    "size": 3621,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.764Z"
+  },
+  {
+    "name": "sdfsd.png",
+    "path": "/icons/sdfsd.png",
+    "relativePath": "icons/sdfsd.png",
+    "type": "image",
+    "size": 1310,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.765Z"
+  },
+  {
+    "name": "skill-assessment.png",
+    "path": "/icons/skill-assessment.png",
+    "relativePath": "icons/skill-assessment.png",
+    "type": "image",
+    "size": 1554,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.766Z"
+  },
+  {
+    "name": "skill-tradespeople.png",
+    "path": "/icons/skill-tradespeople.png",
+    "relativePath": "icons/skill-tradespeople.png",
+    "type": "image",
+    "size": 2726,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.767Z"
+  },
+  {
+    "name": "speak-to-us.png",
+    "path": "/icons/speak-to-us.png",
+    "relativePath": "icons/speak-to-us.png",
+    "type": "image",
+    "size": 7771,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.768Z"
+  },
+  {
+    "name": "stable-occupation.png",
+    "path": "/icons/stable-occupation.png",
+    "relativePath": "icons/stable-occupation.png",
+    "type": "image",
+    "size": 2905,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.769Z"
+  },
+  {
+    "name": "study-application.png",
+    "path": "/icons/study-application.png",
+    "relativePath": "icons/study-application.png",
+    "type": "image",
+    "size": 1208,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.770Z"
+  },
+  {
+    "name": "study-hero.png",
+    "path": "/icons/study-hero.png",
+    "relativePath": "icons/study-hero.png",
+    "type": "image",
+    "size": 515496,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.773Z"
+  },
+  {
+    "name": "sydney.png",
+    "path": "/icons/sydney.png",
+    "relativePath": "icons/sydney.png",
+    "type": "image",
+    "size": 1128,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.774Z"
+  },
+  {
+    "name": "visa-granted.png",
+    "path": "/icons/visa-granted.png",
+    "relativePath": "icons/visa-granted.png",
+    "type": "image",
+    "size": 2125,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.776Z"
+  },
+  {
+    "name": "watch.png",
+    "path": "/icons/watch.png",
+    "relativePath": "icons/watch.png",
+    "type": "image",
+    "size": 1260,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.776Z"
+  },
+  {
+    "name": "wollongong.png",
+    "path": "/icons/wollongong.png",
+    "relativePath": "icons/wollongong.png",
+    "type": "image",
+    "size": 5525,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.777Z"
+  },
+  {
+    "name": "working-professionals.png",
+    "path": "/icons/working-professionals.png",
+    "relativePath": "icons/working-professionals.png",
+    "type": "image",
+    "size": 2264,
+    "folder": "icons",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:23.778Z"
+  },
+  {
+    "name": "43d8d1f7-03a3-43d0-8e9f-b480ac017b10.png",
+    "path": "/lovable-uploads/43d8d1f7-03a3-43d0-8e9f-b480ac017b10.png",
+    "relativePath": "lovable-uploads/43d8d1f7-03a3-43d0-8e9f-b480ac017b10.png",
+    "type": "image",
+    "size": 577300,
+    "folder": "lovable-uploads",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.508Z"
+  },
+  {
+    "name": "abcbb2a1-5db8-45ce-8215-42e053f17039.png",
+    "path": "/lovable-uploads/abcbb2a1-5db8-45ce-8215-42e053f17039.png",
+    "relativePath": "lovable-uploads/abcbb2a1-5db8-45ce-8215-42e053f17039.png",
+    "type": "image",
+    "size": 37687,
+    "folder": "lovable-uploads",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.508Z"
+  },
+  {
+    "name": "485-visa-application.png",
+    "path": "/lovable-uploads/home/485-visa-application.png",
+    "relativePath": "lovable-uploads/home/485-visa-application.png",
+    "type": "image",
+    "size": 381607,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.423Z"
+  },
+  {
+    "name": "Architecture-Building.png",
+    "path": "/lovable-uploads/home/Architecture-Building.png",
+    "relativePath": "lovable-uploads/home/Architecture-Building.png",
+    "type": "image",
+    "size": 107233,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.426Z"
+  },
+  {
+    "name": "OSHC-OVHC.png",
+    "path": "/lovable-uploads/home/OSHC-OVHC.png",
+    "relativePath": "lovable-uploads/home/OSHC-OVHC.png",
+    "type": "image",
+    "size": 252827,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.429Z"
+  },
+  {
+    "name": "about-moves-int-home.png",
+    "path": "/lovable-uploads/home/about-moves-int-home.png",
+    "relativePath": "lovable-uploads/home/about-moves-int-home.png",
+    "type": "image",
+    "size": 296751,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.433Z"
+  },
+  {
+    "name": "about-moves-int-one.png",
+    "path": "/lovable-uploads/home/about-moves-int-one.png",
+    "relativePath": "lovable-uploads/home/about-moves-int-one.png",
+    "type": "image",
+    "size": 220048,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.435Z"
+  },
+  {
+    "name": "about-moves-int-two.png",
+    "path": "/lovable-uploads/home/about-moves-int-two.png",
+    "relativePath": "lovable-uploads/home/about-moves-int-two.png",
+    "type": "image",
+    "size": 314469,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.438Z"
+  },
+  {
+    "name": "education-and-career.jpg",
+    "path": "/lovable-uploads/home/education-and-career.jpg",
+    "relativePath": "lovable-uploads/home/education-and-career.jpg",
+    "type": "image",
+    "size": 245703,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.441Z"
+  },
+  {
+    "name": "engineering.png",
+    "path": "/lovable-uploads/home/engineering.png",
+    "relativePath": "lovable-uploads/home/engineering.png",
+    "type": "image",
+    "size": 85612,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.443Z"
+  },
+  {
+    "name": "popular-course-3.png",
+    "path": "/lovable-uploads/home/popular-course-3.png",
+    "relativePath": "lovable-uploads/home/popular-course-3.png",
+    "type": "image",
+    "size": 121491,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.445Z"
+  },
+  {
+    "name": "popular-course-4.png",
+    "path": "/lovable-uploads/home/popular-course-4.png",
+    "relativePath": "lovable-uploads/home/popular-course-4.png",
+    "type": "image",
+    "size": 121196,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.447Z"
+  },
+  {
+    "name": "popular-course-5.png",
+    "path": "/lovable-uploads/home/popular-course-5.png",
+    "relativePath": "lovable-uploads/home/popular-course-5.png",
+    "type": "image",
+    "size": 114904,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.449Z"
+  },
+  {
+    "name": "popular-course-6.png",
+    "path": "/lovable-uploads/home/popular-course-6.png",
+    "relativePath": "lovable-uploads/home/popular-course-6.png",
+    "type": "image",
+    "size": 79412,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.451Z"
+  },
+  {
+    "name": "popular-course-7.png",
+    "path": "/lovable-uploads/home/popular-course-7.png",
+    "relativePath": "lovable-uploads/home/popular-course-7.png",
+    "type": "image",
+    "size": 95387,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.453Z"
+  },
+  {
+    "name": "popular-course-8.png",
+    "path": "/lovable-uploads/home/popular-course-8.png",
+    "relativePath": "lovable-uploads/home/popular-course-8.png",
+    "type": "image",
+    "size": 133820,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.455Z"
+  },
+  {
+    "name": "popular-course-two.png",
+    "path": "/lovable-uploads/home/popular-course-two.png",
+    "relativePath": "lovable-uploads/home/popular-course-two.png",
+    "type": "image",
+    "size": 78584,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.457Z"
+  },
+  {
+    "name": "popular-course.png",
+    "path": "/lovable-uploads/home/popular-course.png",
+    "relativePath": "lovable-uploads/home/popular-course.png",
+    "type": "image",
+    "size": 109235,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.460Z"
+  },
+  {
+    "name": "professional-year-admission.png",
+    "path": "/lovable-uploads/home/professional-year-admission.png",
+    "relativePath": "lovable-uploads/home/professional-year-admission.png",
+    "type": "image",
+    "size": 311133,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.463Z"
+  },
+  {
+    "name": "society-and-culture.png",
+    "path": "/lovable-uploads/home/society-and-culture.png",
+    "relativePath": "lovable-uploads/home/society-and-culture.png",
+    "type": "image",
+    "size": 114102,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.465Z"
+  },
+  {
+    "name": "student-visa-extension.png",
+    "path": "/lovable-uploads/home/student-visa-extension.png",
+    "relativePath": "lovable-uploads/home/student-visa-extension.png",
+    "type": "image",
+    "size": 424932,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.467Z"
+  },
+  {
+    "name": "university-admission.png",
+    "path": "/lovable-uploads/home/university-admission.png",
+    "relativePath": "lovable-uploads/home/university-admission.png",
+    "type": "image",
+    "size": 384290,
+    "folder": "lovable-uploads/home",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:12.470Z"
+  },
+  {
+    "name": "188-visa-benefit.png",
+    "path": "/migration/188-visa-benefit.png",
+    "relativePath": "migration/188-visa-benefit.png",
+    "type": "image",
+    "size": 439159,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.779Z"
+  },
+  {
+    "name": "188-visa.png",
+    "path": "/migration/188-visa.png",
+    "relativePath": "migration/188-visa.png",
+    "type": "image",
+    "size": 487965,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.783Z"
+  },
+  {
+    "name": "189-visa-benefit.png",
+    "path": "/migration/189-visa-benefit.png",
+    "relativePath": "migration/189-visa-benefit.png",
+    "type": "image",
+    "size": 462824,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.787Z"
+  },
+  {
+    "name": "189-visa.png",
+    "path": "/migration/189-visa.png",
+    "relativePath": "migration/189-visa.png",
+    "type": "image",
+    "size": 433829,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.791Z"
+  },
+  {
+    "name": "190-visa-benefit.png",
+    "path": "/migration/190-visa-benefit.png",
+    "relativePath": "migration/190-visa-benefit.png",
+    "type": "image",
+    "size": 558707,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.794Z"
+  },
+  {
+    "name": "190-visa.png",
+    "path": "/migration/190-visa.png",
+    "relativePath": "migration/190-visa.png",
+    "type": "image",
+    "size": 478371,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.799Z"
+  },
+  {
+    "name": "191-visa-benefit.png",
+    "path": "/migration/191-visa-benefit.png",
+    "relativePath": "migration/191-visa-benefit.png",
+    "type": "image",
+    "size": 502062,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.804Z"
+  },
+  {
+    "name": "191-visa.png",
+    "path": "/migration/191-visa.png",
+    "relativePath": "migration/191-visa.png",
+    "type": "image",
+    "size": 419192,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.807Z"
+  },
+  {
+    "name": "461-visa-benefit.png",
+    "path": "/migration/461-visa-benefit.png",
+    "relativePath": "migration/461-visa-benefit.png",
+    "type": "image",
+    "size": 613471,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.812Z"
+  },
+  {
+    "name": "461-visa.png",
+    "path": "/migration/461-visa.png",
+    "relativePath": "migration/461-visa.png",
+    "type": "image",
+    "size": 457136,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.816Z"
+  },
+  {
+    "name": "491-visa-benefit.png",
+    "path": "/migration/491-visa-benefit.png",
+    "relativePath": "migration/491-visa-benefit.png",
+    "type": "image",
+    "size": 561172,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.821Z"
+  },
+  {
+    "name": "491-visa.png",
+    "path": "/migration/491-visa.png",
+    "relativePath": "migration/491-visa.png",
+    "type": "image",
+    "size": 423538,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.826Z"
+  },
+  {
+    "name": "790-visa-benefit.png",
+    "path": "/migration/790-visa-benefit.png",
+    "relativePath": "migration/790-visa-benefit.png",
+    "type": "image",
+    "size": 680159,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.830Z"
+  },
+  {
+    "name": "790-visa.png",
+    "path": "/migration/790-visa.png",
+    "relativePath": "migration/790-visa.png",
+    "type": "image",
+    "size": 502418,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.834Z"
+  },
+  {
+    "name": "851-visa-benefit.png",
+    "path": "/migration/851-visa-benefit.png",
+    "relativePath": "migration/851-visa-benefit.png",
+    "type": "image",
+    "size": 508266,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.839Z"
+  },
+  {
+    "name": "851-visa.png",
+    "path": "/migration/851-visa.png",
+    "relativePath": "migration/851-visa.png",
+    "type": "image",
+    "size": 537674,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.844Z"
+  },
+  {
+    "name": "858-visa-benefit.png",
+    "path": "/migration/858-visa-benefit.png",
+    "relativePath": "migration/858-visa-benefit.png",
+    "type": "image",
+    "size": 290096,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.848Z"
+  },
+  {
+    "name": "858-visa.png",
+    "path": "/migration/858-visa.png",
+    "relativePath": "migration/858-visa.png",
+    "type": "image",
+    "size": 373890,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.852Z"
+  },
+  {
+    "name": "866-visa-benefit.png",
+    "path": "/migration/866-visa-benefit.png",
+    "relativePath": "migration/866-visa-benefit.png",
+    "type": "image",
+    "size": 143798,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.854Z"
+  },
+  {
+    "name": "866-visa.png",
+    "path": "/migration/866-visa.png",
+    "relativePath": "migration/866-visa.png",
+    "type": "image",
+    "size": 419093,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.857Z"
+  },
+  {
+    "name": "888-visa-benefit.png",
+    "path": "/migration/888-visa-benefit.png",
+    "relativePath": "migration/888-visa-benefit.png",
+    "type": "image",
+    "size": 593862,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.861Z"
+  },
+  {
+    "name": "888-visa.png",
+    "path": "/migration/888-visa.png",
+    "relativePath": "migration/888-visa.png",
+    "type": "image",
+    "size": 384934,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.864Z"
+  },
+  {
+    "name": "890-visa-benefit.png",
+    "path": "/migration/890-visa-benefit.png",
+    "relativePath": "migration/890-visa-benefit.png",
+    "type": "image",
+    "size": 579092,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.868Z"
+  },
+  {
+    "name": "890-visa.png",
+    "path": "/migration/890-visa.png",
+    "relativePath": "migration/890-visa.png",
+    "type": "image",
+    "size": 501422,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.871Z"
+  },
+  {
+    "name": "891-visa-benefit.png",
+    "path": "/migration/891-visa-benefit.png",
+    "relativePath": "migration/891-visa-benefit.png",
+    "type": "image",
+    "size": 451520,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.875Z"
+  },
+  {
+    "name": "891-visa.png",
+    "path": "/migration/891-visa.png",
+    "relativePath": "migration/891-visa.png",
+    "type": "image",
+    "size": 477598,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.878Z"
+  },
+  {
+    "name": "Student-Guardian-visa.png",
+    "path": "/migration/Student-Guardian-visa.png",
+    "relativePath": "migration/Student-Guardian-visa.png",
+    "type": "image",
+    "size": 469368,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.882Z"
+  },
+  {
+    "name": "Training-Visa-(subclass 407).png",
+    "path": "/migration/Training-Visa-(subclass 407).png",
+    "relativePath": "migration/Training-Visa-(subclass 407).png",
+    "type": "image",
+    "size": 427567,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.887Z"
+  },
+  {
+    "name": "Working-Holiday-benefits.png",
+    "path": "/migration/Working-Holiday-benefits.png",
+    "relativePath": "migration/Working-Holiday-benefits.png",
+    "type": "image",
+    "size": 486202,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.891Z"
+  },
+  {
+    "name": "aged-parent-visa-benefit.png",
+    "path": "/migration/aged-parent-visa-benefit.png",
+    "relativePath": "migration/aged-parent-visa-benefit.png",
+    "type": "image",
+    "size": 488117,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.896Z"
+  },
+  {
+    "name": "aged-parent-visa.png",
+    "path": "/migration/aged-parent-visa.png",
+    "relativePath": "migration/aged-parent-visa.png",
+    "type": "image",
+    "size": 450574,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.900Z"
+  },
+  {
+    "name": "appeals.png",
+    "path": "/migration/appeals.png",
+    "relativePath": "migration/appeals.png",
+    "type": "image",
+    "size": 750,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.901Z"
+  },
+  {
+    "name": "bridging-visa-A-BVA.png",
+    "path": "/migration/bridging-visa-A-BVA.png",
+    "relativePath": "migration/bridging-visa-A-BVA.png",
+    "type": "image",
+    "size": 289039,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.903Z"
+  },
+  {
+    "name": "bridging-visa-B-BVB.png",
+    "path": "/migration/bridging-visa-B-BVB.png",
+    "relativePath": "migration/bridging-visa-B-BVB.png",
+    "type": "image",
+    "size": 442507,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.906Z"
+  },
+  {
+    "name": "bridging-visa-C-BVC.png",
+    "path": "/migration/bridging-visa-C-BVC.png",
+    "relativePath": "migration/bridging-visa-C-BVC.png",
+    "type": "image",
+    "size": 475052,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.909Z"
+  },
+  {
+    "name": "bridging-visa-E-BVE.png",
+    "path": "/migration/bridging-visa-E-BVE.png",
+    "relativePath": "migration/bridging-visa-E-BVE.png",
+    "type": "image",
+    "size": 474484,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.914Z"
+  },
+  {
+    "name": "bridging-visa-benefit.png",
+    "path": "/migration/bridging-visa-benefit.png",
+    "relativePath": "migration/bridging-visa-benefit.png",
+    "type": "image",
+    "size": 508271,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.918Z"
+  },
+  {
+    "name": "business-short-stay-benefit.png",
+    "path": "/migration/business-short-stay-benefit.png",
+    "relativePath": "migration/business-short-stay-benefit.png",
+    "type": "image",
+    "size": 522771,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.922Z"
+  },
+  {
+    "name": "business-short-stay-hero.png",
+    "path": "/migration/business-short-stay-hero.png",
+    "relativePath": "migration/business-short-stay-hero.png",
+    "type": "image",
+    "size": 409865,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.926Z"
+  },
+  {
+    "name": "business.png",
+    "path": "/migration/business.png",
+    "relativePath": "migration/business.png",
+    "type": "image",
+    "size": 1084,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.927Z"
+  },
+  {
+    "name": "carer-visa.png",
+    "path": "/migration/carer-visa.png",
+    "relativePath": "migration/carer-visa.png",
+    "type": "image",
+    "size": 460791,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.930Z"
+  },
+  {
+    "name": "child-visa (2).png",
+    "path": "/migration/child-visa (2).png",
+    "relativePath": "migration/child-visa (2).png",
+    "type": "image",
+    "size": 383234,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.934Z"
+  },
+  {
+    "name": "child-visa-benefit.png",
+    "path": "/migration/child-visa-benefit.png",
+    "relativePath": "migration/child-visa-benefit.png",
+    "type": "image",
+    "size": 694555,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.937Z"
+  },
+  {
+    "name": "child-visa.png",
+    "path": "/migration/child-visa.png",
+    "relativePath": "migration/child-visa.png",
+    "type": "image",
+    "size": 383230,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.941Z"
+  },
+  {
+    "name": "contributory-aged-parent-temporary-visa-benefit.png",
+    "path": "/migration/contributory-aged-parent-temporary-visa-benefit.png",
+    "relativePath": "migration/contributory-aged-parent-temporary-visa-benefit.png",
+    "type": "image",
+    "size": 579535,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.946Z"
+  },
+  {
+    "name": "contributory-aged-parent-temporary-visa.png",
+    "path": "/migration/contributory-aged-parent-temporary-visa.png",
+    "relativePath": "migration/contributory-aged-parent-temporary-visa.png",
+    "type": "image",
+    "size": 395928,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.950Z"
+  },
+  {
+    "name": "contributory-aged-parent-visa-benefit.png",
+    "path": "/migration/contributory-aged-parent-visa-benefit.png",
+    "relativePath": "migration/contributory-aged-parent-visa-benefit.png",
+    "type": "image",
+    "size": 559198,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.953Z"
+  },
+  {
+    "name": "contributory-aged-parent-visa.png",
+    "path": "/migration/contributory-aged-parent-visa.png",
+    "relativePath": "migration/contributory-aged-parent-visa.png",
+    "type": "image",
+    "size": 478089,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.957Z"
+  },
+  {
+    "name": "contributory-parent-temporary-visa-benefit.png",
+    "path": "/migration/contributory-parent-temporary-visa-benefit.png",
+    "relativePath": "migration/contributory-parent-temporary-visa-benefit.png",
+    "type": "image",
+    "size": 635649,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.961Z"
+  },
+  {
+    "name": "contributory-parent-temporary-visa.png",
+    "path": "/migration/contributory-parent-temporary-visa.png",
+    "relativePath": "migration/contributory-parent-temporary-visa.png",
+    "type": "image",
+    "size": 399397,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.965Z"
+  },
+  {
+    "name": "contributory-parent-visa-143.png",
+    "path": "/migration/contributory-parent-visa-143.png",
+    "relativePath": "migration/contributory-parent-visa-143.png",
+    "type": "image",
+    "size": 431566,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.968Z"
+  },
+  {
+    "name": "contributory-parent-visa-benefit.png",
+    "path": "/migration/contributory-parent-visa-benefit.png",
+    "relativePath": "migration/contributory-parent-visa-benefit.png",
+    "type": "image",
+    "size": 608748,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.972Z"
+  },
+  {
+    "name": "contributory-parent-visa.png",
+    "path": "/migration/contributory-parent-visa.png",
+    "relativePath": "migration/contributory-parent-visa.png",
+    "type": "image",
+    "size": 438579,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.975Z"
+  },
+  {
+    "name": "electronic-travel-authority.png",
+    "path": "/migration/electronic-travel-authority.png",
+    "relativePath": "migration/electronic-travel-authority.png",
+    "type": "image",
+    "size": 426666,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.978Z"
+  },
+  {
+    "name": "eligibility.jpg",
+    "path": "/migration/eligibility.jpg",
+    "relativePath": "migration/eligibility.jpg",
+    "type": "image",
+    "size": 227006,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.980Z"
+  },
+  {
+    "name": "employer-nomination-scheme-benefit.png",
+    "path": "/migration/employer-nomination-scheme-benefit.png",
+    "relativePath": "migration/employer-nomination-scheme-benefit.png",
+    "type": "image",
+    "size": 369602,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.982Z"
+  },
+  {
+    "name": "employer-nomination-scheme-visa.png",
+    "path": "/migration/employer-nomination-scheme-visa.png",
+    "relativePath": "migration/employer-nomination-scheme-visa.png",
+    "type": "image",
+    "size": 382634,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.985Z"
+  },
+  {
+    "name": "employer-sponsored.png",
+    "path": "/migration/employer-sponsored.png",
+    "relativePath": "migration/employer-sponsored.png",
+    "type": "image",
+    "size": 753,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.985Z"
+  },
+  {
+    "name": "eta-benefit.png",
+    "path": "/migration/eta-benefit.png",
+    "relativePath": "migration/eta-benefit.png",
+    "type": "image",
+    "size": 456720,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.988Z"
+  },
+  {
+    "name": "evisitor-benefit.png",
+    "path": "/migration/evisitor-benefit.png",
+    "relativePath": "migration/evisitor-benefit.png",
+    "type": "image",
+    "size": 645316,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.991Z"
+  },
+  {
+    "name": "evisitor.png",
+    "path": "/migration/evisitor.png",
+    "relativePath": "migration/evisitor.png",
+    "type": "image",
+    "size": 459058,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.993Z"
+  },
+  {
+    "name": "family-and-partner-hero.png",
+    "path": "/migration/family-and-partner-hero.png",
+    "relativePath": "migration/family-and-partner-hero.png",
+    "type": "image",
+    "size": 497292,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:26.997Z"
+  },
+  {
+    "name": "family-visa.png",
+    "path": "/migration/family-visa.png",
+    "relativePath": "migration/family-visa.png",
+    "type": "image",
+    "size": 252066,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.000Z"
+  },
+  {
+    "name": "family.png",
+    "path": "/migration/family.png",
+    "relativePath": "migration/family.png",
+    "type": "image",
+    "size": 1526,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.002Z"
+  },
+  {
+    "name": "global-talent-program.png",
+    "path": "/migration/global-talent-program.png",
+    "relativePath": "migration/global-talent-program.png",
+    "type": "image",
+    "size": 1036,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.003Z"
+  },
+  {
+    "name": "gsm-visa.png",
+    "path": "/migration/gsm-visa.png",
+    "relativePath": "migration/gsm-visa.png",
+    "type": "image",
+    "size": 740,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.004Z"
+  },
+  {
+    "name": "mi-business-guide.png",
+    "path": "/migration/mi-business-guide.png",
+    "relativePath": "migration/mi-business-guide.png",
+    "type": "image",
+    "size": 577331,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.009Z"
+  },
+  {
+    "name": "mi-guide.png",
+    "path": "/migration/mi-guide.png",
+    "relativePath": "migration/mi-guide.png",
+    "type": "image",
+    "size": 526270,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.013Z"
+  },
+  {
+    "name": "mi-student-visa-guide.png",
+    "path": "/migration/mi-student-visa-guide.png",
+    "relativePath": "migration/mi-student-visa-guide.png",
+    "type": "image",
+    "size": 560990,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.017Z"
+  },
+  {
+    "name": "mi-traning-guide.png",
+    "path": "/migration/mi-traning-guide.png",
+    "relativePath": "migration/mi-traning-guide.png",
+    "type": "image",
+    "size": 536530,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.020Z"
+  },
+  {
+    "name": "mi-visitor-guide.png",
+    "path": "/migration/mi-visitor-guide.png",
+    "relativePath": "migration/mi-visitor-guide.png",
+    "type": "image",
+    "size": 583068,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.023Z"
+  },
+  {
+    "name": "mi-work-and-holiday-guide.png",
+    "path": "/migration/mi-work-and-holiday-guide.png",
+    "relativePath": "migration/mi-work-and-holiday-guide.png",
+    "type": "image",
+    "size": 466663,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.028Z"
+  },
+  {
+    "name": "mi-working-holiday-guide.png",
+    "path": "/migration/mi-working-holiday-guide.png",
+    "relativePath": "migration/mi-working-holiday-guide.png",
+    "type": "image",
+    "size": 584570,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.030Z"
+  },
+  {
+    "name": "parent-visa-benefit.png",
+    "path": "/migration/parent-visa-benefit.png",
+    "relativePath": "migration/parent-visa-benefit.png",
+    "type": "image",
+    "size": 538706,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.033Z"
+  },
+  {
+    "name": "parent-visa.png",
+    "path": "/migration/parent-visa.png",
+    "relativePath": "migration/parent-visa.png",
+    "type": "image",
+    "size": 559622,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.036Z"
+  },
+  {
+    "name": "parents.png",
+    "path": "/migration/parents.png",
+    "relativePath": "migration/parents.png",
+    "type": "image",
+    "size": 860,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.036Z"
+  },
+  {
+    "name": "partner-Provisional-and-migrant-visa-subclass-309-100.png",
+    "path": "/migration/partner-Provisional-and-migrant-visa-subclass-309-100.png",
+    "relativePath": "migration/partner-Provisional-and-migrant-visa-subclass-309-100.png",
+    "type": "image",
+    "size": 444809,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.038Z"
+  },
+  {
+    "name": "partner-visa-benefit.png",
+    "path": "/migration/partner-visa-benefit.png",
+    "relativePath": "migration/partner-visa-benefit.png",
+    "type": "image",
+    "size": 561801,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.042Z"
+  },
+  {
+    "name": "partner-visa.png",
+    "path": "/migration/partner-visa.png",
+    "relativePath": "migration/partner-visa.png",
+    "type": "image",
+    "size": 345554,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.046Z"
+  },
+  {
+    "name": "partner.png",
+    "path": "/migration/partner.png",
+    "relativePath": "migration/partner.png",
+    "type": "image",
+    "size": 1441,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.047Z"
+  },
+  {
+    "name": "prospective-marriage-benefit.png",
+    "path": "/migration/prospective-marriage-benefit.png",
+    "relativePath": "migration/prospective-marriage-benefit.png",
+    "type": "image",
+    "size": 459340,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.051Z"
+  },
+  {
+    "name": "prospective-marriage-visa.png",
+    "path": "/migration/prospective-marriage-visa.png",
+    "relativePath": "migration/prospective-marriage-visa.png",
+    "type": "image",
+    "size": 369616,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.053Z"
+  },
+  {
+    "name": "protection-visa.png",
+    "path": "/migration/protection-visa.png",
+    "relativePath": "migration/protection-visa.png",
+    "type": "image",
+    "size": 1064,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.053Z"
+  },
+  {
+    "name": "resident-return-visa-RRV-benefit.png",
+    "path": "/migration/resident-return-visa-RRV-benefit.png",
+    "relativePath": "migration/resident-return-visa-RRV-benefit.png",
+    "type": "image",
+    "size": 443434,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.056Z"
+  },
+  {
+    "name": "resident-return-visa-RRV.png",
+    "path": "/migration/resident-return-visa-RRV.png",
+    "relativePath": "migration/resident-return-visa-RRV.png",
+    "type": "image",
+    "size": 355068,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.058Z"
+  },
+  {
+    "name": "right-arrow.png",
+    "path": "/migration/right-arrow.png",
+    "relativePath": "migration/right-arrow.png",
+    "type": "image",
+    "size": 223,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.058Z"
+  },
+  {
+    "name": "skilled-employer-sponsored-regional-benefit.png",
+    "path": "/migration/skilled-employer-sponsored-regional-benefit.png",
+    "relativePath": "migration/skilled-employer-sponsored-regional-benefit.png",
+    "type": "image",
+    "size": 467543,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.062Z"
+  },
+  {
+    "name": "skilled-employer-sponsored-regional-visa.png",
+    "path": "/migration/skilled-employer-sponsored-regional-visa.png",
+    "relativePath": "migration/skilled-employer-sponsored-regional-visa.png",
+    "type": "image",
+    "size": 414772,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.066Z"
+  },
+  {
+    "name": "skilled-recognised-graduate-benefit.png",
+    "path": "/migration/skilled-recognised-graduate-benefit.png",
+    "relativePath": "migration/skilled-recognised-graduate-benefit.png",
+    "type": "image",
+    "size": 453112,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.070Z"
+  },
+  {
+    "name": "special-category-visa-SCV-benefit.png",
+    "path": "/migration/special-category-visa-SCV-benefit.png",
+    "relativePath": "migration/special-category-visa-SCV-benefit.png",
+    "type": "image",
+    "size": 563031,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.073Z"
+  },
+  {
+    "name": "special-category-visa-SCV.png",
+    "path": "/migration/special-category-visa-SCV.png",
+    "relativePath": "migration/special-category-visa-SCV.png",
+    "type": "image",
+    "size": 456217,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.076Z"
+  },
+  {
+    "name": "sponsored-parent-temporary-visa-benefit.png",
+    "path": "/migration/sponsored-parent-temporary-visa-benefit.png",
+    "relativePath": "migration/sponsored-parent-temporary-visa-benefit.png",
+    "type": "image",
+    "size": 596784,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.081Z"
+  },
+  {
+    "name": "sponsored-parent-temporary-visa.png",
+    "path": "/migration/sponsored-parent-temporary-visa.png",
+    "relativePath": "migration/sponsored-parent-temporary-visa.png",
+    "type": "image",
+    "size": 494704,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.084Z"
+  },
+  {
+    "name": "student-gurdian-benefit.png",
+    "path": "/migration/student-gurdian-benefit.png",
+    "relativePath": "migration/student-gurdian-benefit.png",
+    "type": "image",
+    "size": 692134,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.087Z"
+  },
+  {
+    "name": "student-visa-benefit.png",
+    "path": "/migration/student-visa-benefit.png",
+    "relativePath": "migration/student-visa-benefit.png",
+    "type": "image",
+    "size": 508362,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.090Z"
+  },
+  {
+    "name": "student-visa-hero.png",
+    "path": "/migration/student-visa-hero.png",
+    "relativePath": "migration/student-visa-hero.png",
+    "type": "image",
+    "size": 443275,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.094Z"
+  },
+  {
+    "name": "student.png",
+    "path": "/migration/student.png",
+    "relativePath": "migration/student.png",
+    "type": "image",
+    "size": 984,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.095Z"
+  },
+  {
+    "name": "temporary-activity-benefit.png",
+    "path": "/migration/temporary-activity-benefit.png",
+    "relativePath": "migration/temporary-activity-benefit.png",
+    "type": "image",
+    "size": 493724,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.103Z"
+  },
+  {
+    "name": "temporary-activity-visa.png",
+    "path": "/migration/temporary-activity-visa.png",
+    "relativePath": "migration/temporary-activity-visa.png",
+    "type": "image",
+    "size": 466521,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.107Z"
+  },
+  {
+    "name": "temporary-activity.png",
+    "path": "/migration/temporary-activity.png",
+    "relativePath": "migration/temporary-activity.png",
+    "type": "image",
+    "size": 928,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.108Z"
+  },
+  {
+    "name": "temporary-graduate-485.png",
+    "path": "/migration/temporary-graduate-485.png",
+    "relativePath": "migration/temporary-graduate-485.png",
+    "type": "image",
+    "size": 359943,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.112Z"
+  },
+  {
+    "name": "temporary-skill-shortage-benefit.png",
+    "path": "/migration/temporary-skill-shortage-benefit.png",
+    "relativePath": "migration/temporary-skill-shortage-benefit.png",
+    "type": "image",
+    "size": 524677,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.116Z"
+  },
+  {
+    "name": "temporary-skill-shortage-visa-subclass-482 (2).png",
+    "path": "/migration/temporary-skill-shortage-visa-subclass-482 (2).png",
+    "relativePath": "migration/temporary-skill-shortage-visa-subclass-482 (2).png",
+    "type": "image",
+    "size": 451976,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.119Z"
+  },
+  {
+    "name": "temporary-skill-shortage-visa-subclass-482.png",
+    "path": "/migration/temporary-skill-shortage-visa-subclass-482.png",
+    "relativePath": "migration/temporary-skill-shortage-visa-subclass-482.png",
+    "type": "image",
+    "size": 473398,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.123Z"
+  },
+  {
+    "name": "traning-visa-benefit.png",
+    "path": "/migration/traning-visa-benefit.png",
+    "relativePath": "migration/traning-visa-benefit.png",
+    "type": "image",
+    "size": 521510,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.126Z"
+  },
+  {
+    "name": "transit-visa-benefit.png",
+    "path": "/migration/transit-visa-benefit.png",
+    "relativePath": "migration/transit-visa-benefit.png",
+    "type": "image",
+    "size": 419392,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.130Z"
+  },
+  {
+    "name": "transit-visa.png",
+    "path": "/migration/transit-visa.png",
+    "relativePath": "migration/transit-visa.png",
+    "type": "image",
+    "size": 384526,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.134Z"
+  },
+  {
+    "name": "visa-issued.png",
+    "path": "/migration/visa-issued.png",
+    "relativePath": "migration/visa-issued.png",
+    "type": "image",
+    "size": 189908,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.137Z"
+  },
+  {
+    "name": "visitor-visa-benefit.png",
+    "path": "/migration/visitor-visa-benefit.png",
+    "relativePath": "migration/visitor-visa-benefit.png",
+    "type": "image",
+    "size": 677301,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.141Z"
+  },
+  {
+    "name": "visitor-visa-hero.png",
+    "path": "/migration/visitor-visa-hero.png",
+    "relativePath": "migration/visitor-visa-hero.png",
+    "type": "image",
+    "size": 442110,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.144Z"
+  },
+  {
+    "name": "visitor-visa.png",
+    "path": "/migration/visitor-visa.png",
+    "relativePath": "migration/visitor-visa.png",
+    "type": "image",
+    "size": 1023,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.144Z"
+  },
+  {
+    "name": "word-and-holiday-benefit.png",
+    "path": "/migration/word-and-holiday-benefit.png",
+    "relativePath": "migration/word-and-holiday-benefit.png",
+    "type": "image",
+    "size": 548840,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.149Z"
+  },
+  {
+    "name": "work-and-holiday-hero.png",
+    "path": "/migration/work-and-holiday-hero.png",
+    "relativePath": "migration/work-and-holiday-hero.png",
+    "type": "image",
+    "size": 543949,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.153Z"
+  },
+  {
+    "name": "working-holiday-hero.png",
+    "path": "/migration/working-holiday-hero.png",
+    "relativePath": "migration/working-holiday-hero.png",
+    "type": "image",
+    "size": 423999,
+    "folder": "migration",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:27.158Z"
+  },
+  {
+    "name": "orange_counsels.svg",
+    "path": "/orange_counsels.svg",
+    "relativePath": "orange_counsels.svg",
+    "type": "image",
+    "size": 5776,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.508Z"
+  },
+  {
+    "name": "acu.png",
+    "path": "/partner/acu.png",
+    "relativePath": "partner/acu.png",
+    "type": "image",
+    "size": 3975,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.159Z"
+  },
+  {
+    "name": "adelaide.png",
+    "path": "/partner/adelaide.png",
+    "relativePath": "partner/adelaide.png",
+    "type": "image",
+    "size": 4356,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.161Z"
+  },
+  {
+    "name": "aun.png",
+    "path": "/partner/aun.png",
+    "relativePath": "partner/aun.png",
+    "type": "image",
+    "size": 6135,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.162Z"
+  },
+  {
+    "name": "australia-ecu.png",
+    "path": "/partner/australia-ecu.png",
+    "relativePath": "partner/australia-ecu.png",
+    "type": "image",
+    "size": 3461,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.163Z"
+  },
+  {
+    "name": "bond-university.png",
+    "path": "/partner/bond-university.png",
+    "relativePath": "partner/bond-university.png",
+    "type": "image",
+    "size": 8307,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.164Z"
+  },
+  {
+    "name": "canberra.png",
+    "path": "/partner/canberra.png",
+    "relativePath": "partner/canberra.png",
+    "type": "image",
+    "size": 4676,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.166Z"
+  },
+  {
+    "name": "charles-darwin-university.png",
+    "path": "/partner/charles-darwin-university.png",
+    "relativePath": "partner/charles-darwin-university.png",
+    "type": "image",
+    "size": 5418,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.167Z"
+  },
+  {
+    "name": "charles-sturt-uni.png",
+    "path": "/partner/charles-sturt-uni.png",
+    "relativePath": "partner/charles-sturt-uni.png",
+    "type": "image",
+    "size": 3083,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.169Z"
+  },
+  {
+    "name": "curtin-university.png",
+    "path": "/partner/curtin-university.png",
+    "relativePath": "partner/curtin-university.png",
+    "type": "image",
+    "size": 2736,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.170Z"
+  },
+  {
+    "name": "deakin.png",
+    "path": "/partner/deakin.png",
+    "relativePath": "partner/deakin.png",
+    "type": "image",
+    "size": 4076,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.171Z"
+  },
+  {
+    "name": "eca.png",
+    "path": "/partner/eca.png",
+    "relativePath": "partner/eca.png",
+    "type": "image",
+    "size": 5396,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.172Z"
+  },
+  {
+    "name": "flinders-uni.png",
+    "path": "/partner/flinders-uni.png",
+    "relativePath": "partner/flinders-uni.png",
+    "type": "image",
+    "size": 5272,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.174Z"
+  },
+  {
+    "name": "griffith.png",
+    "path": "/partner/griffith.png",
+    "relativePath": "partner/griffith.png",
+    "type": "image",
+    "size": 5408,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.175Z"
+  },
+  {
+    "name": "james-cook-university.png",
+    "path": "/partner/james-cook-university.png",
+    "relativePath": "partner/james-cook-university.png",
+    "type": "image",
+    "size": 4377,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.176Z"
+  },
+  {
+    "name": "la-trobe.png",
+    "path": "/partner/la-trobe.png",
+    "relativePath": "partner/la-trobe.png",
+    "type": "image",
+    "size": 5065,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.178Z"
+  },
+  {
+    "name": "macquarie.png",
+    "path": "/partner/macquarie.png",
+    "relativePath": "partner/macquarie.png",
+    "type": "image",
+    "size": 4879,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.179Z"
+  },
+  {
+    "name": "monash-uni.png",
+    "path": "/partner/monash-uni.png",
+    "relativePath": "partner/monash-uni.png",
+    "type": "image",
+    "size": 2745,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.180Z"
+  },
+  {
+    "name": "murdoch-university.png",
+    "path": "/partner/murdoch-university.png",
+    "relativePath": "partner/murdoch-university.png",
+    "type": "image",
+    "size": 3200,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.181Z"
+  },
+  {
+    "name": "navitas.png",
+    "path": "/partner/navitas.png",
+    "relativePath": "partner/navitas.png",
+    "type": "image",
+    "size": 15462,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.183Z"
+  },
+  {
+    "name": "new-castle.png",
+    "path": "/partner/new-castle.png",
+    "relativePath": "partner/new-castle.png",
+    "type": "image",
+    "size": 3400,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.183Z"
+  },
+  {
+    "name": "performance.png",
+    "path": "/partner/performance.png",
+    "relativePath": "partner/performance.png",
+    "type": "image",
+    "size": 13212,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.185Z"
+  },
+  {
+    "name": "queensland-uni-of-tech.png",
+    "path": "/partner/queensland-uni-of-tech.png",
+    "relativePath": "partner/queensland-uni-of-tech.png",
+    "type": "image",
+    "size": 5245,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.186Z"
+  },
+  {
+    "name": "queensland.png",
+    "path": "/partner/queensland.png",
+    "relativePath": "partner/queensland.png",
+    "type": "image",
+    "size": 4373,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.187Z"
+  },
+  {
+    "name": "rmit.png",
+    "path": "/partner/rmit.png",
+    "relativePath": "partner/rmit.png",
+    "type": "image",
+    "size": 2412,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.189Z"
+  },
+  {
+    "name": "southern-cross-university.png",
+    "path": "/partner/southern-cross-university.png",
+    "relativePath": "partner/southern-cross-university.png",
+    "type": "image",
+    "size": 4040,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.190Z"
+  },
+  {
+    "name": "stanley.png",
+    "path": "/partner/stanley.png",
+    "relativePath": "partner/stanley.png",
+    "type": "image",
+    "size": 18847,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.191Z"
+  },
+  {
+    "name": "swinburne.png",
+    "path": "/partner/swinburne.png",
+    "relativePath": "partner/swinburne.png",
+    "type": "image",
+    "size": 3009,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.192Z"
+  },
+  {
+    "name": "sydney-university.png",
+    "path": "/partner/sydney-university.png",
+    "relativePath": "partner/sydney-university.png",
+    "type": "image",
+    "size": 4839,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.193Z"
+  },
+  {
+    "name": "une.png",
+    "path": "/partner/une.png",
+    "relativePath": "partner/une.png",
+    "type": "image",
+    "size": 2213,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.194Z"
+  },
+  {
+    "name": "uni-australia.png",
+    "path": "/partner/uni-australia.png",
+    "relativePath": "partner/uni-australia.png",
+    "type": "image",
+    "size": 4021,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.195Z"
+  },
+  {
+    "name": "uni-of-southern-queensland.png",
+    "path": "/partner/uni-of-southern-queensland.png",
+    "relativePath": "partner/uni-of-southern-queensland.png",
+    "type": "image",
+    "size": 5439,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.196Z"
+  },
+  {
+    "name": "uni-of-western-aus.png",
+    "path": "/partner/uni-of-western-aus.png",
+    "relativePath": "partner/uni-of-western-aus.png",
+    "type": "image",
+    "size": 6211,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.197Z"
+  },
+  {
+    "name": "univ-of-melbour.png",
+    "path": "/partner/univ-of-melbour.png",
+    "relativePath": "partner/univ-of-melbour.png",
+    "type": "image",
+    "size": 3552,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.198Z"
+  },
+  {
+    "name": "university-notre-dame.png",
+    "path": "/partner/university-notre-dame.png",
+    "relativePath": "partner/university-notre-dame.png",
+    "type": "image",
+    "size": 7235,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.199Z"
+  },
+  {
+    "name": "university-of-adelide.png",
+    "path": "/partner/university-of-adelide.png",
+    "relativePath": "partner/university-of-adelide.png",
+    "type": "image",
+    "size": 3460,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.200Z"
+  },
+  {
+    "name": "university-of-canberra.png",
+    "path": "/partner/university-of-canberra.png",
+    "relativePath": "partner/university-of-canberra.png",
+    "type": "image",
+    "size": 3679,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.201Z"
+  },
+  {
+    "name": "university-of-newcastle.png",
+    "path": "/partner/university-of-newcastle.png",
+    "relativePath": "partner/university-of-newcastle.png",
+    "type": "image",
+    "size": 3857,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.201Z"
+  },
+  {
+    "name": "university-of-south-australia.png",
+    "path": "/partner/university-of-south-australia.png",
+    "relativePath": "partner/university-of-south-australia.png",
+    "type": "image",
+    "size": 2889,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.202Z"
+  },
+  {
+    "name": "university-of-sunshine-coast.png",
+    "path": "/partner/university-of-sunshine-coast.png",
+    "relativePath": "partner/university-of-sunshine-coast.png",
+    "type": "image",
+    "size": 3372,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.203Z"
+  },
+  {
+    "name": "university-of-tasmania.png",
+    "path": "/partner/university-of-tasmania.png",
+    "relativePath": "partner/university-of-tasmania.png",
+    "type": "image",
+    "size": 5440,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.204Z"
+  },
+  {
+    "name": "unsw-uni.png",
+    "path": "/partner/unsw-uni.png",
+    "relativePath": "partner/unsw-uni.png",
+    "type": "image",
+    "size": 6272,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.205Z"
+  },
+  {
+    "name": "uts.png",
+    "path": "/partner/uts.png",
+    "relativePath": "partner/uts.png",
+    "type": "image",
+    "size": 1933,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.206Z"
+  },
+  {
+    "name": "victoria-university.png",
+    "path": "/partner/victoria-university.png",
+    "relativePath": "partner/victoria-university.png",
+    "type": "image",
+    "size": 4856,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.207Z"
+  },
+  {
+    "name": "western-sydney.png",
+    "path": "/partner/western-sydney.png",
+    "relativePath": "partner/western-sydney.png",
+    "type": "image",
+    "size": 5320,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.207Z"
+  },
+  {
+    "name": "wollongong.png",
+    "path": "/partner/wollongong.png",
+    "relativePath": "partner/wollongong.png",
+    "type": "image",
+    "size": 6406,
+    "folder": "partner",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:18.208Z"
+  },
+  {
+    "name": "pink_saves.svg",
+    "path": "/pink_saves.svg",
+    "relativePath": "pink_saves.svg",
+    "type": "image",
+    "size": 13084,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.509Z"
+  },
+  {
+    "name": "placeholder.svg",
+    "path": "/placeholder.svg",
+    "relativePath": "placeholder.svg",
+    "type": "image",
+    "size": 3253,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.509Z"
+  },
+  {
+    "name": "placeholder_image.svg",
+    "path": "/placeholder_image.svg",
+    "relativePath": "placeholder_image.svg",
+    "type": "image",
+    "size": 1335,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.509Z"
+  },
+  {
+    "name": "quality-bg-img-.png",
+    "path": "/quality-bg-img-.png",
+    "relativePath": "quality-bg-img-.png",
+    "type": "image",
+    "size": 167702,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.509Z"
+  },
+  {
+    "name": "robots.txt",
+    "path": "/robots.txt",
+    "relativePath": "robots.txt",
+    "type": "document",
+    "size": 160,
+    "folder": "root",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:08:17.510Z"
+  },
+  {
+    "name": "485-visa-application.png",
+    "path": "/service/485-visa-application.png",
+    "relativePath": "service/485-visa-application.png",
+    "type": "image",
+    "size": 346912,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.275Z"
+  },
+  {
+    "name": "Building-Construction.jpg",
+    "path": "/service/Building-Construction.jpg",
+    "relativePath": "service/Building-Construction.jpg",
+    "type": "image",
+    "size": 95149,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.277Z"
+  },
+  {
+    "name": "Business-Finance.jpg",
+    "path": "/service/Business-Finance.jpg",
+    "relativePath": "service/Business-Finance.jpg",
+    "type": "image",
+    "size": 74786,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.279Z"
+  },
+  {
+    "name": "Civil-Construction.jpg",
+    "path": "/service/Civil-Construction.jpg",
+    "relativePath": "service/Civil-Construction.jpg",
+    "type": "image",
+    "size": 66744,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.281Z"
+  },
+  {
+    "name": "Community-Services.jpg",
+    "path": "/service/Community-Services.jpg",
+    "relativePath": "service/Community-Services.jpg",
+    "type": "image",
+    "size": 96400,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.283Z"
+  },
+  {
+    "name": "Engineering.jpg",
+    "path": "/service/Engineering.jpg",
+    "relativePath": "service/Engineering.jpg",
+    "type": "image",
+    "size": 73403,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.285Z"
+  },
+  {
+    "name": "Events-Entertainment.jpg",
+    "path": "/service/Events-Entertainment.jpg",
+    "relativePath": "service/Events-Entertainment.jpg",
+    "type": "image",
+    "size": 96928,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.287Z"
+  },
+  {
+    "name": "Hair-Beauty.jpg",
+    "path": "/service/Hair-Beauty.jpg",
+    "relativePath": "service/Hair-Beauty.jpg",
+    "type": "image",
+    "size": 82741,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.289Z"
+  },
+  {
+    "name": "Horticulture.jpg",
+    "path": "/service/Horticulture.jpg",
+    "relativePath": "service/Horticulture.jpg",
+    "type": "image",
+    "size": 49587,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.291Z"
+  },
+  {
+    "name": "Information-Technology.jpg",
+    "path": "/service/Information-Technology.jpg",
+    "relativePath": "service/Information-Technology.jpg",
+    "type": "image",
+    "size": 66623,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.293Z"
+  },
+  {
+    "name": "Mining-Resources.jpg",
+    "path": "/service/Mining-Resources.jpg",
+    "relativePath": "service/Mining-Resources.jpg",
+    "type": "image",
+    "size": 88381,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.296Z"
+  },
+  {
+    "name": "Plumbing-Services.jpg",
+    "path": "/service/Plumbing-Services.jpg",
+    "relativePath": "service/Plumbing-Services.jpg",
+    "type": "image",
+    "size": 69007,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.299Z"
+  },
+  {
+    "name": "Retail-Services.jpg",
+    "path": "/service/Retail-Services.jpg",
+    "relativePath": "service/Retail-Services.jpg",
+    "type": "image",
+    "size": 84089,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.301Z"
+  },
+  {
+    "name": "Security-Cleaning.jpg",
+    "path": "/service/Security-Cleaning.jpg",
+    "relativePath": "service/Security-Cleaning.jpg",
+    "type": "image",
+    "size": 34167,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.302Z"
+  },
+  {
+    "name": "Transport-Logistics.jpg",
+    "path": "/service/Transport-Logistics.jpg",
+    "relativePath": "service/Transport-Logistics.jpg",
+    "type": "image",
+    "size": 84233,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.304Z"
+  },
+  {
+    "name": "Vocational-Education.jpg",
+    "path": "/service/Vocational-Education.jpg",
+    "relativePath": "service/Vocational-Education.jpg",
+    "type": "image",
+    "size": 93255,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.306Z"
+  },
+  {
+    "name": "accounting-eligibility-criteria.png",
+    "path": "/service/accounting-eligibility-criteria.png",
+    "relativePath": "service/accounting-eligibility-criteria.png",
+    "type": "image",
+    "size": 490762,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.310Z"
+  },
+  {
+    "name": "accounting-key-program.png",
+    "path": "/service/accounting-key-program.png",
+    "relativePath": "service/accounting-key-program.png",
+    "type": "image",
+    "size": 491010,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.314Z"
+  },
+  {
+    "name": "aus-immigration.jpg",
+    "path": "/service/aus-immigration.jpg",
+    "relativePath": "service/aus-immigration.jpg",
+    "type": "image",
+    "size": 273196,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.317Z"
+  },
+  {
+    "name": "automative.jpg",
+    "path": "/service/automative.jpg",
+    "relativePath": "service/automative.jpg",
+    "type": "image",
+    "size": 68374,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.320Z"
+  },
+  {
+    "name": "benefit-of-ovhc.jpg",
+    "path": "/service/benefit-of-ovhc.jpg",
+    "relativePath": "service/benefit-of-ovhc.jpg",
+    "type": "image",
+    "size": 160465,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.322Z"
+  },
+  {
+    "name": "career-counselling.png",
+    "path": "/service/career-counselling.png",
+    "relativePath": "service/career-counselling.png",
+    "type": "image",
+    "size": 496207,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.326Z"
+  },
+  {
+    "name": "covered-by-ovhc.jpg",
+    "path": "/service/covered-by-ovhc.jpg",
+    "relativePath": "service/covered-by-ovhc.jpg",
+    "type": "image",
+    "size": 132970,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.328Z"
+  },
+  {
+    "name": "education-and-career.jpg",
+    "path": "/service/education-and-career.jpg",
+    "relativePath": "service/education-and-career.jpg",
+    "type": "image",
+    "size": 245703,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.331Z"
+  },
+  {
+    "name": "eligibility.jpg",
+    "path": "/service/eligibility.jpg",
+    "relativePath": "service/eligibility.jpg",
+    "type": "image",
+    "size": 227006,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.335Z"
+  },
+  {
+    "name": "engineering-eligibility-criteria.png",
+    "path": "/service/engineering-eligibility-criteria.png",
+    "relativePath": "service/engineering-eligibility-criteria.png",
+    "type": "image",
+    "size": 494235,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.339Z"
+  },
+  {
+    "name": "engineering-key-program.png",
+    "path": "/service/engineering-key-program.png",
+    "relativePath": "service/engineering-key-program.png",
+    "type": "image",
+    "size": 452863,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.342Z"
+  },
+  {
+    "name": "exp-consult-4.png",
+    "path": "/service/exp-consult-4.png",
+    "relativePath": "service/exp-consult-4.png",
+    "type": "image",
+    "size": 193482,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.344Z"
+  },
+  {
+    "name": "exp-consult-5.png",
+    "path": "/service/exp-consult-5.png",
+    "relativePath": "service/exp-consult-5.png",
+    "type": "image",
+    "size": 311441,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.348Z"
+  },
+  {
+    "name": "exp-consult-6.png",
+    "path": "/service/exp-consult-6.png",
+    "relativePath": "service/exp-consult-6.png",
+    "type": "image",
+    "size": 131269,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.351Z"
+  },
+  {
+    "name": "it-eligibility-criteria.png",
+    "path": "/service/it-eligibility-criteria.png",
+    "relativePath": "service/it-eligibility-criteria.png",
+    "type": "image",
+    "size": 495429,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.355Z"
+  },
+  {
+    "name": "it-key-program.jpg",
+    "path": "/service/it-key-program.jpg",
+    "relativePath": "service/it-key-program.jpg",
+    "type": "image",
+    "size": 372106,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.358Z"
+  },
+  {
+    "name": "migration-advice.png",
+    "path": "/service/migration-advice.png",
+    "relativePath": "service/migration-advice.png",
+    "type": "image",
+    "size": 902336,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.364Z"
+  },
+  {
+    "name": "oshc-ovhc.jpg",
+    "path": "/service/oshc-ovhc.jpg",
+    "relativePath": "service/oshc-ovhc.jpg",
+    "type": "image",
+    "size": 317887,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.368Z"
+  },
+  {
+    "name": "oshc-ovhc.png",
+    "path": "/service/oshc-ovhc.png",
+    "relativePath": "service/oshc-ovhc.png",
+    "type": "image",
+    "size": 158768,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.370Z"
+  },
+  {
+    "name": "other-professional-1.png",
+    "path": "/service/other-professional-1.png",
+    "relativePath": "service/other-professional-1.png",
+    "type": "image",
+    "size": 135922,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.373Z"
+  },
+  {
+    "name": "other-professional-2.png",
+    "path": "/service/other-professional-2.png",
+    "relativePath": "service/other-professional-2.png",
+    "type": "image",
+    "size": 162751,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.376Z"
+  },
+  {
+    "name": "other-professional.png",
+    "path": "/service/other-professional.png",
+    "relativePath": "service/other-professional.png",
+    "type": "image",
+    "size": 201008,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.379Z"
+  },
+  {
+    "name": "partner-in-health.jpg",
+    "path": "/service/partner-in-health.jpg",
+    "relativePath": "service/partner-in-health.jpg",
+    "type": "image",
+    "size": 202851,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.382Z"
+  },
+  {
+    "name": "professional-year-admission.png",
+    "path": "/service/professional-year-admission.png",
+    "relativePath": "service/professional-year-admission.png",
+    "type": "image",
+    "size": 191536,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.385Z"
+  },
+  {
+    "name": "professional-year.png",
+    "path": "/service/professional-year.png",
+    "relativePath": "service/professional-year.png",
+    "type": "image",
+    "size": 768353,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.389Z"
+  },
+  {
+    "name": "pyp-accounting.png",
+    "path": "/service/pyp-accounting.png",
+    "relativePath": "service/pyp-accounting.png",
+    "type": "image",
+    "size": 473687,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.393Z"
+  },
+  {
+    "name": "pyp-engineering.png",
+    "path": "/service/pyp-engineering.png",
+    "relativePath": "service/pyp-engineering.png",
+    "type": "image",
+    "size": 810269,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.396Z"
+  },
+  {
+    "name": "pyp-it.jpg",
+    "path": "/service/pyp-it.jpg",
+    "relativePath": "service/pyp-it.jpg",
+    "type": "image",
+    "size": 624220,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.401Z"
+  },
+  {
+    "name": "ready-to-being.png",
+    "path": "/service/ready-to-being.png",
+    "relativePath": "service/ready-to-being.png",
+    "type": "image",
+    "size": 279534,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.404Z"
+  },
+  {
+    "name": "recognition.png",
+    "path": "/service/recognition.png",
+    "relativePath": "service/recognition.png",
+    "type": "image",
+    "size": 610951,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.408Z"
+  },
+  {
+    "name": "rpl-hero.png",
+    "path": "/service/rpl-hero.png",
+    "relativePath": "service/rpl-hero.png",
+    "type": "image",
+    "size": 449003,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.411Z"
+  },
+  {
+    "name": "rpl-process.jpg",
+    "path": "/service/rpl-process.jpg",
+    "relativePath": "service/rpl-process.jpg",
+    "type": "image",
+    "size": 360532,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.414Z"
+  },
+  {
+    "name": "rpl-recognition.png",
+    "path": "/service/rpl-recognition.png",
+    "relativePath": "service/rpl-recognition.png",
+    "type": "image",
+    "size": 421695,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.417Z"
+  },
+  {
+    "name": "service-landing-hero.png",
+    "path": "/service/service-landing-hero.png",
+    "relativePath": "service/service-landing-hero.png",
+    "type": "image",
+    "size": 885724,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.422Z"
+  },
+  {
+    "name": "sudent-consultancy.png",
+    "path": "/service/sudent-consultancy.png",
+    "relativePath": "service/sudent-consultancy.png",
+    "type": "image",
+    "size": 333248,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.424Z"
+  },
+  {
+    "name": "uni-college-admission.png",
+    "path": "/service/uni-college-admission.png",
+    "relativePath": "service/uni-college-admission.png",
+    "type": "image",
+    "size": 1021639,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.428Z"
+  },
+  {
+    "name": "uni-college-how-it-works.png",
+    "path": "/service/uni-college-how-it-works.png",
+    "relativePath": "service/uni-college-how-it-works.png",
+    "type": "image",
+    "size": 529276,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.431Z"
+  },
+  {
+    "name": "university-admission.png",
+    "path": "/service/university-admission.png",
+    "relativePath": "service/university-admission.png",
+    "type": "image",
+    "size": 249368,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.436Z"
+  },
+  {
+    "name": "visa-extension.png",
+    "path": "/service/visa-extension.png",
+    "relativePath": "service/visa-extension.png",
+    "type": "image",
+    "size": 386979,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.440Z"
+  },
+  {
+    "name": "what-is-oshc.jpg",
+    "path": "/service/what-is-oshc.jpg",
+    "relativePath": "service/what-is-oshc.jpg",
+    "type": "image",
+    "size": 207236,
+    "folder": "service",
+    "isDirectory": false,
+    "lastModified": "2025-08-13T05:10:06.443Z"
+  },
+  {
+    "name": "ALIF_SAIFULLAH.jpg",
+    "path": "/team/ALIF_SAIFULLAH.jpg",
+    "relativePath": "team/ALIF_SAIFULLAH.jpg",
+    "type": "image",
+    "size": 14401,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.811Z"
+  },
+  {
+    "name": "Arshi_Ahmed.jpg",
+    "path": "/team/Arshi_Ahmed.jpg",
+    "relativePath": "team/Arshi_Ahmed.jpg",
+    "type": "image",
+    "size": 22147,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.811Z"
+  },
+  {
+    "name": "IFTAKHAR_RASHID.jpg",
+    "path": "/team/IFTAKHAR_RASHID.jpg",
+    "relativePath": "team/IFTAKHAR_RASHID.jpg",
+    "type": "image",
+    "size": 18029,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.811Z"
+  },
+  {
+    "name": "MD _ALANGIR_HOSSAIN_RIGAN.jpg",
+    "path": "/team/MD _ALANGIR_HOSSAIN_RIGAN.jpg",
+    "relativePath": "team/MD _ALANGIR_HOSSAIN_RIGAN.jpg",
+    "type": "image",
+    "size": 12784,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.812Z"
+  },
+  {
+    "name": "MD._RAKIB_AHMED_RAFSAN.jpg",
+    "path": "/team/MD._RAKIB_AHMED_RAFSAN.jpg",
+    "relativePath": "team/MD._RAKIB_AHMED_RAFSAN.jpg",
+    "type": "image",
+    "size": 19348,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.812Z"
+  },
+  {
+    "name": "Md._Sajib.jpg",
+    "path": "/team/Md._Sajib.jpg",
+    "relativePath": "team/Md._Sajib.jpg",
+    "type": "image",
+    "size": 15166,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.812Z"
+  },
+  {
+    "name": "Md_Abu_Sayed.jpg",
+    "path": "/team/Md_Abu_Sayed.jpg",
+    "relativePath": "team/Md_Abu_Sayed.jpg",
+    "type": "image",
+    "size": 14234,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.813Z"
+  },
+  {
+    "name": "Md_Rana_Ahmed.jpg",
+    "path": "/team/Md_Rana_Ahmed.jpg",
+    "relativePath": "team/Md_Rana_Ahmed.jpg",
+    "type": "image",
+    "size": 15908,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.813Z"
+  },
+  {
+    "name": "PARI_CHIN_GTHAM.jpg",
+    "path": "/team/PARI_CHIN_GTHAM.jpg",
+    "relativePath": "team/PARI_CHIN_GTHAM.jpg",
+    "type": "image",
+    "size": 14292,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.813Z"
+  },
+  {
+    "name": "Partha_Protim_Majumder.jpg",
+    "path": "/team/Partha_Protim_Majumder.jpg",
+    "relativePath": "team/Partha_Protim_Majumder.jpg",
+    "type": "image",
+    "size": 14043,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.814Z"
+  },
+  {
+    "name": "RABIA_BASRI_MOUSUMI.jpg",
+    "path": "/team/RABIA_BASRI_MOUSUMI.jpg",
+    "relativePath": "team/RABIA_BASRI_MOUSUMI.jpg",
+    "type": "image",
+    "size": 22283,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.814Z"
+  },
+  {
+    "name": "SHAHNAZ_AKTER.jpg",
+    "path": "/team/SHAHNAZ_AKTER.jpg",
+    "relativePath": "team/SHAHNAZ_AKTER.jpg",
+    "type": "image",
+    "size": 13724,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.814Z"
+  },
+  {
+    "name": "SOHAG_MONDOL.jpg",
+    "path": "/team/SOHAG_MONDOL.jpg",
+    "relativePath": "team/SOHAG_MONDOL.jpg",
+    "type": "image",
+    "size": 15570,
+    "folder": "team",
+    "isDirectory": false,
+    "lastModified": "2025-08-14T02:32:20.815Z"
+  }
+]

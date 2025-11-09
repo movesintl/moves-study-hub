@@ -227,7 +227,7 @@ const PageViewContent = ({
 
               {/* CTA Card */}
               {ctaButtonText && ctaButtonLink && (
-                <div className="bg-gradient-to-br from-primary to-blue-600 rounded-2xl shadow-lg overflow-hidden">
+                <div className="bg-gradient-to-br from-primary to-orange-500/90 rounded-2xl shadow-lg overflow-hidden">
                   <div className="p-6 text-center">
                     <h3 className="text-xl font-bold text-white mb-3">Need more information?</h3>
                     <p className="text-white/90 mb-6">Get in touch with our team for personalized assistance.</p>

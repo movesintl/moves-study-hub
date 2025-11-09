@@ -273,7 +273,7 @@ export default function HowToApply() {
                 <div className="absolute top-12 right-12 w-1.5 h-1.5 bg-white/35 rounded-full animate-pulse"></div>
                 
                 {/* Hover Glow Effect */}
-                <div className={`absolute inset-0 ${step.accentColor} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-300`}></div>
+                <div className={` inset-0 ${step.accentColor} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-300`}></div>
               </div>
             </div>
           ))}

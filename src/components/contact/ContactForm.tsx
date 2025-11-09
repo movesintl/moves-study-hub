@@ -1,9 +1,7 @@
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,6 +11,16 @@ import { supabase } from '@/integrations/supabase/client';
 import { Send } from 'lucide-react';
 import { useRateLimit } from '@/hooks/useRateLimit';
 import { useAuditLog } from '@/hooks/useAuditLog';
+
+// Add TypeScript declaration for grecaptcha
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -26,8 +34,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const { toast } = useToast();
   const { checkRateLimit } = useRateLimit();
   const { logEvent } = useAuditLog();
@@ -40,99 +47,197 @@ const ContactForm = () => {
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
+// Check rate limit
+const rateLimitAllowed = async ()  => { await checkRateLimit({
+  action: 'contact_submission',
+  maxRequests: 5,
+  windowMinutes: 60
+});}
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    
-    try {
-      // Verify reCAPTCHA
-      if (!recaptchaToken) {
-        toast({
-          title: "reCAPTCHA Required",
-          description: "Please complete the reCAPTCHA verification.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
+if (!rateLimitAllowed) {
+  toast({
+    title: "Rate limit exceeded",
+    description: "You can only submit 5 contact forms per hour. Please try again later.",
+    variant: "destructive",
+  });
+  setIsSubmitting(false);
+  return;
+}
 
-      // Check rate limit (max 5 contact submissions per hour)
-      const rateLimitAllowed = await checkRateLimit({
-        action: 'contact_submission',
-        maxRequests: 5,
-        windowMinutes: 60
-      });
+// ContactForm useEffect
+useEffect(() => {
+  if (window.grecaptcha) {
+    setRecaptchaLoaded(true);
+    return;
+  }
 
-      if (!rateLimitAllowed) {
-        toast({
-          title: "Rate limit exceeded",
-          description: "You can only submit 5 contact forms per hour. Please try again later.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Verify reCAPTCHA with server
-      const { data: verificationResult, error: verificationError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: recaptchaToken }
-      });
-
-      if (verificationError || !verificationResult?.success) {
-        toast({
-          title: "Verification Failed",
-          description: "reCAPTCHA verification failed. Please try again.",
-          variant: "destructive",
-        });
-        recaptchaRef.current?.reset();
-        setRecaptchaToken(null);
-        setIsSubmitting(false);
-        return;
-      }
-
-      const contactData = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone || null,
-        subject: data.subject,
-        message: data.message,
-      };
-
-      const { data: insertedData, error } = await supabase
-        .from('contact_submissions')
-        .insert([contactData])
-        .select('id')
-        .single();
-
-      if (error) throw error;
-
-      // Log the contact submission event
-      await logEvent({
-        action: 'contact_submission_created',
-        tableName: 'contact_submissions',
-        recordId: insertedData?.id,
-        newValues: contactData
-      });
-
+  const script = document.createElement('script');
+  script.src = `https://www.recaptcha.net/recaptcha/api.js?render=6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn`;
+  script.async = true;
+  script.defer = true;
+  script.onload = () => {
+    if (window.grecaptcha) {
+      setRecaptchaLoaded(true);
+    } else {
       toast({
-        title: "Message Sent Successfully!",
-        description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+        title: 'Security Error',
+        description: 'Could not load security verification',
+        variant: 'destructive',
       });
-
-      reset();
-      recaptchaRef.current?.reset();
-      setRecaptchaToken(null);
-    } catch (error: any) {
-      console.error('Contact form submission error:', error);
-      toast({
-        title: "Error",
-        description: "Failed to send your message. Please try again or contact us directly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
     }
   };
+  script.onerror = () => {
+    toast({
+      title: 'Security Error',
+      description: 'Failed to load security verification',
+      variant: 'destructive',
+    });
+  };
+  document.body.appendChild(script);
+
+  return () => {
+    document.body.removeChild(script);
+  };
+}, [toast]);
+
+  const getRecaptchaToken = async (): Promise<string> => {
+    if (!window.grecaptcha) {
+      throw new Error('reCAPTCHA not loaded');
+    }
+
+    return new Promise((resolve, reject) => {
+      try {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.execute('6LfUk6UrAAAAAIoWzkz54uHyaR0cXY0H2DCQb7Nn', { 
+            action: 'submit' 
+          }).then(resolve).catch(reject);
+          
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+  
+
+const onSubmit = async (data: ContactFormData) => {
+  setIsSubmitting(true);
+
+  try {
+    if (!recaptchaLoaded) {
+      toast({
+        title: "Loading Security Check",
+        description: "Please wait while we load security verification",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Get reCAPTCHA token
+    const token = await getRecaptchaToken();
+
+    // Get current session from Supabase v2
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    
+    
+    if (sessionError) throw sessionError;
+    
+    const session = sessionData?.session ?? null; // v2 returns data.session
+
+
+    // Optional: only require login if your RLS policy needs auth
+    // If anon inserts are allowed, you can skip session check
+    // if (!session?.access_token) {
+    //   toast({ title: "Authentication Error", description: "Sign in first", variant: "destructive" });
+    //   setIsSubmitting(false);
+    //   return;
+    // }
+
+    // Verify reCAPTCHA with server (optional, can skip for anon)
+    const { data: verificationResult, error: verificationError } = await supabase.functions.invoke(
+      "verify-recaptcha",
+      {
+        body: { token },
+        headers: session?.access_token
+          ? { Authorization: `Bearer ${session.access_token}` }
+          : undefined,
+      }
+    );
+
+    if (verificationError || !verificationResult?.success) {
+      toast({
+        title: "Verification Failed",
+        description: "Security verification failed. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Rate limit check
+    const rateLimitAllowed = await checkRateLimit({
+      action: "contact_submission",
+      maxRequests: 5,
+      windowMinutes: 60,
+    });
+
+    if (!rateLimitAllowed) {
+      toast({
+        title: "Rate limit exceeded",
+        description: "You can only submit 5 contact forms per hour. Please try again later.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Prepare contact data
+    const contactData = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone || null,
+      subject: data.subject,
+      message: data.message,
+    };
+    console.log("Contact data:", contactData);
+    
+    // Insert into contact_submissions (anon + auth allowed)
+    const { data: insertedData, error: insertError } = await supabase
+      .from("contact_submissions")
+      .insert([contactData])
+      .select("id")
+      .single();
+
+
+    if (insertError) throw insertError;
+
+    // Log the event (optional)
+    await logEvent({
+      action: "contact_submission_created",
+      tableName: "contact_submissions",
+      recordId: insertedData?.id,
+      newValues: contactData,
+    });
+
+    toast({
+      title: "Message Sent Successfully!",
+      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+    });
+
+    reset();
+  } catch (error: any) {
+    console.error("Contact form submission error:", error);
+    toast({
+      title: "Error",
+      description: "Failed to send your message. Please try again or contact us directly.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -204,17 +309,9 @@ const ContactForm = () => {
         )}
       </div>
 
-      <div className="flex justify-center">
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey="6Lf8pKUqAAAAABQWZkF_HN_7TYn5N0nNdHMYrXR0"
-          onChange={setRecaptchaToken}
-          theme="dark"
-        />
-      </div>
       <Button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !recaptchaLoaded}
         className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white py-3 text-lg font-semibold transition-all duration-200"
       >
         {isSubmitting ? (

@@ -6,6 +6,7 @@ import { BasicInfoSection } from '@/components/admin/courses/BasicInfoSection';
 import { InstitutionLocationSection } from '@/components/admin/courses/InstitutionLocationSection';
 import { FeesIntakeSection } from '@/components/admin/courses/FeesIntakeSection';
 import { AdditionalDetailsSection } from '@/components/admin/courses/AdditionalDetailsSection';
+import { DataConsistencyChecker } from '@/components/admin/courses/DataConsistencyChecker';
 
 const CourseForm = () => {
   const {
@@ -26,6 +27,8 @@ const CourseForm = () => {
         <h1 className="text-2xl font-bold">{isEditing ? 'Edit Course' : 'Add New Course'}</h1>
         <p className="text-gray-600">Fill in the course details below</p>
       </div>
+
+      {!isEditing && <DataConsistencyChecker />}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <BasicInfoSection 

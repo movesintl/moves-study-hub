@@ -1,5 +1,4 @@
-
-import { Phone } from 'lucide-react';
+import { Phone } from "lucide-react";
 
 export default function StickyProfileComponent() {
   return (
@@ -13,7 +12,7 @@ export default function StickyProfileComponent() {
             {/* Profile Image */}
             <div className="w-[80px] h-[80px] rounded-full overflow-hidden bg-gray-300">
               <img
-                src="https://movesinternational.com.bd/team/SHAHNAZ_AKTER.jpg"
+                src="https://movesinternational.com.np/team/Sudan_Bhattarai.png"
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
@@ -21,7 +20,9 @@ export default function StickyProfileComponent() {
 
             {/* Name and supporting text */}
             <div>
-              <h2 className="text-sm mb-0 md:text-base font-medium text-black">Shahnaz Aktar</h2>
+              <h2 className="text-sm mb-0 md:text-base font-medium text-black">
+                Sudan Bhattarai
+              </h2>
               <p className="text-sm mb-0 text-gray-500">Counselor</p>
             </div>
           </div>

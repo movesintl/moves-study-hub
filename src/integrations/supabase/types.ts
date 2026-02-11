@@ -95,7 +95,7 @@ export type Database = {
           action: string
           created_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           new_values: Json | null
           old_values: Json | null
           record_id: string | null
@@ -107,7 +107,7 @@ export type Database = {
           action: string
           created_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           record_id?: string | null
@@ -119,7 +119,7 @@ export type Database = {
           action?: string
           created_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           record_id?: string | null
@@ -1539,18 +1539,9 @@ export type Database = {
         Args: { university_id?: string; university_name: string }
         Returns: string
       }
-      get_auth_users: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
-      }
-      is_admin: {
-        Args: { user_id: string }
-        Returns: boolean
-      }
-      is_admin_or_editor: {
-        Args: { user_id: string }
-        Returns: boolean
-      }
+      get_auth_users: { Args: never; Returns: Json }
+      is_admin: { Args: { user_id: string }; Returns: boolean }
+      is_admin_or_editor: { Args: { user_id: string }; Returns: boolean }
       log_audit_event: {
         Args: {
           p_action: string
@@ -1587,14 +1578,8 @@ export type Database = {
         }
         Returns: undefined
       }
-      slugify: {
-        Args: { "": string }
-        Returns: string
-      }
-      sync_course_foreign_keys: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      slugify: { Args: { "": string }; Returns: string }
+      sync_course_foreign_keys: { Args: never; Returns: undefined }
     }
     Enums: {
       job_type: "Full-Time" | "Part-Time" | "Internship" | "Contract"

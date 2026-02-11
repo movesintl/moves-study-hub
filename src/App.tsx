@@ -83,6 +83,14 @@ import Reviews from '@/pages/Reviews';
 import AdminNotificationsPage from '@/pages/admin/notifications/NotificationsPage';
 import StudentNotificationsPage from '@/pages/student/NotificationsPage';
 import Campaign from '@/pages/admin/campaign/Campaign';
+import AgentsList from '@/pages/admin/agents/AgentsList';
+import AgentDashboard from '@/pages/agent/AgentDashboard';
+import AgentHome from '@/pages/agent/AgentHome';
+import AgentStudents from '@/pages/agent/AgentStudents';
+import AgentApplications from '@/pages/agent/AgentApplications';
+import AgentCourses from '@/pages/agent/AgentCourses';
+import AgentUniversities from '@/pages/agent/AgentUniversities';
+import AgentAuthGuard from '@/components/agent/AgentAuthGuard';
 
 const queryClient = new QueryClient();
 
@@ -191,6 +199,22 @@ function App() {
                   </RoleGuard>
                 } />
                 <Route path="contact" element={<ContactSubmissions />} />
+                <Route path="agents" element={
+                  <RoleGuard allowedRoles={['admin']}>
+                    <AgentsList />
+                  </RoleGuard>
+                } />
+              </Route>
+              <Route path="/agent" element={
+                <AgentAuthGuard>
+                  <AgentDashboard />
+                </AgentAuthGuard>
+              }>
+                <Route index element={<AgentHome />} />
+                <Route path="students" element={<AgentStudents />} />
+                <Route path="applications" element={<AgentApplications />} />
+                <Route path="courses" element={<AgentCourses />} />
+                <Route path="universities" element={<AgentUniversities />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

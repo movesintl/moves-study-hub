@@ -27,7 +27,8 @@ const ApplicationsList = () => {
           *,
           courses:course_id(title, level, study_area),
           universities:university_id(name, location),
-          destinations:destination_id(name)
+          destinations:destination_id(name),
+          agents:agent_id(contact_person, company_name, email)
         `)
         .order('created_at', { ascending: false });
       
@@ -164,6 +165,7 @@ const ApplicationsList = () => {
                     <TableHead>Course</TableHead>
                     <TableHead>University</TableHead>
                     <TableHead>Destination</TableHead>
+                    <TableHead>Agent</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Applied Date</TableHead>
                     <TableHead>Actions</TableHead>
@@ -193,6 +195,16 @@ const ApplicationsList = () => {
                         </div>
                       </TableCell>
                       <TableCell>{application.destinations?.name}</TableCell>
+                      <TableCell>
+                        {application.agents ? (
+                          <div>
+                            <p className="font-medium text-sm">{application.agents.contact_person}</p>
+                            <p className="text-xs text-gray-500">{application.agents.company_name || application.agents.email}</p>
+                          </div>
+                        ) : (
+                          <span className="text-gray-400 text-sm">Direct</span>
+                        )}
+                      </TableCell>
                       <TableCell>{getStatusBadge(application.status || 'pending')}</TableCell>
                       <TableCell>
                         {new Date(application.created_at).toLocaleDateString()}

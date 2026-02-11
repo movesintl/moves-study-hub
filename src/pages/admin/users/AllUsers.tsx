@@ -21,7 +21,7 @@ interface AuthUser {
   created_at: string;
 }
 
-type UserRole = 'admin' | 'editor' | 'counselor' | 'student';
+type UserRole = 'admin' | 'editor' | 'counselor' | 'student' | 'agent';
 
 interface UserProfile {
   id: string;

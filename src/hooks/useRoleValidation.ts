@@ -3,7 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAuditLog } from './useAuditLog';
 
-type UserRole = 'admin' | 'editor' | 'counselor' | 'student';
+type UserRole = 'admin' | 'editor' | 'counselor' | 'student' | 'agent';
 
 interface RolePermissions {
   canManageUsers: boolean;
@@ -14,9 +14,10 @@ interface RolePermissions {
 }
 
 const ROLE_HIERARCHY: Record<UserRole, number> = {
-  admin: 4,
-  editor: 3,
-  counselor: 2,
+  admin: 5,
+  editor: 4,
+  counselor: 3,
+  agent: 2,
   student: 1
 };
 
@@ -36,6 +37,13 @@ const ROLE_PERMISSIONS: Record<UserRole, RolePermissions> = {
     canViewAuditLogs: false
   },
   counselor: {
+    canManageUsers: false,
+    canManageContent: false,
+    canViewAnalytics: false,
+    canManageSettings: false,
+    canViewAuditLogs: false
+  },
+  agent: {
     canManageUsers: false,
     canManageContent: false,
     canViewAnalytics: false,

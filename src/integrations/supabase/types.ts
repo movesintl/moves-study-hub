@@ -1583,7 +1583,7 @@ export type Database = {
     }
     Enums: {
       job_type: "Full-Time" | "Part-Time" | "Internship" | "Contract"
-      user_role: "admin" | "editor" | "counselor" | "student"
+      user_role: "admin" | "editor" | "counselor" | "student" | "agent"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1712,7 +1712,7 @@ export const Constants = {
   public: {
     Enums: {
       job_type: ["Full-Time", "Part-Time", "Internship", "Contract"],
-      user_role: ["admin", "editor", "counselor", "student"],
+      user_role: ["admin", "editor", "counselor", "student", "agent"],
     },
   },
 } as const

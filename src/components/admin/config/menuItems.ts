@@ -67,5 +67,6 @@ export const menuItems: MenuItem[] = [
   { name: 'Campaign', href: '/admin/campaign', icon: Mail, requiredRoles: ['admin', 'editor'] },
   { name: 'All Users', href: '/admin/users', icon: Users, requiredRoles: ['admin'] },
   { name: 'Our Staff', href: '/admin/team', icon: Users, requiredRoles: ['admin'] },
+  { name: 'Agents', href: '/admin/agents', icon: Users, requiredRoles: ['admin'] },
   { name: 'Contact', href: '/admin/contact', icon: Mail }
 ];

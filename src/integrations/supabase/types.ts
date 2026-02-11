@@ -14,9 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_students: {
+        Row: {
+          address: string | null
+          agent_id: string
+          created_at: string
+          current_education_level: string | null
+          date_of_birth: string | null
+          english_test_score: string | null
+          id: string
+          nationality: string | null
+          student_email: string
+          student_name: string
+          student_phone: string | null
+          updated_at: string
+          work_experience: string | null
+        }
+        Insert: {
+          address?: string | null
+          agent_id: string
+          created_at?: string
+          current_education_level?: string | null
+          date_of_birth?: string | null
+          english_test_score?: string | null
+          id?: string
+          nationality?: string | null
+          student_email: string
+          student_name: string
+          student_phone?: string | null
+          updated_at?: string
+          work_experience?: string | null
+        }
+        Update: {
+          address?: string | null
+          agent_id?: string
+          created_at?: string
+          current_education_level?: string | null
+          date_of_birth?: string | null
+          english_test_score?: string | null
+          id?: string
+          nationality?: string | null
+          student_email?: string
+          student_name?: string
+          student_phone?: string | null
+          updated_at?: string
+          work_experience?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_students_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agents: {
+        Row: {
+          activated_at: string | null
+          address: string | null
+          company_name: string | null
+          contact_person: string
+          created_at: string
+          email: string
+          id: string
+          invited_at: string
+          is_active: boolean
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          activated_at?: string | null
+          address?: string | null
+          company_name?: string | null
+          contact_person: string
+          created_at?: string
+          email: string
+          id?: string
+          invited_at?: string
+          is_active?: boolean
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          activated_at?: string | null
+          address?: string | null
+          company_name?: string | null
+          contact_person?: string
+          created_at?: string
+          email?: string
+          id?: string
+          invited_at?: string
+          is_active?: boolean
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       applications: {
         Row: {
           address: string | null
+          agent_id: string | null
           course_id: string | null
           created_at: string
           date_of_birth: string | null
@@ -34,6 +136,7 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          agent_id?: string | null
           course_id?: string | null
           created_at?: string
           date_of_birth?: string | null
@@ -51,6 +154,7 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          agent_id?: string | null
           course_id?: string | null
           created_at?: string
           date_of_birth?: string | null
@@ -67,6 +171,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "applications_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "applications_course_id_fkey"
             columns: ["course_id"]
@@ -1539,9 +1650,11 @@ export type Database = {
         Args: { university_id?: string; university_name: string }
         Returns: string
       }
+      get_agent_id: { Args: { p_user_id: string }; Returns: string }
       get_auth_users: { Args: never; Returns: Json }
       is_admin: { Args: { user_id: string }; Returns: boolean }
       is_admin_or_editor: { Args: { user_id: string }; Returns: boolean }
+      is_agent: { Args: { p_user_id: string }; Returns: boolean }
       log_audit_event: {
         Args: {
           p_action: string

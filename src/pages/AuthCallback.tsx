@@ -66,6 +66,8 @@ const AuthCallback = () => {
               // Use retry result
               if (retryProfile.role === 'admin' || retryProfile.role === 'editor' || retryProfile.role === 'counselor') {
                 navigate('/admin');
+              } else if (retryProfile.role === 'agent') {
+                navigate('/agent');
               } else {
                 navigate('/student-dashboard/home');
               }
@@ -73,6 +75,8 @@ const AuthCallback = () => {
               // Profile exists, redirect based on role
               if (userProfile.role === 'admin' || userProfile.role === 'editor' || userProfile.role === 'counselor') {
                 navigate('/admin');
+              } else if (userProfile.role === 'agent') {
+                navigate('/agent');
               } else {
                 navigate('/student-dashboard/home');
               }

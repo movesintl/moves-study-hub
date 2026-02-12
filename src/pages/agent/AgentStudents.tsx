@@ -14,7 +14,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 const emptyForm = {
   student_name: '', student_email: '', student_phone: '', date_of_birth: '',
-  nationality: '', address: '', current_education_level: '', english_test_score: '', work_experience: '',
+  nationality: '', address: '', education_level: '', english_test_score: '',
 };
 
 const AgentStudents = () => {
@@ -92,9 +92,8 @@ const AgentStudents = () => {
       date_of_birth: student.date_of_birth || '',
       nationality: student.nationality || '',
       address: student.address || '',
-      current_education_level: student.current_education_level || '',
+      education_level: student.education_level || '',
       english_test_score: student.english_test_score || '',
-      work_experience: student.work_experience || '',
     });
     setIsFormOpen(true);
   };
@@ -155,16 +154,12 @@ const AgentStudents = () => {
                   <Input value={formData.address} onChange={(e) => updateField('address', e.target.value)} />
                 </div>
                 <div>
-                  <Label>Current Education Level</Label>
-                  <Input value={formData.current_education_level} onChange={(e) => updateField('current_education_level', e.target.value)} placeholder="e.g. Bachelor's Degree" />
+                  <Label>Education Level</Label>
+                  <Input value={formData.education_level} onChange={(e) => updateField('education_level', e.target.value)} placeholder="e.g. Bachelor's Degree" />
                 </div>
                 <div>
                   <Label>English Test Score</Label>
                   <Input value={formData.english_test_score} onChange={(e) => updateField('english_test_score', e.target.value)} placeholder="e.g. IELTS 7.0" />
-                </div>
-                <div className="col-span-2">
-                  <Label>Work Experience</Label>
-                  <Input value={formData.work_experience} onChange={(e) => updateField('work_experience', e.target.value)} placeholder="e.g. 2 years in IT" />
                 </div>
               </div>
               <Button onClick={handleSubmit} disabled={saveMutation.isPending} className="w-full">
@@ -213,7 +208,7 @@ const AgentStudents = () => {
                       <TableCell>{student.student_email}</TableCell>
                       <TableCell>{student.student_phone || '—'}</TableCell>
                       <TableCell>{student.nationality || '—'}</TableCell>
-                      <TableCell>{student.current_education_level || '—'}</TableCell>
+                      <TableCell>{student.education_level || '—'}</TableCell>
                       <TableCell>
                         <div className="flex gap-1">
                           <Button variant="outline" size="sm" onClick={() => openEdit(student)}>

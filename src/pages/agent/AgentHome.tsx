@@ -11,7 +11,7 @@ const AgentHome = () => {
   const { data: agent } = useQuery({
     queryKey: ['agent-profile', user?.id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('agents')
         .select('*')
         .eq('user_id', user!.id)
@@ -25,7 +25,7 @@ const AgentHome = () => {
   const { data: studentCount = 0 } = useQuery({
     queryKey: ['agent-student-count', agent?.id],
     queryFn: async () => {
-      const { count, error } = await supabase
+      const { count, error } = await (supabase as any)
         .from('agent_students')
         .select('*', { count: 'exact', head: true })
         .eq('agent_id', agent!.id);
@@ -38,7 +38,7 @@ const AgentHome = () => {
   const { data: applications = [] } = useQuery({
     queryKey: ['agent-applications', agent?.id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('applications')
         .select('status')
         .eq('agent_id', agent!.id);

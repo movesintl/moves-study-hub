@@ -26,7 +26,7 @@ const AgentApplications = () => {
   const { data: agent } = useQuery({
     queryKey: ['agent-profile', user?.id],
     queryFn: async () => {
-      const { data, error } = await supabase.from('agents').select('id').eq('user_id', user!.id).single();
+      const { data, error } = await (supabase as any).from('agents').select('id').eq('user_id', user!.id).single();
       if (error) throw error;
       return data;
     },
@@ -36,7 +36,7 @@ const AgentApplications = () => {
   const { data: students = [] } = useQuery({
     queryKey: ['agent-students', agent?.id],
     queryFn: async () => {
-      const { data, error } = await supabase.from('agent_students').select('*').eq('agent_id', agent!.id);
+      const { data, error } = await (supabase as any).from('agent_students').select('*').eq('agent_id', agent!.id);
       if (error) throw error;
       return data;
     },
@@ -46,7 +46,7 @@ const AgentApplications = () => {
   const { data: applications = [], isLoading } = useQuery({
     queryKey: ['agent-applications', agent?.id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('applications')
         .select(`*, courses:course_id(title, level), universities:university_id(name), destinations:destination_id(name)`)
         .eq('agent_id', agent!.id)
@@ -72,7 +72,7 @@ const AgentApplications = () => {
       const course = courses.find((c: any) => c.id === formData.course_id);
       if (!student || !course) throw new Error('Select a student and course');
 
-      const { error } = await supabase.from('applications').insert({
+      const { error } = await (supabase as any).from('applications').insert({
         agent_id: agent!.id,
         student_name: student.student_name,
         student_email: student.student_email,

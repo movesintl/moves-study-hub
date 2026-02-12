@@ -49,18 +49,20 @@ const Auth = () => {
             }
             
             // Use retry result
-            if (retryProfile.role === 'admin' || retryProfile.role === 'editor' || retryProfile.role === 'counselor') {
+            const retryRole = retryProfile.role as string;
+            if (retryRole === 'admin' || retryRole === 'editor' || retryRole === 'counselor') {
               navigate('/admin');
-            } else if (retryProfile.role === 'agent') {
+            } else if (retryRole === 'agent') {
               navigate('/agent');
             } else {
               navigate('/student-dashboard');
             }
           } else {
             // Profile exists, redirect based on role
-            if (userProfile.role === 'admin' || userProfile.role === 'editor' || userProfile.role === 'counselor') {
+            const role = userProfile.role as string;
+            if (role === 'admin' || role === 'editor' || role === 'counselor') {
               navigate('/admin');
-            } else if (userProfile.role === 'agent') {
+            } else if (role === 'agent') {
               navigate('/agent');
             } else {
               navigate('/student-dashboard');

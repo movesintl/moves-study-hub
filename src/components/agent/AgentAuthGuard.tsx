@@ -22,14 +22,14 @@ const AgentAuthGuard: React.FC<{ children: React.ReactNode }> = ({ children }) =
           .eq('user_id', user.id)
           .single();
 
-        if (error || profile?.role !== 'agent') {
+        if (error || (profile?.role as string) !== 'agent') {
           setIsAgent(false);
           navigate('/auth');
           return;
         }
 
         // Check if agent is active
-        const { data: agent } = await supabase
+        const { data: agent } = await (supabase as any)
           .from('agents')
           .select('is_active')
           .eq('user_id', user.id)

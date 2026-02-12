@@ -53,7 +53,12 @@ const Auth = () => {
             if (retryRole === 'admin' || retryRole === 'editor' || retryRole === 'counselor') {
               navigate('/admin');
             } else if (retryRole === 'agent') {
-              navigate('/agent');
+              const { data: agentData } = await supabase
+                .from('agents')
+                .select('activated_at')
+                .eq('user_id', user.id)
+                .maybeSingle();
+              navigate(agentData?.activated_at ? '/agent' : '/agent/set-password');
             } else {
               navigate('/student-dashboard');
             }
@@ -63,7 +68,12 @@ const Auth = () => {
             if (role === 'admin' || role === 'editor' || role === 'counselor') {
               navigate('/admin');
             } else if (role === 'agent') {
-              navigate('/agent');
+              const { data: agentData } = await supabase
+                .from('agents')
+                .select('activated_at')
+                .eq('user_id', user.id)
+                .maybeSingle();
+              navigate(agentData?.activated_at ? '/agent' : '/agent/set-password');
             } else {
               navigate('/student-dashboard');
             }

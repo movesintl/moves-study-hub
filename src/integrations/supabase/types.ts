@@ -10,115 +10,13 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "13.0.5"
   }
   public: {
     Tables: {
-      agent_students: {
-        Row: {
-          address: string | null
-          agent_id: string
-          created_at: string
-          current_education_level: string | null
-          date_of_birth: string | null
-          english_test_score: string | null
-          id: string
-          nationality: string | null
-          student_email: string
-          student_name: string
-          student_phone: string | null
-          updated_at: string
-          work_experience: string | null
-        }
-        Insert: {
-          address?: string | null
-          agent_id: string
-          created_at?: string
-          current_education_level?: string | null
-          date_of_birth?: string | null
-          english_test_score?: string | null
-          id?: string
-          nationality?: string | null
-          student_email: string
-          student_name: string
-          student_phone?: string | null
-          updated_at?: string
-          work_experience?: string | null
-        }
-        Update: {
-          address?: string | null
-          agent_id?: string
-          created_at?: string
-          current_education_level?: string | null
-          date_of_birth?: string | null
-          english_test_score?: string | null
-          id?: string
-          nationality?: string | null
-          student_email?: string
-          student_name?: string
-          student_phone?: string | null
-          updated_at?: string
-          work_experience?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "agent_students_agent_id_fkey"
-            columns: ["agent_id"]
-            isOneToOne: false
-            referencedRelation: "agents"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      agents: {
-        Row: {
-          activated_at: string | null
-          address: string | null
-          company_name: string | null
-          contact_person: string
-          created_at: string
-          email: string
-          id: string
-          invited_at: string
-          is_active: boolean
-          phone: string | null
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          activated_at?: string | null
-          address?: string | null
-          company_name?: string | null
-          contact_person: string
-          created_at?: string
-          email: string
-          id?: string
-          invited_at?: string
-          is_active?: boolean
-          phone?: string | null
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          activated_at?: string | null
-          address?: string | null
-          company_name?: string | null
-          contact_person?: string
-          created_at?: string
-          email?: string
-          id?: string
-          invited_at?: string
-          is_active?: boolean
-          phone?: string | null
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       applications: {
         Row: {
           address: string | null
-          agent_id: string | null
           course_id: string | null
           created_at: string
           date_of_birth: string | null
@@ -136,7 +34,6 @@ export type Database = {
         }
         Insert: {
           address?: string | null
-          agent_id?: string | null
           course_id?: string | null
           created_at?: string
           date_of_birth?: string | null
@@ -154,7 +51,6 @@ export type Database = {
         }
         Update: {
           address?: string | null
-          agent_id?: string | null
           course_id?: string | null
           created_at?: string
           date_of_birth?: string | null
@@ -171,13 +67,6 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "applications_agent_id_fkey"
-            columns: ["agent_id"]
-            isOneToOne: false
-            referencedRelation: "agents"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "applications_course_id_fkey"
             columns: ["course_id"]
@@ -362,60 +251,69 @@ export type Database = {
       careers: {
         Row: {
           application_deadline: string | null
-          apply_link: string
+          apply_link: string | null
           benefits: string | null
-          created_at: string
+          created_at: string | null
           department: string
           full_description: string
           id: string
-          is_published: boolean
+          is_active: boolean | null
+          is_published: boolean | null
           job_title: string
-          job_type: Database["public"]["Enums"]["job_type"]
+          job_type: string
           location: string
           meta_description: string | null
           meta_title: string | null
-          requirements: string
+          qualifications: string | null
+          requirements: string | null
+          salary_range: string | null
           short_description: string
-          slug: string
-          updated_at: string
+          slug: string | null
+          updated_at: string | null
         }
         Insert: {
           application_deadline?: string | null
-          apply_link: string
+          apply_link?: string | null
           benefits?: string | null
-          created_at?: string
+          created_at?: string | null
           department: string
           full_description: string
           id?: string
-          is_published?: boolean
+          is_active?: boolean | null
+          is_published?: boolean | null
           job_title: string
-          job_type: Database["public"]["Enums"]["job_type"]
+          job_type: string
           location: string
           meta_description?: string | null
           meta_title?: string | null
-          requirements: string
+          qualifications?: string | null
+          requirements?: string | null
+          salary_range?: string | null
           short_description: string
-          slug: string
-          updated_at?: string
+          slug?: string | null
+          updated_at?: string | null
         }
         Update: {
           application_deadline?: string | null
-          apply_link?: string
+          apply_link?: string | null
           benefits?: string | null
-          created_at?: string
+          created_at?: string | null
           department?: string
           full_description?: string
           id?: string
-          is_published?: boolean
+          is_active?: boolean | null
+          is_published?: boolean | null
           job_title?: string
-          job_type?: Database["public"]["Enums"]["job_type"]
+          job_type?: string
           location?: string
           meta_description?: string | null
           meta_title?: string | null
-          requirements?: string
+          qualifications?: string | null
+          requirements?: string | null
+          salary_range?: string | null
           short_description?: string
-          slug?: string
-          updated_at?: string
+          slug?: string | null
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -875,44 +773,47 @@ export type Database = {
       }
       job_applications: {
         Row: {
-          career_id: string
+          career_id: string | null
           cover_letter_file_url: string | null
           created_at: string
           cv_file_url: string | null
-          email: string
-          full_name: string
+          email: string | null
+          full_name: string | null
           id: string
+          job_id: string | null
           phone: string | null
-          status: string | null
-          updated_at: string
+          status: string
+          user_id: string | null
         }
         Insert: {
-          career_id: string
+          career_id?: string | null
           cover_letter_file_url?: string | null
           created_at?: string
           cv_file_url?: string | null
-          email: string
-          full_name: string
+          email?: string | null
+          full_name?: string | null
           id?: string
+          job_id?: string | null
           phone?: string | null
-          status?: string | null
-          updated_at?: string
+          status?: string
+          user_id?: string | null
         }
         Update: {
-          career_id?: string
+          career_id?: string | null
           cover_letter_file_url?: string | null
           created_at?: string
           cv_file_url?: string | null
-          email?: string
-          full_name?: string
+          email?: string | null
+          full_name?: string | null
           id?: string
+          job_id?: string | null
           phone?: string | null
-          status?: string | null
-          updated_at?: string
+          status?: string
+          user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "fk_job_applications_career"
+            foreignKeyName: "fk_job_application_career"
             columns: ["career_id"]
             isOneToOne: false
             referencedRelation: "careers"
@@ -1128,30 +1029,24 @@ export type Database = {
           action: string
           count: number
           created_at: string
-          failure_count: number | null
           id: string
           identifier: string
-          lockout_until: string | null
           window_start: string
         }
         Insert: {
           action: string
           count?: number
           created_at?: string
-          failure_count?: number | null
           id?: string
           identifier: string
-          lockout_until?: string | null
           window_start?: string
         }
         Update: {
           action?: string
           count?: number
           created_at?: string
-          failure_count?: number | null
           id?: string
           identifier?: string
-          lockout_until?: string | null
           window_start?: string
         }
         Relationships: []
@@ -1564,20 +1459,20 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          role: Database["public"]["Enums"]["user_role"]
-          user_id: string
+          role: Database["public"]["Enums"]["user_role"] | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           id?: string
-          role?: Database["public"]["Enums"]["user_role"]
-          user_id: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           id?: string
-          role?: Database["public"]["Enums"]["user_role"]
-          user_id?: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -1595,17 +1490,6 @@ export type Database = {
         }
         Returns: boolean
       }
-      check_rate_limit_with_lockout: {
-        Args: {
-          p_action: string
-          p_identifier: string
-          p_lockout_minutes?: number
-          p_max_failures?: number
-          p_max_requests?: number
-          p_window_minutes?: number
-        }
-        Returns: Json
-      }
       create_notification: {
         Args: {
           p_category?: string
@@ -1616,18 +1500,6 @@ export type Database = {
           p_type?: string
           p_user_id: string
         }
-        Returns: string
-      }
-      detect_suspicious_activity: {
-        Args: {
-          p_ip_address?: unknown
-          p_time_window_hours?: number
-          p_user_id?: string
-        }
-        Returns: Json
-      }
-      generate_career_slug: {
-        Args: { career_id?: string; career_title: string }
         Returns: string
       }
       generate_event_slug: {
@@ -1650,11 +1522,9 @@ export type Database = {
         Args: { university_id?: string; university_name: string }
         Returns: string
       }
-      get_agent_id: { Args: { p_user_id: string }; Returns: string }
       get_auth_users: { Args: never; Returns: Json }
       is_admin: { Args: { user_id: string }; Returns: boolean }
       is_admin_or_editor: { Args: { user_id: string }; Returns: boolean }
-      is_agent: { Args: { p_user_id: string }; Returns: boolean }
       log_audit_event: {
         Args: {
           p_action: string
@@ -1662,17 +1532,6 @@ export type Database = {
           p_old_values?: Json
           p_record_id?: string
           p_table_name?: string
-        }
-        Returns: undefined
-      }
-      log_auth_event: {
-        Args: {
-          p_details?: Json
-          p_event_type: string
-          p_ip_address?: unknown
-          p_success?: boolean
-          p_user_agent?: string
-          p_user_id?: string
         }
         Returns: undefined
       }
@@ -1692,11 +1551,9 @@ export type Database = {
         Returns: undefined
       }
       slugify: { Args: { "": string }; Returns: string }
-      sync_course_foreign_keys: { Args: never; Returns: undefined }
     }
     Enums: {
-      job_type: "Full-Time" | "Part-Time" | "Internship" | "Contract"
-      user_role: "admin" | "editor" | "counselor" | "student" | "agent"
+      user_role: "admin" | "editor" | "user" | "counselor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1824,8 +1681,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      job_type: ["Full-Time", "Part-Time", "Internship", "Contract"],
-      user_role: ["admin", "editor", "counselor", "student", "agent"],
+      user_role: ["admin", "editor", "user", "counselor"],
     },
   },
 } as const

@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { Plus, Search, Clock, Eye, CheckCircle, XCircle } from 'lucide-react';
+import { Plus, Search, Clock, Eye, CheckCircle, XCircle, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const AgentApplications = () => {
@@ -99,19 +99,18 @@ const AgentApplications = () => {
     },
   });
 
-  const statusConfig: Record<string, { class: string; icon: any }> = {
-    pending: { class: 'bg-amber-50 text-amber-700 border-amber-200', icon: Clock },
-    under_review: { class: 'bg-blue-50 text-blue-700 border-blue-200', icon: Eye },
-    approved: { class: 'bg-emerald-50 text-emerald-700 border-emerald-200', icon: CheckCircle },
-    rejected: { class: 'bg-red-50 text-red-700 border-red-200', icon: XCircle },
+  const statusConfig: Record<string, { class: string; icon: any; dot: string }> = {
+    pending: { class: 'bg-amber-50 text-amber-700 border-amber-200', icon: Clock, dot: 'bg-amber-500' },
+    under_review: { class: 'bg-blue-50 text-blue-700 border-blue-200', icon: Eye, dot: 'bg-blue-500' },
+    approved: { class: 'bg-emerald-50 text-emerald-700 border-emerald-200', icon: CheckCircle, dot: 'bg-emerald-500' },
+    rejected: { class: 'bg-red-50 text-red-700 border-red-200', icon: XCircle, dot: 'bg-red-500' },
   };
 
   const getStatusBadge = (status: string) => {
     const c = statusConfig[status] || statusConfig.pending;
-    const Icon = c.icon;
     return (
-      <span className={cn("inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border", c.class)}>
-        <Icon className="h-3 w-3" />
+      <span className={cn("inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border", c.class)}>
+        <span className={cn("w-1.5 h-1.5 rounded-full", c.dot)} />
         {status.replace('_', ' ')}
       </span>
     );
@@ -123,26 +122,33 @@ const AgentApplications = () => {
   );
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-semibold text-foreground">Applications</h1>
-          <p className="text-sm text-muted-foreground">Submit and track student applications</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-[hsl(195,100%,20%)] flex items-center justify-center shadow-lg">
+            <FileText className="h-5 w-5 text-primary-foreground" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold text-foreground">Applications</h1>
+            <p className="text-xs text-muted-foreground">Submit and track student applications</p>
+          </div>
         </div>
         <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" className="gap-1.5"><Plus className="h-4 w-4" />New Application</Button>
+            <Button size="sm" className="gap-1.5 rounded-xl bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg shadow-accent/20">
+              <Plus className="h-4 w-4" />New Application
+            </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="rounded-2xl">
             <DialogHeader>
-              <DialogTitle>Submit Application</DialogTitle>
+              <DialogTitle className="text-lg">Submit Application</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 pt-2">
               <div>
-                <Label className="text-xs">Student *</Label>
+                <Label className="text-xs font-semibold text-muted-foreground">Student *</Label>
                 <Select value={formData.student_id} onValueChange={(v) => setFormData({ ...formData, student_id: v })}>
-                  <SelectTrigger><SelectValue placeholder="Select a student" /></SelectTrigger>
+                  <SelectTrigger className="rounded-xl"><SelectValue placeholder="Select a student" /></SelectTrigger>
                   <SelectContent>
                     {students.map((s: any) => (
                       <SelectItem key={s.id} value={s.id}>{s.student_name} ({s.student_email})</SelectItem>
@@ -152,9 +158,9 @@ const AgentApplications = () => {
                 {students.length === 0 && <p className="text-xs text-muted-foreground mt-1">Add a student profile first.</p>}
               </div>
               <div>
-                <Label className="text-xs">Course *</Label>
+                <Label className="text-xs font-semibold text-muted-foreground">Course *</Label>
                 <Select value={formData.course_id} onValueChange={(v) => setFormData({ ...formData, course_id: v })}>
-                  <SelectTrigger><SelectValue placeholder="Select a course" /></SelectTrigger>
+                  <SelectTrigger className="rounded-xl"><SelectValue placeholder="Select a course" /></SelectTrigger>
                   <SelectContent>
                     {courses.map((c: any) => (
                       <SelectItem key={c.id} value={c.id}>{c.title} — {c.university}</SelectItem>
@@ -163,10 +169,14 @@ const AgentApplications = () => {
                 </Select>
               </div>
               <div>
-                <Label className="text-xs">Notes</Label>
-                <Input value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} placeholder="Optional notes..." />
+                <Label className="text-xs font-semibold text-muted-foreground">Notes</Label>
+                <Input value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} placeholder="Optional notes..." className="rounded-xl" />
               </div>
-              <Button onClick={() => submitApplication.mutate()} disabled={!formData.student_id || !formData.course_id || submitApplication.isPending} className="w-full">
+              <Button
+                onClick={() => submitApplication.mutate()}
+                disabled={!formData.student_id || !formData.course_id || submitApplication.isPending}
+                className="w-full rounded-xl bg-accent hover:bg-accent/90 text-accent-foreground"
+              >
                 {submitApplication.isPending ? 'Submitting...' : 'Submit Application'}
               </Button>
             </div>
@@ -177,32 +187,38 @@ const AgentApplications = () => {
       {/* Search */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input placeholder="Search by student or course..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-9 bg-card" />
+        <Input placeholder="Search by student or course..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-9 rounded-xl bg-card border-border" />
       </div>
 
       {/* Table */}
-      <div className="bg-card rounded-xl border border-border overflow-hidden">
+      <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-soft">
         {isLoading ? (
-          <div className="text-center py-12 text-sm text-muted-foreground">Loading applications...</div>
+          <div className="text-center py-16 text-sm text-muted-foreground">Loading applications...</div>
         ) : filtered.length === 0 ? (
-          <div className="text-center py-12 text-sm text-muted-foreground">No applications yet</div>
+          <div className="text-center py-16">
+            <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
+              <FileText className="h-6 w-6 text-muted-foreground" />
+            </div>
+            <p className="text-sm font-medium text-foreground mb-1">No applications yet</p>
+            <p className="text-xs text-muted-foreground">Submit your first application to get started</p>
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/50 hover:bg-muted/50">
-                  <TableHead className="text-xs font-medium">Student</TableHead>
-                  <TableHead className="text-xs font-medium">Course</TableHead>
-                  <TableHead className="text-xs font-medium">University</TableHead>
-                  <TableHead className="text-xs font-medium">Destination</TableHead>
-                  <TableHead className="text-xs font-medium">Status</TableHead>
-                  <TableHead className="text-xs font-medium">Date</TableHead>
+                <TableRow className="bg-muted/40 hover:bg-muted/40 border-b border-border">
+                  <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Student</TableHead>
+                  <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Course</TableHead>
+                  <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">University</TableHead>
+                  <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Destination</TableHead>
+                  <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                  <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Date</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filtered.map((app: any) => (
-                  <TableRow key={app.id} className="hover:bg-muted/30">
-                    <TableCell className="font-medium text-sm">{app.student_name}</TableCell>
+                  <TableRow key={app.id} className="hover:bg-muted/20 transition-colors">
+                    <TableCell className="font-medium text-sm text-foreground">{app.student_name}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{app.courses?.title || '—'}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{app.universities?.name || '—'}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{app.destinations?.name || '—'}</TableCell>

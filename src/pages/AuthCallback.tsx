@@ -67,7 +67,12 @@ const AuthCallback = () => {
               if (retryProfile.role === 'admin' || retryProfile.role === 'editor' || retryProfile.role === 'counselor') {
                 navigate('/admin');
               } else if (retryProfile.role === 'agent') {
-                navigate('/agent');
+                const { data: agentData } = await supabase
+                  .from('agents')
+                  .select('activated_at')
+                  .eq('user_id', data.session.user.id)
+                  .maybeSingle();
+                navigate(agentData?.activated_at ? '/agent' : '/agent/set-password');
               } else {
                 navigate('/student-dashboard/home');
               }
@@ -76,7 +81,12 @@ const AuthCallback = () => {
               if (userProfile.role === 'admin' || userProfile.role === 'editor' || userProfile.role === 'counselor') {
                 navigate('/admin');
               } else if (userProfile.role === 'agent') {
-                navigate('/agent');
+                const { data: agentData } = await supabase
+                  .from('agents')
+                  .select('activated_at')
+                  .eq('user_id', data.session.user.id)
+                  .maybeSingle();
+                navigate(agentData?.activated_at ? '/agent' : '/agent/set-password');
               } else {
                 navigate('/student-dashboard/home');
               }

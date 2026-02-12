@@ -91,6 +91,7 @@ import AgentApplications from '@/pages/agent/AgentApplications';
 import AgentCourses from '@/pages/agent/AgentCourses';
 import AgentUniversities from '@/pages/agent/AgentUniversities';
 import AgentAuthGuard from '@/components/agent/AgentAuthGuard';
+import AgentSetPassword from '@/pages/agent/AgentSetPassword';
 
 const queryClient = new QueryClient();
 
@@ -205,6 +206,7 @@ function App() {
                   </RoleGuard>
                 } />
               </Route>
+              <Route path="/agent/set-password" element={<AgentSetPassword />} />
               <Route path="/agent" element={
                 <AgentAuthGuard>
                   <AgentDashboard />

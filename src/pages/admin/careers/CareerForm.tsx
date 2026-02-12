@@ -75,7 +75,7 @@ const CareerForm = () => {
   useEffect(() => {
     if (career) {
       setValue('job_title', career.job_title);
-      setValue('job_type', career.job_type);
+      setValue('job_type', career.job_type as any);
       setValue('location', career.location);
       setValue('department', career.department);
       setValue('short_description', career.short_description);

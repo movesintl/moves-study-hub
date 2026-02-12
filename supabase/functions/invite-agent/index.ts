@@ -15,24 +15,29 @@ interface InviteAgentRequest {
   phone?: string;
 }
 
+const EXTERNAL_SUPABASE_URL = "https://hhzjzbxpdnehbgwvmimm.supabase.co";
+const EXTERNAL_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhoemp6YnhwZG5laGJnd3ZtaW1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3NjA2ODAsImV4cCI6MjA3ODMzNjY4MH0.hRwUSUYg7mry2h_ZBXhdaqRPkrZKMPgLLMTIuikLImI";
+
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey);
+    const serviceRoleKey = Deno.env.get("EXTERNAL_SUPABASE_SERVICE_ROLE_KEY")!;
+    if (!serviceRoleKey) {
+      throw new Error("EXTERNAL_SUPABASE_SERVICE_ROLE_KEY not configured");
+    }
 
-    // Verify the caller is an admin
+    const supabaseAdmin = createClient(EXTERNAL_SUPABASE_URL, serviceRoleKey);
+
+    // Verify the caller is an admin using their auth token against the external project
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
       throw new Error("No authorization header");
     }
 
-    const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-    const callerClient = createClient(supabaseUrl, anonKey, {
+    const callerClient = createClient(EXTERNAL_SUPABASE_URL, EXTERNAL_ANON_KEY, {
       global: { headers: { Authorization: authHeader } },
     });
 
@@ -62,7 +67,7 @@ const handler = async (req: Request): Promise<Response> => {
         contact_person,
         company_name,
       },
-      redirectTo: `${supabaseUrl.replace('.supabase.co', '.supabase.co')}/auth/v1/callback`,
+      redirectTo: `https://moves-study-hub.lovable.app/auth`,
     });
 
     if (inviteError) {

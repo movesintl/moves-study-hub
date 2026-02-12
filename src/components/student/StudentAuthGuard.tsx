@@ -33,25 +33,22 @@ const StudentAuthGuard: React.FC<StudentAuthGuardProps> = ({ children }) => {
           .single();
 
         if (error && error.code !== 'PGRST116') {
-          // PGRST116 is "not found" error, which is acceptable for new users
           console.error('Error checking user role:', error);
-          setIsAuthorized(true); // Allow access if we can't determine role
+          setIsAuthorized(true);
         } else {
-          const userRole = userProfile?.role;
+          const userRole = userProfile?.role as string;
           
-          // Allow access if user has no role (default student) or explicitly has student role
-          // Block access if user is admin, editor, or counselor
-          const hasStudentAccess = !userRole || userRole === 'student';
+          // Allow access if user has no role (default student) or explicitly has 'user' role
+          const hasStudentAccess = !userRole || userRole === 'user';
           setIsAuthorized(hasStudentAccess);
 
           if (!hasStudentAccess && (userRole === 'admin' || userRole === 'editor' || userRole === 'counselor')) {
-            // Redirect admin/editor/counselor users to admin panel
             navigate('/admin');
           }
         }
       } catch (error) {
         console.error('Error in student access check:', error);
-        setIsAuthorized(true); // Allow access on error
+        setIsAuthorized(true);
       } finally {
         setLoading(false);
       }
@@ -73,13 +70,13 @@ const StudentAuthGuard: React.FC<StudentAuthGuardProps> = ({ children }) => {
           .single();
 
         if (checkError && checkError.code === 'PGRST116') {
-          // User doesn't have a profile, create one with 'student' role
+          // User doesn't have a profile, create one with 'user' role (default)
           const { error: insertError } = await supabase
             .from('user_profiles')
             .insert([
               {
                 user_id: user.id,
-                role: 'student'
+                role: 'user' as any
               }
             ]);
 
@@ -107,7 +104,7 @@ const StudentAuthGuard: React.FC<StudentAuthGuardProps> = ({ children }) => {
   }
 
   if (!user || !isAuthorized) {
-    return null; // Will be redirected by useEffect
+    return null;
   }
 
   return <>{children}</>;

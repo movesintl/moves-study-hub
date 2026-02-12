@@ -51,7 +51,7 @@ export const DataConsistencyChecker = () => {
   const fixDataConsistency = async () => {
     setIsFixing(true);
     try {
-      const { data, error } = await supabase.rpc('sync_course_foreign_keys');
+      const { data, error } = await (supabase as any).rpc('sync_course_foreign_keys');
       
       if (error) throw error;
 

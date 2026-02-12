@@ -21,7 +21,7 @@ const ApplicationsList = () => {
   const { data: applications = [], isLoading, refetch } = useQuery({
     queryKey: ['applications'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('applications')
         .select(`
           *,

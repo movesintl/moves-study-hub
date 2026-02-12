@@ -9,11 +9,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 import { Search, UserPlus, Edit, Trash2, ToggleLeft, ToggleRight, Users } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
+const LOVABLE_FUNCTIONS_URL = "https://hhzjzbxpdnehbgwvmimm.supabase.co/functions/v1";
+
 const AgentsList = () => {
   const { toast } = useToast();
+  const { session } = useAuth();
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState('');
   const [isInviteOpen, setIsInviteOpen] = useState(false);
@@ -28,7 +32,7 @@ const AgentsList = () => {
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ['agents'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('agents')
         .select('*')
         .order('created_at', { ascending: false });
@@ -39,10 +43,15 @@ const AgentsList = () => {
 
   const inviteAgent = useMutation({
     mutationFn: async (data: typeof formData) => {
-      const { data: result, error } = await supabase.functions.invoke('invite-agent', {
-        body: data,
+      const response = await fetch(`${LOVABLE_FUNCTIONS_URL}/invite-agent`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token}`,
+        },
+        body: JSON.stringify(data),
       });
-      if (error) throw error;
+      const result = await response.json();
       if (!result.success) throw new Error(result.error);
       return result;
     },
@@ -59,7 +68,7 @@ const AgentsList = () => {
 
   const updateAgent = useMutation({
     mutationFn: async ({ id, ...updates }: any) => {
-      const { error } = await supabase.from('agents').update(updates).eq('id', id);
+      const { error } = await (supabase as any).from('agents').update(updates).eq('id', id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -75,7 +84,7 @@ const AgentsList = () => {
 
   const deleteAgent = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from('agents').delete().eq('id', id);
+      const { error } = await (supabase as any).from('agents').delete().eq('id', id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -89,7 +98,7 @@ const AgentsList = () => {
 
   const toggleAgentStatus = useMutation({
     mutationFn: async ({ id, is_active }: { id: string; is_active: boolean }) => {
-      const { error } = await supabase.from('agents').update({ is_active }).eq('id', id);
+      const { error } = await (supabase as any).from('agents').update({ is_active }).eq('id', id);
       if (error) throw error;
     },
     onSuccess: () => {

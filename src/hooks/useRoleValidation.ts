@@ -168,7 +168,7 @@ export const useRoleValidation = () => {
     try {
       const { error } = await supabase
         .from('user_profiles')
-        .update({ role: newRole })
+        .update({ role: newRole as any })
         .eq('user_id', targetUserId);
 
       if (error) {

@@ -39,10 +39,11 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
           return;
         }
 
-        const hasAdminAccess = userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'counselor';
+        const role = userProfile?.role as string;
+        const hasAdminAccess = role === 'admin' || role === 'editor' || role === 'counselor';
         
         // Redirect agents to their own dashboard
-        if (userProfile?.role === 'agent') {
+        if (role === 'agent') {
           navigate('/agent');
           return;
         }

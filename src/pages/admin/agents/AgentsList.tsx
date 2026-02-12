@@ -22,6 +22,7 @@ const AgentsList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [editingAgent, setEditingAgent] = useState<any>(null);
+  const [credentialsInfo, setCredentialsInfo] = useState<{ email: string; password: string; loginUrl: string } | null>(null);
   const [formData, setFormData] = useState({
     email: '',
     contact_person: '',
@@ -55,9 +56,14 @@ const AgentsList = () => {
       if (!result.success) throw new Error(result.error);
       return result;
     },
-    onSuccess: () => {
-      toast({ title: 'Agent Invited', description: 'Invitation email sent successfully.' });
+    onSuccess: (result) => {
+      toast({ title: 'Agent Created', description: 'Agent account created successfully.' });
       setIsInviteOpen(false);
+      setCredentialsInfo({
+        email: formData.email,
+        password: result.temp_password,
+        loginUrl: result.login_url,
+      });
       resetForm();
       queryClient.invalidateQueries({ queryKey: ['agents'] });
     },
@@ -211,7 +217,39 @@ const AgentsList = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Search */}
+      {/* Credentials Dialog */}
+      <Dialog open={!!credentialsInfo} onOpenChange={(open) => { if (!open) setCredentialsInfo(null); }}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Agent Credentials</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 pt-4">
+            <p className="text-sm text-muted-foreground">Share these credentials with the agent so they can log in:</p>
+            <div>
+              <Label>Login URL</Label>
+              <Input value={credentialsInfo?.loginUrl || ''} readOnly className="bg-muted font-mono text-sm" />
+            </div>
+            <div>
+              <Label>Email</Label>
+              <Input value={credentialsInfo?.email || ''} readOnly className="bg-muted" />
+            </div>
+            <div>
+              <Label>Temporary Password</Label>
+              <Input value={credentialsInfo?.password || ''} readOnly className="bg-muted font-mono" />
+            </div>
+            <p className="text-xs text-destructive font-medium">⚠️ This password will not be shown again. Please copy and share it now.</p>
+            <Button onClick={() => {
+              const text = `Login URL: ${credentialsInfo?.loginUrl}\nEmail: ${credentialsInfo?.email}\nTemporary Password: ${credentialsInfo?.password}`;
+              navigator.clipboard.writeText(text);
+              toast({ title: 'Copied!', description: 'Credentials copied to clipboard.' });
+            }} className="w-full">
+              Copy All Credentials
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+
       <Card>
         <CardContent className="pt-6">
           <div className="relative">

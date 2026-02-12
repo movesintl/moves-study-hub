@@ -1,77 +1,56 @@
 
 
-# Fix Agent Invitation System
+# Fix Agent Login: Password Setup After Invitation
 
-## Overview
-Three things need to be fixed for agent invitations to work:
-1. The `agents` table doesn't exist yet in your database
-2. The invite button calls the wrong URL for the edge function  
-3. The edge function needs your external Supabase service role key to send invitation emails
+## The Problem
+When an admin invites an agent, Supabase sends a magic link email. The agent clicks it and gets authenticated, but they never set a password. So on subsequent visits, they cannot log in because there's no password on their account.
 
-## Step 1: Create the `agents` table
-Run a database migration to create the table with columns for email, contact person, company, phone, status, and timestamps. Add RLS policies so only admins can manage agents.
+## The Solution
+Create a password setup flow that activates when an agent accepts their invitation.
 
-Also add `'agent'` to the `user_role` enum type so agents can be properly assigned.
+### How It Works
+1. Admin invites agent (existing flow -- sends magic link via email)
+2. Agent clicks the magic link and arrives at `/auth` already authenticated
+3. The system detects the agent role and that their `agents.activated_at` is null (first login)
+4. Instead of redirecting straight to `/agent`, redirect to a **Set Password** page
+5. Agent creates their password using `supabase.auth.updateUser({ password })`
+6. System marks `agents.activated_at = now()` and redirects to `/agent`
+7. On future logins, agent uses email + password normally
 
-## Step 2: Add the Service Role Key secret
-The edge function needs your **external Supabase service role key** to call `auth.admin.inviteUserByEmail()`. You'll be prompted to paste this key (found in your Supabase Dashboard at Settings > API > service_role key for project `hhzjzbxpdnehbgwvmimm`).
+### Files to Create
+- **`src/pages/agent/AgentSetPassword.tsx`** -- A simple page with password + confirm password fields. Calls `supabase.auth.updateUser({ password })`, then updates `agents.activated_at`, then navigates to `/agent`.
 
-## Step 3: Update the Edge Function
-Modify `supabase/functions/invite-agent/index.ts` to:
-- Use your external project URL (`https://hhzjzbxpdnehbgwvmimm.supabase.co`) and the service role key secret
-- Use your external anon key for verifying the caller's identity
-- Set the invitation redirect URL to your app's domain
+### Files to Modify
+- **`src/pages/Auth.tsx`** -- When an authenticated agent user is detected and `activated_at` is null, redirect to `/agent/set-password` instead of `/agent`
+- **`src/pages/AuthCallback.tsx`** -- Same logic: check `activated_at` for agent users and redirect accordingly
+- **`src/App.tsx`** -- Add route for `/agent/set-password`
+- **`supabase/functions/invite-agent/index.ts`** -- Ensure `activated_at` is explicitly set to `null` on creation (already the case)
 
-## Step 4: Update the Frontend
-Modify `src/pages/admin/agents/AgentsList.tsx` to:
-- Call the edge function via direct `fetch()` to the Lovable-deployed URL instead of `supabase.functions.invoke()` (which targets the wrong host)
-- Pass the logged-in user's auth token in the request header
-- Import `useAuth` to access the current session
-
-## Step 5: Deploy and Test
-Redeploy the edge function and test sending an agent invitation.
-
----
+### User Experience
+- First login (via invitation link): Agent sees "Set Your Password" page
+- Subsequent logins: Agent uses email + password on the normal login page
+- The login page already supports email/password sign-in, so no changes needed there
 
 ## Technical Details
 
-### Database Migration SQL
-```sql
--- Add 'agent' to user_role enum
-ALTER TYPE public.user_role ADD VALUE IF NOT EXISTS 'agent';
-
--- Create agents table
-CREATE TABLE public.agents (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid,
-  email text NOT NULL,
-  contact_person text NOT NULL,
-  company_name text,
-  phone text,
-  is_active boolean DEFAULT true,
-  invited_at timestamptz DEFAULT now(),
-  activated_at timestamptz,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now()
-);
-
-ALTER TABLE public.agents ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Admin full access to agents" ON public.agents
-  FOR ALL USING (is_admin(auth.uid()));
-
-CREATE POLICY "Agents can view own record" ON public.agents
-  FOR SELECT USING (auth.uid() = user_id);
-
-CREATE TRIGGER update_agents_updated_at
-  BEFORE UPDATE ON public.agents
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+### AgentSetPassword Component
+```
+- Get current user from AuthContext
+- Show form with password + confirm password fields
+- On submit: call supabase.auth.updateUser({ password })
+- Then update agents table: set activated_at = now() where user_id = user.id
+- Navigate to /agent
 ```
 
-### Files to modify
-1. **`supabase/functions/invite-agent/index.ts`** -- use hardcoded external URL + secret for service role key
-2. **`src/pages/admin/agents/AgentsList.tsx`** -- use direct `fetch()` with auth header instead of `supabase.functions.invoke()`
+### Auth.tsx and AuthCallback.tsx Changes
+```
+- When role === 'agent':
+  - Query agents table for activated_at where user_id matches
+  - If activated_at is null → navigate('/agent/set-password')
+  - If activated_at is set → navigate('/agent')
+```
 
-### Secret needed
-- `EXTERNAL_SUPABASE_SERVICE_ROLE_KEY` -- your external project's service role key
-
+### Route Addition in App.tsx
+```
+<Route path="/agent/set-password" element={<AgentSetPassword />} />
+```

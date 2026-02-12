@@ -14,9 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_students: {
+        Row: {
+          address: string | null
+          agent_id: string
+          created_at: string | null
+          date_of_birth: string | null
+          education_level: string | null
+          english_test_score: string | null
+          english_test_type: string | null
+          id: string
+          nationality: string | null
+          notes: string | null
+          student_email: string
+          student_name: string
+          student_phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          agent_id: string
+          created_at?: string | null
+          date_of_birth?: string | null
+          education_level?: string | null
+          english_test_score?: string | null
+          english_test_type?: string | null
+          id?: string
+          nationality?: string | null
+          notes?: string | null
+          student_email: string
+          student_name: string
+          student_phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          agent_id?: string
+          created_at?: string | null
+          date_of_birth?: string | null
+          education_level?: string | null
+          english_test_score?: string | null
+          english_test_type?: string | null
+          id?: string
+          nationality?: string | null
+          notes?: string | null
+          student_email?: string
+          student_name?: string
+          student_phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_students_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agents: {
+        Row: {
+          activated_at: string | null
+          company_name: string | null
+          contact_person: string
+          created_at: string | null
+          email: string
+          id: string
+          invited_at: string | null
+          is_active: boolean | null
+          phone: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          activated_at?: string | null
+          company_name?: string | null
+          contact_person: string
+          created_at?: string | null
+          email: string
+          id?: string
+          invited_at?: string | null
+          is_active?: boolean | null
+          phone?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          activated_at?: string | null
+          company_name?: string | null
+          contact_person?: string
+          created_at?: string | null
+          email?: string
+          id?: string
+          invited_at?: string | null
+          is_active?: boolean | null
+          phone?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       applications: {
         Row: {
           address: string | null
+          agent_id: string | null
           course_id: string | null
           created_at: string
           date_of_birth: string | null
@@ -34,6 +136,7 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          agent_id?: string | null
           course_id?: string | null
           created_at?: string
           date_of_birth?: string | null
@@ -51,6 +154,7 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          agent_id?: string | null
           course_id?: string | null
           created_at?: string
           date_of_birth?: string | null
@@ -67,6 +171,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "applications_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "applications_course_id_fkey"
             columns: ["course_id"]
@@ -1553,7 +1664,7 @@ export type Database = {
       slugify: { Args: { "": string }; Returns: string }
     }
     Enums: {
-      user_role: "admin" | "editor" | "user" | "counselor"
+      user_role: "admin" | "editor" | "user" | "counselor" | "agent"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1681,7 +1792,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      user_role: ["admin", "editor", "user", "counselor"],
+      user_role: ["admin", "editor", "user", "counselor", "agent"],
     },
   },
 } as const

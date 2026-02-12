@@ -18,6 +18,17 @@ interface InviteAgentRequest {
 const EXTERNAL_SUPABASE_URL = "https://hhzjzbxpdnehbgwvmimm.supabase.co";
 const EXTERNAL_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhoemp6YnhwZG5laGJnd3ZtaW1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3NjA2ODAsImV4cCI6MjA3ODMzNjY4MH0.hRwUSUYg7mry2h_ZBXhdaqRPkrZKMPgLLMTIuikLImI";
 
+function generateTempPassword(length = 12): string {
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789!@#$%";
+  let password = "";
+  const array = new Uint8Array(length);
+  crypto.getRandomValues(array);
+  for (let i = 0; i < length; i++) {
+    password += chars[array[i] % chars.length];
+  }
+  return password;
+}
+
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -60,21 +71,26 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Email and contact person are required");
     }
 
-    // Create the user with a magic link invitation
-    const { data: inviteData, error: inviteError } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
-      data: {
+    // Generate a temporary password for the agent
+    const tempPassword = generateTempPassword();
+
+    // Create the user with a temporary password
+    const { data: createData, error: createError } = await supabaseAdmin.auth.admin.createUser({
+      email,
+      password: tempPassword,
+      email_confirm: true,
+      user_metadata: {
         role: 'agent',
         contact_person,
         company_name,
       },
-      redirectTo: `https://moves-study-hub.lovable.app/auth`,
     });
 
-    if (inviteError) {
-      throw new Error(`Failed to invite agent: ${inviteError.message}`);
+    if (createError) {
+      throw new Error(`Failed to create agent: ${createError.message}`);
     }
 
-    const userId = inviteData.user.id;
+    const userId = createData.user.id;
 
     // Set user role to agent
     await supabaseAdmin
@@ -99,7 +115,12 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     return new Response(
-      JSON.stringify({ success: true, message: "Agent invited successfully" }),
+      JSON.stringify({
+        success: true,
+        message: "Agent created successfully",
+        temp_password: tempPassword,
+        login_url: "https://moves-study-hub.lovable.app/auth",
+      }),
       { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   } catch (error: any) {

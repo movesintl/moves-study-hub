@@ -42,8 +42,12 @@ const StudentAuthGuard: React.FC<StudentAuthGuardProps> = ({ children }) => {
           const hasStudentAccess = !userRole || userRole === 'user';
           setIsAuthorized(hasStudentAccess);
 
-          if (!hasStudentAccess && (userRole === 'admin' || userRole === 'editor' || userRole === 'counselor')) {
-            navigate('/admin');
+          if (!hasStudentAccess) {
+            if (userRole === 'admin' || userRole === 'editor' || userRole === 'counselor') {
+              navigate('/admin');
+            } else if (userRole === 'agent') {
+              navigate('/agent');
+            }
           }
         }
       } catch (error) {

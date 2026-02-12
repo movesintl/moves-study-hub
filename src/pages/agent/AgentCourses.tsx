@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
-import { Search, BookOpen } from 'lucide-react';
+import { Search, BookOpen, MapPin, Clock, DollarSign } from 'lucide-react';
 
 const AgentCourses = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,58 +31,61 @@ const AgentCourses = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Browse Courses</h1>
-        <p className="text-gray-600">Find courses for your students</p>
+        <h1 className="text-2xl font-semibold text-foreground">Browse Courses</h1>
+        <p className="text-sm text-muted-foreground">Find courses for your students</p>
       </div>
 
-      <Card>
-        <CardContent className="pt-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input placeholder="Search courses..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10" />
-            </div>
-            <Select value={countryFilter} onValueChange={setCountryFilter}>
-              <SelectTrigger className="w-48"><SelectValue placeholder="Country" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Countries</SelectItem>
-                {countries.map((c: any) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-              </SelectContent>
-            </Select>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Filters */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex-1 relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input placeholder="Search courses..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-9 bg-card" />
+        </div>
+        <Select value={countryFilter} onValueChange={setCountryFilter}>
+          <SelectTrigger className="w-full sm:w-44 bg-card"><SelectValue placeholder="Country" /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Countries</SelectItem>
+            {countries.map((c: any) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+          </SelectContent>
+        </Select>
+      </div>
 
+      {/* Grid */}
       {isLoading ? (
-        <div className="text-center py-8">Loading courses...</div>
+        <div className="text-center py-12 text-sm text-muted-foreground">Loading courses...</div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {filtered.map((course: any) => (
-            <Card key={course.id} className="hover:shadow-md transition-shadow">
-              <CardHeader className="pb-2">
-                <div className="flex items-start justify-between">
-                  <BookOpen className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                  <Badge variant="outline">{course.level}</Badge>
+            <div key={course.id} className="bg-card rounded-xl border border-border p-5 hover:shadow-soft transition-all duration-200 group">
+              <div className="flex items-start justify-between mb-3">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <BookOpen className="h-4 w-4 text-primary" />
                 </div>
-                <CardTitle className="text-lg mt-2">{course.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-1 text-sm text-gray-600">
-                  <p><span className="font-medium">University:</span> {course.universities?.name || course.university}</p>
-                  <p><span className="font-medium">Country:</span> {course.country}</p>
-                  <p><span className="font-medium">Duration:</span> {course.duration_months} months</p>
-                  {course.tuition_fee && (
-                    <p><span className="font-medium">Fee:</span> {course.currency || 'AUD'} {course.tuition_fee?.toLocaleString()}</p>
-                  )}
-                  <p><span className="font-medium">Study Area:</span> {course.study_area}</p>
-                </div>
-              </CardContent>
-            </Card>
+                <span className="text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{course.level}</span>
+              </div>
+              <h3 className="font-semibold text-sm text-foreground mb-2 leading-snug group-hover:text-primary transition-colors">{course.title}</h3>
+              <div className="space-y-1.5 text-xs text-muted-foreground">
+                <p className="flex items-center gap-1.5">
+                  <MapPin className="h-3 w-3 flex-shrink-0" />
+                  {course.universities?.name || course.university} · {course.country}
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <Clock className="h-3 w-3 flex-shrink-0" />
+                  {course.duration_months} months · {course.study_area}
+                </p>
+                {course.tuition_fee && (
+                  <p className="flex items-center gap-1.5">
+                    <DollarSign className="h-3 w-3 flex-shrink-0" />
+                    {course.currency || 'AUD'} {course.tuition_fee?.toLocaleString()}
+                  </p>
+                )}
+              </div>
+            </div>
           ))}
           {filtered.length === 0 && (
-            <div className="col-span-full text-center py-8 text-gray-500">No courses found.</div>
+            <div className="col-span-full text-center py-12 text-sm text-muted-foreground">No courses found.</div>
           )}
         </div>
       )}

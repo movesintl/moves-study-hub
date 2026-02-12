@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -12,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Plus, Search, Clock, Eye, CheckCircle, XCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const AgentApplications = () => {
   const { user } = useAuth();
@@ -99,16 +99,22 @@ const AgentApplications = () => {
     },
   });
 
+  const statusConfig: Record<string, { class: string; icon: any }> = {
+    pending: { class: 'bg-amber-50 text-amber-700 border-amber-200', icon: Clock },
+    under_review: { class: 'bg-blue-50 text-blue-700 border-blue-200', icon: Eye },
+    approved: { class: 'bg-emerald-50 text-emerald-700 border-emerald-200', icon: CheckCircle },
+    rejected: { class: 'bg-red-50 text-red-700 border-red-200', icon: XCircle },
+  };
+
   const getStatusBadge = (status: string) => {
-    const config: Record<string, { color: string; icon: any }> = {
-      pending: { color: 'bg-yellow-100 text-yellow-800', icon: Clock },
-      under_review: { color: 'bg-blue-100 text-blue-800', icon: Eye },
-      approved: { color: 'bg-green-100 text-green-800', icon: CheckCircle },
-      rejected: { color: 'bg-red-100 text-red-800', icon: XCircle },
-    };
-    const c = config[status] || config.pending;
+    const c = statusConfig[status] || statusConfig.pending;
     const Icon = c.icon;
-    return <Badge className={c.color}><Icon className="h-3 w-3 mr-1" />{status.replace('_', ' ').toUpperCase()}</Badge>;
+    return (
+      <span className={cn("inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border", c.class)}>
+        <Icon className="h-3 w-3" />
+        {status.replace('_', ' ')}
+      </span>
+    );
   };
 
   const filtered = applications.filter((app: any) =>
@@ -117,23 +123,24 @@ const AgentApplications = () => {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-5">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Applications</h1>
-          <p className="text-gray-600">Submit and track student applications</p>
+          <h1 className="text-2xl font-semibold text-foreground">Applications</h1>
+          <p className="text-sm text-muted-foreground">Submit and track student applications</p>
         </div>
         <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
           <DialogTrigger asChild>
-            <Button><Plus className="h-4 w-4 mr-2" />New Application</Button>
+            <Button size="sm" className="gap-1.5"><Plus className="h-4 w-4" />New Application</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Submit Application</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4 pt-4">
+            <div className="space-y-4 pt-2">
               <div>
-                <Label>Student *</Label>
+                <Label className="text-xs">Student *</Label>
                 <Select value={formData.student_id} onValueChange={(v) => setFormData({ ...formData, student_id: v })}>
                   <SelectTrigger><SelectValue placeholder="Select a student" /></SelectTrigger>
                   <SelectContent>
@@ -142,10 +149,10 @@ const AgentApplications = () => {
                     ))}
                   </SelectContent>
                 </Select>
-                {students.length === 0 && <p className="text-sm text-gray-500 mt-1">Add a student profile first.</p>}
+                {students.length === 0 && <p className="text-xs text-muted-foreground mt-1">Add a student profile first.</p>}
               </div>
               <div>
-                <Label>Course *</Label>
+                <Label className="text-xs">Course *</Label>
                 <Select value={formData.course_id} onValueChange={(v) => setFormData({ ...formData, course_id: v })}>
                   <SelectTrigger><SelectValue placeholder="Select a course" /></SelectTrigger>
                   <SelectContent>
@@ -156,7 +163,7 @@ const AgentApplications = () => {
                 </Select>
               </div>
               <div>
-                <Label>Notes</Label>
+                <Label className="text-xs">Notes</Label>
                 <Input value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} placeholder="Optional notes..." />
               </div>
               <Button onClick={() => submitApplication.mutate()} disabled={!formData.student_id || !formData.course_id || submitApplication.isPending} className="w-full">
@@ -167,54 +174,47 @@ const AgentApplications = () => {
         </Dialog>
       </div>
 
-      <Card>
-        <CardContent className="pt-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input placeholder="Search applications..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10" />
-          </div>
-        </CardContent>
-      </Card>
+      {/* Search */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input placeholder="Search by student or course..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-9 bg-card" />
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Applications ({filtered.length})</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {isLoading ? (
-            <div className="text-center py-8">Loading...</div>
-          ) : filtered.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">No applications yet.</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Student</TableHead>
-                    <TableHead>Course</TableHead>
-                    <TableHead>University</TableHead>
-                    <TableHead>Destination</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Date</TableHead>
+      {/* Table */}
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
+        {isLoading ? (
+          <div className="text-center py-12 text-sm text-muted-foreground">Loading applications...</div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-12 text-sm text-muted-foreground">No applications yet</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/50 hover:bg-muted/50">
+                  <TableHead className="text-xs font-medium">Student</TableHead>
+                  <TableHead className="text-xs font-medium">Course</TableHead>
+                  <TableHead className="text-xs font-medium">University</TableHead>
+                  <TableHead className="text-xs font-medium">Destination</TableHead>
+                  <TableHead className="text-xs font-medium">Status</TableHead>
+                  <TableHead className="text-xs font-medium">Date</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filtered.map((app: any) => (
+                  <TableRow key={app.id} className="hover:bg-muted/30">
+                    <TableCell className="font-medium text-sm">{app.student_name}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{app.courses?.title || '—'}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{app.universities?.name || '—'}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{app.destinations?.name || '—'}</TableCell>
+                    <TableCell>{getStatusBadge(app.status || 'pending')}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{new Date(app.created_at).toLocaleDateString()}</TableCell>
                   </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filtered.map((app: any) => (
-                    <TableRow key={app.id}>
-                      <TableCell className="font-medium">{app.student_name}</TableCell>
-                      <TableCell>{app.courses?.title || '—'}</TableCell>
-                      <TableCell>{app.universities?.name || '—'}</TableCell>
-                      <TableCell>{app.destinations?.name || '—'}</TableCell>
-                      <TableCell>{getStatusBadge(app.status || 'pending')}</TableCell>
-                      <TableCell>{new Date(app.created_at).toLocaleDateString()}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -9,12 +9,35 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Plus, Edit, Trash2, Search, Users } from 'lucide-react';
+import { Combobox } from '@/components/ui/combobox';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 const emptyForm = {
   student_name: '', student_email: '', student_phone: '', date_of_birth: '',
-  nationality: '', address: '', education_level: '', english_test_score: '',
+  nationality: '', address: '',
 };
+
+const NATIONALITIES = [
+  "Afghan","Albanian","Algerian","American","Andorran","Angolan","Argentine","Armenian","Australian","Austrian",
+  "Azerbaijani","Bahamian","Bahraini","Bangladeshi","Barbadian","Belarusian","Belgian","Belizean","Beninese","Bhutanese",
+  "Bolivian","Bosnian","Brazilian","British","Bruneian","Bulgarian","Burkinabe","Burmese","Burundian","Cambodian",
+  "Cameroonian","Canadian","Cape Verdean","Central African","Chadian","Chilean","Chinese","Colombian","Comorian","Congolese",
+  "Costa Rican","Croatian","Cuban","Cypriot","Czech","Danish","Djiboutian","Dominican","Dutch","Ecuadorian",
+  "Egyptian","Emirati","Equatorial Guinean","Eritrean","Estonian","Ethiopian","Fijian","Filipino","Finnish","French",
+  "Gabonese","Gambian","Georgian","German","Ghanaian","Greek","Grenadian","Guatemalan","Guinean","Guyanese",
+  "Haitian","Honduran","Hungarian","Icelandic","Indian","Indonesian","Iranian","Iraqi","Irish","Israeli",
+  "Italian","Ivorian","Jamaican","Japanese","Jordanian","Kazakh","Kenyan","Kiribati","Korean","Kuwaiti",
+  "Kyrgyz","Lao","Latvian","Lebanese","Liberian","Libyan","Lithuanian","Luxembourgish","Macedonian","Malagasy",
+  "Malawian","Malaysian","Maldivian","Malian","Maltese","Marshallese","Mauritanian","Mauritian","Mexican","Micronesian",
+  "Moldovan","Monegasque","Mongolian","Montenegrin","Moroccan","Mozambican","Namibian","Nauruan","Nepalese","New Zealander",
+  "Nicaraguan","Nigerian","Nigerien","Norwegian","Omani","Pakistani","Palauan","Palestinian","Panamanian","Papua New Guinean",
+  "Paraguayan","Peruvian","Polish","Portuguese","Qatari","Romanian","Russian","Rwandan","Saint Lucian","Salvadoran",
+  "Samoan","Saudi","Senegalese","Serbian","Seychellois","Sierra Leonean","Singaporean","Slovak","Slovenian","Solomon Islander",
+  "Somali","South African","South Sudanese","Spanish","Sri Lankan","Sudanese","Surinamese","Swazi","Swedish","Swiss",
+  "Syrian","Taiwanese","Tajik","Tanzanian","Thai","Timorese","Togolese","Tongan","Trinidadian","Tunisian",
+  "Turkish","Turkmen","Tuvaluan","Ugandan","Ukrainian","Uruguayan","Uzbek","Vanuatuan","Venezuelan","Vietnamese",
+  "Yemeni","Zambian","Zimbabwean"
+].map(n => ({ value: n, label: n }));
 
 const AgentStudents = () => {
   const { user } = useAuth();
@@ -91,8 +114,6 @@ const AgentStudents = () => {
       date_of_birth: student.date_of_birth || '',
       nationality: student.nationality || '',
       address: student.address || '',
-      education_level: student.education_level || '',
-      english_test_score: student.english_test_score || '',
     });
     setIsFormOpen(true);
   };
@@ -154,19 +175,19 @@ const AgentStudents = () => {
                 </div>
                 <div>
                   <Label className="text-xs font-semibold text-muted-foreground">Nationality</Label>
-                  <Input value={formData.nationality} onChange={(e) => updateField('nationality', e.target.value)} className="rounded-xl" />
+                  <Combobox
+                    options={NATIONALITIES}
+                    value={formData.nationality}
+                    onSelect={(val) => updateField('nationality', val)}
+                    placeholder="Select nationality..."
+                    searchPlaceholder="Type to search..."
+                    emptyText="No nationality found."
+                    className="w-full rounded-xl"
+                  />
                 </div>
                 <div className="col-span-2">
                   <Label className="text-xs font-semibold text-muted-foreground">Address</Label>
                   <Input value={formData.address} onChange={(e) => updateField('address', e.target.value)} className="rounded-xl" />
-                </div>
-                <div>
-                  <Label className="text-xs font-semibold text-muted-foreground">Education Level</Label>
-                  <Input value={formData.education_level} onChange={(e) => updateField('education_level', e.target.value)} placeholder="e.g. Bachelor's Degree" className="rounded-xl" />
-                </div>
-                <div>
-                  <Label className="text-xs font-semibold text-muted-foreground">English Test Score</Label>
-                  <Input value={formData.english_test_score} onChange={(e) => updateField('english_test_score', e.target.value)} placeholder="e.g. IELTS 7.0" className="rounded-xl" />
                 </div>
               </div>
               <Button onClick={handleSubmit} disabled={saveMutation.isPending} className="w-full rounded-xl bg-accent hover:bg-accent/90 text-accent-foreground">
@@ -204,8 +225,7 @@ const AgentStudents = () => {
                   <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Email</TableHead>
                   <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Phone</TableHead>
                   <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Nationality</TableHead>
-                  <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Education</TableHead>
-                  <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground text-right">Actions</TableHead>
+                   <TableHead className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -222,11 +242,6 @@ const AgentStudents = () => {
                     <TableCell className="text-sm text-muted-foreground">{student.student_email}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{student.student_phone || '—'}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{student.nationality || '—'}</TableCell>
-                    <TableCell>
-                      {student.education_level ? (
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">{student.education_level}</span>
-                      ) : '—'}
-                    </TableCell>
                     <TableCell className="text-right">
                       <div className="flex gap-1 justify-end">
                         <Button variant="ghost" size="sm" onClick={() => openEdit(student)} className="h-8 w-8 p-0 rounded-lg hover:bg-primary/10 hover:text-primary">

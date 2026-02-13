@@ -40,6 +40,7 @@ import Applications from '@/pages/student/Applications';
 import SavedCourses from '@/pages/student/SavedCourses';
 import Profile from '@/pages/student/Profile';
 import Settings from '@/pages/student/Settings';
+import StudentProfilePage from '@/pages/student/StudentProfilePage';
 import Counselling from '@/pages/student/Counselling';
 import CounsellingBookings from '@/pages/admin/counselling/CounsellingBookings';
 
@@ -141,6 +142,7 @@ function App() {
                 <Route path="notifications" element={<StudentNotificationsPage />} />
                 <Route path="counselling" element={<Counselling />} />
                 <Route path="profile" element={<Profile />} />
+                <Route path="student-profile" element={<StudentProfilePage />} />
                 <Route path="settings" element={<Settings />} />
               </Route>
               <Route path="/admin" element={<AdminLayout />}>

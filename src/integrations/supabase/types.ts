@@ -1491,6 +1491,207 @@ export type Database = {
         }
         Relationships: []
       }
+      student_profiles: {
+        Row: {
+          accommodation_preference: string | null
+          agent_id: string | null
+          alternate_phone: string | null
+          applied_australian_visa: boolean | null
+          birth_certificate_url: string | null
+          city: string | null
+          country: string | null
+          country_of_birth: string | null
+          created_at: string
+          current_australian_visa: boolean | null
+          date_of_birth: string | null
+          deported: boolean | null
+          documents: Json | null
+          education_history: Json | null
+          email: string | null
+          emergency_country: string | null
+          emergency_email: string | null
+          emergency_name: string | null
+          emergency_phone: string | null
+          emergency_relationship: string | null
+          english_listening: string | null
+          english_overall_score: string | null
+          english_reading: string | null
+          english_result_url: string | null
+          english_speaking: string | null
+          english_test_date: string | null
+          english_test_taken: string | null
+          english_trf_number: string | null
+          english_writing: string | null
+          financial_sponsor: string | null
+          first_name: string | null
+          gender: string | null
+          has_dependents: boolean | null
+          has_relatives_australia: boolean | null
+          id: string
+          last_name: string | null
+          marital_status: string | null
+          national_id_url: string | null
+          nationality: string | null
+          number_of_dependents: number | null
+          passport_bio_url: string | null
+          passport_expiry: string | null
+          passport_issue_country: string | null
+          passport_number: string | null
+          phone: string | null
+          postcode: string | null
+          preferred_city: string | null
+          preferred_country: string | null
+          preferred_course: string | null
+          preferred_intake: string | null
+          preferred_study_level: string | null
+          refused_visa: boolean | null
+          sponsor_country: string | null
+          sponsor_income: string | null
+          sponsor_name: string | null
+          sponsor_occupation: string | null
+          sponsor_relationship: string | null
+          state: string | null
+          status: string
+          street: string | null
+          submitted_at: string | null
+          updated_at: string
+          user_id: string
+          visa_details: string | null
+        }
+        Insert: {
+          accommodation_preference?: string | null
+          agent_id?: string | null
+          alternate_phone?: string | null
+          applied_australian_visa?: boolean | null
+          birth_certificate_url?: string | null
+          city?: string | null
+          country?: string | null
+          country_of_birth?: string | null
+          created_at?: string
+          current_australian_visa?: boolean | null
+          date_of_birth?: string | null
+          deported?: boolean | null
+          documents?: Json | null
+          education_history?: Json | null
+          email?: string | null
+          emergency_country?: string | null
+          emergency_email?: string | null
+          emergency_name?: string | null
+          emergency_phone?: string | null
+          emergency_relationship?: string | null
+          english_listening?: string | null
+          english_overall_score?: string | null
+          english_reading?: string | null
+          english_result_url?: string | null
+          english_speaking?: string | null
+          english_test_date?: string | null
+          english_test_taken?: string | null
+          english_trf_number?: string | null
+          english_writing?: string | null
+          financial_sponsor?: string | null
+          first_name?: string | null
+          gender?: string | null
+          has_dependents?: boolean | null
+          has_relatives_australia?: boolean | null
+          id?: string
+          last_name?: string | null
+          marital_status?: string | null
+          national_id_url?: string | null
+          nationality?: string | null
+          number_of_dependents?: number | null
+          passport_bio_url?: string | null
+          passport_expiry?: string | null
+          passport_issue_country?: string | null
+          passport_number?: string | null
+          phone?: string | null
+          postcode?: string | null
+          preferred_city?: string | null
+          preferred_country?: string | null
+          preferred_course?: string | null
+          preferred_intake?: string | null
+          preferred_study_level?: string | null
+          refused_visa?: boolean | null
+          sponsor_country?: string | null
+          sponsor_income?: string | null
+          sponsor_name?: string | null
+          sponsor_occupation?: string | null
+          sponsor_relationship?: string | null
+          state?: string | null
+          status?: string
+          street?: string | null
+          submitted_at?: string | null
+          updated_at?: string
+          user_id: string
+          visa_details?: string | null
+        }
+        Update: {
+          accommodation_preference?: string | null
+          agent_id?: string | null
+          alternate_phone?: string | null
+          applied_australian_visa?: boolean | null
+          birth_certificate_url?: string | null
+          city?: string | null
+          country?: string | null
+          country_of_birth?: string | null
+          created_at?: string
+          current_australian_visa?: boolean | null
+          date_of_birth?: string | null
+          deported?: boolean | null
+          documents?: Json | null
+          education_history?: Json | null
+          email?: string | null
+          emergency_country?: string | null
+          emergency_email?: string | null
+          emergency_name?: string | null
+          emergency_phone?: string | null
+          emergency_relationship?: string | null
+          english_listening?: string | null
+          english_overall_score?: string | null
+          english_reading?: string | null
+          english_result_url?: string | null
+          english_speaking?: string | null
+          english_test_date?: string | null
+          english_test_taken?: string | null
+          english_trf_number?: string | null
+          english_writing?: string | null
+          financial_sponsor?: string | null
+          first_name?: string | null
+          gender?: string | null
+          has_dependents?: boolean | null
+          has_relatives_australia?: boolean | null
+          id?: string
+          last_name?: string | null
+          marital_status?: string | null
+          national_id_url?: string | null
+          nationality?: string | null
+          number_of_dependents?: number | null
+          passport_bio_url?: string | null
+          passport_expiry?: string | null
+          passport_issue_country?: string | null
+          passport_number?: string | null
+          phone?: string | null
+          postcode?: string | null
+          preferred_city?: string | null
+          preferred_country?: string | null
+          preferred_course?: string | null
+          preferred_intake?: string | null
+          preferred_study_level?: string | null
+          refused_visa?: boolean | null
+          sponsor_country?: string | null
+          sponsor_income?: string | null
+          sponsor_name?: string | null
+          sponsor_occupation?: string | null
+          sponsor_relationship?: string | null
+          state?: string | null
+          status?: string
+          street?: string | null
+          submitted_at?: string | null
+          updated_at?: string
+          user_id?: string
+          visa_details?: string | null
+        }
+        Relationships: []
+      }
       universities: {
         Row: {
           accreditation_status: string | null

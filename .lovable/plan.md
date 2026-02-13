@@ -1,56 +1,191 @@
 
 
-# Fix Agent Login: Password Setup After Invitation
+# Student Profile Page - Complete Implementation Plan
 
-## The Problem
-When an admin invites an agent, Supabase sends a magic link email. The agent clicks it and gets authenticated, but they never set a password. So on subsequent visits, they cannot log in because there's no password on their account.
+## Overview
+Build a comprehensive, single-page Student Profile form accessible to students who have been invited by an agent. The page is a vertical, section-by-section layout with individual save buttons, a progress bar, status tracking, and a final submit flow that locks editing.
 
-## The Solution
-Create a password setup flow that activates when an agent accepts their invitation.
+---
 
-### How It Works
-1. Admin invites agent (existing flow -- sends magic link via email)
-2. Agent clicks the magic link and arrives at `/auth` already authenticated
-3. The system detects the agent role and that their `agents.activated_at` is null (first login)
-4. Instead of redirecting straight to `/agent`, redirect to a **Set Password** page
-5. Agent creates their password using `supabase.auth.updateUser({ password })`
-6. System marks `agents.activated_at = now()` and redirects to `/agent`
-7. On future logins, agent uses email + password normally
+## Database Changes
 
-### Files to Create
-- **`src/pages/agent/AgentSetPassword.tsx`** -- A simple page with password + confirm password fields. Calls `supabase.auth.updateUser({ password })`, then updates `agents.activated_at`, then navigates to `/agent`.
+### New Table: `student_profiles`
+Stores all student profile data in a single row per student, with JSONB columns for repeatable/complex sections.
 
-### Files to Modify
-- **`src/pages/Auth.tsx`** -- When an authenticated agent user is detected and `activated_at` is null, redirect to `/agent/set-password` instead of `/agent`
-- **`src/pages/AuthCallback.tsx`** -- Same logic: check `activated_at` for agent users and redirect accordingly
-- **`src/App.tsx`** -- Add route for `/agent/set-password`
-- **`supabase/functions/invite-agent/index.ts`** -- Ensure `activated_at` is explicitly set to `null` on creation (already the case)
+| Column | Type | Notes |
+|--------|------|-------|
+| id | uuid PK | |
+| user_id | uuid | References the student's auth user |
+| agent_id | uuid | The agent who invited them |
+| status | text | `invited`, `profile_incomplete`, `profile_completed`, `application_submitted` |
+| submitted_at | timestamptz | Null until submission |
+| **Section 1: Personal** | | |
+| first_name | text | |
+| last_name | text | |
+| gender | text | |
+| date_of_birth | date | |
+| country_of_birth | text | |
+| nationality | text | |
+| marital_status | text | |
+| has_dependents | boolean | |
+| number_of_dependents | integer | |
+| **Section 2: Contact** | | |
+| email | text | Read-only, from auth |
+| phone | text | |
+| alternate_phone | text | |
+| street | text | |
+| city | text | |
+| state | text | |
+| postcode | text | |
+| country | text | |
+| **Section 3: Passport** | | |
+| passport_number | text | |
+| passport_expiry | date | |
+| passport_issue_country | text | |
+| passport_bio_url | text | File URL |
+| national_id_url | text | File URL |
+| birth_certificate_url | text | File URL |
+| **Section 4: Education** | | |
+| education_history | jsonb | Array of education records |
+| **Section 5: English Test** | | |
+| english_test_taken | text | IELTS/PTE/TOEFL/Duolingo/not_yet |
+| english_test_date | date | |
+| english_overall_score | text | |
+| english_listening | text | |
+| english_reading | text | |
+| english_writing | text | |
+| english_speaking | text | |
+| english_trf_number | text | |
+| english_result_url | text | File URL |
+| **Section 6: Visa History** | | |
+| applied_australian_visa | boolean | |
+| refused_visa | boolean | |
+| deported | boolean | |
+| current_australian_visa | boolean | |
+| visa_details | text | |
+| **Section 7: Study Preferences** | | |
+| preferred_country | text | |
+| preferred_city | text | |
+| preferred_study_level | text | |
+| preferred_course | text | |
+| preferred_intake | text | |
+| has_relatives_australia | boolean | |
+| accommodation_preference | text | |
+| **Section 8: Financial** | | |
+| financial_sponsor | text | self/parents/spouse/other |
+| sponsor_name | text | |
+| sponsor_relationship | text | |
+| sponsor_occupation | text | |
+| sponsor_income | text | |
+| sponsor_country | text | |
+| **Section 9: Emergency Contact** | | |
+| emergency_name | text | |
+| emergency_relationship | text | |
+| emergency_phone | text | |
+| emergency_email | text | |
+| emergency_country | text | |
+| **Section 10: Documents** | | |
+| documents | jsonb | Array of {category, label, url, name} |
+| **Timestamps** | | |
+| created_at | timestamptz | |
+| updated_at | timestamptz | |
 
-### User Experience
-- First login (via invitation link): Agent sees "Set Your Password" page
-- Subsequent logins: Agent uses email + password on the normal login page
-- The login page already supports email/password sign-in, so no changes needed there
+### RLS Policies
+- Students can SELECT/UPDATE their own profile (`user_id = auth.uid()`)
+- Agents can SELECT profiles of their students (`agent_id` matches agent)
+- Admins have full access
+
+### Storage
+- Use the existing `media` bucket for file uploads
+- Create a folder convention: `student-profiles/{user_id}/` for organizing files
+
+---
+
+## New Files
+
+### 1. `src/pages/student/StudentProfilePage.tsx`
+The main page component containing:
+- **Header**: Profile completion progress bar (calculated from filled fields) and status badge
+- **11 sections** rendered vertically, each as a Card with its own form state and Save button
+- Each section calls a Supabase `update` on the `student_profiles` row, updating only that section's columns
+- Section components will be defined within this file or split into a subfolder if needed
+- After submission: all fields become read-only, status changes to `application_submitted`
+
+### 2. `src/components/student-profile/` (subfolder)
+Break into manageable section components:
+- `PersonalDetailsSection.tsx`
+- `ContactDetailsSection.tsx`
+- `PassportSection.tsx`
+- `EducationHistorySection.tsx` (with repeatable entries)
+- `EnglishTestSection.tsx` (conditional fields)
+- `VisaHistorySection.tsx`
+- `StudyPreferencesSection.tsx`
+- `FinancialSponsorSection.tsx`
+- `EmergencyContactSection.tsx`
+- `DocumentUploadsSection.tsx`
+- `ReviewSubmitSection.tsx`
+- `ProfileHeader.tsx` (progress bar + status badge)
+
+Each section component receives: `data`, `onSave`, `isLocked` (post-submission), `isSaving`
+
+---
+
+## Routing
+
+Add a new route in `src/App.tsx`:
+```
+/student-dashboard/student-profile
+```
+This page will NOT use the agent sidebar layout. It will be a standalone page (or use the existing student dashboard layout).
+
+---
+
+## Key Behaviors
+
+### Progress Calculation
+Count the number of filled required fields across all sections divided by total required fields, displayed as a percentage in a progress bar at the top.
+
+### Status Logic
+- **Invited**: Profile just created, no data saved yet
+- **Profile Incomplete**: Some sections saved but not all required fields filled
+- **Profile Completed**: All required fields filled
+- **Application Submitted**: Student clicked Submit -- profile is locked
+
+### Section Save
+Each section's Save button calls:
+```typescript
+supabase.from('student_profiles').update({ ...sectionFields }).eq('user_id', user.id)
+```
+Then recalculates progress and updates status accordingly.
+
+### Education History (Repeatable)
+Uses a JSONB column. UI shows an "Add Education" button that appends a new entry to the array. Each entry has fields for qualification level, course name, institution, country, dates, completion status, and file upload URL.
+
+### Document Uploads
+Files are uploaded to Supabase Storage (`media` bucket, `student-profiles/{user_id}/` path), and the returned URL is stored in the profile row.
+
+### Submit Flow
+1. Validate all required sections are complete
+2. Show confirmation checkbox: "I confirm all information is correct"
+3. On submit: update `status = 'application_submitted'`, set `submitted_at = now()`
+4. Lock all fields (read-only)
+5. Send notification to assigned agent and admin (using existing `create_notification` database function)
+
+---
 
 ## Technical Details
 
-### AgentSetPassword Component
-```
-- Get current user from AuthContext
-- Show form with password + confirm password fields
-- On submit: call supabase.auth.updateUser({ password })
-- Then update agents table: set activated_at = now() where user_id = user.id
-- Navigate to /agent
-```
+### Migration SQL
+A single migration to create the `student_profiles` table with all columns, RLS policies, and an `updated_at` trigger.
 
-### Auth.tsx and AuthCallback.tsx Changes
-```
-- When role === 'agent':
-  - Query agents table for activated_at where user_id matches
-  - If activated_at is null → navigate('/agent/set-password')
-  - If activated_at is set → navigate('/agent')
-```
+### Notification on Submit
+Use the existing `create_notification` DB function to notify the agent and admins when a student submits their profile.
 
-### Route Addition in App.tsx
-```
-<Route path="/agent/set-password" element={<AgentSetPassword />} />
-```
+### UI Style
+- Follows the existing modern design system (rounded-xl cards, gradient accents, soft shadows)
+- Each section is a Card with a subtle top border accent
+- Progress bar uses the existing `Progress` component
+- Status badges use the existing `Badge` component with color-coded variants
+- Searchable nationality/country fields use the existing `Combobox` component
+- Date fields use the native date input (consistent with existing forms)
+

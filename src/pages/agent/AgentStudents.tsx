@@ -256,7 +256,13 @@ const AgentStudents = () => {
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-[hsl(195,100%,20%)] flex items-center justify-center text-primary-foreground text-xs font-bold">
                           {student.student_name?.charAt(0)?.toUpperCase()}
                         </div>
-                        <span className="font-medium text-sm text-foreground">{student.student_name}</span>
+                        {getProfileId(student.student_email) ? (
+                          <Link to={`/agent/students/${getProfileId(student.student_email)}`} className="font-medium text-sm text-primary hover:underline">
+                            {student.student_name}
+                          </Link>
+                        ) : (
+                          <span className="font-medium text-sm text-foreground">{student.student_name}</span>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">{student.student_email}</TableCell>

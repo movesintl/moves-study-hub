@@ -50,14 +50,33 @@ export default function AgentStudentProfile() {
   const { data: profile, isLoading } = useQuery({
     queryKey: ['agent-student-profile', studentId],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      // Try student_profiles first
+      const { data: sp } = await (supabase as any)
         .from('student_profiles')
         .select('*')
         .eq('id', studentId)
         .eq('agent_id', agent!.id)
+        .maybeSingle();
+      if (sp) return sp;
+
+      // Fallback: load from agent_students
+      const { data: as_, error } = await supabase
+        .from('agent_students')
+        .select('*')
+        .eq('id', studentId!)
+        .eq('agent_id', agent!.id)
         .single();
       if (error) throw error;
-      return data;
+      // Map agent_students fields to profile-like shape
+      return {
+        ...as_,
+        first_name: as_.student_name?.split(' ')[0] || '',
+        last_name: as_.student_name?.split(' ').slice(1).join(' ') || '',
+        email: as_.student_email,
+        phone: as_.student_phone,
+        status: 'invited',
+        _source: 'agent_students',
+      };
     },
     enabled: !!agent && !!studentId,
   });

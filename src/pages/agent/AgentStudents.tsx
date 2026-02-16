@@ -256,13 +256,9 @@ const AgentStudents = () => {
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-[hsl(195,100%,20%)] flex items-center justify-center text-primary-foreground text-xs font-bold">
                           {student.student_name?.charAt(0)?.toUpperCase()}
                         </div>
-                        {getProfileId(student.student_email) ? (
-                          <Link to={`/agent/students/${getProfileId(student.student_email)}`} className="font-medium text-sm text-primary hover:underline">
-                            {student.student_name}
-                          </Link>
-                        ) : (
-                          <span className="font-medium text-sm text-foreground">{student.student_name}</span>
-                        )}
+                        <Link to={`/agent/students/${getProfileId(student.student_email) || student.id}`} className="font-medium text-sm text-primary hover:underline">
+                          {student.student_name}
+                        </Link>
                       </div>
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">{student.student_email}</TableCell>
@@ -270,13 +266,11 @@ const AgentStudents = () => {
                     <TableCell className="text-sm text-muted-foreground">{student.nationality || '—'}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex gap-1 justify-end">
-                        {getProfileId(student.student_email) && (
-                          <Link to={`/agent/students/${getProfileId(student.student_email)}`}>
-                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-lg hover:bg-primary/10 hover:text-primary">
-                              <Eye className="h-3.5 w-3.5" />
-                            </Button>
-                          </Link>
-                        )}
+                        <Link to={`/agent/students/${getProfileId(student.student_email) || student.id}`}>
+                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-lg hover:bg-primary/10 hover:text-primary">
+                            <Eye className="h-3.5 w-3.5" />
+                          </Button>
+                        </Link>
                         <Button variant="ghost" size="sm" onClick={() => openEdit(student)} className="h-8 w-8 p-0 rounded-lg hover:bg-primary/10 hover:text-primary">
                           <Edit className="h-3.5 w-3.5" />
                         </Button>

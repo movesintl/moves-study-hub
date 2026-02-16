@@ -88,6 +88,7 @@ import AgentsList from '@/pages/admin/agents/AgentsList';
 import AgentDashboard from '@/pages/agent/AgentDashboard';
 import AgentHome from '@/pages/agent/AgentHome';
 import AgentStudents from '@/pages/agent/AgentStudents';
+import AgentStudentProfile from '@/pages/agent/AgentStudentProfile';
 import AgentApplications from '@/pages/agent/AgentApplications';
 import AgentCourses from '@/pages/agent/AgentCourses';
 import AgentUniversities from '@/pages/agent/AgentUniversities';
@@ -216,6 +217,7 @@ function App() {
               }>
                 <Route index element={<AgentHome />} />
                 <Route path="students" element={<AgentStudents />} />
+                <Route path="students/:studentId" element={<AgentStudentProfile />} />
                 <Route path="applications" element={<AgentApplications />} />
                 <Route path="courses" element={<AgentCourses />} />
                 <Route path="universities" element={<AgentUniversities />} />

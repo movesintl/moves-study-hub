@@ -8,7 +8,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { Plus, Edit, Trash2, Search, Users } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, Users, Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Combobox } from '@/components/ui/combobox';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
@@ -71,6 +72,25 @@ const AgentStudents = () => {
     },
     enabled: !!agent,
   });
+
+  // Fetch student profiles linked to this agent
+  const { data: studentProfiles = [] } = useQuery({
+    queryKey: ['agent-student-profiles', agent?.id],
+    queryFn: async () => {
+      const { data, error } = await (supabase as any)
+        .from('student_profiles')
+        .select('id, email, first_name, last_name')
+        .eq('agent_id', agent!.id);
+      if (error) throw error;
+      return data || [];
+    },
+    enabled: !!agent,
+  });
+
+  const getProfileId = (email: string) => {
+    const p = studentProfiles.find((sp: any) => sp.email === email);
+    return p?.id || null;
+  };
 
   const saveMutation = useMutation({
     mutationFn: async (data: any) => {
@@ -244,6 +264,13 @@ const AgentStudents = () => {
                     <TableCell className="text-sm text-muted-foreground">{student.nationality || '—'}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex gap-1 justify-end">
+                        {getProfileId(student.student_email) && (
+                          <Link to={`/agent/students/${getProfileId(student.student_email)}`}>
+                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-lg hover:bg-primary/10 hover:text-primary">
+                              <Eye className="h-3.5 w-3.5" />
+                            </Button>
+                          </Link>
+                        )}
                         <Button variant="ghost" size="sm" onClick={() => openEdit(student)} className="h-8 w-8 p-0 rounded-lg hover:bg-primary/10 hover:text-primary">
                           <Edit className="h-3.5 w-3.5" />
                         </Button>

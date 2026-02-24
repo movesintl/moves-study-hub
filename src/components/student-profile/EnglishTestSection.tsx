@@ -27,7 +27,13 @@ export default function EnglishTestSection({ data, onSave, isLocked, isSaving }:
   const update = (field: string, value: string) => setForm(prev => ({ ...prev, [field]: value }));
   const showScores = form.english_test_taken && form.english_test_taken !== 'not_yet';
 
+  const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
+
   const handleUpload = async (file: File) => {
+    if (file.size > MAX_FILE_SIZE) {
+      toast({ title: 'File too large', description: 'Maximum file size is 2 MB.', variant: 'destructive' });
+      return;
+    }
     setUploading(true);
     const path = `student-profiles/${data.user_id}/english-result-${Date.now()}-${file.name}`;
     const { data: uploaded, error } = await supabase.storage.from('media').upload(path, file);

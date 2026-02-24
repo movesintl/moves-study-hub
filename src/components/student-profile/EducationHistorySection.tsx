@@ -36,7 +36,13 @@ export default function EducationHistorySection({ data, onSave, isLocked, isSavi
   const addEntry = () => setEntries(prev => [...prev, emptyEntry()]);
   const removeEntry = (id: string) => setEntries(prev => prev.filter(e => e.id !== id));
 
+  const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
+
   const handleUpload = async (entryId: string, file: File) => {
+    if (file.size > MAX_FILE_SIZE) {
+      toast({ title: 'File too large', description: 'Maximum file size is 2 MB.', variant: 'destructive' });
+      return;
+    }
     setUploading(entryId);
     const path = `student-profiles/${data.user_id}/education-${entryId}-${file.name}`;
     const { data: uploaded, error } = await supabase.storage.from('media').upload(path, file);

@@ -23,7 +23,13 @@ export default function PassportSection({ data, onSave, isLocked, isSaving }: Se
 
   const update = (field: string, value: string) => setForm(prev => ({ ...prev, [field]: value }));
 
+  const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
+
   const handleUpload = async (field: string, file: File) => {
+    if (file.size > MAX_FILE_SIZE) {
+      toast({ title: 'File too large', description: 'Maximum file size is 2 MB.', variant: 'destructive' });
+      return;
+    }
     setUploading(field);
     const path = `student-profiles/${data.user_id}/${field}-${Date.now()}-${file.name}`;
     const { data: uploaded, error } = await supabase.storage.from('media').upload(path, file);

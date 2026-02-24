@@ -58,17 +58,74 @@ export default function AgentStudentProfile() {
         .eq('agent_id', agent!.id)
         .single();
       if (error) throw error;
+      // Build a full StudentProfile-shaped object with defaults
       return {
-        ...as_,
+        id: as_.id,
+        user_id: '',
+        agent_id: as_.agent_id,
         first_name: as_.student_name?.split(' ')[0] || '',
         last_name: as_.student_name?.split(' ').slice(1).join(' ') || '',
         email: as_.student_email,
         phone: as_.student_phone,
-        status: 'invited',
+        alternate_phone: null,
+        gender: null,
+        date_of_birth: as_.date_of_birth || null,
+        country_of_birth: null,
+        nationality: as_.nationality || null,
+        marital_status: null,
+        has_dependents: null,
+        number_of_dependents: null,
+        street: null,
+        city: null,
+        state: null,
+        postcode: null,
+        country: null,
+        passport_number: null,
+        passport_expiry: null,
+        passport_issue_country: null,
+        passport_bio_url: null,
+        national_id_url: null,
+        birth_certificate_url: null,
         education_history: [],
+        english_test_taken: null,
+        english_test_date: null,
+        english_overall_score: null,
+        english_listening: null,
+        english_reading: null,
+        english_writing: null,
+        english_speaking: null,
+        english_trf_number: null,
+        english_result_url: null,
+        applied_australian_visa: null,
+        refused_visa: null,
+        deported: null,
+        current_australian_visa: null,
+        visa_details: null,
+        preferred_country: null,
+        preferred_city: null,
+        preferred_study_level: null,
+        preferred_course: null,
+        preferred_intake: null,
+        has_relatives_australia: null,
+        accommodation_preference: null,
+        financial_sponsor: null,
+        sponsor_name: null,
+        sponsor_relationship: null,
+        sponsor_occupation: null,
+        sponsor_income: null,
+        sponsor_country: null,
+        emergency_name: null,
+        emergency_relationship: null,
+        emergency_phone: null,
+        emergency_email: null,
+        emergency_country: null,
         documents: [],
+        status: 'invited',
+        submitted_at: null,
+        created_at: as_.created_at || '',
+        updated_at: as_.updated_at || '',
         _source: 'agent_students',
-      } as unknown as StudentProfile & { _source: string };
+      } as StudentProfile & { _source: string };
     },
     enabled: !!agent && !!studentId,
   });
@@ -144,25 +201,20 @@ export default function AgentStudentProfile() {
 
       {!isFullProfile && (
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-amber-700 text-sm">
-          This student hasn't started their profile yet. You can update basic details below. Full editing will be available once the student creates their profile.
+          This student hasn't created their profile yet. Changes to sections below will only be saved once the student registers and creates their profile.
         </div>
       )}
 
       <PersonalDetailsSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
       <ContactDetailsSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-
-      {isFullProfile && (
-        <>
-          <PassportSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-          <EducationHistorySection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-          <EnglishTestSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-          <VisaHistorySection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-          <StudyPreferencesSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-          <FinancialSponsorSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-          <EmergencyContactSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-          <DocumentUploadsSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
-        </>
-      )}
+      <PassportSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
+      <EducationHistorySection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
+      <EnglishTestSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
+      <VisaHistorySection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
+      <StudyPreferencesSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
+      <FinancialSponsorSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
+      <EmergencyContactSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
+      <DocumentUploadsSection data={profile} onSave={handleSave} isLocked={isLocked} isSaving={isSaving} />
     </div>
   );
 }

@@ -1555,7 +1555,7 @@ export type Database = {
           street: string | null
           submitted_at: string | null
           updated_at: string
-          user_id: string
+          user_id: string | null
           visa_details: string | null
         }
         Insert: {
@@ -1621,7 +1621,7 @@ export type Database = {
           street?: string | null
           submitted_at?: string | null
           updated_at?: string
-          user_id: string
+          user_id?: string | null
           visa_details?: string | null
         }
         Update: {
@@ -1687,7 +1687,7 @@ export type Database = {
           street?: string | null
           submitted_at?: string | null
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
           visa_details?: string | null
         }
         Relationships: []

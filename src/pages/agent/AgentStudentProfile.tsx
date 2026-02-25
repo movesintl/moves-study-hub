@@ -131,36 +131,66 @@ export default function AgentStudentProfile() {
   });
 
   const handleSave = async (fields: Partial<StudentProfile>) => {
-    if (!profile || !studentId) return;
+    if (!profile || !studentId || !agent) return;
     setIsSaving(true);
     try {
       if (profile._source === 'student_profiles') {
-        // Update student_profiles
-        const newStatus = getStatusFromProgress({ ...profile, ...fields } as StudentProfile);
+        // Update existing student_profiles record
+        const merged = { ...profile, ...fields };
+        const newStatus = getStatusFromProgress(merged as StudentProfile);
+        const { _source, ...cleanFields } = fields as any;
         const { error } = await (supabase as any)
           .from('student_profiles')
-          .update({ ...fields, status: newStatus })
+          .update({ ...cleanFields, status: newStatus })
           .eq('id', studentId);
         if (error) throw error;
       } else {
-        // Update agent_students basic fields
-        const mapped: Record<string, any> = {};
-        if (fields.first_name !== undefined || fields.last_name !== undefined) {
-          mapped.student_name = `${fields.first_name || profile.first_name || ''} ${fields.last_name || profile.last_name || ''}`.trim();
+        // No student_profiles record yet — create one
+        const merged = { ...profile, ...fields };
+        const { _source, id, ...rest } = merged as any;
+        const newStatus = getStatusFromProgress(merged as StudentProfile);
+        const insertData: Record<string, any> = {};
+        // Map all non-null fields
+        const allowedKeys = [
+          'first_name', 'last_name', 'gender', 'date_of_birth', 'country_of_birth',
+          'nationality', 'marital_status', 'has_dependents', 'number_of_dependents',
+          'email', 'phone', 'alternate_phone', 'street', 'city', 'state', 'postcode', 'country',
+          'passport_number', 'passport_expiry', 'passport_issue_country',
+          'passport_bio_url', 'national_id_url', 'birth_certificate_url',
+          'education_history', 'english_test_taken', 'english_test_date',
+          'english_overall_score', 'english_listening', 'english_reading',
+          'english_writing', 'english_speaking', 'english_trf_number', 'english_result_url',
+          'applied_australian_visa', 'refused_visa', 'deported', 'current_australian_visa', 'visa_details',
+          'preferred_country', 'preferred_city', 'preferred_study_level', 'preferred_course',
+          'preferred_intake', 'has_relatives_australia', 'accommodation_preference',
+          'financial_sponsor', 'sponsor_name', 'sponsor_relationship', 'sponsor_occupation',
+          'sponsor_income', 'sponsor_country',
+          'emergency_name', 'emergency_relationship', 'emergency_phone', 'emergency_email', 'emergency_country',
+          'documents',
+        ];
+        for (const key of allowedKeys) {
+          if (rest[key] !== undefined) {
+            insertData[key] = rest[key];
+          }
         }
-        if (fields.phone !== undefined) mapped.student_phone = fields.phone;
-        if (fields.nationality !== undefined) mapped.nationality = fields.nationality;
-        if (fields.date_of_birth !== undefined) mapped.date_of_birth = fields.date_of_birth;
-        if ((fields as any).street !== undefined || (fields as any).city !== undefined || (fields as any).country !== undefined) {
-          mapped.address = [(fields as any).street || profile.street, (fields as any).city || profile.city, (fields as any).country || profile.country].filter(Boolean).join(', ');
-        }
-        if (Object.keys(mapped).length > 0) {
-          const { error } = await supabase.from('agent_students').update(mapped).eq('id', studentId);
-          if (error) throw error;
+        insertData.agent_id = agent.id;
+        insertData.status = newStatus;
+        // user_id is now nullable, so we can omit it
+
+        const { data: inserted, error } = await (supabase as any)
+          .from('student_profiles')
+          .insert(insertData)
+          .select('id')
+          .single();
+        if (error) throw error;
+
+        // Update the URL to use the new student_profiles ID
+        if (inserted?.id) {
+          navigate(`/agent/students/${inserted.id}`, { replace: true });
         }
       }
       toast({ title: 'Saved', description: 'Changes saved successfully.' });
-      queryClient.invalidateQueries({ queryKey: ['agent-student-profile', studentId] });
+      queryClient.invalidateQueries({ queryKey: ['agent-student-profile'] });
     } catch (err: any) {
       toast({ title: 'Save failed', description: err.message, variant: 'destructive' });
     } finally {
@@ -200,8 +230,8 @@ export default function AgentStudentProfile() {
       <ProfileHeader progress={progress} status={profile.status} />
 
       {!isFullProfile && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-amber-700 text-sm">
-          This student hasn't created their profile yet. Changes to sections below will only be saved once the student registers and creates their profile.
+        <div className="bg-muted border border-border rounded-2xl p-4 text-muted-foreground text-sm">
+          This student hasn't registered yet. Saving any section will create their full profile automatically.
         </div>
       )}
 
